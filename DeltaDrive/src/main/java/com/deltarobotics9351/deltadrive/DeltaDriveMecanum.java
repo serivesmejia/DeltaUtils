@@ -1,12 +1,12 @@
-package com.github.deltarobotics9351.deltadrive;
+package comdeltarobotics9351.deltadrive;
 
-import com.github.deltarobotics9351.deltadrive.drive.mecanum.EncoderDriveMecanum;
-import com.github.deltarobotics9351.deltadrive.drive.mecanum.IMUDriveMecanum;
-import com.github.deltarobotics9351.deltadrive.drive.mecanum.JoystickDriveMecanum;
-import com.github.deltarobotics9351.deltadrive.drive.mecanum.TimeDriveMecanum;
-import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
-import com.github.deltarobotics9351.deltadrive.utils.ChassisType;
-import com.github.deltarobotics9351.deltadrive.utils.OpModeStatus;
+import com.deltarobotics9351.deltadrive.drive.mecanum.EncoderDriveMecanum;
+import com.deltarobotics9351.deltadrive.drive.mecanum.IMUDriveMecanum;
+import com.deltarobotics9351.deltadrive.drive.mecanum.JoystickDriveMecanum;
+import com.deltarobotics9351.deltadrive.drive.mecanum.TimeDriveMecanum;
+import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
+import com.deltarobotics9351.deltadrive.utils.ChassisType;
+import com.deltarobotics9351.deltadrive.utils.OpModeStatus;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 

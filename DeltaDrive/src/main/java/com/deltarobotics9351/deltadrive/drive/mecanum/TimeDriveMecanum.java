@@ -1,6 +1,6 @@
-package com.deltarobotics9351.deltadrive.mecanum;
+package com.deltarobotics9351.deltadrive.drive.mecanum;
 
-import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
+import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 

@@ -40,6 +40,8 @@ repositories {
     flatDir {
         dirs '../libs'
     }
+    google()
+    jcenter()
 }
 
 dependencies {

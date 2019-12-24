@@ -1,4 +1,4 @@
-package com.github.deltarobotics9351.deltadrive.parameters;
+package com.deltarobotics9351.deltadrive.parameters;
 
 public class EncoderDriveConstants {
 

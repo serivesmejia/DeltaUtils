@@ -4,6 +4,7 @@
 Easy to use library containing many functions to control your FTC robot movements
 
 ## Install (Credit to EasyOpenCV & DogeCV)
+### This library requires a SDK version of 5.3
 1. Pull up Android Studio, with the FTC application SDK open
 2. Go to the root `build.gradle`
 3. To the repositories section, add the lines 

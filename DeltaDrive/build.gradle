@@ -5,10 +5,14 @@ buildscript {
     }
     dependencies{
         classpath 'com.android.tools.build:gradle:3.5.1'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 }
 
 apply plugin: 'com.android.library'
+apply plugin 'com.github.dcendents.android-maven'
+
+group = 'com.github.DeltaRobotics-9351'
 
 android {
     compileSdkVersion 28

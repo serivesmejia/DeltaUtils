@@ -1,6 +1,5 @@
 package com.github.deltarobotics9351.deltadrive.hardware;
 
-import com.github.deltarobotics9351.deltadrive.exception.IncorrectChassisTypeException;
 import com.github.deltarobotics9351.deltadrive.utils.ChassisType;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;

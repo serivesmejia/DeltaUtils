@@ -6,32 +6,7 @@
     </loaded-modules>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d27197f-9ae4-4a3d-86a6-00f24a946445" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/DeltaDrive.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/DeltaDrive.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/JoystickDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/JoystickDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/TimeDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/TimeDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/ChassisType.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/ChassisType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/OpModeStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/OpModeStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/TelemetryMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/TelemetryMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.release.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/utils/ChassisType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/utils/OpModeStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/utils/TelemetryMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" />
-    </list>
+    <list default="true" id="9d27197f-9ae4-4a3d-86a6-00f24a946445" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,8 +33,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DeltaDrive/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+            <state relative-caret-position="651">
+              <caret line="41" column="5" lean-forward="true" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -404,8 +379,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DeltaDrive/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+        <state relative-caret-position="651">
+          <caret line="41" column="5" lean-forward="true" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
         </state>
       </provider>
     </entry>

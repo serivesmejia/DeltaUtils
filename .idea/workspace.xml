@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutomaticModuleUnloader">
+    <loaded-modules>
+      <module name="DeltaDrive" />
+    </loaded-modules>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9d27197f-9ae4-4a3d-86a6-00f24a946445" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/DeltaDrive.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/DeltaDrive.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/JoystickDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/JoystickDriveMecanum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/TimeDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/TimeDriveMecanum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/ChassisType.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/ChassisType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/OpModeStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/OpModeStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/TelemetryMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/TelemetryMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.release.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/utils/ChassisType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/utils/OpModeStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/utils/TelemetryMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/DeltaDrive/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/DeltaDriveMecanum.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/ChassisType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/TelemetryMessage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="11" selection-start-column="11" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/JoystickDriveMecanum.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/TimeDriveMecanum.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="33">
+              <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/hardware/DeltaHardware.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/build.release.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java" />
+        <option value="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" />
+        <option value="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/ChassisType.java" />
+        <option value="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/OpModeStatus.java" />
+        <option value="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/TelemetryMessage.java" />
+        <option value="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java" />
+        <option value="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" />
+        <option value="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/JoystickDriveMecanum.java" />
+        <option value="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/TimeDriveMecanum.java" />
+        <option value="$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" />
+        <option value="$PROJECT_DIR$/DeltaDrive/build.gradle" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="538" />
+    <option name="y" value="1" />
+    <option name="width" value="1346" />
+    <option name="height" value="688" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="DeltaDrive2" type="1abcf292:AndroidViewProjectNode" />
+              <item name="DeltaDrive" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="DeltaDrive2" type="1abcf292:AndroidViewProjectNode" />
+              <item name="DeltaDrive" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="DeltaDrive2" type="1abcf292:AndroidViewProjectNode" />
+              <item name="DeltaDrive" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="deltadrive" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeltaDrive2" type="1abcf292:AndroidViewProjectNode" />
+              <item name="DeltaDrive" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="deltadrive" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="mecanum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeltaDrive2" type="1abcf292:AndroidViewProjectNode" />
+              <item name="DeltaDrive" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="deltadrive" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="hardware" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeltaDrive2" type="1abcf292:AndroidViewProjectNode" />
+              <item name="DeltaDrive" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="deltadrive" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="parameters" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeltaDrive2" type="1abcf292:AndroidViewProjectNode" />
+              <item name="DeltaDrive" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="deltadrive" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeltaDrive2" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9d27197f-9ae4-4a3d-86a6-00f24a946445" name="Default Changelist" comment="" />
+      <created>1577169516601</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1577169516601</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.32980332" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Build Variants" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Designer" order="6" />
+      <window_info id="Resources Explorer" order="7" />
+      <window_info id="Capture Tool" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="Logcat" order="1" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.5030257" side_tool="true" visible="true" weight="0.3289689" />
+      <window_info active="true" anchor="bottom" id="Build" order="5" sideWeight="0.4969743" visible="true" weight="0.3289689" />
+      <window_info anchor="bottom" id="Android Profiler" order="6" show_stripe_button="false" />
+      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Gradle" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Delta Drive.iml" />
+    <entry file="file://$PROJECT_DIR$/FtcRobotController/build.release.gradle" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" />
+    <entry file="file://$PROJECT_DIR$/build.gradle" />
+    <entry file="file://$PROJECT_DIR$/build.release.gradle" />
+    <entry file="jar://$PROJECT_DIR$/libs/RobotCore-release-sources.jar!/com/qualcomm/robotcore/hardware/HardwareMap.java" />
+    <entry file="file://$PROJECT_DIR$/gradle.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/proguard-rules.pro">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/OpModeStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/TelemetryMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="11" selection-start-column="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/JoystickDriveMecanum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/TimeDriveMecanum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/hardware/DeltaHardware.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/utils/ChassisType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/src/main/java/com/deltarobotics9351/deltadrive/DeltaDriveMecanum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaDrive/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

@@ -1,7 +1,7 @@
-# DeltaDrive
+# DeltaUtils
 [![](https://jitpack.io/v/DeltaRobotics-9351/DeltaDrive.svg)](https://jitpack.io/#DeltaRobotics-9351/DeltaDrive)
 
-Easy to use library containing many functions to control your FTC robot movements
+Easy to use library containing many functions to control your FTC robot
 
 ## Install (Credit to EasyOpenCV & DogeCV)
 ### This library requires a SDK version of 5.3
@@ -15,7 +15,7 @@ allprojects {
   }
 }
 ```
-3. Add the line `implementation 'com.github.DeltaRobotics-9351:DeltaDrive:v1.0-beta'` to TeamCode's `build.release.gradle`, inside the dependencies block
+3. Add the line `implementation 'com.github.DeltaRobotics-9351:DeltaUtils:v1.0-beta'` to TeamCode's `build.release.gradle`, inside the dependencies block
 7. Press the `Sync Now` button that should appear in the top right
 
 (Video tutorial coming soon)
@@ -33,3 +33,4 @@ allprojects {
       - 4-wheel omnidirectional
       - H-Drive 
       - X-Drive 
+   - OpenCV pipelines

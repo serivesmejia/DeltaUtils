@@ -8,7 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/DeltaDrive" />
+            <option value="$PROJECT_DIR$/DeltaUtils" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

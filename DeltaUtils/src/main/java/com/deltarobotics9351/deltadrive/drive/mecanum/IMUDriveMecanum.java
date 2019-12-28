@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
+import com.deltarobotics9351.deltadrive.parameters.IMUDriveConstants;
 import com.deltarobotics9351.deltadrive.utils.OpModeStatus;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -168,8 +169,7 @@ public class IMUDriveMecanum {
             if(getAngle() < initialAngle){
                 double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
 
-                double counteractConstant = 0.07;
-                double counteractValue = deltaAngle * counteractConstant;
+                double counteractValue = deltaAngle * IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT;
 
                 frontleft = power / counteractValue;
                 frontright = -power;
@@ -188,7 +188,7 @@ public class IMUDriveMecanum {
                 double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
 
                 double counteractConstant = 0.2;
-                double counteractValue = deltaAngle * counteractConstant;
+                double counteractValue = deltaAngle * IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT;
 
                 frontleft = power;
                 frontright = -power / counteractValue;

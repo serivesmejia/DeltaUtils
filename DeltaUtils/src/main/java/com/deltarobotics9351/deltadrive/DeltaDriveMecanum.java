@@ -1,4 +1,4 @@
-package comdeltarobotics9351.deltadrive;
+package com.deltarobotics9351.deltadrive;
 
 import com.deltarobotics9351.deltadrive.drive.mecanum.EncoderDriveMecanum;
 import com.deltarobotics9351.deltadrive.drive.mecanum.IMUDriveMecanum;
@@ -7,6 +7,7 @@ import com.deltarobotics9351.deltadrive.drive.mecanum.TimeDriveMecanum;
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
 import com.deltarobotics9351.deltadrive.utils.ChassisType;
 import com.deltarobotics9351.deltadrive.utils.OpModeStatus;
+
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 

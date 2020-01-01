@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DeltaDrive2.iml" filepath="$PROJECT_DIR$/DeltaDrive2.iml" />
       <module fileurl="file://$PROJECT_DIR$/DeltaUtils/DeltaUtils.iml" filepath="$PROJECT_DIR$/DeltaUtils/DeltaUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/DeltaUtils2.iml" filepath="$PROJECT_DIR$/DeltaUtils2.iml" />
     </modules>

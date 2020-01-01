@@ -1,10 +1,8 @@
 package com.deltarobotics9351.deltasystem.subsystems;
 
-import com.deltarobotics9351.deltadrive.utils.OpModeStatus;
-import com.deltarobotics9351.deltasystem.utils.Hardware;
-import com.deltarobotics9351.deltasystem.utils.HardwareType;
+import com.deltarobotics9351.deltasystem.DeltaOpMode;
+import com.deltarobotics9351.deltasystem.utils.*;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.ArrayList;
@@ -20,11 +18,11 @@ public class SubSystem {
 
     public Telemetry telemetry;
 
-    public OpModeStatus opModeStatus;
+    public DeltaOpMode currentOpMode;
 
-    public SubSystem(HardwareMap hdwMap, String name, Telemetry telemetry, OpModeStatus opModeStatus){
+    public SubSystem(HardwareMap hdwMap, String name, Telemetry telemetry, DeltaOpMode currentOpMode){
         this.hdwMap = hdwMap; this.name = name;
-        this.telemetry = telemetry; this.opModeStatus = opModeStatus;
+        this.telemetry = telemetry; this.currentOpMode = currentOpMode;
     }
 
     public boolean isStopRequested = false;

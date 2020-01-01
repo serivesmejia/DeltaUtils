@@ -5,6 +5,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
 import com.deltarobotics9351.deltadrive.parameters.IMUDriveConstants;
@@ -27,12 +28,12 @@ public class IMUDriveMecanum {
 
     Telemetry telemetry;
 
-    OpModeStatus status;
+    LinearOpMode currentOpMode;
 
-    public IMUDriveMecanum(DeltaHardware hdw, Telemetry telemetry, OpModeStatus status){
+    public IMUDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
         this.hdw = hdw;
         this.telemetry = telemetry;
-        this.status = status;
+        this.currentOpMode = currentOpMode;
     }
 
     public void initIMU(){
@@ -112,20 +113,20 @@ public class IMUDriveMecanum {
         // rotaremos hasta que se complete la vuelta
         if (degrees < 0)
         {
-            while (getAngle() == 0 && status.opModeIsActive) { //al girar a la derecha necesitamos salirnos de 0 grados primero
+            while (getAngle() == 0 && currentOpMode.opModeIsActive()) { //al girar a la derecha necesitamos salirnos de 0 grados primero
                 telemetry.addData("imuAngle", getAngle());
                 telemetry.addData("degreesDestino", degrees);
                 telemetry.update();
             }
 
-            while (getAngle() > degrees && status.opModeIsActive) { //entramos en un bucle hasta que los degrees sean los esperados
+            while (getAngle() > degrees && currentOpMode.opModeIsActive()) { //entramos en un bucle hasta que los degrees sean los esperados
                 telemetry.addData("imuAngle", getAngle());
                 telemetry.addData("degreesDestino", degrees);
                 telemetry.update();
             }
         }
         else
-            while (getAngle() < degrees && status.opModeIsActive) { //entramos en un bucle hasta que los degrees sean los esperados
+            while (getAngle() < degrees && currentOpMode.opModeIsActive()) { //entramos en un bucle hasta que los degrees sean los esperados
                 telemetry.addData("imuAngle", getAngle());
                 telemetry.addData("degreesDestino", degrees);
                 telemetry.update();
@@ -162,16 +163,19 @@ public class IMUDriveMecanum {
 
         double initialAngle = getAngle();
 
-        while(System.currentTimeMillis() < finalMillis){
+        while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
 
-            double frontleft = power, frontright = -power, backleft = -power, backright = power;
+            double frontleft = -power, frontright = -power, backleft = -power, backright = power;
+
+            hdw.allWheelsForward();
 
             if(getAngle() < initialAngle){
                 double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
 
+                double counteractConstant = 0.07;
                 double counteractValue = deltaAngle * IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT;
 
-                frontleft = power / counteractValue;
+                frontleft = -power / counteractValue;
                 frontright = -power;
                 backleft = -power / counteractValue;
                 backright = power;
@@ -190,7 +194,7 @@ public class IMUDriveMecanum {
                 double counteractConstant = 0.2;
                 double counteractValue = deltaAngle * IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT;
 
-                frontleft = power;
+                frontleft = -power;
                 frontright = -power / counteractValue;
                 backleft = -power;
                 backright = power / counteractValue;
@@ -204,7 +208,7 @@ public class IMUDriveMecanum {
                 telemetry.update();
 
             }else{
-                frontleft = power;
+                frontleft = -power;
                 frontright = -power;
                 backleft = -power;
                 backright = power;
@@ -226,6 +230,8 @@ public class IMUDriveMecanum {
         telemetry.addData("backleft", 0);
         telemetry.addData("backright", 0);
         telemetry.update();
+
+        hdw.defaultWheelsDirection();
 
     }
 

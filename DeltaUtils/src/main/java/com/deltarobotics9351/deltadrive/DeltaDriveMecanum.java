@@ -10,6 +10,7 @@ import com.deltarobotics9351.deltadrive.utils.OpModeStatus;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -23,14 +24,14 @@ public class DeltaDriveMecanum {
     private JoystickDriveMecanum joystickDrive;
     public TimeDriveMecanum timeDrive;
 
-    public OpModeStatus opModeStatus;
+    public LinearOpMode currentOpMode;
 
     boolean initalized = false;
 
-    public DeltaDriveMecanum(DeltaHardware hdw, Telemetry telemetry, OpModeStatus opModeStatus){
+    public DeltaDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
         this.hdw = hdw;
         this.telemetry = telemetry;
-        this.opModeStatus = opModeStatus;
+        this.currentOpMode = currentOpMode;
     }
 
     public void initialize(boolean waitForIMUCalibration){
@@ -40,7 +41,7 @@ public class DeltaDriveMecanum {
         }
 
         encoderDrive = new EncoderDriveMecanum(hdw, telemetry);
-        imuDrive = new IMUDriveMecanum(hdw, telemetry, opModeStatus);
+        imuDrive = new IMUDriveMecanum(hdw, telemetry, currentOpMode);
         joystickDrive = new JoystickDriveMecanum(hdw);
         timeDrive = new TimeDriveMecanum(hdw, telemetry);
 

@@ -39,7 +39,6 @@ public class MecanumChassisSubSystem extends MotionSubSystem {
     }
 
     @Override
-    public void _init()
-
+    public void _init(){ }
 
 }

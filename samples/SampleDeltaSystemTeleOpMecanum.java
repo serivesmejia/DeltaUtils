@@ -5,7 +5,7 @@ import com.deltarobotics9351.deltasystem.subsystems.MecanumChassisSubSystem;
 
 public class SampleDeltaSystemTeleOpMecanum extends DeltaSystemOpMode {
 
-    public MecanumChassisSubSystem mecanumSubsystem = new MecanumChassisSubSystem(hardwareMap, "chassis", telemetry, opModeStatus);
+    public MecanumChassisSubSystem mecanumSubsystem = new MecanumChassisSubSystem(hardwareMap, "chassis", telemetry, this);
 
     @Override
     public void _init(){

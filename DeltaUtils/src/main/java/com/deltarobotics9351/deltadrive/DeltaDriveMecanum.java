@@ -6,7 +6,6 @@ import com.deltarobotics9351.deltadrive.drive.mecanum.JoystickDriveMecanum;
 import com.deltarobotics9351.deltadrive.drive.mecanum.TimeDriveMecanum;
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
 import com.deltarobotics9351.deltadrive.utils.ChassisType;
-import com.deltarobotics9351.deltadrive.utils.OpModeStatus;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;

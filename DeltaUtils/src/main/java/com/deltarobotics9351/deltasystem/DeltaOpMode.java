@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class DeltaOpMode extends LinearOpMode {
 
-    public System system = new System(hardwareMap);
+    public System system = new System(hardwareMap, telemetry, this);
 
     @Override
     public final void runOpMode(){

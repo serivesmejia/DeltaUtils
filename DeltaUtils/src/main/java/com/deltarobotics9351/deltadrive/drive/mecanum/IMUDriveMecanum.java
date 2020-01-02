@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
 import com.deltarobotics9351.deltadrive.parameters.IMUDriveConstants;
-import com.deltarobotics9351.deltadrive.utils.OpModeStatus;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.Range;
 
 public class IMUDriveMecanum {
 
@@ -61,10 +61,6 @@ public class IMUDriveMecanum {
 
     private double getAngle()
     {
-        // We experimentally determined the Z axis is the axis we want to use for heading angle.
-        // We have to process the angle because the imu works in euler angles so the Z axis is
-        // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
-        // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
@@ -92,7 +88,7 @@ public class IMUDriveMecanum {
         resetAngle();
 
         if (degrees < 0) //si es menor que 0 significa que el robot girara a la derecha
-        {   // girar a la derecha.
+        {   // girar a la derecha
             backleftpower = power;
             backrightpower = -power;
             frontleftpower = power;
@@ -165,45 +161,41 @@ public class IMUDriveMecanum {
 
         while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
 
-            double frontleft = -power, frontright = -power, backleft = -power, backright = power;
+            double frontleft = power, frontright = -power, backleft = -power, backright = power;
 
             hdw.allWheelsForward();
 
+            double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
+
+            double error = deltaAngle * Range.clip(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT, 0, 1);
+
             if(getAngle() < initialAngle){
-                double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
 
-                double counteractConstant = 0.07;
-                double counteractValue = deltaAngle * IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT;
-
-                frontleft = -power / counteractValue;
-                frontright = -power;
-                backleft = -power / counteractValue;
-                backright = power;
+                frontleft = power;
+                frontright = -power + error;
+                backleft = -power;
+                backright = power - error;
 
                 telemetry.addData("frontleft", frontleft);
                 telemetry.addData("frontright", frontright);
                 telemetry.addData("backleft", backleft);
                 telemetry.addData("backright", backright);
-                telemetry.addData("counteractValue", counteractValue);
+                telemetry.addData("error value", error);
                 telemetry.addData("deltaAngle", deltaAngle);
                 telemetry.update();
 
             }else if(getAngle() > initialAngle){
-                double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
 
-                double counteractConstant = 0.2;
-                double counteractValue = deltaAngle * IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT;
+                frontleft = power - error;
+                frontright = -power;
+                backleft = -power + error;
+                backright = power;
 
-                frontleft = -power;
-                frontright = -power / counteractValue;
-                backleft = -power;
-                backright = power / counteractValue;
-
-                telemetry.addData("frontleft", frontleft);
+                telemetry.addData("frontleft", -frontleft);
                 telemetry.addData("frontright", frontright);
                 telemetry.addData("backleft", backleft);
                 telemetry.addData("backright", backright);
-                telemetry.addData("counteractValue", counteractValue);
+                telemetry.addData("error value", error);
                 telemetry.addData("deltaAngle", deltaAngle);
                 telemetry.update();
 
@@ -212,14 +204,14 @@ public class IMUDriveMecanum {
                 frontright = -power;
                 backleft = -power;
                 backright = power;
-                telemetry.addData("frontleft", frontleft);
+                telemetry.addData("frontleft", -frontleft);
                 telemetry.addData("frontright", frontright);
                 telemetry.addData("backleft", backleft);
                 telemetry.addData("backright", backright);
                 telemetry.update();
             }
 
-            defineAllWheelPower(frontleft,frontright,backleft,backright);
+            defineAllWheelPower(-frontleft,frontright,backleft,backright);
 
         }
 

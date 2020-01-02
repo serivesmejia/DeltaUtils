@@ -1,8 +1,9 @@
 package com.deltarobotics9351.deltasystem;
 
-import com.deltarobotics9351.deltasystem.subsystems.MotionSubSystem;
 import com.deltarobotics9351.deltasystem.subsystems.SubSystem;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,13 @@ public class System {
 
     private boolean alreadyInitalizedSubSystems = false;
 
-    public System(HardwareMap hdwMap){ this.hdwMap = hdwMap; }
+    private Telemetry telemetry;
+
+    private DeltaOpMode currentOpMode;
+
+    public System(HardwareMap hdwMap, Telemetry telemetry, DeltaOpMode currentOpMode){
+        this.hdwMap = hdwMap; this.telemetry = telemetry; this.currentOpMode = currentOpMode;
+    }
 
     public final void addSubSystem(SubSystem subsys){
         subsystems.put(subsys.name, subsys);
@@ -24,7 +31,7 @@ public class System {
     public final void initSubSystems(){
         if(!alreadyInitalizedSubSystems) {
             for (Map.Entry<String, SubSystem> entry : subsystems.entrySet()) {
-                entry.getValue().init();
+                entry.getValue().init(hdwMap, telemetry, currentOpMode);
             }
         }
         alreadyInitalizedSubSystems = true;

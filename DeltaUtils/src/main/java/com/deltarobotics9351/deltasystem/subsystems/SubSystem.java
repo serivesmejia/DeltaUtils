@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class SubSystem {
 
@@ -20,20 +19,24 @@ public class SubSystem {
 
     public DeltaOpMode currentOpMode;
 
-    public SubSystem(HardwareMap hdwMap, String name, Telemetry telemetry, DeltaOpMode currentOpMode){
-        this.hdwMap = hdwMap; this.name = name;
-        this.telemetry = telemetry; this.currentOpMode = currentOpMode;
+    public SubSystem(String name){
+        this.name = name;
     }
 
     public boolean isStopRequested = false;
 
     public boolean isInitialized = false;
 
-    public void registerHardware(String name, HardwareType type){
+    public void registerHardware(String name, HardwareType type){ }
 
+    public final void init(HardwareMap hdwMap, Telemetry telemetry, DeltaOpMode currentOpMode){
+        this.hdwMap = hdwMap;
+        this.telemetry = telemetry;
+        this.currentOpMode = currentOpMode;
+        _init();
     }
 
-    public void init(){ }
+    public void _init(){}
 
     public void step(){ }
 

@@ -2,20 +2,16 @@ package com.deltarobotics9351.deltasystem.subsystems;
 
 import com.deltarobotics9351.deltasystem.utils.Hardware;
 import com.deltarobotics9351.deltasystem.utils.HardwareType;
-import com.deltarobotics9351.deltasystem.DeltaOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.HashMap;
 
 public class MotionSubSystem extends SubSystem{
 
-    public MotionSubSystem(HardwareMap hdwMap, String name, Telemetry telemetry, DeltaOpMode currentOpMode){
-        super(hdwMap, name, telemetry, currentOpMode);
+    public MotionSubSystem(String name){
+        super(name);
     }
 
     private HashMap<String, DcMotor> motors;
@@ -42,7 +38,7 @@ public class MotionSubSystem extends SubSystem{
 
 
     @Override
-    public final void init(){
+    public final void _init(){
         if(!isInitialized) {
             for (Hardware hdw : hardware) {
                 if (hdw.type == HardwareType.DcMotor) {
@@ -55,12 +51,12 @@ public class MotionSubSystem extends SubSystem{
                     return;
                 }
             }
-            _init();
+            __init();
             isInitialized = true;
         }
     }
 
-    public void _init(){ }
+    public void __init(){ }
 
     @Override
     public void step(){

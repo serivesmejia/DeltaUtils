@@ -1,4 +1,4 @@
-package com.deltarobotics9351.deltasystem.utils;
+package com.github.deltarobotics9351.deltasystem.utils;
 
 public class Hardware {
     public String name;

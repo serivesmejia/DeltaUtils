@@ -1,7 +1,7 @@
-package com.deltarobotics9351.deltasystem.subsystems;
+package com.github.deltarobotics9351.deltasystem.subsystems;
 
-import com.deltarobotics9351.deltasystem.utils.Hardware;
-import com.deltarobotics9351.deltasystem.utils.HardwareType;
+import com.github.deltarobotics9351.deltasystem.utils.Hardware;
+import com.github.deltarobotics9351.deltasystem.utils.HardwareType;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;

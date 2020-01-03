@@ -1,6 +1,6 @@
-package com.deltarobotics9351.deltasystem;
+package com.github.deltarobotics9351.deltasystem;
 
-import com.deltarobotics9351.deltasystem.subsystems.SubSystem;
+import com.github.deltarobotics9351.deltasystem.subsystems.SubSystem;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;

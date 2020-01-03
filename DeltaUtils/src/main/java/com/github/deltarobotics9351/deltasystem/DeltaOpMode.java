@@ -1,4 +1,4 @@
-package com.deltarobotics9351.deltasystem;
+package com.github.deltarobotics9351.deltasystem;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 

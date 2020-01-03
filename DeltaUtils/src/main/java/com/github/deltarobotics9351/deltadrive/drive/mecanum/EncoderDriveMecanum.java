@@ -1,7 +1,7 @@
-package com.deltarobotics9351.deltadrive.drive.mecanum;
+package com.github.deltarobotics9351.deltadrive.drive.mecanum;
 
-import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
-import com.deltarobotics9351.deltadrive.parameters.EncoderDriveConstants;
+import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
+import com.github.deltarobotics9351.deltadrive.parameters.EncoderDriveConstants;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 

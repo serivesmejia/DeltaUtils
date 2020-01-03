@@ -1,8 +1,8 @@
-package com.deltarobotics9351.deltasystem.subsystems;
+package com.github.deltarobotics9351.deltasystem.subsystems;
 
-import com.deltarobotics9351.deltadrive.DeltaDriveMecanum;
-import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
-import com.deltarobotics9351.deltasystem.utils.HardwareType;
+import com.github.deltarobotics9351.deltadrive.DeltaDriveMecanum;
+import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
+import com.github.deltarobotics9351.deltasystem.utils.HardwareType;
 
 public class MecanumChassisSubSystem extends MotionSubSystem {
 

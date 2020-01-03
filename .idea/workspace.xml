@@ -2,29 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="15dedc17-52a4-4742-b160-1a2213697791" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/JoystickDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/JoystickDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/TimeDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/TimeDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/parameters/IMUDriveConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/parameters/IMUDriveConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/ChassisType.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/utils/ChassisType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/OpModeStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/utils/OpModeStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/TelemetryMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/utils/TelemetryMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/DeltaOpMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/DeltaOpMode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/System.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/System.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/subsystems/MecanumChassisSubSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/MecanumChassisSubSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/subsystems/MotionSubSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/MotionSubSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/subsystems/SubSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/SubSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/utils/Hardware.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/utils/Hardware.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/utils/HardwareType.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/utils/HardwareType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/SubSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/SubSystem.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,13 +24,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/MecanumChassisSubSystem.java">
+        <entry file="file://$PROJECT_DIR$/DeltaUtils/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="17">
+              <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -68,11 +44,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/SubSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="48" column="1" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="51">
+              <caret line="3" column="56" lean-forward="true" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -89,17 +62,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
+            <state relative-caret-position="204">
               <caret line="12" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDriveMecanum.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="255">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -112,6 +85,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
               <caret line="12" column="38" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/MecanumChassisSubSystem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -167,6 +152,7 @@
         <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" />
         <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" />
         <option value="$PROJECT_DIR$/DeltaUtils/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/SubSystem.java" />
       </list>
     </option>
   </component>
@@ -182,6 +168,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
@@ -193,11 +181,6 @@
             <path>
               <item name="DeltaUtils2" type="1abcf292:AndroidViewProjectNode" />
               <item name="DeltaUtils" type="feadf853:AndroidModuleNode" />
-              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
-            </path>
-            <path>
-              <item name="DeltaUtils2" type="1abcf292:AndroidViewProjectNode" />
-              <item name="DeltaUtils" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
             </path>
             <path>
@@ -228,7 +211,17 @@
               <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="github" type="462c0819:PsiDirectoryNode" />
               <item name="deltarobotics9351" type="462c0819:PsiDirectoryNode" />
-              <item name="deltadrive" type="462c0819:PsiDirectoryNode" />
+              <item name="deltasystem" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeltaUtils2" type="1abcf292:AndroidViewProjectNode" />
+              <item name="DeltaUtils" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="github" type="462c0819:PsiDirectoryNode" />
+              <item name="deltarobotics9351" type="462c0819:PsiDirectoryNode" />
+              <item name="deltasystem" type="462c0819:PsiDirectoryNode" />
+              <item name="subsystems" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DeltaUtils2" type="1abcf292:AndroidViewProjectNode" />
@@ -238,8 +231,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -298,7 +289,7 @@
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
-      <window_info anchor="bottom" id="Build" order="5" weight="0.3289689" />
+      <window_info anchor="bottom" id="Build" order="5" visible="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Android Profiler" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.3289689" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
@@ -310,13 +301,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/build.gradle" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/WeightDistribution.java" />
     <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/DeltaOpMode.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -325,13 +309,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/MecanumChassisSubSystem.java">
+    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="17">
+          <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaUtils/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -342,16 +334,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/SubSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="48" column="1" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/parameters/IMUDriveConstants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -359,10 +341,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/MotionSubSystem.java">
+    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="12" column="38" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDriveMecanum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -383,30 +372,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java">
+    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/SubSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="51">
+          <caret line="3" column="56" lean-forward="true" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDriveMecanum.java">
+    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/MotionSubSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="204">
+          <caret line="12" column="38" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/MecanumChassisSubSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
+        <state relative-caret-position="102">
+          <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
   </component>
 </project>

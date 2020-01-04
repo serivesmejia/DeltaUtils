@@ -22,14 +22,12 @@ public class PIDControl {
         /**
          * Allocate a PID object with the given constants for P, I, D
          *
-         * @param p the proportional coefficient
-         * @param i the integral coefficient
-         * @param d the derivative coefficient
+         * @param pid Object containing the constants
          */
-        public PIDControl(double p, double i, double d) {
-            P = p;
-            I = i;
-            D = d;
+        public PIDControl(PIDConstants pid) {
+            P = pid.P;
+            I = pid.I;
+            D = pid.D;
         }
 
         /**
@@ -83,14 +81,12 @@ public class PIDControl {
          * Set the PID Controller gain parameters.
          * Set the proportional, integral, and differential coefficients.
          *
-         * @param p Proportional coefficient
-         * @param i Integral coefficient
-         * @param d Differential coefficient
+         * @param pid Object containing the constants
          */
-        public void setPID(double p, double i, double d) {
-            P = p;
-            I = i;
-            D = d;
+        public void setPID(PIDConstants pid) {
+            P = pid.P;
+            I = pid.I;
+            D = pid.D;
         }
 
         /**

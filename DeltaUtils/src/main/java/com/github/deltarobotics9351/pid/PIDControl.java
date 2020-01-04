@@ -1,35 +1,35 @@
 package com.github.deltarobotics9351.pid;
 
-public class PIDController {
-    public class PIDController {
-        private double m_P;                     // factor for "proportional" control
-        private double m_I;                     // factor for "integral" control
-        private double m_D;                     // factor for "derivative" control
-        private double m_input;                 // sensor input for pid controller
-        private double m_maximumOutput = 1.0;    // |maximum output|
-        private double m_minimumOutput = -1.0;    // |minimum output|
-        private double m_maximumInput = 0.0;    // maximum input - limit setpoint to this
-        private double m_minimumInput = 0.0;    // minimum input - limit setpoint to this
-        private boolean m_continuous = false;    // do the endpoints wrap around? eg. Absolute encoder
-        private boolean m_enabled = false;      // is the pid controller enabled
-        private double m_prevError = 0.0;       // the prior sensor input (used to compute velocity)
-        private double m_totalError = 0.0;      // the sum of the errors for use in the integral calc
-        private double m_tolerance = 0.05;      // the percentage error that is considered on target
-        private double m_setpoint = 0.0;
-        private double m_error = 0.0;
-        private double m_result = 0.0;
+public class PIDControl {
+
+        private double P;                     // factor for "proportional" control
+        private double I;                     // factor for "integral" control
+        private double D;                     // factor for "derivative" control
+        private double input;                 // sensor input for pid controller
+        private double maximumOutput = 1.0;    // |maximum output|
+        private double minimumOutput = -1.0;    // |minimum output|
+        private double maximumInput = 0.0;    // maximum input - limit setpoint to this
+        private double minimumInput = 0.0;    // minimum input - limit setpoint to this
+        private boolean continuous = false;    // do the endpoints wrap around? eg. Absolute encoder
+        private boolean enabled = false;      // is the pid controller enabled
+        private double prevError = 0.0;       // the prior sensor input (used to compute velocity)
+        private double totalError = 0.0;      // the sum of the errors for use in the integral calc
+        private double tolerance = 0.05;      // the percentage error that is considered on target
+        private double setpoint = 0.0;
+        private double error = 0.0;
+        private double result = 0.0;
 
         /**
          * Allocate a PID object with the given constants for P, I, D
          *
-         * @param Kp the proportional coefficient
-         * @param Ki the integral coefficient
-         * @param Kd the derivative coefficient
+         * @param p the proportional coefficient
+         * @param i the integral coefficient
+         * @param d the derivative coefficient
          */
-        public PIDController(double Kp, double Ki, double Kd) {
-            m_P = Kp;
-            m_I = Ki;
-            m_D = Kd;
+        public PIDControl(double p, double i, double d) {
+            P = p;
+            I = i;
+            D = d;
         }
 
         /**
@@ -37,45 +37,45 @@ public class PIDController {
          * This should only be called by the PIDTask
          * and is created during initialization.
          */
-        private void calculate() {
+        private void doCalc() {
             int sign = 1;
 
             // If enabled then proceed into controller calculations
-            if (m_enabled) {
+            if (enabled) {
                 // Calculate the error signal
-                m_error = m_setpoint - m_input;
+                error = setpoint - input;
 
                 // If continuous is set to true allow wrap around
-                if (m_continuous) {
-                    if (Math.abs(m_error) > (m_maximumInput - m_minimumInput) / 2) {
-                        if (m_error > 0)
-                            m_error = m_error - m_maximumInput + m_minimumInput;
+                if (continuous) {
+                    if (Math.abs(error) > (maximumInput - minimumInput) / 2) {
+                        if (error > 0)
+                            error = error - maximumInput + minimumInput;
                         else
-                            m_error = m_error + m_maximumInput - m_minimumInput;
+                            error = error + maximumInput - minimumInput;
                     }
                 }
 
                 // Integrate the errors as long as the upcoming integrator does
                 // not exceed the minimum and maximum output thresholds.
 
-                if ((Math.abs(m_totalError + m_error) * m_I < m_maximumOutput) &&
-                        (Math.abs(m_totalError + m_error) * m_I > m_minimumOutput))
-                    m_totalError += m_error;
+                if ((Math.abs(totalError + error) * I < maximumOutput) &&
+                        (Math.abs(totalError + error) * I > minimumOutput))
+                    totalError += error;
 
                 // Perform the primary PID calculation
-                m_result = m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError);
+                result = P * error + I * totalError + D * (error - prevError);
 
                 // Set the current error to the previous error for the next cycle.
-                m_prevError = m_error;
+                prevError = error;
 
-                if (m_result < 0) sign = -1;    // Record sign of result.
+                if (result < 0) sign = -1;    // Record sign of result.
 
                 // Make sure the final result is within bounds. If we constrain the result, we make
                 // sure the sign of the constrained result matches the original result sign.
-                if (Math.abs(m_result) > m_maximumOutput)
-                    m_result = m_maximumOutput * sign;
-                else if (Math.abs(m_result) < m_minimumOutput)
-                    m_result = m_minimumOutput * sign;
+                if (Math.abs(result) > maximumOutput)
+                    result = maximumOutput * sign;
+                else if (Math.abs(result) < minimumOutput)
+                    result = minimumOutput * sign;
             }
         }
 
@@ -88,9 +88,9 @@ public class PIDController {
          * @param d Differential coefficient
          */
         public void setPID(double p, double i, double d) {
-            m_P = p;
-            m_I = i;
-            m_D = d;
+            P = p;
+            I = i;
+            D = d;
         }
 
         /**
@@ -99,7 +99,7 @@ public class PIDController {
          * @return proportional coefficient
          */
         public double getP() {
-            return m_P;
+            return P;
         }
 
         /**
@@ -108,7 +108,7 @@ public class PIDController {
          * @return integral coefficient
          */
         public double getI() {
-            return m_I;
+            return I;
         }
 
         /**
@@ -117,7 +117,7 @@ public class PIDController {
          * @return differential coefficient
          */
         public double getD() {
-            return m_D;
+            return D;
         }
 
         /**
@@ -126,9 +126,9 @@ public class PIDController {
          *
          * @return the latest calculated output
          */
-        public double performPID() {
-            calculate();
-            return m_result;
+        public double doPID() {
+            doCalc();
+            return result;
         }
 
         /**
@@ -139,8 +139,8 @@ public class PIDController {
          * @return the latest calculated output
          */
         public double performPID(double input) {
-            setInput(input);
-            return performPID();
+            defineInput(input);
+            return doPID();
         }
 
         /**
@@ -151,18 +151,18 @@ public class PIDController {
          *
          * @param continuous Set to true turns on continuous, false turns off continuous
          */
-        public void setContinuous(boolean continuous) {
-            m_continuous = continuous;
+        public void defineContinuous(boolean continuous) {
+            continuous = continuous;
         }
 
         /**
-         * Set the PID controller to consider the input to be continuous,
+         * Define the PID controller to consider the input to be continuous,
          * Rather then using the max and min in as constraints, it considers them to
          * be the same point and automatically calculates the shortest route to
          * the setpoint.
          */
-        public void setContinuous() {
-            this.setContinuous(true);
+        public void defineContinuous() {
+            this.defineContinuous(true);
         }
 
         /**
@@ -171,51 +171,51 @@ public class PIDController {
          * @param minimumInput the minimum value expected from the input, always positive
          * @param maximumInput the maximum value expected from the output, always positive
          */
-        public void setInputRange(double minimumInput, double maximumInput) {
-            m_minimumInput = Math.abs(minimumInput);
-            m_maximumInput = Math.abs(maximumInput);
-            setSetpoint(m_setpoint);
+        public void defineInputRange(double minimumInput, double maximumInput) {
+            minimumInput = Math.abs(minimumInput);
+            maximumInput = Math.abs(maximumInput);
+            defineSetpoint(setpoint);
         }
 
         /**
-         * Sets the minimum and maximum values to write.
+         * Defines the minimum and maximum values to write.
          *
          * @param minimumOutput the minimum value to write to the output, always positive
          * @param maximumOutput the maximum value to write to the output, always positive
          */
-        public void setOutputRange(double minimumOutput, double maximumOutput) {
-            m_minimumOutput = Math.abs(minimumOutput);
-            m_maximumOutput = Math.abs(maximumOutput);
+        public void defineOutputRange(double minimumOutput, double maximumOutput) {
+            minimumOutput = Math.abs(minimumOutput);
+            maximumOutput = Math.abs(maximumOutput);
         }
 
         /**
-         * Set the setpoint for the PIDController
+         * Define the setpoint for the PIDControl
          *
          * @param setpoint the desired setpoint
          */
-        public void setSetpoint(double setpoint) {
+        public void defineSetpoint(double setpoint) {
             int sign = 1;
 
-            if (m_maximumInput > m_minimumInput) {
+            if (maximumInput > minimumInput) {
                 if (setpoint < 0) sign = -1;
 
-                if (Math.abs(setpoint) > m_maximumInput)
-                    m_setpoint = m_maximumInput * sign;
-                else if (Math.abs(setpoint) < m_minimumInput)
-                    m_setpoint = m_minimumInput * sign;
+                if (Math.abs(setpoint) > maximumInput)
+                    setpoint = maximumInput * sign;
+                else if (Math.abs(setpoint) < minimumInput)
+                    setpoint = minimumInput * sign;
                 else
-                    m_setpoint = setpoint;
+                    setpoint = setpoint;
             } else
-                m_setpoint = setpoint;
+                setpoint = setpoint;
         }
 
         /**
-         * Returns the current setpoint of the PIDController
+         * Returns the current setpoint of the PIDControl
          *
          * @return the current setpoint
          */
         public double getSetpoint() {
-            return m_setpoint;
+            return setpoint;
         }
 
         /**
@@ -224,7 +224,7 @@ public class PIDController {
          * @return the current error
          */
         public synchronized double getError() {
-            return m_error;
+            return error;
         }
 
         /**
@@ -234,7 +234,7 @@ public class PIDController {
          * @param percent error which is tolerable
          */
         public void setTolerance(double percent) {
-            m_tolerance = percent;
+            tolerance = percent;
         }
 
         /**
@@ -245,21 +245,21 @@ public class PIDController {
          * @return true if the error is less than the tolerance
          */
         public boolean onTarget() {
-            return (Math.abs(m_error) < Math.abs(m_tolerance / 100.0 * (m_maximumInput - m_minimumInput)));
+            return (Math.abs(error) < Math.abs(tolerance / 100.0 * (maximumInput - minimumInput)));
         }
 
         /**
-         * Begin running the PIDController
+         * Begin running the PIDControl
          */
         public void enable() {
-            m_enabled = true;
+            enabled = true;
         }
 
         /**
-         * Stop running the PIDController.
+         * Stop running the PIDControl.
          */
         public void disable() {
-            m_enabled = false;
+            enabled = false;
         }
 
         /**
@@ -267,30 +267,29 @@ public class PIDController {
          */
         public void reset() {
             disable();
-            m_prevError = 0;
-            m_totalError = 0;
-            m_result = 0;
+            prevError = 0;
+            totalError = 0;
+            result = 0;
         }
 
         /**
-         * Set the input value to be used by the next call to performPID().
+         * Defines the input value to be used by the next call to performPID().
          *
          * @param input Input value to the PID calculation.
          */
-        public void setInput(double input) {
+        public void defineInput(double input) {
             int sign = 1;
 
-            if (m_maximumInput > m_minimumInput) {
+            if (maximumInput > minimumInput) {
                 if (input < 0) sign = -1;
 
-                if (Math.abs(input) > m_maximumInput)
-                    m_input = m_maximumInput * sign;
-                else if (Math.abs(input) < m_minimumInput)
-                    m_input = m_minimumInput * sign;
+                if (Math.abs(input) > maximumInput)
+                    input = maximumInput * sign;
+                else if (Math.abs(input) < minimumInput)
+                    input = minimumInput * sign;
                 else
-                    m_input = input;
+                    input = input;
             } else
-                m_input = input;
+                input = input;
         }
-    }
 }

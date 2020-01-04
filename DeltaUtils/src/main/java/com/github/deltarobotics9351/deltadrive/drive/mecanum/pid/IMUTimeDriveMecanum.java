@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-public class IMUDriveMecanum {
+public class IMUTimeDriveMecanum {
 
     public BNO055IMU imu;
     DeltaHardware hdw;
@@ -33,7 +33,7 @@ public class IMUDriveMecanum {
 
     PIDControl pidRotate, pidStrafe;
 
-    public IMUDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
+    public IMUTimeDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
         this.hdw = hdw;
         this.telemetry = telemetry;
         this.currentOpMode = currentOpMode;
@@ -220,16 +220,19 @@ public class IMUDriveMecanum {
         return deltaAngle;
     }
 
-    public void timeStrafeRight(double power, double time){
+    public void strafeRight(double power, double timeSegs){
 
-        long finalMillis = System.currentTimeMillis() + (long)(time*1000);
+        resetAngle();
+
+        long finalMillis = System.currentTimeMillis() + (long)(timeSegs*1000);
 
         double initialAngle = getAngle();
 
         pidStrafe.defineSetpoint(initialAngle);
-        pidStrafe.defineInputRange(0, initialAngle);
+        pidStrafe.defineInputRange(0, 360);
         pidStrafe.defineOutputRange(0, power);
         pidStrafe.setTolerance(1);
+        pidStrafe.reset();
         pidStrafe.enable();
 
         while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
@@ -238,50 +241,74 @@ public class IMUDriveMecanum {
 
             hdw.allWheelsForward();
 
-
             double error = pidStrafe.getError();
 
-            if(getAngle() < initialAngle){
+            power = pidStrafe.performPID(getAngle());
 
-                frontleft = power;
-                frontright = -power + error;
-                backleft = -power;
-                backright = power - error;
+            frontleft = power;
+            frontright = -power;
+            backleft = -power;
+            backright = power;
 
-                telemetry.addData("frontleft", frontleft);
-                telemetry.addData("frontright", frontright);
-                telemetry.addData("backleft", backleft);
-                telemetry.addData("backright", backright);
-                telemetry.addData("error value", error);
-                telemetry.addData("deltaAngle", deltaAngle);
-                telemetry.update();
+            telemetry.addData("frontleft", frontleft);
+            telemetry.addData("frontright", frontright);
+            telemetry.addData("backleft", backleft);
+            telemetry.addData("backright", backright);
+            telemetry.addData("error value", error);
+            telemetry.update();
 
-            }else if(getAngle() > initialAngle){
+            defineAllWheelPower(-frontleft,frontright,backleft,backright);
 
-                frontleft = power - error;
-                frontright = -power;
-                backleft = -power + error;
-                backright = power;
+        }
 
-                telemetry.addData("frontleft", -frontleft);
-                telemetry.addData("frontright", frontright);
-                telemetry.addData("backleft", backleft);
-                telemetry.addData("backright", backright);
-                telemetry.addData("error value", error);
-                telemetry.addData("deltaAngle", deltaAngle);
-                telemetry.update();
+        defineAllWheelPower(0,0,0,0);
 
-            }else{
-                frontleft = -power;
-                frontright = -power;
-                backleft = -power;
-                backright = power;
-                telemetry.addData("frontleft", -frontleft);
-                telemetry.addData("frontright", frontright);
-                telemetry.addData("backleft", backleft);
-                telemetry.addData("backright", backright);
-                telemetry.update();
-            }
+        telemetry.addData("frontleft", 0);
+        telemetry.addData("frontright", 0);
+        telemetry.addData("backleft", 0);
+        telemetry.addData("backright", 0);
+        telemetry.update();
+
+        hdw.defaultWheelsDirection();
+
+    }
+
+    public void strafeLeft(double power, double timeSegs){
+
+        resetAngle();
+
+        long finalMillis = System.currentTimeMillis() + (long)(timeSegs*1000);
+
+        double initialAngle = getAngle();
+
+        pidStrafe.defineSetpoint(initialAngle);
+        pidStrafe.defineInputRange(0, 360);
+        pidStrafe.defineOutputRange(0, power);
+        pidStrafe.setTolerance(1);
+        pidStrafe.reset();
+        pidStrafe.enable();
+
+        hdw.allWheelsForward();
+
+        double frontleft = -power, frontright = power, backleft = power, backright = -power;
+
+        defineAllWheelPower(-frontleft,frontright,backleft,backright);
+
+        while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
+
+            power = pidStrafe.performPID(getAngle());
+
+            frontleft = -power;
+            frontright = power;
+            backleft = power;
+            backright = -power;
+
+            telemetry.addData("frontleft", frontleft);
+            telemetry.addData("frontright", frontright);
+            telemetry.addData("backleft", backleft);
+            telemetry.addData("backright", backright);
+            telemetry.addData("error", pidStrafe.getError());
+            telemetry.update();
 
             defineAllWheelPower(-frontleft,frontright,backleft,backright);
 
@@ -312,14 +339,6 @@ public class IMUDriveMecanum {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-    }
-
-    private void correctRotation(double expectedAngle){
-
-        double deltaAngle = calculateDeltaAngles(getAngle(), expectedAngle);
-
-        rotate(deltaAngle, 0.3);
-
     }
 
     //esta funcion sirve para esperar que el robot este totalmente estatico.

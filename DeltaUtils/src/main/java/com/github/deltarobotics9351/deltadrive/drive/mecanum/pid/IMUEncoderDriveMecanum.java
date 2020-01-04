@@ -1,12 +1,11 @@
 package com.github.deltarobotics9351.deltadrive.drive.mecanum.pid;
 
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
-import com.github.deltarobotics9351.deltadrive.parameters.IMUDriveConstants;
+import com.github.deltarobotics9351.deltadrive.parameters.EncoderDriveConstants;
 import com.github.deltarobotics9351.pid.PIDControl;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -14,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-public class IMUTimeDriveMecanum {
+public class IMUEncoderDriveMecanum {
 
     public BNO055IMU imu;
     DeltaHardware hdw;
@@ -33,10 +32,20 @@ public class IMUTimeDriveMecanum {
 
     PIDControl pidRotate, pidStrafe;
 
-    public IMUTimeDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
+    public IMUEncoderDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
         this.hdw = hdw;
         this.telemetry = telemetry;
         this.currentOpMode = currentOpMode;
+
+        hdw.wheelFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        hdw.wheelFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        hdw.wheelBackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        hdw.wheelBackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        hdw.wheelFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hdw.wheelFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hdw.wheelBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hdw.wheelBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void initPIDRotate(double p, double i, double d){
@@ -220,11 +229,12 @@ public class IMUTimeDriveMecanum {
         return deltaAngle;
     }
 
-    public void timeStrafeRight(double power, double timeSegs){
+    public void strafeRight(double power, double inches){
+
+        double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
+                (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
 
         resetAngle();
-
-        long finalMillis = System.currentTimeMillis() + (long)(timeSegs*1000);
 
         double initialAngle = getAngle();
 
@@ -235,9 +245,34 @@ public class IMUTimeDriveMecanum {
         pidStrafe.reset();
         pidStrafe.enable();
 
-        while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
 
-            double frontleft = power, frontright = -power, backleft = -power, backright = power;
+        // Determine new target position, and pass to motor controller
+        newFrontLeftTarget = hdw.wheelFrontLeft.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
+        newFrontRightTarget = hdw.wheelFrontRight.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
+        newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
+        newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+
+        hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
+        hdw.wheelFrontRight.setTargetPosition(newFrontRightTarget);
+        hdw.wheelBackLeft.setTargetPosition(newBackLeftTarget);
+        hdw.wheelBackRight.setTargetPosition(newBackRightTarget);
+
+        // Turn On RUN_TO_POSITION
+        hdw.wheelFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelBackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while((hdw.wheelFrontRight.isBusy() &&
+                hdw.wheelFrontLeft.isBusy() &&
+                hdw.wheelBackRight.isBusy() &&
+                hdw.wheelBackLeft.isBusy()) && currentOpMode.opModeIsActive()){
+
+            double frontleft = power, frontright = power, backleft = power, backright = power;
 
             hdw.allWheelsForward();
 
@@ -246,38 +281,42 @@ public class IMUTimeDriveMecanum {
             power = pidStrafe.performPID(getAngle());
 
             frontleft = power;
-            frontright = -power;
-            backleft = -power;
+            frontright = power;
+            backleft = power;
             backright = power;
 
-            telemetry.addData("frontleft", frontleft);
-            telemetry.addData("frontright", frontright);
-            telemetry.addData("backleft", backleft);
-            telemetry.addData("backright", backright);
-            telemetry.addData("error value", error);
+            telemetry.addData("[>]", "Running to %7d :%7d : %7d :%7d",
+                    newFrontLeftTarget,
+                    newFrontRightTarget,
+                    newBackLeftTarget,
+                    newBackRightTarget);
+
+            telemetry.addData("[>]", "Running at %7d :%7d : %7d :%7d",
+                    hdw.wheelFrontLeft.getCurrentPosition(),
+                    hdw.wheelFrontRight.getCurrentPosition(),
+                    hdw.wheelBackLeft.getCurrentPosition(),
+                    hdw.wheelBackRight.getCurrentPosition());
+            telemetry.addData("error", pidStrafe.getError());
             telemetry.update();
 
-            defineAllWheelPower(-frontleft,frontright,backleft,backright);
+            defineAllWheelPower(frontleft,frontright,backleft,backright);
 
         }
 
         defineAllWheelPower(0,0,0,0);
 
-        telemetry.addData("frontleft", 0);
-        telemetry.addData("frontright", 0);
-        telemetry.addData("backleft", 0);
-        telemetry.addData("backright", 0);
         telemetry.update();
 
         hdw.defaultWheelsDirection();
 
     }
 
-    public void timeStrafeLeft(double power, double timeSegs){
+    public void strafeLeft(double power, double inches){
+
+        double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
+                (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
 
         resetAngle();
-
-        long finalMillis = System.currentTimeMillis() + (long)(timeSegs*1000);
 
         double initialAngle = getAngle();
 
@@ -290,27 +329,57 @@ public class IMUTimeDriveMecanum {
 
         hdw.allWheelsForward();
 
-        double frontleft = -power, frontright = power, backleft = power, backright = -power;
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
 
-        defineAllWheelPower(-frontleft,frontright,backleft,backright);
+        // Determine new target position, and pass to motor controller
+        newFrontLeftTarget = hdw.wheelFrontLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+        newFrontRightTarget = hdw.wheelFrontRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+        newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+        newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
 
-        while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
+        hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
+        hdw.wheelFrontRight.setTargetPosition(newFrontRightTarget);
+        hdw.wheelBackLeft.setTargetPosition(newBackLeftTarget);
+        hdw.wheelBackRight.setTargetPosition(newBackRightTarget);
+
+        // Turn On RUN_TO_POSITION
+        hdw.wheelFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelBackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while((hdw.wheelFrontRight.isBusy() &&
+                hdw.wheelFrontLeft.isBusy() &&
+                hdw.wheelBackRight.isBusy() &&
+                hdw.wheelBackLeft.isBusy()) && currentOpMode.opModeIsActive()){
+
+            double frontleft = power, frontright = power, backleft = power, backright = power;
 
             power = pidStrafe.performPID(getAngle());
 
-            frontleft = -power;
+            frontleft = power;
             frontright = power;
             backleft = power;
-            backright = -power;
+            backright = power;
 
-            telemetry.addData("frontleft", frontleft);
-            telemetry.addData("frontright", frontright);
-            telemetry.addData("backleft", backleft);
-            telemetry.addData("backright", backright);
+            telemetry.addData("[>]", "Running to %7d :%7d : %7d :%7d",
+                    newFrontLeftTarget,
+                    newFrontRightTarget,
+                    newBackLeftTarget,
+                    newBackRightTarget);
+
+            telemetry.addData("[>]", "Running at %7d :%7d : %7d :%7d",
+                    hdw.wheelFrontLeft.getCurrentPosition(),
+                    hdw.wheelFrontRight.getCurrentPosition(),
+                    hdw.wheelBackLeft.getCurrentPosition(),
+                    hdw.wheelBackRight.getCurrentPosition());
             telemetry.addData("error", pidStrafe.getError());
             telemetry.update();
 
-            defineAllWheelPower(-frontleft,frontright,backleft,backright);
+            defineAllWheelPower(frontleft,frontright,backleft,backright);
 
         }
 
@@ -339,14 +408,6 @@ public class IMUTimeDriveMecanum {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-    }
-
-    private void correctRotation(double expectedAngle){
-
-        double deltaAngle = calculateDeltaAngles(getAngle(), expectedAngle);
-
-        rotate(deltaAngle, 0.3);
-
     }
 
     //esta funcion sirve para esperar que el robot este totalmente estatico.
@@ -380,7 +441,5 @@ public class IMUTimeDriveMecanum {
         }
 
     }
-
-
 
 }

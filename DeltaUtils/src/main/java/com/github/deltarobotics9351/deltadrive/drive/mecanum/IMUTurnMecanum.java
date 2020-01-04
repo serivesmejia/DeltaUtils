@@ -14,7 +14,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
-public class IMUDriveMecanum {
+public class IMUTurnMecanum {
 
     public BNO055IMU imu;
     DeltaHardware hdw;
@@ -31,7 +31,7 @@ public class IMUDriveMecanum {
 
     LinearOpMode currentOpMode;
 
-    public IMUDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
+    public IMUTurnMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
         this.hdw = hdw;
         this.telemetry = telemetry;
         this.currentOpMode = currentOpMode;
@@ -60,6 +60,10 @@ public class IMUDriveMecanum {
         while (!imu.isGyroCalibrated()){ }
     }
 
+    public String getIMUCalibrationStatus(){
+        return imu.getCalibrationStatus().toString();
+    }
+
     private double getAngle()
     {
 
@@ -81,7 +85,6 @@ public class IMUDriveMecanum {
 
     public void rotate(double degrees, double power)
     {
-
         hdw.allWheelsForward();
         double  backleftpower, backrightpower, frontrightpower, frontleftpower;
 
@@ -143,7 +146,7 @@ public class IMUDriveMecanum {
         globalAngle = 0;
     }
 
-    public double calculateDeltaAngles(double angle1, double angle2){
+    private double calculateDeltaAngles(double angle1, double angle2){
         double deltaAngle = angle1 - angle2;
 
         if (deltaAngle < -180)
@@ -152,80 +155,6 @@ public class IMUDriveMecanum {
             deltaAngle -= 360;
 
         return deltaAngle;
-    }
-
-    public void strafeRight(double power, double time){
-
-        long finalMillis = System.currentTimeMillis() + (long)(time*1000);
-
-        double initialAngle = getAngle();
-
-        while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
-
-            double frontleft = power, frontright = -power, backleft = -power, backright = power;
-
-            hdw.allWheelsForward();
-
-            double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
-
-            double error = deltaAngle * Range.clip(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT, 0, 1);
-
-            if(getAngle() < initialAngle){
-
-                frontleft = power;
-                frontright = -power + error;
-                backleft = -power;
-                backright = power - error;
-
-                telemetry.addData("frontleft", frontleft);
-                telemetry.addData("frontright", frontright);
-                telemetry.addData("backleft", backleft);
-                telemetry.addData("backright", backright);
-                telemetry.addData("error value", error);
-                telemetry.addData("deltaAngle", deltaAngle);
-                telemetry.update();
-
-            }else if(getAngle() > initialAngle){
-
-                frontleft = power - error;
-                frontright = -power;
-                backleft = -power + error;
-                backright = power;
-
-                telemetry.addData("frontleft", -frontleft);
-                telemetry.addData("frontright", frontright);
-                telemetry.addData("backleft", backleft);
-                telemetry.addData("backright", backright);
-                telemetry.addData("error value", error);
-                telemetry.addData("deltaAngle", deltaAngle);
-                telemetry.update();
-
-            }else{
-                frontleft = -power;
-                frontright = -power;
-                backleft = -power;
-                backright = power;
-                telemetry.addData("frontleft", -frontleft);
-                telemetry.addData("frontright", frontright);
-                telemetry.addData("backleft", backleft);
-                telemetry.addData("backright", backright);
-                telemetry.update();
-            }
-
-            defineAllWheelPower(-frontleft,frontright,backleft,backright);
-
-        }
-
-        defineAllWheelPower(0,0,0,0);
-
-        telemetry.addData("frontleft", 0);
-        telemetry.addData("frontright", 0);
-        telemetry.addData("backleft", 0);
-        telemetry.addData("backright", 0);
-        telemetry.update();
-
-        hdw.defaultWheelsDirection();
-
     }
 
     private void defineAllWheelPower(double frontleft, double frontright, double backleft, double backright){

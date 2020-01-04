@@ -2,6 +2,7 @@ package com.github.deltarobotics9351.deltadrive.drive.mecanum.pid;
 
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
 import com.github.deltarobotics9351.deltadrive.parameters.EncoderDriveConstants;
+import com.github.deltarobotics9351.pid.PIDConstants;
 import com.github.deltarobotics9351.pid.PIDControl;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -48,26 +49,26 @@ public class IMUEncoderDriveMecanum {
         hdw.wheelBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void initPIDRotate(double p, double i, double d){
+    public void initPIDRotate(PIDConstants pid){
         if(pidRotate == null) {
-            pidRotate = new PIDControl(p, i, d);
+            pidRotate = new PIDControl(pid);
             pidRotate.disable();
         }
     }
 
     public void setPIDRotate(double p, double i, double d){
-        pidRotate.setPID(p, i, d);
+        pidRotate.setPID(new PIDConstants(p,i,d));
     }
 
-    public void initPIDStrafe(double p, double i, double d){
+    public void initPIDStrafe(PIDConstants pid){
         if(pidStrafe == null) {
-            pidStrafe = new PIDControl(p, i, d);
+            pidStrafe = new PIDControl(pid);
             pidStrafe.disable();
         }
     }
 
     public void setPIDStrafe(double p, double i, double d){
-        pidStrafe.setPID(p, i, d);
+        pidStrafe.setPID(new PIDConstants(p,i,d));
     }
 
     public void initIMU(){

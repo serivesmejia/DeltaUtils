@@ -98,6 +98,8 @@ public class IMUEncoderDriveMecanum {
         return imu.getCalibrationStatus().toString();
     }
 
+    public boolean isIMUCalibrated(){ return imu.isGyroCalibrated(); }
+
     private double getAngle() {
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);

@@ -12,8 +12,10 @@ public class PIDConstants {
         this.D = D;
     }
 
+    public PIDConstants(){ }
+
     public static final PIDConstants toObject(){
-        return new PIDConstants(P, I, D);
+        return new PIDConstants();
     }
 
 }

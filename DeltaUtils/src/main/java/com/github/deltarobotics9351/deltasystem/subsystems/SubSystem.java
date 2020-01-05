@@ -29,7 +29,9 @@ public class SubSystem {
 
     public boolean isInitialized = false;
 
-    public void registerHardware(String name, HardwareType type){ }
+    public void registerHardware(String name, HardwareType type){
+        hardware.add(new Hardware(name, type));
+    }
 
     public final void init(HardwareMap hdwMap, Telemetry telemetry, DeltaOpMode currentOpMode){
         this.hdwMap = hdwMap;

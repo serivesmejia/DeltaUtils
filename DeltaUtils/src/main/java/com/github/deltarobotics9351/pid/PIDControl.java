@@ -5,18 +5,22 @@ public class PIDControl {
         private double P;                     // factor for "proportional" control
         private double I;                     // factor for "integral" control
         private double D;                     // factor for "derivative" control
+
         private double input;                 // sensor input for pid controller
         private double maximumOutput = 1.0;    // |maximum output|
         private double minimumOutput = -1.0;    // |minimum output|
         private double maximumInput = 0.0;    // maximum input - limit setpoint to this
         private double minimumInput = 0.0;    // minimum input - limit setpoint to this
+
         private boolean continuous = false;    // do the endpoints wrap around? eg. Absolute encoder
         private boolean enabled = false;      // is the pid controller enabled
+
+        private double error = 0.0;
         private double prevError = 0.0;       // the prior sensor input (used to compute velocity)
         private double totalError = 0.0;      // the sum of the errors for use in the integral calc
+
         private double tolerance = 0.05;      // the percentage error that is considered on target
         private double setpoint = 0.0;
-        private double error = 0.0;
         private double result = 0.0;
 
         /**

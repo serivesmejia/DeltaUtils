@@ -7,12 +7,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
-import com.github.deltarobotics9351.deltadrive.parameters.IMUDriveConstants;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.Range;
 
 public class IMUTurnMecanum {
 
@@ -63,6 +61,8 @@ public class IMUTurnMecanum {
     public String getIMUCalibrationStatus(){
         return imu.getCalibrationStatus().toString();
     }
+
+    public boolean isIMUCalibrated(){ return imu.isGyroCalibrated(); }
 
     private double getAngle()
     {

@@ -1,13 +1,11 @@
 package com.github.deltarobotics9351.deltadrive.drive.mecanum.pid;
 
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
-import com.github.deltarobotics9351.deltadrive.parameters.IMUDriveConstants;
 import com.github.deltarobotics9351.pid.PIDConstants;
 import com.github.deltarobotics9351.pid.PIDControl;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -88,6 +86,8 @@ public class IMUTimeDriveMecanum {
     public String getIMUCalibrationStatus(){
         return imu.getCalibrationStatus().toString();
     }
+
+    public boolean isIMUCalibrated(){ return imu.isGyroCalibrated(); }
 
     private double getAngle() {
 

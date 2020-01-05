@@ -18,11 +18,6 @@ public class MotionSubSystem extends SubSystem{
     private HashMap<String, Servo> servos;
     private HashMap<String, CRServo> crservos;
 
-    @Override
-    public final void registerHardware(String name, HardwareType type){
-        hardware.add(new Hardware(name, type));
-    }
-
     public final DcMotor getMotor(String name){
         return motors.get(name);
     }
@@ -30,7 +25,6 @@ public class MotionSubSystem extends SubSystem{
     public final Servo getServo(String name){
         return servos.get(name);
     }
-
 
     public final CRServo getCRServo(String name){
         return crservos.get(name);

@@ -2,9 +2,9 @@ package com.github.deltarobotics9351.pid;
 
 public class PIDConstants {
 
-    public static double P;
-    public static double I;
-    public static double D;
+    public double P;
+    public double I;
+    public double D;
 
     public PIDConstants(double P, double I, double D){
         this.P = P;

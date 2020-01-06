@@ -120,98 +120,66 @@ public class IMUTimeDriveMecanum {
 
     public void rotate(double degrees, double power)
     {
+        // restart imu angle tracking.
+        resetAngle();
+
+        // if degrees > 359 we cap at 359 with same sign as original degrees.
         if (Math.abs(degrees) > 359) degrees = (int) Math.copySign(359, degrees);
 
+        // start pid controller. PID controller will monitor the turn angle with respect to the
+        // target angle and reduce power as we approach the target angle. This is to prevent the
+        // robots momentum from overshooting the turn after we turn off the power. The PID controller
+        // reports onTarget() = true when the difference between turn angle and target angle is within
+        // 1% of target (tolerance) which is about 1 degree. This helps prevent overshoot. Overshoot is
+        // dependant on the motor and gearing configuration, starting power, weight of the robot and the
+        // on target tolerance. If the controller overshoots, it will reverse the sign of the output
+        // turning the robot back toward the setpoint value.
+
+        pidRotate.reset();
         pidRotate.defineSetpoint(degrees);
         pidRotate.defineInputRange(0, degrees);
         pidRotate.defineOutputRange(0, power);
         pidRotate.setTolerance(1);
         pidRotate.enable();
 
-        double  backleftpower, backrightpower, frontrightpower, frontleftpower;
+        // getAngle() returns + when rotating counter clockwise (left) and - when rotating
+        // clockwise (right).
 
-        // reiniciamos el IMU y el PID
-        resetAngle();
-        pidRotate.reset();
-
-        if (degrees < 0) //si es menor que 0 significa que el robot girara a la derecha
-        {   // girar a la derecha
-            backleftpower = power;
-            backrightpower = -power;
-            frontleftpower = power;
-            frontrightpower = -power;
-        }
-        else if (degrees > 0) // si es mayor a 0 significa que el robot girara a la izquierda
-        {   // girar a la izquierda
-            backleftpower = -power;
-            backrightpower = power;
-            frontleftpower = -power;
-            frontrightpower = power;
-        }
-        else return;
-
-        // definimos el power de los motores
-        defineAllWheelPower(frontleftpower,-frontrightpower,-backleftpower,-backrightpower);
+        // rotate until turn is completed.
 
         if (degrees < 0)
         {
-            while (getAngle() == 0 && currentOpMode.opModeIsActive()) { //al girar a la derecha necesitamos salirnos de 0 grados primero
-                power = pidRotate.performPID(getAngle());
-
-                backleftpower = power;
-                backrightpower = -power;
-                frontleftpower = power;
-                frontrightpower = -power;
-
-                defineAllWheelPower(frontleftpower,-frontrightpower,-backleftpower,-backrightpower);
-
-                telemetry.addData("imuAngle", getAngle());
-                telemetry.addData("toDegrees", degrees);
-                telemetry.addData("PID Error", pidRotate.getError());
-                telemetry.update();
+            // On right turn we have to get off zero first.
+            while (currentOpMode.opModeIsActive() && getAngle() == 0)
+            {
+                defineAllWheelPower(power, -power, power, -power);
+                sleep(100);
             }
 
-            while (!pidRotate.onTarget() && currentOpMode.opModeIsActive()) { //entramos en un bucle hasta que los degrees sean los esperados
-                power = pidRotate.performPID(getAngle());
-
-                backleftpower = power;
-                backrightpower = -power;
-                frontleftpower = power;
-                frontrightpower = -power;
-
-                defineAllWheelPower(frontleftpower,-frontrightpower,-backleftpower,-backrightpower);
-
-                telemetry.addData("imuAngle", getAngle());
-                telemetry.addData("toDegrees", degrees);
-                telemetry.addData("PID Error", pidRotate.getError());
-                telemetry.update();
-            }
+            do
+            {
+                power = pidRotate.performPID(getAngle()); // power will be - on right turn.
+                defineAllWheelPower(power, -power, power, -power);
+            } while (currentOpMode.opModeIsActive() && !pidRotate.onTarget());
         }
-        else
-            while (!pidRotate.onTarget() && currentOpMode.opModeIsActive()) { //entramos en un bucle hasta que los degrees sean los esperados
-                power = pidRotate.performPID(getAngle());
+        else    // left turn.
+            do
+            {
+                power = pidRotate.performPID(getAngle()); // power will be + on left turn.
+                defineAllWheelPower(power, -power, power, -power);
+            } while (currentOpMode.opModeIsActive() && !pidRotate.onTarget());
 
-                backleftpower = -power;
-                backrightpower = power;
-                frontleftpower = -power;
-                frontrightpower = power;
+        // turn the motors off.
+        defineAllWheelPower(0, 0, 0, 0);
 
-                defineAllWheelPower(frontleftpower,-frontrightpower,-backleftpower,-backrightpower);
+        // wait for rotation to stop.
+        sleep(500);
 
-                telemetry.addData("imuAngle", getAngle());
-                telemetry.addData("toDegrees", degrees);
-                telemetry.update();
-            }
-
-        // paramos los motores
-        defineAllWheelPower(0,0,0,0);
-
-        telemetry.addData("final imu angle", getAngle());
-        telemetry.update();
-
-        // reiniciamos el IMU otra vez.
+        // reset angle tracking on new heading.
         resetAngle();
     }
+
+}
 
     private void resetAngle()
     {
@@ -267,7 +235,7 @@ public class IMUTimeDriveMecanum {
             telemetry.addData("error value", error);
             telemetry.update();
 
-            defineAllWheelPower(-frontleft,-frontright,-backleft,-backright);
+            defineAllWheelPower(frontleft,frontright,backleft,backright);
 
         }
 
@@ -299,7 +267,7 @@ public class IMUTimeDriveMecanum {
 
         double frontleft = -power, frontright = power, backleft = power, backright = -power;
 
-        defineAllWheelPower(-frontleft,-frontright,-backleft,-backright);
+        defineAllWheelPower(frontleft,frontright,backleft,backright);
 
         while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
 
@@ -318,7 +286,7 @@ public class IMUTimeDriveMecanum {
             telemetry.addData("correction", pidStrafe.getError());
             telemetry.update();
 
-            defineAllWheelPower(-frontleft,-frontright,-backleft,-backright);
+            defineAllWheelPower(frontleft,frontright,backleft,backright);
 
         }
 
@@ -348,7 +316,7 @@ public class IMUTimeDriveMecanum {
 
         double frontleft = power, frontright = power, backleft = power, backright = power;
 
-        defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
+        defineAllWheelPower(frontleft,frontright,backleft,backright);
 
         while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
 
@@ -366,7 +334,7 @@ public class IMUTimeDriveMecanum {
             telemetry.addData("time", timeSecs);
             telemetry.addData("correction", correction);
 
-            defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
+            defineAllWheelPower(frontleft,frontright,backleft,backright);
 
         }
 
@@ -397,7 +365,7 @@ public class IMUTimeDriveMecanum {
 
         double frontleft = -power, frontright = -power, backleft = -power, backright = -power;
 
-        defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
+        defineAllWheelPower(frontleft,frontright,backleft,backright);
 
         while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
 
@@ -415,7 +383,7 @@ public class IMUTimeDriveMecanum {
             telemetry.addData("time", timeSecs);
             telemetry.addData("correction", correction);
 
-            defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
+            defineAllWheelPower(frontleft,frontright,backleft,backright);
 
         }
 
@@ -430,10 +398,10 @@ public class IMUTimeDriveMecanum {
     }
 
     private void defineAllWheelPower(double frontleft, double frontright, double backleft, double backright){
-        hdw.wheelFrontLeft.setPower(frontleft);
-        hdw.wheelFrontRight.setPower(frontright);
-        hdw.wheelBackLeft.setPower(backleft);
-        hdw.wheelBackRight.setPower(backright);
+        hdw.wheelFrontLeft.setPower(-frontleft);
+        hdw.wheelFrontRight.setPower(-frontright);
+        hdw.wheelBackLeft.setPower(-backleft);
+        hdw.wheelBackRight.setPower(-backright);
     }
 
     public void sleep(long millis){

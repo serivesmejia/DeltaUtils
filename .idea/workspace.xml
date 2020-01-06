@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="15dedc17-52a4-4742-b160-1a2213697791" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDrivePIDMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDrivePIDMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUEncoderDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUEncoderDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUTimeDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUTimeDriveMecanum.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUTimeDriveMecanum.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="407" column="32" selection-start-line="407" selection-start-column="32" selection-end-line="407" selection-end-column="32" />
+            <state relative-caret-position="294">
+              <caret line="414" column="43" selection-start-line="414" selection-start-column="43" selection-end-line="414" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -101,7 +98,7 @@
         <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUEncoderDriveMecanum.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="256">
-              <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+              <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -156,7 +153,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
@@ -507,14 +504,14 @@
     <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUEncoderDriveMecanum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
-          <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+          <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUTimeDriveMecanum.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="407" column="32" selection-start-line="407" selection-start-column="32" selection-end-line="407" selection-end-column="32" />
+        <state relative-caret-position="294">
+          <caret line="414" column="43" selection-start-line="414" selection-start-column="43" selection-end-line="414" selection-end-column="43" />
         </state>
       </provider>
     </entry>

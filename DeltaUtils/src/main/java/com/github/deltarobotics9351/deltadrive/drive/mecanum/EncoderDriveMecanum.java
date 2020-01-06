@@ -93,7 +93,6 @@ public class       EncoderDriveMecanum {
                     hdw.wheelFrontRight.getCurrentPosition(),
                     hdw.wheelBackLeft.getCurrentPosition(),
                     hdw.wheelBackRight.getCurrentPosition());
-
             telemetry.update();
         }
 

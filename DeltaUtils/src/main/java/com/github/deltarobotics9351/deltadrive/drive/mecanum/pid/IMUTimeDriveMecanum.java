@@ -30,7 +30,7 @@ public class IMUTimeDriveMecanum {
 
     LinearOpMode currentOpMode;
 
-    PIDControl pidRotate, pidStrafe;
+    PIDControl pidRotate, pidStrafe, pidDrive;
 
     public IMUTimeDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
         this.hdw = hdw;
@@ -45,8 +45,8 @@ public class IMUTimeDriveMecanum {
         }
     }
 
-    public void setPIDRotate(double p, double i, double d){
-        pidRotate.setPID(new PIDConstants(p,i,d));
+    public void setPIDRotate(PIDConstants pid){
+        pidRotate.setPID(pid);
     }
 
     public void initPIDStrafe(PIDConstants pid){
@@ -56,8 +56,19 @@ public class IMUTimeDriveMecanum {
         }
     }
 
-    public void setPIDStrafe(double p, double i, double d){
-        pidStrafe.setPID(new PIDConstants(p,i,d));
+    public void setPIDStrafe(PIDConstants pid){
+        pidStrafe.setPID(pid);
+    }
+
+    public void initPIDDrive(PIDConstants pid){
+        if(pidDrive == null) {
+            pidDrive = new PIDControl(pid);
+            pidDrive.disable();
+        }
+    }
+
+    public void setPIDDrive(PIDConstants pid){
+        pidDrive.setPID(pid);
     }
 
     public void initIMU(){
@@ -219,20 +230,19 @@ public class IMUTimeDriveMecanum {
         return deltaAngle;
     }
 
-    public void strafeRight(double power, double timeSegs){
+    public void strafeRight(double power, double timeSecs){
 
         power = Math.abs(power);
 
         resetAngle();
 
-        long finalMillis = System.currentTimeMillis() + (long)(timeSegs*1000);
+        long finalMillis = System.currentTimeMillis() + (long)(timeSecs*1000);
 
         double initialAngle = getAngle();
 
         pidStrafe.defineSetpoint(initialAngle);
-        pidStrafe.defineInputRange(0, 360);
+        pidStrafe.defineInputRange(-90, 90);
         pidStrafe.defineOutputRange(0, power);
-        pidStrafe.setTolerance(1);
         pidStrafe.reset();
         pidStrafe.enable();
 
@@ -270,20 +280,19 @@ public class IMUTimeDriveMecanum {
 
     }
 
-    public void strafeLeft(double power, double timeSegs){
+    public void strafeLeft(double power, double timeSecs){
 
         power = Math.abs(power);
 
         resetAngle();
 
-        long finalMillis = System.currentTimeMillis() + (long)(timeSegs*1000);
+        long finalMillis = System.currentTimeMillis() + (long)(timeSecs*1000);
 
         double initialAngle = getAngle();
 
         pidStrafe.defineSetpoint(initialAngle);
-        pidStrafe.defineInputRange(0, 360);
+        pidStrafe.defineInputRange(-90, 90);
         pidStrafe.defineOutputRange(0, power);
-        pidStrafe.setTolerance(1);
         pidStrafe.reset();
         pidStrafe.enable();
 
@@ -318,6 +327,102 @@ public class IMUTimeDriveMecanum {
         telemetry.addData("backleft", 0);
         telemetry.addData("backright", 0);
         telemetry.update();
+    }
+
+    public void forward(double power, double timeSecs){
+        power = Math.abs(power);
+
+        resetAngle();
+
+        double initialAngle = getAngle();
+
+        pidDrive.defineSetpoint(initialAngle);
+        pidDrive.defineInputRange(-90, 90);
+        pidDrive.defineOutputRange(0, power);
+        pidDrive.reset();
+        pidDrive.enable();
+
+        long finalMillis = System.currentTimeMillis() + (long)(timeSecs*1000);
+
+        double frontleft = power, frontright = power, backleft = power, backright = power;
+
+        defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
+
+        while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
+
+            double correction = pidDrive.performPID(getAngle());
+
+            frontleft -= correction;
+            frontright += correction;
+            backleft -= correction;
+            backright += correction;
+
+            telemetry.addData("frontleft", 0);
+            telemetry.addData("frontright", 0);
+            telemetry.addData("backleft", 0);
+            telemetry.addData("backright", 0);
+            telemetry.addData("correction", correction);
+
+            defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
+
+        }
+
+        defineAllWheelPower(0, 0, 0, 0);
+
+        telemetry.addData("frontleft", 0);
+        telemetry.addData("frontright", 0);
+        telemetry.addData("backleft", 0);
+        telemetry.addData("backright", 0);
+        telemetry.update();
+
+    }
+
+    public void backwards(double power, double timeSecs){
+        power = Math.abs(power);
+
+        resetAngle();
+
+        double initialAngle = getAngle();
+
+        pidDrive.defineSetpoint(initialAngle);
+        pidDrive.defineInputRange(-90, 90);
+        pidDrive.defineOutputRange(0, power);
+        pidDrive.reset();
+        pidDrive.enable();
+
+        long finalMillis = System.currentTimeMillis() + (long)(timeSecs*1000);
+
+        double frontleft = -power, frontright = -power, backleft = -power, backright = -power;
+
+        defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
+
+        while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
+
+            double correction = pidDrive.performPID(getAngle());
+
+            frontleft -= correction;
+            frontright += correction;
+            backleft -= correction;
+            backright += correction;
+
+            telemetry.addData("frontleft", 0);
+            telemetry.addData("frontright", 0);
+            telemetry.addData("backleft", 0);
+            telemetry.addData("backright", 0);
+            telemetry.addData("correction", correction);
+
+            defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
+
+        }
+
+        defineAllWheelPower(0, 0, 0, 0);
+
+        telemetry.addData("frontleft", 0);
+        telemetry.addData("frontright", 0);
+        telemetry.addData("backleft", 0);
+        telemetry.addData("backright", 0);
+        telemetry.update();
+
     }
 
     private void defineAllWheelPower(double frontleft, double frontright, double backleft, double backright){

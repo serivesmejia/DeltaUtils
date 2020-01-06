@@ -87,6 +87,8 @@ public class IMUTurnMecanum {
     {
         double  backleftpower, backrightpower, frontrightpower, frontleftpower;
 
+        if (Math.abs(degrees) > 359) degrees = (int) Math.copySign(359, degrees);
+
         // reiniciamos el IMU
         resetAngle();
 

@@ -243,7 +243,7 @@ public class IMUEncoderDriveMecanum {
         double initialAngle = getAngle();
 
         pidStrafe.defineSetpoint(initialAngle);
-        pidStrafe.defineInputRange(0, 360);
+        pidStrafe.defineInputRange(-90, 90);
         pidStrafe.defineOutputRange(0, power);
         pidStrafe.setTolerance(1);
         pidStrafe.reset();
@@ -277,7 +277,7 @@ public class IMUEncoderDriveMecanum {
                 hdw.wheelBackLeft.isBusy()) && currentOpMode.opModeIsActive()){
 
             double frontleft = power, frontright = power, backleft = power, backright = power;
-            
+
             double error = pidStrafe.getError();
 
             power = pidStrafe.performPID(getAngle());
@@ -323,7 +323,7 @@ public class IMUEncoderDriveMecanum {
         double initialAngle = getAngle();
 
         pidStrafe.defineSetpoint(initialAngle);
-        pidStrafe.defineInputRange(0, 360);
+        pidStrafe.defineInputRange(-90, 90);
         pidStrafe.defineOutputRange(0, power);
         pidStrafe.setTolerance(1);
         pidStrafe.reset();

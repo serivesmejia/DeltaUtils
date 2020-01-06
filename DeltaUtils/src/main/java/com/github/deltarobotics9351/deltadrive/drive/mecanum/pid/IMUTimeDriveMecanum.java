@@ -179,8 +179,6 @@ public class IMUTimeDriveMecanum {
         resetAngle();
     }
 
-}
-
     private void resetAngle()
     {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);

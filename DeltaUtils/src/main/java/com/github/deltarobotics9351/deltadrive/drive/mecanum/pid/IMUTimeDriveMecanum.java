@@ -117,7 +117,6 @@ public class IMUTimeDriveMecanum {
         pidRotate.setTolerance(1);
         pidRotate.enable();
 
-        hdw.allWheelsForward();
         double  backleftpower, backrightpower, frontrightpower, frontleftpower;
 
         // reiniciamos el IMU y el PID
@@ -141,7 +140,7 @@ public class IMUTimeDriveMecanum {
         else return;
 
         // definimos el power de los motores
-        defineAllWheelPower(-frontleftpower,frontrightpower,backleftpower,backrightpower);
+        defineAllWheelPower(frontleftpower,-frontrightpower,-backleftpower,-backrightpower);
 
         if (degrees < 0)
         {
@@ -153,7 +152,7 @@ public class IMUTimeDriveMecanum {
                 frontleftpower = power;
                 frontrightpower = -power;
 
-                defineAllWheelPower(-frontleftpower,frontrightpower,backleftpower,backrightpower);
+                defineAllWheelPower(frontleftpower,-frontrightpower,-backleftpower,-backrightpower);
 
                 telemetry.addData("imuAngle", getAngle());
                 telemetry.addData("toDegrees", degrees);
@@ -169,7 +168,7 @@ public class IMUTimeDriveMecanum {
                 frontleftpower = power;
                 frontrightpower = -power;
 
-                defineAllWheelPower(-frontleftpower,frontrightpower,backleftpower,backrightpower);
+                defineAllWheelPower(frontleftpower,-frontrightpower,-backleftpower,-backrightpower);
 
                 telemetry.addData("imuAngle", getAngle());
                 telemetry.addData("toDegrees", degrees);
@@ -186,7 +185,7 @@ public class IMUTimeDriveMecanum {
                 frontleftpower = -power;
                 frontrightpower = power;
 
-                defineAllWheelPower(-frontleftpower,frontrightpower,backleftpower,backrightpower);
+                defineAllWheelPower(frontleftpower,-frontrightpower,-backleftpower,-backrightpower);
 
                 telemetry.addData("imuAngle", getAngle());
                 telemetry.addData("toDegrees", degrees);
@@ -201,7 +200,6 @@ public class IMUTimeDriveMecanum {
 
         // reiniciamos el IMU otra vez.
         resetAngle();
-        hdw.defaultWheelsDirection();
     }
 
     private void resetAngle()
@@ -223,6 +221,8 @@ public class IMUTimeDriveMecanum {
 
     public void strafeRight(double power, double timeSegs){
 
+        power = Math.abs(power);
+
         resetAngle();
 
         long finalMillis = System.currentTimeMillis() + (long)(timeSegs*1000);
@@ -240,8 +240,6 @@ public class IMUTimeDriveMecanum {
 
             double frontleft = power, frontright = -power, backleft = -power, backright = power;
 
-            hdw.allWheelsForward();
-
             double error = pidStrafe.getError();
 
             power = pidStrafe.performPID(getAngle());
@@ -258,7 +256,7 @@ public class IMUTimeDriveMecanum {
             telemetry.addData("error value", error);
             telemetry.update();
 
-            defineAllWheelPower(-frontleft,frontright,backleft,backright);
+            defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
 
         }
 
@@ -270,11 +268,11 @@ public class IMUTimeDriveMecanum {
         telemetry.addData("backright", 0);
         telemetry.update();
 
-        hdw.defaultWheelsDirection();
-
     }
 
     public void strafeLeft(double power, double timeSegs){
+
+        power = Math.abs(power);
 
         resetAngle();
 
@@ -289,11 +287,9 @@ public class IMUTimeDriveMecanum {
         pidStrafe.reset();
         pidStrafe.enable();
 
-        hdw.allWheelsForward();
-
         double frontleft = -power, frontright = power, backleft = power, backright = -power;
 
-        defineAllWheelPower(-frontleft,frontright,backleft,backright);
+        defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
 
         while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
 
@@ -311,7 +307,7 @@ public class IMUTimeDriveMecanum {
             telemetry.addData("error", pidStrafe.getError());
             telemetry.update();
 
-            defineAllWheelPower(-frontleft,frontright,backleft,backright);
+            defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
 
         }
 
@@ -322,9 +318,6 @@ public class IMUTimeDriveMecanum {
         telemetry.addData("backleft", 0);
         telemetry.addData("backright", 0);
         telemetry.update();
-
-        hdw.defaultWheelsDirection();
-
     }
 
     private void defineAllWheelPower(double frontleft, double frontright, double backleft, double backright){
@@ -373,7 +366,5 @@ public class IMUTimeDriveMecanum {
         }
 
     }
-
-
 
 }

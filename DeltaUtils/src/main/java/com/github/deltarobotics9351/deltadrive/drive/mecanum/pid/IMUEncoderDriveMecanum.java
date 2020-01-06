@@ -128,7 +128,7 @@ public class IMUEncoderDriveMecanum {
         pidRotate.setTolerance(1);
         pidRotate.enable();
 
-        hdw.allWheelsForward();
+
         double  backleftpower, backrightpower, frontrightpower, frontleftpower;
 
         // reiniciamos el IMU y el PID
@@ -152,7 +152,7 @@ public class IMUEncoderDriveMecanum {
         else return;
 
         // definimos el power de los motores
-        defineAllWheelPower(-frontleftpower,frontrightpower,backleftpower,backrightpower);
+        defineAllWheelPower(frontleftpower,frontrightpower,backleftpower,backrightpower);
 
         if (degrees < 0)
         {
@@ -164,7 +164,7 @@ public class IMUEncoderDriveMecanum {
                 frontleftpower = power;
                 frontrightpower = -power;
 
-                defineAllWheelPower(-frontleftpower,frontrightpower,backleftpower,backrightpower);
+                defineAllWheelPower(frontleftpower,frontrightpower,backleftpower,backrightpower);
 
                 telemetry.addData("imuAngle", getAngle());
                 telemetry.addData("toDegrees", degrees);
@@ -180,7 +180,7 @@ public class IMUEncoderDriveMecanum {
                 frontleftpower = power;
                 frontrightpower = -power;
 
-                defineAllWheelPower(-frontleftpower,frontrightpower,backleftpower,backrightpower);
+                defineAllWheelPower(frontleftpower,frontrightpower,backleftpower,backrightpower);
 
                 telemetry.addData("imuAngle", getAngle());
                 telemetry.addData("toDegrees", degrees);
@@ -197,7 +197,7 @@ public class IMUEncoderDriveMecanum {
                 frontleftpower = -power;
                 frontrightpower = power;
 
-                defineAllWheelPower(-frontleftpower,frontrightpower,backleftpower,backrightpower);
+                defineAllWheelPower(frontleftpower,frontrightpower,backleftpower,backrightpower);
 
                 telemetry.addData("imuAngle", getAngle());
                 telemetry.addData("toDegrees", degrees);
@@ -207,12 +207,11 @@ public class IMUEncoderDriveMecanum {
         // paramos los motores
         defineAllWheelPower(0,0,0,0);
 
-        telemetry.addData("final imu angle", getAngle());
+        telemetry.addData("final angle", getAngle());
         telemetry.update();
 
         // reiniciamos el IMU otra vez.
         resetAngle();
-        hdw.defaultWheelsDirection();
     }
 
     private void resetAngle()
@@ -234,6 +233,8 @@ public class IMUEncoderDriveMecanum {
 
     public void strafeRight(double power, double inches){
 
+        power = Math.abs(power);
+
         double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
                 (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
 
@@ -254,15 +255,15 @@ public class IMUEncoderDriveMecanum {
         int newBackRightTarget;
 
         // Determine new target position, and pass to motor controller
-        newFrontLeftTarget = hdw.wheelFrontLeft.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
+        newFrontLeftTarget = hdw.wheelFrontLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
         newFrontRightTarget = hdw.wheelFrontRight.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
         newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
         newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
 
         hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
-        hdw.wheelFrontRight.setTargetPosition(newFrontRightTarget);
-        hdw.wheelBackLeft.setTargetPosition(newBackLeftTarget);
-        hdw.wheelBackRight.setTargetPosition(newBackRightTarget);
+        hdw.wheelFrontRight.setTargetPosition(-newFrontRightTarget);
+        hdw.wheelBackLeft.setTargetPosition(-newBackLeftTarget);
+        hdw.wheelBackRight.setTargetPosition(-newBackRightTarget);
 
         // Turn On RUN_TO_POSITION
         hdw.wheelFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -276,9 +277,7 @@ public class IMUEncoderDriveMecanum {
                 hdw.wheelBackLeft.isBusy()) && currentOpMode.opModeIsActive()){
 
             double frontleft = power, frontright = power, backleft = power, backright = power;
-
-            hdw.allWheelsForward();
-
+            
             double error = pidStrafe.getError();
 
             power = pidStrafe.performPID(getAngle());
@@ -310,11 +309,11 @@ public class IMUEncoderDriveMecanum {
 
         telemetry.update();
 
-        hdw.defaultWheelsDirection();
-
     }
 
     public void strafeLeft(double power, double inches){
+
+        power = Math.abs(power);
 
         double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
                 (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
@@ -330,23 +329,21 @@ public class IMUEncoderDriveMecanum {
         pidStrafe.reset();
         pidStrafe.enable();
 
-        hdw.allWheelsForward();
-
         int newFrontLeftTarget;
         int newFrontRightTarget;
         int newBackLeftTarget;
         int newBackRightTarget;
 
         // Determine new target position, and pass to motor controller
-        newFrontLeftTarget = hdw.wheelFrontLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+        newFrontLeftTarget = hdw.wheelFrontLeft.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
         newFrontRightTarget = hdw.wheelFrontRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
         newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
         newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
 
         hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
-        hdw.wheelFrontRight.setTargetPosition(newFrontRightTarget);
-        hdw.wheelBackLeft.setTargetPosition(newBackLeftTarget);
-        hdw.wheelBackRight.setTargetPosition(newBackRightTarget);
+        hdw.wheelFrontRight.setTargetPosition(-newFrontRightTarget);
+        hdw.wheelBackLeft.setTargetPosition(-newBackLeftTarget);
+        hdw.wheelBackRight.setTargetPosition(-newBackRightTarget);
 
         // Turn On RUN_TO_POSITION
         hdw.wheelFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -393,8 +390,6 @@ public class IMUEncoderDriveMecanum {
         telemetry.addData("backleft", 0);
         telemetry.addData("backright", 0);
         telemetry.update();
-
-        hdw.defaultWheelsDirection();
 
     }
 

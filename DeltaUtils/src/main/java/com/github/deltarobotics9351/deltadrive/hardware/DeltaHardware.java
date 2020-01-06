@@ -98,28 +98,4 @@ public class DeltaHardware {
         wheelHDriveMiddle.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void allWheelsForward(){
-        wheelFrontLeft.setDirection(DcMotor.Direction.FORWARD);
-        wheelFrontRight.setDirection(DcMotor.Direction.FORWARD);
-        wheelBackLeft.setDirection(DcMotor.Direction.FORWARD);
-        wheelBackRight.setDirection(DcMotor.Direction.FORWARD);
-
-        if(chassisType == ChassisType.hdrive) wheelHDriveMiddle.setDirection(DcMotor.Direction.FORWARD);
-    }
-
-    public void defaultWheelsDirection() {
-        if (chassisType == ChassisType.mecanum) {
-            wheelFrontLeft.setDirection(DcMotor.Direction.FORWARD);
-            wheelFrontRight.setDirection(DcMotor.Direction.REVERSE);
-            wheelBackLeft.setDirection(DcMotor.Direction.REVERSE);
-            wheelBackRight.setDirection(DcMotor.Direction.REVERSE);
-        } else if (chassisType == ChassisType.hdrive){
-            wheelFrontLeft.setDirection(DcMotor.Direction.FORWARD);
-            wheelFrontRight.setDirection(DcMotor.Direction.FORWARD);
-            wheelBackLeft.setDirection(DcMotor.Direction.FORWARD);
-            wheelBackRight.setDirection(DcMotor.Direction.FORWARD);
-            wheelHDriveMiddle.setDirection(DcMotor.Direction.FORWARD);
-        }
-    }
-
 }

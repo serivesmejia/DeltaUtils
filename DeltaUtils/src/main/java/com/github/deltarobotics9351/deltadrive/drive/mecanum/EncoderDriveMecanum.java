@@ -38,8 +38,6 @@ public class       EncoderDriveMecanum {
                              double backright,
                              double timeoutS) {
 
-        hdw.allWheelsForward();
-
         double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
                 (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
 
@@ -55,9 +53,9 @@ public class       EncoderDriveMecanum {
         newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (backright * COUNTS_PER_INCH);
 
         hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
-        hdw.wheelFrontRight.setTargetPosition(newFrontRightTarget);
-        hdw.wheelBackLeft.setTargetPosition(newBackLeftTarget);
-        hdw.wheelBackRight.setTargetPosition(newBackRightTarget);
+        hdw.wheelFrontRight.setTargetPosition(-newFrontRightTarget);
+        hdw.wheelBackLeft.setTargetPosition(-newBackLeftTarget);
+        hdw.wheelBackRight.setTargetPosition(-newBackRightTarget);
 
         // Turn On RUN_TO_POSITION
         hdw.wheelFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -112,32 +110,30 @@ public class       EncoderDriveMecanum {
         hdw.wheelFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         hdw.wheelBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         hdw.wheelBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        hdw.defaultWheelsDirection();
     }
 
     public void forward(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, -inches, inches, inches, inches, timeoutS);
+        encoderDrive(speed, inches, inches, inches, inches, timeoutS);
     }
 
     public void backwards(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, inches, -inches, -inches, -inches, timeoutS);
+        encoderDrive(speed, -inches, -inches, -inches, -inches, timeoutS);
     }
 
     public void strafeLeft(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, -inches, -inches, -inches, inches, timeoutS);
+        encoderDrive(speed, inches, -inches, -inches, inches, timeoutS);
     }
 
     public void strafeRight(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, inches, inches, inches, -inches, timeoutS);
+        encoderDrive(speed, -inches, inches, inches, -inches, timeoutS);
     }
 
     public void turnRight(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, -inches, -inches, inches, -inches, timeoutS);
+        encoderDrive(speed, inches, -inches, inches, -inches, timeoutS);
     }
 
     public void turnLeft(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, inches, inches, -inches, inches, timeoutS);
+        encoderDrive(speed, -inches, inches, -inches, inches, timeoutS);
     }
 
 }

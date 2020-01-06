@@ -85,7 +85,6 @@ public class IMUTurnMecanum {
 
     public void rotate(double degrees, double power)
     {
-        hdw.allWheelsForward();
         double  backleftpower, backrightpower, frontrightpower, frontleftpower;
 
         // reiniciamos el IMU
@@ -108,7 +107,7 @@ public class IMUTurnMecanum {
         else return;
 
         // definimos el power de los motores
-        defineAllWheelPower(-frontleftpower,frontrightpower,backleftpower,backrightpower);
+        defineAllWheelPower(frontleftpower,-frontrightpower,-backleftpower,-backrightpower);
 
         // rotaremos hasta que se complete la vuelta
         if (degrees < 0)
@@ -137,7 +136,6 @@ public class IMUTurnMecanum {
 
         // reiniciamos el IMU otra vez.
         resetAngle();
-        hdw.defaultWheelsDirection();
     }
 
     private void resetAngle()
@@ -159,9 +157,9 @@ public class IMUTurnMecanum {
 
     private void defineAllWheelPower(double frontleft, double frontright, double backleft, double backright){
         hdw.wheelFrontLeft.setPower(frontleft);
-        hdw.wheelFrontRight.setPower(frontright);
-        hdw.wheelBackLeft.setPower(backleft);
-        hdw.wheelBackRight.setPower(backright);
+        hdw.wheelFrontRight.setPower(-frontright);
+        hdw.wheelBackLeft.setPower(-backleft);
+        hdw.wheelBackRight.setPower(-backright);
     }
 
     public void sleep(long millis){

@@ -8,10 +8,9 @@ public class DeltaOpMode extends LinearOpMode {
 
     @Override
     public final void runOpMode(){
-        init();
+        _init();
 
         while(!opModeIsActive()) _initloop();
-
         system.initSubSystems();
 
         _run();

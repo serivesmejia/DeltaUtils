@@ -1,7 +1,6 @@
 package com.github.deltarobotics9351.deltasystem.subsystems;
 
 import com.github.deltarobotics9351.deltasystem.DeltaOpMode;
-import com.github.deltarobotics9351.deltasystem.utils.*;
 import com.github.deltarobotics9351.deltasystem.utils.Hardware;
 import com.github.deltarobotics9351.deltasystem.utils.HardwareType;
 import com.qualcomm.robotcore.hardware.HardwareMap;

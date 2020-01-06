@@ -252,17 +252,18 @@ public class IMUTimeDriveMecanum {
 
             double error = pidStrafe.getError();
 
-            power = pidStrafe.performPID(getAngle());
+            double correction = pidStrafe.performPID(getAngle());
 
-            frontleft = power;
-            frontright = -power;
-            backleft = -power;
-            backright = power;
+            frontleft -= correction;
+            frontright += correction;
+            backleft += correction;
+            backright -= correction;
 
             telemetry.addData("frontleft", frontleft);
             telemetry.addData("frontright", frontright);
             telemetry.addData("backleft", backleft);
             telemetry.addData("backright", backright);
+            telemetry.addData("time", timeSecs);
             telemetry.addData("error value", error);
             telemetry.update();
 
@@ -302,18 +303,19 @@ public class IMUTimeDriveMecanum {
 
         while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
 
-            power = pidStrafe.performPID(getAngle());
+            double correction = pidStrafe.performPID(getAngle());
 
-            frontleft = -power;
-            frontright = power;
-            backleft = power;
-            backright = -power;
+            frontleft += correction;
+            frontright -= correction;
+            backleft -= correction;
+            backright += correction;
 
             telemetry.addData("frontleft", frontleft);
             telemetry.addData("frontright", frontright);
             telemetry.addData("backleft", backleft);
             telemetry.addData("backright", backright);
-            telemetry.addData("error", pidStrafe.getError());
+            telemetry.addData("time", timeSecs);
+            telemetry.addData("correction", pidStrafe.getError());
             telemetry.update();
 
             defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
@@ -361,6 +363,7 @@ public class IMUTimeDriveMecanum {
             telemetry.addData("frontright", 0);
             telemetry.addData("backleft", 0);
             telemetry.addData("backright", 0);
+            telemetry.addData("time", timeSecs);
             telemetry.addData("correction", correction);
 
             defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
@@ -409,6 +412,7 @@ public class IMUTimeDriveMecanum {
             telemetry.addData("frontright", 0);
             telemetry.addData("backleft", 0);
             telemetry.addData("backright", 0);
+            telemetry.addData("time", timeSecs);
             telemetry.addData("correction", correction);
 
             defineAllWheelPower(frontleft,-frontright,-backleft,-backright);

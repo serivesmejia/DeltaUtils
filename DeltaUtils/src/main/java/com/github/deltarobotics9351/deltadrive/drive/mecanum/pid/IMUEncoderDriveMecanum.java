@@ -31,7 +31,7 @@ public class IMUEncoderDriveMecanum {
 
     LinearOpMode currentOpMode;
 
-    PIDControl pidRotate, pidStrafe;
+    PIDControl pidRotate, pidStrafe, pidDrive;
 
     public IMUEncoderDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
         this.hdw = hdw;
@@ -69,6 +69,17 @@ public class IMUEncoderDriveMecanum {
 
     public void setPIDStrafe(double p, double i, double d){
         pidStrafe.setPID(new PIDConstants(p,i,d));
+    }
+
+    public void initPIDDrive(PIDConstants pid){
+        if(pidDrive == null) {
+            pidDrive = new PIDControl(pid);
+            pidDrive.disable();
+        }
+    }
+
+    public void setPIDDrive(PIDConstants pid){
+        pidDrive.setPID(pid);
     }
 
     public void initIMU(){
@@ -384,6 +395,171 @@ public class IMUEncoderDriveMecanum {
         }
 
         defineAllWheelPower(0,0,0,0);
+
+        telemetry.addData("frontleft", 0);
+        telemetry.addData("frontright", 0);
+        telemetry.addData("backleft", 0);
+        telemetry.addData("backright", 0);
+        telemetry.update();
+
+    }
+
+    public void forward(double power, double inches){
+        power = Math.abs(power);
+
+        double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
+                (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
+
+        resetAngle();
+
+        double initialAngle = getAngle();
+
+        pidDrive.defineSetpoint(initialAngle);
+        pidDrive.defineInputRange(-90, 90);
+        pidDrive.defineOutputRange(0, power);
+        pidDrive.reset();
+        pidDrive.enable();
+
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
+
+        // Determine new target position, and pass to motor controller
+        newFrontLeftTarget = hdw.wheelFrontLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+        newFrontRightTarget = hdw.wheelFrontRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+        newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+        newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+
+        hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
+        hdw.wheelFrontRight.setTargetPosition(-newFrontRightTarget);
+        hdw.wheelBackLeft.setTargetPosition(-newBackLeftTarget);
+        hdw.wheelBackRight.setTargetPosition(-newBackRightTarget);
+
+        // Turn On RUN_TO_POSITION
+        hdw.wheelFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelBackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        double frontleft = power, frontright = power, backleft = power, backright = power;
+
+        defineAllWheelPower(frontleft,frontright,backleft,backright);
+
+        while((hdw.wheelFrontRight.isBusy() &&
+                hdw.wheelFrontLeft.isBusy() &&
+                hdw.wheelBackRight.isBusy() &&
+                hdw.wheelBackLeft.isBusy()) && currentOpMode.opModeIsActive()){
+
+            double correction = pidDrive.performPID(getAngle());
+
+            frontleft -= correction;
+            frontright += correction;
+            backleft -= correction;
+            backright += correction;
+
+            telemetry.addData("[>]", "Running to %7d :%7d : %7d :%7d",
+                    newFrontLeftTarget,
+                    newFrontRightTarget,
+                    newBackLeftTarget,
+                    newBackRightTarget);
+
+            telemetry.addData("[>]", "Running at %7d :%7d : %7d :%7d",
+                    hdw.wheelFrontLeft.getCurrentPosition(),
+                    hdw.wheelFrontRight.getCurrentPosition(),
+                    hdw.wheelBackLeft.getCurrentPosition(),
+                    hdw.wheelBackRight.getCurrentPosition());
+            telemetry.addData("error", pidStrafe.getError());
+            telemetry.update();
+
+            defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
+
+        }
+
+        defineAllWheelPower(0, 0, 0, 0);
+
+        telemetry.addData("frontleft", 0);
+        telemetry.addData("frontright", 0);
+        telemetry.addData("backleft", 0);
+        telemetry.addData("backright", 0);
+        telemetry.update();
+
+    }
+
+    public void backwards(double power, double inches){
+        power = Math.abs(power);
+
+        double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
+                (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
+
+        resetAngle();
+
+        double initialAngle = getAngle();
+
+        pidDrive.defineSetpoint(initialAngle);
+        pidDrive.defineInputRange(-90, 90);
+        pidDrive.defineOutputRange(0, power);
+        pidDrive.reset();
+        pidDrive.enable();
+
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
+
+        // Determine new target position, and pass to motor controller
+        newFrontLeftTarget = hdw.wheelFrontLeft.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
+        newFrontRightTarget = hdw.wheelFrontRight.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
+        newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
+        newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
+
+        hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
+        hdw.wheelFrontRight.setTargetPosition(-newFrontRightTarget);
+        hdw.wheelBackLeft.setTargetPosition(-newBackLeftTarget);
+        hdw.wheelBackRight.setTargetPosition(-newBackRightTarget);
+
+        // Turn On RUN_TO_POSITION
+        hdw.wheelFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hdw.wheelBackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        double frontleft = power, frontright = power, backleft = power, backright = power;
+
+        defineAllWheelPower(frontleft,frontright,backleft,backright);
+
+        while((hdw.wheelFrontRight.isBusy() &&
+                hdw.wheelFrontLeft.isBusy() &&
+                hdw.wheelBackRight.isBusy() &&
+                hdw.wheelBackLeft.isBusy()) && currentOpMode.opModeIsActive()){
+
+            double correction = pidDrive.performPID(getAngle());
+
+            frontleft -= correction;
+            frontright += correction;
+            backleft -= correction;
+            backright += correction;
+
+            telemetry.addData("[>]", "Running to %7d :%7d : %7d :%7d",
+                    newFrontLeftTarget,
+                    newFrontRightTarget,
+                    newBackLeftTarget,
+                    newBackRightTarget);
+
+            telemetry.addData("[>]", "Running at %7d :%7d : %7d :%7d",
+                    hdw.wheelFrontLeft.getCurrentPosition(),
+                    hdw.wheelFrontRight.getCurrentPosition(),
+                    hdw.wheelBackLeft.getCurrentPosition(),
+                    hdw.wheelBackRight.getCurrentPosition());
+            telemetry.addData("error", pidStrafe.getError());
+            telemetry.update();
+
+            defineAllWheelPower(frontleft,-frontright,-backleft,-backright);
+
+        }
+
+        defineAllWheelPower(0, 0, 0, 0);
 
         telemetry.addData("frontleft", 0);
         telemetry.addData("frontright", 0);

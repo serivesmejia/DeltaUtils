@@ -63,9 +63,10 @@ public class DeltaDrivePIDMecanum {
         }
     }
 
-    public void setPID(PIDConstants rotatePID, PIDConstants strafePID){
+    public void setPID(PIDConstants rotatePID, PIDConstants strafePID, PIDConstants drivePID){
         imuTimeDrive.initPIDRotate(rotatePID);
         imuTimeDrive.initPIDStrafe(strafePID);
+        imuTimeDrive.initPIDDrive(drivePID);
 
         imuEncoderDrive.initPIDRotate(rotatePID);
         imuEncoderDrive.initPIDStrafe(strafePID);

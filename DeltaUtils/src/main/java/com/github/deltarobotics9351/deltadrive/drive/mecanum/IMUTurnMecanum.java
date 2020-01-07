@@ -178,7 +178,7 @@ public class IMUTurnMecanum {
                 backleft = -power * error;
                 backright = power;
 
-                telemetry.addData("frontleft", -frontleft);
+                telemetry.addData("frontleft", frontleft);
                 telemetry.addData("frontright", frontright);
                 telemetry.addData("backleft", backleft);
                 telemetry.addData("backright", backright);
@@ -192,6 +192,76 @@ public class IMUTurnMecanum {
                 backleft = -power;
                 backright = power;
                 telemetry.addData("frontleft", -frontleft);
+                telemetry.addData("frontright", frontright);
+                telemetry.addData("backleft", backleft);
+                telemetry.addData("backright", backright);
+                telemetry.update();
+            }
+
+            defineAllWheelPower(frontleft,frontright,backleft,backright);
+
+        }
+
+        defineAllWheelPower(0,0,0,0);
+
+        telemetry.addData("frontleft", 0);
+        telemetry.addData("frontright", 0);
+        telemetry.addData("backleft", 0);
+        telemetry.addData("backright", 0);
+        telemetry.update();
+
+    }
+
+    public void strafeLeft(double power, double time){
+
+        long finalMillis = System.currentTimeMillis() + (long)(time*1000);
+
+        double initialAngle = getAngle();
+
+        while(System.currentTimeMillis() < finalMillis && currentOpMode.opModeIsActive()){
+
+            double frontleft = -power, frontright = power, backleft = power, backright = -power;
+
+            double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
+
+            double error = deltaAngle * Range.clip(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT, 0, 1);
+
+            if(getAngle() < initialAngle){
+
+                frontleft = -power;
+                frontright = power * error;
+                backleft = power;
+                backright = -power * error;
+
+                telemetry.addData("frontleft", frontleft);
+                telemetry.addData("frontright", frontright);
+                telemetry.addData("backleft", backleft);
+                telemetry.addData("backright", backright);
+                telemetry.addData("error value", error);
+                telemetry.addData("deltaAngle", deltaAngle);
+                telemetry.update();
+
+            }else if(getAngle() > initialAngle){
+
+                frontleft = -power * error;
+                frontright = power;
+                backleft = power * error;
+                backright = -power;
+
+                telemetry.addData("frontleft", frontleft);
+                telemetry.addData("frontright", frontright);
+                telemetry.addData("backleft", backleft);
+                telemetry.addData("backright", backright);
+                telemetry.addData("error value", error);
+                telemetry.addData("deltaAngle", deltaAngle);
+                telemetry.update();
+
+            }else{
+                frontleft = power;
+                frontright = -power;
+                backleft = -power;
+                backright = power;
+                telemetry.addData("frontleft", frontleft);
                 telemetry.addData("frontright", frontright);
                 telemetry.addData("backleft", backleft);
                 telemetry.addData("backright", backright);

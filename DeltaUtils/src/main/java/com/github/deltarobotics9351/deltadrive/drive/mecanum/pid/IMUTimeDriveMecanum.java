@@ -2,7 +2,7 @@ package com.github.deltarobotics9351.deltadrive.drive.mecanum.pid;
 
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
 import com.github.deltarobotics9351.pid.PIDConstants;
-import com.github.deltarobotics9351.pid.PIDControl;
+import com.github.deltarobotics9351.pid.PIDController;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -30,7 +30,7 @@ public class IMUTimeDriveMecanum {
 
     LinearOpMode currentOpMode;
 
-    PIDControl pidRotate, pidStrafe, pidDrive;
+    PIDController pidRotate, pidStrafe, pidDrive;
 
     public IMUTimeDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
         this.hdw = hdw;
@@ -38,37 +38,37 @@ public class IMUTimeDriveMecanum {
         this.currentOpMode = currentOpMode;
     }
 
-    public void initPIDRotate(PIDConstants pid){
+    public void initPIDRotate(double p, double i, double d){
         if(pidRotate == null) {
-            pidRotate = new PIDControl(pid);
+            pidRotate = new PIDController(p, i, d);
             pidRotate.disable();
         }
     }
 
-    public void setPIDRotate(PIDConstants pid){
-        pidRotate.setPID(pid);
+    public void setPIDRotate(double p, double i, double d){
+        pidRotate.setPID(p, i, d);
     }
 
-    public void initPIDStrafe(PIDConstants pid){
+    public void initPIDStrafe(double p, double i, double d){
         if(pidStrafe == null) {
-            pidStrafe = new PIDControl(pid);
+            pidStrafe = new PIDController(p, i, d);
             pidStrafe.disable();
         }
     }
 
-    public void setPIDStrafe(PIDConstants pid){
-        pidStrafe.setPID(pid);
+    public void setPIDStrafe(double p, double i, double d){
+        pidStrafe.setPID(p, i, d);
     }
 
-    public void initPIDDrive(PIDConstants pid){
+    public void initPIDDrive(double p, double i, double d){
         if(pidDrive == null) {
-            pidDrive = new PIDControl(pid);
+            pidDrive = new PIDController(p, i, d);
             pidDrive.disable();
         }
     }
 
-    public void setPIDDrive(PIDConstants pid){
-        pidDrive.setPID(pid);
+    public void setPIDDrive(double p, double i, double d){
+        pidDrive.setPID(p, i, d);
     }
 
     public void initIMU(){
@@ -136,9 +136,9 @@ public class IMUTimeDriveMecanum {
         // turning the robot back toward the setpoint value.
 
         pidRotate.reset();
-        pidRotate.defineSetpoint(degrees);
-        pidRotate.defineInputRange(0, degrees);
-        pidRotate.defineOutputRange(0, power);
+        pidRotate.setSetpoint(degrees);
+        pidRotate.setInputRange(0, degrees);
+        pidRotate.setOutputRange(0, power);
         pidRotate.setTolerance(1);
         pidRotate.enable();
 
@@ -206,9 +206,9 @@ public class IMUTimeDriveMecanum {
 
         double initialAngle = getAngle();
 
-        pidStrafe.defineSetpoint(initialAngle);
-        pidStrafe.defineInputRange(-90, 90);
-        pidStrafe.defineOutputRange(0, power);
+        pidStrafe.setSetpoint(initialAngle);
+        pidStrafe.setInputRange(0, 360);
+        pidStrafe.setOutputRange(0, power);
         pidStrafe.reset();
         pidStrafe.enable();
 
@@ -257,9 +257,9 @@ public class IMUTimeDriveMecanum {
 
         double initialAngle = getAngle();
 
-        pidStrafe.defineSetpoint(initialAngle);
-        pidStrafe.defineInputRange(-90, 90);
-        pidStrafe.defineOutputRange(0, power);
+        pidStrafe.setSetpoint(initialAngle);
+        pidStrafe.setInputRange(0, 360);
+        pidStrafe.setOutputRange(0, power);
         pidStrafe.reset();
         pidStrafe.enable();
 
@@ -304,9 +304,9 @@ public class IMUTimeDriveMecanum {
 
         double initialAngle = getAngle();
 
-        pidDrive.defineSetpoint(initialAngle);
-        pidDrive.defineInputRange(-90, 90);
-        pidDrive.defineOutputRange(0, power);
+        pidDrive.setSetpoint(initialAngle);
+        pidDrive.setInputRange(0, 360);
+        pidDrive.setOutputRange(0, power);
         pidDrive.reset();
         pidDrive.enable();
 
@@ -353,9 +353,9 @@ public class IMUTimeDriveMecanum {
 
         double initialAngle = getAngle();
 
-        pidDrive.defineSetpoint(initialAngle);
-        pidDrive.defineInputRange(-90, 90);
-        pidDrive.defineOutputRange(0, power);
+        pidDrive.setSetpoint(initialAngle);
+        pidDrive.setInputRange(0, 360);
+        pidDrive.setOutputRange(0, power);
         pidDrive.reset();
         pidDrive.enable();
 

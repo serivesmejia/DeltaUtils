@@ -3,7 +3,7 @@ package com.github.deltarobotics9351.deltadrive.drive.mecanum.pid;
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
 import com.github.deltarobotics9351.deltadrive.parameters.EncoderDriveConstants;
 import com.github.deltarobotics9351.pid.PIDConstants;
-import com.github.deltarobotics9351.pid.PIDControl;
+import com.github.deltarobotics9351.pid.PIDController;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -31,7 +31,7 @@ public class IMUEncoderDriveMecanum {
 
     LinearOpMode currentOpMode;
 
-    PIDControl pidRotate, pidStrafe, pidDrive;
+    PIDController pidRotate, pidStrafe, pidDrive;
 
     public IMUEncoderDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
         this.hdw = hdw;
@@ -49,37 +49,26 @@ public class IMUEncoderDriveMecanum {
         hdw.wheelBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void initPIDRotate(PIDConstants pid){
+    public void initPIDRotate(double p, double i, double d){
         if(pidRotate == null) {
-            pidRotate = new PIDControl(pid);
+            pidRotate = new PIDController(p, i, d);
             pidRotate.disable();
         }
     }
 
     public void setPIDRotate(double p, double i, double d){
-        pidRotate.setPID(new PIDConstants(p,i,d));
+        pidRotate.setPID(p, i, d);
     }
 
-    public void initPIDStrafe(PIDConstants pid){
+    public void initPIDStrafe(double p, double i, double d){
         if(pidStrafe == null) {
-            pidStrafe = new PIDControl(pid);
+            pidStrafe = new PIDController(p, i, d);
             pidStrafe.disable();
         }
     }
 
     public void setPIDStrafe(double p, double i, double d){
-        pidStrafe.setPID(new PIDConstants(p,i,d));
-    }
-
-    public void initPIDDrive(PIDConstants pid){
-        if(pidDrive == null) {
-            pidDrive = new PIDControl(pid);
-            pidDrive.disable();
-        }
-    }
-
-    public void setPIDDrive(PIDConstants pid){
-        pidDrive.setPID(pid);
+        pidStrafe.setPID(p, i, d);
     }
 
     public void initIMU(){
@@ -133,9 +122,9 @@ public class IMUEncoderDriveMecanum {
     {
         if (Math.abs(degrees) > 359) degrees = (int) Math.copySign(359, degrees);
 
-        pidRotate.defineSetpoint(degrees);
-        pidRotate.defineInputRange(0, degrees);
-        pidRotate.defineOutputRange(0, power);
+        pidRotate.setSetpoint(degrees);
+        pidRotate.setInputRange(0, degrees);
+        pidRotate.setOutputRange(0, power);
         pidRotate.setTolerance(1);
         pidRotate.enable();
 
@@ -253,9 +242,9 @@ public class IMUEncoderDriveMecanum {
 
         double initialAngle = getAngle();
 
-        pidStrafe.defineSetpoint(initialAngle);
-        pidStrafe.defineInputRange(-90, 90);
-        pidStrafe.defineOutputRange(0, power);
+        pidStrafe.setSetpoint(initialAngle);
+        pidStrafe.setInputRange(0, 360);
+        pidStrafe.setOutputRange(0, power);
         pidStrafe.setTolerance(1);
         pidStrafe.reset();
         pidStrafe.enable();
@@ -271,7 +260,7 @@ public class IMUEncoderDriveMecanum {
         newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
         newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
 
-        hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
+        hdw.wheelFrontLeft.setTargetPosition(-newFrontLeftTarget);
         hdw.wheelFrontRight.setTargetPosition(-newFrontRightTarget);
         hdw.wheelBackLeft.setTargetPosition(-newBackLeftTarget);
         hdw.wheelBackRight.setTargetPosition(-newBackRightTarget);
@@ -333,9 +322,9 @@ public class IMUEncoderDriveMecanum {
 
         double initialAngle = getAngle();
 
-        pidStrafe.defineSetpoint(initialAngle);
-        pidStrafe.defineInputRange(-90, 90);
-        pidStrafe.defineOutputRange(0, power);
+        pidStrafe.setSetpoint(initialAngle);
+        pidStrafe.setInputRange(0, 360);
+        pidStrafe.setOutputRange(0, power);
         pidStrafe.setTolerance(1);
         pidStrafe.reset();
         pidStrafe.enable();
@@ -351,7 +340,7 @@ public class IMUEncoderDriveMecanum {
         newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
         newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
 
-        hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
+        hdw.wheelFrontLeft.setTargetPosition(-newFrontLeftTarget);
         hdw.wheelFrontRight.setTargetPosition(-newFrontRightTarget);
         hdw.wheelBackLeft.setTargetPosition(-newBackLeftTarget);
         hdw.wheelBackRight.setTargetPosition(-newBackRightTarget);
@@ -414,9 +403,9 @@ public class IMUEncoderDriveMecanum {
 
         double initialAngle = getAngle();
 
-        pidDrive.defineSetpoint(initialAngle);
-        pidDrive.defineInputRange(-90, 90);
-        pidDrive.defineOutputRange(0, power);
+        pidDrive.setSetpoint(initialAngle);
+        pidDrive.setInputRange(0, 360);
+        pidDrive.setOutputRange(0, power);
         pidDrive.reset();
         pidDrive.enable();
 
@@ -431,7 +420,7 @@ public class IMUEncoderDriveMecanum {
         newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
         newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
 
-        hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
+        hdw.wheelFrontLeft.setTargetPosition(-newFrontLeftTarget);
         hdw.wheelFrontRight.setTargetPosition(-newFrontRightTarget);
         hdw.wheelBackLeft.setTargetPosition(-newBackLeftTarget);
         hdw.wheelBackRight.setTargetPosition(-newBackRightTarget);
@@ -497,9 +486,9 @@ public class IMUEncoderDriveMecanum {
 
         double initialAngle = getAngle();
 
-        pidDrive.defineSetpoint(initialAngle);
-        pidDrive.defineInputRange(-90, 90);
-        pidDrive.defineOutputRange(0, power);
+        pidDrive.setSetpoint(initialAngle);
+        pidDrive.setInputRange(0, 360);
+        pidDrive.setOutputRange(0, power);
         pidDrive.reset();
         pidDrive.enable();
 
@@ -514,7 +503,7 @@ public class IMUEncoderDriveMecanum {
         newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
         newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
 
-        hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
+        hdw.wheelFrontLeft.setTargetPosition(-newFrontLeftTarget);
         hdw.wheelFrontRight.setTargetPosition(-newFrontRightTarget);
         hdw.wheelBackLeft.setTargetPosition(-newBackLeftTarget);
         hdw.wheelBackRight.setTargetPosition(-newBackRightTarget);

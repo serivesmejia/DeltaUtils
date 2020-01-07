@@ -1,14 +1,12 @@
 package com.github.deltarobotics9351.deltadrive;
 
 import com.github.deltarobotics9351.deltadrive.drive.mecanum.EncoderDriveMecanum;
-import com.github.deltarobotics9351.deltadrive.drive.mecanum.IMUTurnMecanum;
 import com.github.deltarobotics9351.deltadrive.drive.mecanum.JoystickDriveMecanum;
 import com.github.deltarobotics9351.deltadrive.drive.mecanum.TimeDriveMecanum;
 import com.github.deltarobotics9351.deltadrive.drive.mecanum.pid.IMUEncoderDriveMecanum;
 import com.github.deltarobotics9351.deltadrive.drive.mecanum.pid.IMUTimeDriveMecanum;
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
 import com.github.deltarobotics9351.deltadrive.utils.ChassisType;
-import com.github.deltarobotics9351.pid.PIDConstants;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
@@ -63,13 +61,18 @@ public class DeltaDrivePIDMecanum {
         }
     }
 
-    public void setPID(PIDConstants rotatePID, PIDConstants strafePID, PIDConstants drivePID){
-        imuTimeDrive.initPIDRotate(rotatePID);
-        imuTimeDrive.initPIDStrafe(strafePID);
-        imuTimeDrive.initPIDDrive(drivePID);
+    public void setPIDDrive(double p, double i, double d){
+        imuTimeDrive.initPIDDrive(p, i, d);
+    }
 
-        imuEncoderDrive.initPIDRotate(rotatePID);
-        imuEncoderDrive.initPIDStrafe(strafePID);
+    public void setPIDStrafe(double p, double i, double d){
+        imuEncoderDrive.initPIDStrafe(p, i, d);
+        imuTimeDrive.initPIDStrafe(p, i, d);
+    }
+
+    public void setPIDRotate(double p, double i, double d){
+        imuEncoderDrive.initPIDRotate(p, i, d);
+        imuTimeDrive.initPIDRotate(p, i, d);
     }
 
     public void joystick(Gamepad gamepad, boolean controlSpeedWithTriggers, double maxMinusSpeed, double maxSpeed){

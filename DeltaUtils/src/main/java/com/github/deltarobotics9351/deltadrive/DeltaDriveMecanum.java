@@ -1,7 +1,7 @@
 package com.github.deltarobotics9351.deltadrive;
 
 import com.github.deltarobotics9351.deltadrive.drive.mecanum.EncoderDriveMecanum;
-import com.github.deltarobotics9351.deltadrive.drive.mecanum.IMUTurnMecanum;
+import com.github.deltarobotics9351.deltadrive.drive.mecanum.IMUDriveMecanum;
 import com.github.deltarobotics9351.deltadrive.drive.mecanum.JoystickDriveMecanum;
 import com.github.deltarobotics9351.deltadrive.drive.mecanum.TimeDriveMecanum;
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
@@ -19,7 +19,7 @@ public class DeltaDriveMecanum {
     private Telemetry telemetry;
 
     public EncoderDriveMecanum encoderDrive;
-    public IMUTurnMecanum imuDrive;
+    public IMUDriveMecanum imuDrive;
     private JoystickDriveMecanum joystickDrive;
     public TimeDriveMecanum timeDrive;
 
@@ -40,7 +40,7 @@ public class DeltaDriveMecanum {
         }
 
         encoderDrive = new EncoderDriveMecanum(hdw, telemetry);
-        imuDrive = new IMUTurnMecanum(hdw, telemetry, currentOpMode);
+        imuDrive = new IMUDriveMecanum(hdw, telemetry, currentOpMode);
         joystickDrive = new JoystickDriveMecanum(hdw);
         timeDrive = new TimeDriveMecanum(hdw, telemetry);
 

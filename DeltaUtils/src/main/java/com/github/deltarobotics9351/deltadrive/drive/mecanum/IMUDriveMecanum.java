@@ -14,7 +14,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
-public class IMUTurnMecanum {
+public class IMUDriveMecanum {
 
     public BNO055IMU imu;
     DeltaHardware hdw;
@@ -31,7 +31,7 @@ public class IMUTurnMecanum {
 
     LinearOpMode currentOpMode;
 
-    public IMUTurnMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
+    public IMUDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
         this.hdw = hdw;
         this.telemetry = telemetry;
         this.currentOpMode = currentOpMode;

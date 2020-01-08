@@ -111,7 +111,7 @@ public class IMUDriveMecanum {
         else return;
 
         // definimos el power de los motores
-        defineAllWheelPower(frontleftpower,-frontrightpower,-backleftpower,-backrightpower);
+        defineAllWheelPower(frontleftpower,frontrightpower,backleftpower,backrightpower);
 
         // rotaremos hasta que se complete la vuelta
         if (degrees < 0)
@@ -144,6 +144,10 @@ public class IMUDriveMecanum {
 
     public void strafeRight(double power, double time){
 
+        power = Math.abs(power);
+
+        IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT = Math.abs(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT);
+
         long finalMillis = System.currentTimeMillis() + (long)(time*1000);
 
         double initialAngle = getAngle();
@@ -154,35 +158,37 @@ public class IMUDriveMecanum {
 
             double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
 
-            double error = deltaAngle * Range.clip(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT, 0, 1);
+            double correction = deltaAngle * (Range.clip(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT, 0, 1) * power);
+
+            correction = Range.clip(correction, 0, 1);
 
             if(getAngle() < initialAngle){
 
                 frontleft = power;
-                frontright = -power * error;
+                frontright = -power + correction;
                 backleft = -power;
-                backright = power * error;
+                backright = power - correction;
 
                 telemetry.addData("frontleft", frontleft);
                 telemetry.addData("frontright", frontright);
                 telemetry.addData("backleft", backleft);
                 telemetry.addData("backright", backright);
-                telemetry.addData("error value", error);
+                telemetry.addData("correction", correction);
                 telemetry.addData("deltaAngle", deltaAngle);
                 telemetry.update();
 
             }else if(getAngle() > initialAngle){
 
-                frontleft = power * error;
+                frontleft = power - correction;
                 frontright = -power;
-                backleft = -power * error;
+                backleft = -power + correction;
                 backright = power;
 
                 telemetry.addData("frontleft", frontleft);
                 telemetry.addData("frontright", frontright);
                 telemetry.addData("backleft", backleft);
                 telemetry.addData("backright", backright);
-                telemetry.addData("error value", error);
+                telemetry.addData("correction", correction);
                 telemetry.addData("deltaAngle", deltaAngle);
                 telemetry.update();
 
@@ -191,7 +197,7 @@ public class IMUDriveMecanum {
                 frontright = -power;
                 backleft = -power;
                 backright = power;
-                telemetry.addData("frontleft", -frontleft);
+                telemetry.addData("frontleft", frontleft);
                 telemetry.addData("frontright", frontright);
                 telemetry.addData("backleft", backleft);
                 telemetry.addData("backright", backright);
@@ -214,6 +220,10 @@ public class IMUDriveMecanum {
 
     public void strafeLeft(double power, double time){
 
+        power = Math.abs(power);
+
+        IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT = Math.abs(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT);
+
         long finalMillis = System.currentTimeMillis() + (long)(time*1000);
 
         double initialAngle = getAngle();
@@ -224,35 +234,37 @@ public class IMUDriveMecanum {
 
             double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
 
-            double error = deltaAngle * Range.clip(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT, 0, 1);
+            double correction = deltaAngle * (Range.clip(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT, 0, 1) * power);
+
+            correction = Range.clip(correction, 0, 1);
 
             if(getAngle() < initialAngle){
 
                 frontleft = -power;
-                frontright = power * error;
+                frontright = power - correction;
                 backleft = power;
-                backright = -power * error;
+                backright = -power + correction;
 
                 telemetry.addData("frontleft", frontleft);
                 telemetry.addData("frontright", frontright);
                 telemetry.addData("backleft", backleft);
                 telemetry.addData("backright", backright);
-                telemetry.addData("error value", error);
+                telemetry.addData("correction", correction);
                 telemetry.addData("deltaAngle", deltaAngle);
                 telemetry.update();
 
             }else if(getAngle() > initialAngle){
 
-                frontleft = -power * error;
+                frontleft = -power + correction;
                 frontright = power;
-                backleft = power * error;
+                backleft = power - correction;
                 backright = -power;
 
                 telemetry.addData("frontleft", frontleft);
                 telemetry.addData("frontright", frontright);
                 telemetry.addData("backleft", backleft);
                 telemetry.addData("backright", backright);
-                telemetry.addData("error value", error);
+                telemetry.addData("correction", correction);
                 telemetry.addData("deltaAngle", deltaAngle);
                 telemetry.update();
 
@@ -300,7 +312,7 @@ public class IMUDriveMecanum {
     }
 
     private void defineAllWheelPower(double frontleft, double frontright, double backleft, double backright){
-        hdw.wheelFrontLeft.setPower(frontleft);
+        hdw.wheelFrontLeft.setPower(-frontleft);
         hdw.wheelFrontRight.setPower(-frontright);
         hdw.wheelBackLeft.setPower(-backleft);
         hdw.wheelBackRight.setPower(-backright);
@@ -317,8 +329,7 @@ public class IMUDriveMecanum {
     private void correctRotation(double expectedAngle){
 
         double deltaAngle = calculateDeltaAngles(getAngle(), expectedAngle);
-
-        rotate(deltaAngle, 0.3);
+        rotate(deltaAngle, 0.5);
 
     }
 

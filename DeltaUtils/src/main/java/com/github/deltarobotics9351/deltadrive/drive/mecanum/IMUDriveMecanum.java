@@ -85,11 +85,11 @@ public class IMUDriveMecanum {
         return globalAngle;
     }
 
+    int correctedTimes = 0;
+
     public void rotate(double degrees, double power)
     {
         double  backleftpower, backrightpower, frontrightpower, frontleftpower;
-
-        if (Math.abs(degrees) > 359) degrees = (int) Math.copySign(359, degrees);
 
         // reiniciamos el IMU
         resetAngle();
@@ -138,8 +138,26 @@ public class IMUDriveMecanum {
         // paramos los motores
         defineAllWheelPower(0,0,0,0);
 
+        correctRotation(degrees);
+
         // reiniciamos el IMU otra vez.
         resetAngle();
+    }
+
+    private void correctRotation(double expectedAngle){
+
+        correctedTimes += 1;
+
+        if(correctedTimes > 2) {
+            correctedTimes = 0;
+            return;
+        }
+
+        double deltaAngle = calculateDeltaAngles(expectedAngle, getAngle());
+        telemetry.addData("error", deltaAngle);
+        telemetry.update();
+        rotate(deltaAngle, 0.15);
+
     }
 
     public void strafeRight(double power, double time){
@@ -324,13 +342,6 @@ public class IMUDriveMecanum {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-    }
-
-    private void correctRotation(double expectedAngle){
-
-        double deltaAngle = calculateDeltaAngles(getAngle(), expectedAngle);
-        rotate(deltaAngle, 0.5);
-
     }
 
     //esta funcion sirve para esperar que el robot este totalmente estatico.

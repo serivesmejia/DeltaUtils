@@ -51,33 +51,33 @@ public class TimeDriveMecanum {
     //el movementDescription es simplemente para mostrarlo en un mensaje telemetry (driver station)
 
     //hacia adelante
-    public void forward(double power, double timeSegs) {
-        setAllWheelPower(power, power, power, power, timeSegs, "forward");
+    public void forward(double power, double timeSecs) {
+        setAllWheelPower(power, power, power, power, timeSecs, "forward");
     }
 
     //hacia atras
-    public void backwards(double power, double timeSegs) {
-        setAllWheelPower(-power, -power, -power, -power, timeSegs, "backwards");
+    public void backwards(double power, double timeSecs) {
+        setAllWheelPower(-power, -power, -power, -power, timeSecs, "backwards");
     }
 
     //deslizarse a la izquierda
-    public void strafeRight(double power, double timeSegs) {
-        setAllWheelPower(power, -power, -power, power, timeSegs, "strafeLeft");
+    public void strafeRight(double power, double timeSecs) {
+        setAllWheelPower(power, -power, -power, power, timeSecs, "strafeLeft");
     }
 
     //deslizarse a la izquierda
-    public void strafeLeft(double power, double timeSegs) {
-        setAllWheelPower(-power, power, power, -power, timeSegs, "strafeRight");
+    public void strafeLeft(double power, double timeSecs) {
+        setAllWheelPower(-power, power, power, -power, timeSecs, "strafeRight");
     }
 
     //girar a la derecha
-    public void turnRight(double power, double timeSegs) {
-        setAllWheelPower(power, -power, power, -power, timeSegs, "turnRight");
+    public void turnRight(double power, double timeSecs) {
+        setAllWheelPower(power, -power, power, -power, timeSecs, "turnRight");
     }
 
     //girar a la izquierda
-    public void turnLeft(double power, double timeSegs) {
-        setAllWheelPower(-power, power, -power, power, timeSegs, "turnLeft");
+    public void turnLeft(double power, double timeSecs) {
+        setAllWheelPower(-power, power, -power, power, timeSecs, "turnLeft");
     }
 
     public void sleep(long millis){

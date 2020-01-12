@@ -18,13 +18,13 @@ public class JoystickDriveMecanum {
 
     public JoystickDriveMecanum(DeltaHardware hdw){ this.hdw = hdw; }
 
-    public void joystick(Gamepad gamepad1, double turbo){
+    public void joystick(Gamepad gamepad, double turbo){
 
         this.turbo = turbo;
 
-        double y1 = gamepad1.left_stick_y;
-        double x1 = -gamepad1.left_stick_x;
-        double x2 = -gamepad1.right_stick_x;
+        double y1 = -gamepad.left_stick_y;
+        double x1 = gamepad.left_stick_x;
+        double x2 = gamepad.right_stick_x;
         wheelFrontRightPower = y1 - x2 - x1;
         wheelBackRightPower = y1 - x2 + x1;
         wheelFrontLeftPower = y1 + x2 + x1;

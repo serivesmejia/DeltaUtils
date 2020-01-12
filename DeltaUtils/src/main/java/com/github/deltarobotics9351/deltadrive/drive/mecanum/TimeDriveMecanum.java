@@ -19,10 +19,10 @@ public class TimeDriveMecanum {
     //(el tiempo es en segundos)
 
     public void setAllWheelPower(double frontleft, double frontright, double backleft, double backright, double time, String movementDescription){
-        hdw.wheelFrontLeft.setPower(-frontleft);
-        hdw.wheelFrontRight.setPower(-frontright);
-        hdw.wheelBackLeft.setPower(-backleft);
-        hdw.wheelBackRight.setPower(-backright);
+        hdw.wheelFrontLeft.setPower(frontleft);
+        hdw.wheelFrontRight.setPower(frontright);
+        hdw.wheelBackLeft.setPower(backleft);
+        hdw.wheelBackRight.setPower(backright);
 
         //mandamos mensajes telemetry para informar sobre lo que esta pasando
         telemetry.addData("movement", movementDescription);

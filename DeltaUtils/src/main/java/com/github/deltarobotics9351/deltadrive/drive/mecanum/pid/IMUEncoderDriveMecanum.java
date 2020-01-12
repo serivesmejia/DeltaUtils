@@ -1,7 +1,7 @@
 package com.github.deltarobotics9351.deltadrive.drive.mecanum.pid;
 
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
-import com.github.deltarobotics9351.deltadrive.parameters.EncoderDriveConstants;
+import com.github.deltarobotics9351.deltadrive.parameters.EncoderDriveParameters;
 import com.github.deltarobotics9351.pid.PIDController;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -234,8 +234,8 @@ public class IMUEncoderDriveMecanum {
 
         power = Math.abs(power);
 
-        double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
-                (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
+        double COUNTS_PER_INCH = (EncoderDriveParameters.COUNTS_PER_REV * EncoderDriveParameters.DRIVE_GEAR_REDUCTION) /
+                (EncoderDriveParameters.WHEEL_DIAMETER_INCHES * 3.1415);
 
         resetAngle();
 
@@ -314,8 +314,8 @@ public class IMUEncoderDriveMecanum {
 
         power = Math.abs(power);
 
-        double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
-                (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
+        double COUNTS_PER_INCH = (EncoderDriveParameters.COUNTS_PER_REV * EncoderDriveParameters.DRIVE_GEAR_REDUCTION) /
+                (EncoderDriveParameters.WHEEL_DIAMETER_INCHES * 3.1415);
 
         resetAngle();
 
@@ -339,10 +339,10 @@ public class IMUEncoderDriveMecanum {
         newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
         newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (-inches * COUNTS_PER_INCH);
 
-        hdw.wheelFrontLeft.setTargetPosition(-newFrontLeftTarget);
-        hdw.wheelFrontRight.setTargetPosition(-newFrontRightTarget);
-        hdw.wheelBackLeft.setTargetPosition(-newBackLeftTarget);
-        hdw.wheelBackRight.setTargetPosition(-newBackRightTarget);
+        hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
+        hdw.wheelFrontRight.setTargetPosition(newFrontRightTarget);
+        hdw.wheelBackLeft.setTargetPosition(newBackLeftTarget);
+        hdw.wheelBackRight.setTargetPosition(newBackRightTarget);
 
         // Turn On RUN_TO_POSITION
         hdw.wheelFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -395,8 +395,8 @@ public class IMUEncoderDriveMecanum {
     public void forward(double power, double inches){
         power = Math.abs(power);
 
-        double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
-                (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
+        double COUNTS_PER_INCH = (EncoderDriveParameters.COUNTS_PER_REV * EncoderDriveParameters.DRIVE_GEAR_REDUCTION) /
+                (EncoderDriveParameters.WHEEL_DIAMETER_INCHES * 3.1415);
 
         resetAngle();
 
@@ -478,8 +478,8 @@ public class IMUEncoderDriveMecanum {
     public void backwards(double power, double inches){
         power = Math.abs(power);
 
-        double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
-                (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
+        double COUNTS_PER_INCH = (EncoderDriveParameters.COUNTS_PER_REV * EncoderDriveParameters.DRIVE_GEAR_REDUCTION) /
+                (EncoderDriveParameters.WHEEL_DIAMETER_INCHES * 3.1415);
 
         resetAngle();
 

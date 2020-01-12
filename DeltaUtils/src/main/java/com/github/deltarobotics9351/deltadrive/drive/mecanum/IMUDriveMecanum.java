@@ -7,9 +7,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
-import com.github.deltarobotics9351.deltadrive.parameters.IMUDriveConstants;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.github.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
@@ -31,33 +31,38 @@ public class IMUDriveMecanum {
 
     LinearOpMode currentOpMode;
 
+    IMUDriveParameters parameters;
+
     public IMUDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
         this.hdw = hdw;
         this.telemetry = telemetry;
         this.currentOpMode = currentOpMode;
     }
 
-    public void initIMU(){
+    public void initIMU(IMUDriveParameters parameters){
+        this.parameters = parameters;
+
+        parameters.secureParameters();
+
         frontleft = hdw.wheelFrontLeft;
         frontright = hdw.wheelFrontRight;
         backleft = hdw.wheelBackLeft;
         backright = hdw.wheelBackRight;
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        BNO055IMU.Parameters param = new BNO055IMU.Parameters();
 
-        parameters.mode                = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled      = false;
+        param.mode                = BNO055IMU.SensorMode.IMU;
+        param.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        param.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        param.loggingEnabled      = false;
 
         imu = hdw.hdwMap.get(BNO055IMU.class, "imu");
 
-        imu.initialize(parameters);
-
+        imu.initialize(param);
     }
 
     public void waitForIMUCalibration(){
-        while (!imu.isGyroCalibrated()){ }
+        while (!imu.isGyroCalibrated() && currentOpMode.opModeIsActive()){ }
     }
 
     public String getIMUCalibrationStatus(){
@@ -90,6 +95,8 @@ public class IMUDriveMecanum {
     public void rotate(double degrees, double power)
     {
         double  backleftpower, backrightpower, frontrightpower, frontleftpower;
+
+        parameters.secureParameters();
 
         // reiniciamos el IMU
         resetAngle();
@@ -148,7 +155,7 @@ public class IMUDriveMecanum {
 
         correctedTimes += 1;
 
-        if(correctedTimes > 2) {
+        if(correctedTimes > parameters.ROTATE_MAX_CORRECTION_TIMES) {
             correctedTimes = 0;
             return;
         }
@@ -156,15 +163,15 @@ public class IMUDriveMecanum {
         double deltaAngle = calculateDeltaAngles(expectedAngle, getAngle());
         telemetry.addData("error", deltaAngle);
         telemetry.update();
-        rotate(deltaAngle, 0.15);
+        rotate(deltaAngle, parameters.ROTATE_CORRECTION_POWER); //0.15
 
     }
 
     public void strafeRight(double power, double time){
 
-        power = Math.abs(power);
+        parameters.secureParameters();
 
-        IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT = Math.abs(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT);
+        power = Math.abs(power);
 
         long finalMillis = System.currentTimeMillis() + (long)(time*1000);
 
@@ -176,7 +183,7 @@ public class IMUDriveMecanum {
 
             double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
 
-            double correction = deltaAngle * (Range.clip(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT, 0, 1) * power);
+            double correction = deltaAngle * (parameters.STRAFING_COUNTERACT_CONSTANT * power);
 
             correction = Range.clip(correction, 0, 1);
 
@@ -238,9 +245,9 @@ public class IMUDriveMecanum {
 
     public void strafeLeft(double power, double time){
 
-        power = Math.abs(power);
+        parameters.secureParameters();
 
-        IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT = Math.abs(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT);
+        power = Math.abs(power);
 
         long finalMillis = System.currentTimeMillis() + (long)(time*1000);
 
@@ -252,7 +259,7 @@ public class IMUDriveMecanum {
 
             double deltaAngle = calculateDeltaAngles(initialAngle, getAngle());
 
-            double correction = deltaAngle * (Range.clip(IMUDriveConstants.STRAFING_COUNTERACT_CONSTANT, 0, 1) * power);
+            double correction = deltaAngle * (parameters.STRAFING_COUNTERACT_CONSTANT * power);
 
             correction = Range.clip(correction, 0, 1);
 
@@ -318,7 +325,7 @@ public class IMUDriveMecanum {
         globalAngle = 0;
     }
 
-    private double calculateDeltaAngles(double angle1, double angle2){
+    public static double calculateDeltaAngles(double angle1, double angle2){
         double deltaAngle = angle1 - angle2;
 
         if (deltaAngle < -180)
@@ -330,10 +337,10 @@ public class IMUDriveMecanum {
     }
 
     private void defineAllWheelPower(double frontleft, double frontright, double backleft, double backright){
-        hdw.wheelFrontLeft.setPower(-frontleft);
-        hdw.wheelFrontRight.setPower(-frontright);
-        hdw.wheelBackLeft.setPower(-backleft);
-        hdw.wheelBackRight.setPower(-backright);
+        hdw.wheelFrontLeft.setPower(frontleft);
+        hdw.wheelFrontRight.setPower(frontright);
+        hdw.wheelBackLeft.setPower(backleft);
+        hdw.wheelBackRight.setPower(backright);
     }
 
     public void sleep(long millis){

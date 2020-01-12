@@ -1,13 +1,14 @@
 package com.github.deltarobotics9351.deltadrive.drive.mecanum;
 
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
-import com.github.deltarobotics9351.deltadrive.parameters.EncoderDriveConstants;
+import com.github.deltarobotics9351.deltadrive.parameters.EncoderDriveParameters;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class       EncoderDriveMecanum {
+public class EncoderDriveMecanum {
 
     public DeltaHardware hdw;
 
@@ -15,9 +16,15 @@ public class       EncoderDriveMecanum {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    public EncoderDriveMecanum(DeltaHardware hdw, Telemetry telemetry){
+    private LinearOpMode currentOpMode;
+
+    private EncoderDriveParameters parameters;
+
+    public EncoderDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode, EncoderDriveParameters parameters){
         this.hdw = hdw;
         this.telemetry = telemetry;
+        this.currentOpMode = currentOpMode;
+        this.parameters = parameters;
 
         hdw.wheelFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         hdw.wheelFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -38,8 +45,10 @@ public class       EncoderDriveMecanum {
                              double backright,
                              double timeoutS) {
 
-        double COUNTS_PER_INCH = (EncoderDriveConstants.COUNTS_PER_REV * EncoderDriveConstants.DRIVE_GEAR_REDUCTION) /
-                (EncoderDriveConstants.WHEEL_DIAMETER_INCHES * 3.1415);
+        parameters.secureParameters();
+
+        double COUNTS_PER_INCH = (parameters.COUNTS_PER_REV * parameters.DRIVE_GEAR_REDUCTION) /
+                (parameters.WHEEL_DIAMETER_INCHES * 3.1415);
 
         int newFrontLeftTarget;
         int newFrontRightTarget;
@@ -53,9 +62,9 @@ public class       EncoderDriveMecanum {
         newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (backright * COUNTS_PER_INCH);
 
         hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
-        hdw.wheelFrontRight.setTargetPosition(-newFrontRightTarget);
-        hdw.wheelBackLeft.setTargetPosition(-newBackLeftTarget);
-        hdw.wheelBackRight.setTargetPosition(-newBackRightTarget);
+        hdw.wheelFrontRight.setTargetPosition(newFrontRightTarget);
+        hdw.wheelBackLeft.setTargetPosition(newBackLeftTarget);
+        hdw.wheelBackRight.setTargetPosition(newBackRightTarget);
 
         // Turn On RUN_TO_POSITION
         hdw.wheelFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -65,10 +74,10 @@ public class       EncoderDriveMecanum {
 
         // reset the timeout time and start motion.
         runtime.reset();
-        hdw.wheelFrontLeft.setPower(Math.abs(speed));
-        hdw.wheelFrontRight.setPower(Math.abs(speed));
-        hdw.wheelBackLeft.setPower(Math.abs(speed));
-        hdw.wheelBackRight.setPower(Math.abs(speed));
+        hdw.wheelFrontLeft.setPower(Math.abs(speed) * parameters.LEFT_WHEELS_TURBO);
+        hdw.wheelFrontRight.setPower(Math.abs(speed) * parameters.RIGHT_WHEELS_TURBO);
+        hdw.wheelBackLeft.setPower(Math.abs(speed) * parameters.LEFT_WHEELS_TURBO);
+        hdw.wheelBackRight.setPower(Math.abs(speed) * parameters.RIGHT_WHEELS_TURBO);
 
         // keep looping while we are still active, and there is time left, and both motors are running.
         // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -79,8 +88,8 @@ public class       EncoderDriveMecanum {
         while ((runtime.seconds() < timeoutS) &&
                 (hdw.wheelFrontRight.isBusy() &&
                         hdw.wheelFrontLeft.isBusy() &&
-                        hdw.wheelBackRight.isBusy() &&
-                        hdw.wheelBackLeft.isBusy())) {
+                        hdw.wheelBackLeft.isBusy() &&
+                        hdw.wheelBackRight.isBusy())) {
 
             telemetry.addData("[>]", "Running to %7d :%7d : %7d :%7d",
                     newFrontLeftTarget,

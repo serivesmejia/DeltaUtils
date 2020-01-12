@@ -1,6 +1,5 @@
 package com.github.deltarobotics9351.deltasystem.subsystems;
 
-import com.github.deltarobotics9351.deltadrive.DeltaDriveMecanum;
 import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
 import com.github.deltarobotics9351.deltasystem.utils.HardwareType;
 
@@ -10,8 +9,6 @@ public class MecanumChassisSubSystem extends MotionSubSystem {
         super(name);
     }
 
-    public DeltaDriveMecanum driveMecanum;
-
     public DeltaHardware deltaHardware;
 
     String frontleft;
@@ -19,7 +16,7 @@ public class MecanumChassisSubSystem extends MotionSubSystem {
     String backleft;
     String backright;
 
-    public void defineChassisMotors(String frontleft, String frontright, String backleft, String backright){
+    public final void defineChassisMotors(String frontleft, String frontright, String backleft, String backright){
 
         registerHardware(frontleft, HardwareType.DcMotor);
         registerHardware(frontright, HardwareType.DcMotor);
@@ -34,6 +31,8 @@ public class MecanumChassisSubSystem extends MotionSubSystem {
     }
 
     @Override
-    public void __init(){ }
+    public void __init(){
+
+    }
 
 }

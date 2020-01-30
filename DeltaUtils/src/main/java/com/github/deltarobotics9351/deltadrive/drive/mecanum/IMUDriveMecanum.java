@@ -33,9 +33,9 @@ public class IMUDriveMecanum {
 
     IMUDriveParameters parameters;
 
-    public IMUDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
+    public IMUDriveMecanum(DeltaHardware hdw, LinearOpMode currentOpMode){
         this.hdw = hdw;
-        this.telemetry = telemetry;
+        this.telemetry = currentOpMode.telemetry;
         this.currentOpMode = currentOpMode;
     }
 
@@ -94,6 +94,8 @@ public class IMUDriveMecanum {
 
     public void rotate(double degrees, double power)
     {
+        if(!isIMUCalibrated()) return;
+
         double  backleftpower, backrightpower, frontrightpower, frontleftpower;
 
         parameters.secureParameters();
@@ -168,6 +170,8 @@ public class IMUDriveMecanum {
     }
 
     public void strafeRight(double power, double time){
+
+        if(!isIMUCalibrated()) return;
 
         parameters.secureParameters();
 
@@ -244,6 +248,8 @@ public class IMUDriveMecanum {
     }
 
     public void strafeLeft(double power, double time){
+
+        if(!isIMUCalibrated()) return;
 
         parameters.secureParameters();
 

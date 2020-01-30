@@ -44,10 +44,11 @@ public class DeltaHardware {
 		wheelFrontRight = frontright;
 		wheelBackLeft = backleft;
 		wheelBackRight = backright;
+
         wheelFrontLeft.setDirection(DcMotor.Direction.FORWARD);
-        wheelFrontRight.setDirection(DcMotor.Direction.FORWARD);
+        wheelFrontRight.setDirection(DcMotor.Direction.REVERSE);
         wheelBackLeft.setDirection(DcMotor.Direction.FORWARD);
-        wheelBackRight.setDirection(DcMotor.Direction.FORWARD);
+        wheelBackRight.setDirection(DcMotor.Direction.REVERSE);
 
         wheelFrontRight.setPower(0);
         wheelBackRight.setPower(0);
@@ -74,9 +75,9 @@ public class DeltaHardware {
         wheelHDriveMiddle = hdrivemiddle;
 
         wheelFrontLeft.setDirection(DcMotor.Direction.FORWARD);
-        wheelFrontLeft.setDirection(DcMotor.Direction.FORWARD);
-        wheelFrontLeft.setDirection(DcMotor.Direction.FORWARD);
-        wheelFrontLeft.setDirection(DcMotor.Direction.FORWARD);
+        wheelFrontRight.setDirection(DcMotor.Direction.FORWARD);
+        wheelBackLeft.setDirection(DcMotor.Direction.FORWARD);
+        wheelBackRight.setDirection(DcMotor.Direction.FORWARD);
         wheelHDriveMiddle.setDirection(DcMotor.Direction.FORWARD);
 
         wheelFrontRight.setPower(0);

@@ -31,9 +31,9 @@ public class IMUTimeDriveMecanum {
 
     PIDController pidRotate, pidStrafe, pidDrive;
 
-    public IMUTimeDriveMecanum(DeltaHardware hdw, Telemetry telemetry, LinearOpMode currentOpMode){
+    public IMUTimeDriveMecanum(DeltaHardware hdw, LinearOpMode currentOpMode){
         this.hdw = hdw;
-        this.telemetry = telemetry;
+        this.telemetry = currentOpMode.telemetry;
         this.currentOpMode = currentOpMode;
     }
 
@@ -119,6 +119,8 @@ public class IMUTimeDriveMecanum {
 
     public void rotate(double degrees, double power)
     {
+        if(!isIMUCalibrated()) return;
+
         // restart imu angle tracking.
         resetAngle();
 
@@ -151,21 +153,21 @@ public class IMUTimeDriveMecanum {
             // On right turn we have to get off zero first.
             while (currentOpMode.opModeIsActive() && getAngle() == 0)
             {
-                defineAllWheelPower(power, -power, power, -power);
+                defineAllWheelPower(power, power, power, power);
                 sleep(100);
             }
 
             do
             {
                 power = pidRotate.performPID(getAngle()); // power will be - on right turn.
-                defineAllWheelPower(power, -power, power, -power);
+                defineAllWheelPower(power, power, power, power);
             } while (currentOpMode.opModeIsActive() && !pidRotate.onTarget());
         }
         else    // left turn.
             do
             {
                 power = pidRotate.performPID(getAngle()); // power will be + on left turn.
-                defineAllWheelPower(power, -power, power, -power);
+                defineAllWheelPower(power, power, power, power);
             } while (currentOpMode.opModeIsActive() && !pidRotate.onTarget());
 
         // turn the motors off.
@@ -196,6 +198,8 @@ public class IMUTimeDriveMecanum {
     }
 
     public void strafeRight(double power, double timeSecs){
+
+        if(!isIMUCalibrated()) return;
 
         power = Math.abs(power);
 
@@ -248,6 +252,8 @@ public class IMUTimeDriveMecanum {
 
     public void strafeLeft(double power, double timeSecs){
 
+        if(!isIMUCalibrated()) return;
+
         power = Math.abs(power);
 
         resetAngle();
@@ -297,6 +303,9 @@ public class IMUTimeDriveMecanum {
     }
 
     public void forward(double power, double timeSecs){
+
+        if(!isIMUCalibrated()) return;
+
         power = Math.abs(power);
 
         resetAngle();
@@ -346,6 +355,8 @@ public class IMUTimeDriveMecanum {
     }
 
     public void backwards(double power, double timeSecs){
+        if(!isIMUCalibrated()) return;
+
         power = Math.abs(power);
 
         resetAngle();

@@ -94,6 +94,9 @@ public class IMUDriveMecanum {
 
     public void rotate(double degrees, double power)
     {
+
+        power = Math.abs(power);
+
         if(!isIMUCalibrated()) return;
 
         double  backleftpower, backrightpower, frontrightpower, frontleftpower;
@@ -170,6 +173,8 @@ public class IMUDriveMecanum {
     }
 
     public void strafeRight(double power, double time){
+
+        power = Math.abs(power);
 
         if(!isIMUCalibrated()) return;
 
@@ -248,6 +253,8 @@ public class IMUDriveMecanum {
     }
 
     public void strafeLeft(double power, double time){
+
+        power = Math.abs(power);
 
         if(!isIMUCalibrated()) return;
 
@@ -344,9 +351,9 @@ public class IMUDriveMecanum {
 
     private void defineAllWheelPower(double frontleft, double frontright, double backleft, double backright){
         hdw.wheelFrontLeft.setPower(frontleft);
-        hdw.wheelFrontRight.setPower(frontright);
+        hdw.wheelFrontRight.setPower(-frontright);
         hdw.wheelBackLeft.setPower(backleft);
-        hdw.wheelBackRight.setPower(backright);
+        hdw.wheelBackRight.setPower(-backright);
     }
 
     public void sleep(long millis){

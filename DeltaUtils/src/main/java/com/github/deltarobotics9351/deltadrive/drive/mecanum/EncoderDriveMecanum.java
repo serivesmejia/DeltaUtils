@@ -43,7 +43,7 @@ public class EncoderDriveMecanum {
                              double frontright,
                              double backleft,
                              double backright,
-                             double timeoutS) {
+                             double timeoutS, String movementDescription) {
 
         parameters.secureParameters();
 
@@ -57,9 +57,9 @@ public class EncoderDriveMecanum {
 
         // Determine new target position, and pass to motor controller
         newFrontLeftTarget = hdw.wheelFrontLeft.getCurrentPosition() + (int) (frontleft * COUNTS_PER_INCH);
-        newFrontRightTarget = hdw.wheelFrontRight.getCurrentPosition() + (int) (frontright * COUNTS_PER_INCH);
+        newFrontRightTarget = hdw.wheelFrontRight.getCurrentPosition() + (int) (-frontright * COUNTS_PER_INCH);
         newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (backleft * COUNTS_PER_INCH);
-        newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (backright * COUNTS_PER_INCH);
+        newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (-backright * COUNTS_PER_INCH);
 
         hdw.wheelFrontLeft.setTargetPosition(newFrontLeftTarget);
         hdw.wheelFrontRight.setTargetPosition(newFrontRightTarget);
@@ -91,6 +91,8 @@ public class EncoderDriveMecanum {
                         hdw.wheelBackLeft.isBusy() &&
                         hdw.wheelBackRight.isBusy())) {
 
+            telemetry.addData("movement", movementDescription);
+
             telemetry.addData("[>]", "Running to %7d :%7d : %7d :%7d",
                     newFrontLeftTarget,
                     newFrontRightTarget,
@@ -121,27 +123,33 @@ public class EncoderDriveMecanum {
     }
 
     public void forward(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, inches, inches, inches, inches, timeoutS);
+        inches = Math.abs(inches);
+        encoderDrive(speed, inches, inches, inches, inches, timeoutS, "forward");
     }
 
     public void backwards(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, -inches, -inches, -inches, -inches, timeoutS);
+        inches = Math.abs(inches);
+        encoderDrive(speed, -inches, -inches, -inches, -inches, timeoutS, "backwards");
     }
 
     public void strafeLeft(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, inches, -inches, -inches, inches, timeoutS);
+        inches = Math.abs(inches);
+        encoderDrive(speed, inches, -inches, -inches, inches, timeoutS, "strafeLeft");
     }
 
     public void strafeRight(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, -inches, inches, inches, -inches, timeoutS);
+        inches = Math.abs(inches);
+        encoderDrive(speed, -inches, inches, inches, -inches, timeoutS, "strafeRight");
     }
 
     public void turnRight(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, inches, -inches, inches, -inches, timeoutS);
+        inches = Math.abs(inches);
+        encoderDrive(speed, inches, -inches, inches, -inches, timeoutS, "turnRight");
     }
 
     public void turnLeft(double inches, double speed, double timeoutS) {
-        encoderDrive(speed, -inches, inches, -inches, inches, timeoutS);
+        inches = Math.abs(inches);
+        encoderDrive(speed, -inches, inches, -inches, inches, timeoutS, "turnLeft");
     }
 
 }

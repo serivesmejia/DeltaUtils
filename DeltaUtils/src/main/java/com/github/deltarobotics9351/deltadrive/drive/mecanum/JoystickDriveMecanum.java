@@ -21,6 +21,8 @@ public class JoystickDriveMecanum {
 
     public void joystick(Gamepad gamepad, double turbo){
 
+        turbo = Math.abs(turbo);
+
         this.turbo = turbo;
 
         turbo = Range.clip(Math.abs(turbo), 0, 1);
@@ -28,8 +30,8 @@ public class JoystickDriveMecanum {
         double y1 = -gamepad.left_stick_y;
         double x1 = gamepad.left_stick_x;
         double x2 = gamepad.right_stick_x;
-        wheelFrontRightPower = (y1 - x2 - x1);
-        wheelBackRightPower = (y1 - x2 + x1);
+        wheelFrontRightPower = -(y1 - x2 - x1);
+        wheelBackRightPower = -(y1 - x2 + x1);
         wheelFrontLeftPower = (y1 + x2 + x1);
         wheelBackLeftPower = (y1 + x2 - x1);
 

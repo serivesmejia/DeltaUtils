@@ -20,9 +20,9 @@ public class TimeDriveMecanum {
 
     public void setAllWheelPower(double frontleft, double frontright, double backleft, double backright, double time, String movementDescription){
         hdw.wheelFrontLeft.setPower(frontleft);
-        hdw.wheelFrontRight.setPower(frontright);
+        hdw.wheelFrontRight.setPower(-frontright);
         hdw.wheelBackLeft.setPower(backleft);
-        hdw.wheelBackRight.setPower(backright);
+        hdw.wheelBackRight.setPower(-backright);
 
         //mandamos mensajes telemetry para informar sobre lo que esta pasando
         telemetry.addData("movement", movementDescription);
@@ -52,31 +52,37 @@ public class TimeDriveMecanum {
 
     //hacia adelante
     public void forward(double power, double timeSecs) {
+        power = Math.abs(power);
         setAllWheelPower(power, power, power, power, timeSecs, "forward");
     }
 
     //hacia atras
     public void backwards(double power, double timeSecs) {
+        power = Math.abs(power);
         setAllWheelPower(-power, -power, -power, -power, timeSecs, "backwards");
     }
 
     //deslizarse a la izquierda
     public void strafeRight(double power, double timeSecs) {
+        power = Math.abs(power);
         setAllWheelPower(power, -power, -power, power, timeSecs, "strafeLeft");
     }
 
     //deslizarse a la izquierda
     public void strafeLeft(double power, double timeSecs) {
+        power = Math.abs(power);
         setAllWheelPower(-power, power, power, -power, timeSecs, "strafeRight");
     }
 
     //girar a la derecha
     public void turnRight(double power, double timeSecs) {
+        power = Math.abs(power);
         setAllWheelPower(power, -power, power, -power, timeSecs, "turnRight");
     }
 
     //girar a la izquierda
     public void turnLeft(double power, double timeSecs) {
+        power = Math.abs(power);
         setAllWheelPower(-power, power, -power, power, timeSecs, "turnLeft");
     }
 

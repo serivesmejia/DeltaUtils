@@ -21,10 +21,11 @@ allprojects {
 ## Features
  
 **Mecanum wheels:**
-   - IMU sensor turns
+   - IMU sensor turns w/ auto corrections
    - Time based drive
    - Encoder based drive
    - PID with IMU turns and strafing
+   - Math classes (Vector, Rotation, Pos, etc)
    
 ## TO-DO
    - Wiki and sample classes

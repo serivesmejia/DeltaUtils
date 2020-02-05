@@ -34,3 +34,4 @@ allprojects {
       - X-Drive 
    - OpenCV pipelines
    - Systems and Subsystems
+   - State Machines

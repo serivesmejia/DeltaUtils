@@ -21,16 +21,23 @@ allprojects {
 ## Features
  
 **Mecanum wheels:**
-   - IMU sensor turns
+   - IMU sensor turns w/automatic corrections
    - Time based drive
    - Encoder based drive
-   - PID with IMU turns and strafing
+   - PID with IMU turns
+   
+**Math:**
+   - Vector2d 
+   - Rotation2d (Degrees, Radians, From X & Y)
+   - Pos2d
    
 ## TO-DO
    - Wiki and sample classes
    - More chassis types:
-      - 4-wheel omnidirectional
+      - 2-motor 4-wheel omni
+      - 4-wheel omni
       - H-Drive 
       - X-Drive 
    - OpenCV pipelines
    - Systems and Subsystems
+   - State Machines

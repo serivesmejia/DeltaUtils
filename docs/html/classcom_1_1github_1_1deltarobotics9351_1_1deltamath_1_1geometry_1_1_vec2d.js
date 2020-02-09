@@ -6,6 +6,7 @@ var classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d =
     [ "add", "classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a59f2e013c117262dc1fe22d54d340a9a", null ],
     [ "divide", "classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a4b12ce2c622d7379b80c00ac36f8e416", null ],
     [ "invert", "classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a480fbe34ba0c91dc2b6a052640f1c524", null ],
+    [ "mag", "classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a0225e1a6ae6e3293767e80afe8df3beb", null ],
     [ "multiply", "classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#ab1a89e7a0e3205c46fa062e5c9cb9e63", null ],
     [ "rotate", "classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a47b57f009dc0519a6f3a5f7983cfeb7c", null ],
     [ "setX", "classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a2265434914c4b9516d48313e43de9c2b", null ],

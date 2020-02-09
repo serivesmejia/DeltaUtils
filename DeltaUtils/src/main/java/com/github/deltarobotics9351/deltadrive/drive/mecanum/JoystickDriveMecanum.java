@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class JoystickDriveMecanum {
 
-
     //wheel motor power
     public double wheelFrontRightPower = 0;
     public double wheelFrontLeftPower = 0;
@@ -37,10 +36,9 @@ public class JoystickDriveMecanum {
     public void joystick(Gamepad gamepad, double turbo){
 
         turbo = Math.abs(turbo);
+        turbo = Range.clip(Math.abs(turbo), 0, 1);
 
         this.turbo = turbo;
-
-        turbo = Range.clip(Math.abs(turbo), 0, 1);
 
         double y1 = -gamepad.left_stick_y;
         double x1 = gamepad.left_stick_x;

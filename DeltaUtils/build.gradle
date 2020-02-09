@@ -50,5 +50,3 @@ dependencies {
     implementation (name: 'Hardware-release', ext: 'aar')
     implementation (name: 'FtcCommon-release', ext: 'aar')
 }
-
-

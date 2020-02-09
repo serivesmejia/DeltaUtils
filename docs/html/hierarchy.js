@@ -11,9 +11,11 @@ var hierarchy =
     [ "com.github.deltarobotics9351.deltadrive.drive.mecanum.IMUDrivePIDMecanum", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html", null ],
     [ "com.github.deltarobotics9351.deltadrive.utils.Invert", "enumcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_invert.html", null ],
     [ "com.github.deltarobotics9351.deltadrive.drive.mecanum.JoystickDriveMecanum", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_joystick_drive_mecanum.html", null ],
+    [ "com.github.deltarobotics9351.deltadrive.drive.mecanum.JoystickFieldCentricDriveMecanum", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_joystick_field_centric_drive_mecanum.html", null ],
     [ "com.github.deltarobotics9351.pid.PIDConstants", "classcom_1_1github_1_1deltarobotics9351_1_1pid_1_1_p_i_d_constants.html", null ],
     [ "com.github.deltarobotics9351.pid.PIDController", "classcom_1_1github_1_1deltarobotics9351_1_1pid_1_1_p_i_d_controller.html", null ],
     [ "com.github.deltarobotics9351.deltamath.geometry.Pose2d", "classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_pose2d.html", null ],
+    [ "com.github.deltarobotics9351.deltadrive.utils.RobotHeading", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_robot_heading.html", null ],
     [ "com.github.deltarobotics9351.deltamath.geometry.Rot2d", "classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_rot2d.html", null ],
     [ "com.github.deltarobotics9351.deltasystem.subsystems.SubSystem", "classcom_1_1github_1_1deltarobotics9351_1_1deltasystem_1_1subsystems_1_1_sub_system.html", [
       [ "com.github.deltarobotics9351.deltasystem.subsystems.MotionSubSystem", "classcom_1_1github_1_1deltarobotics9351_1_1deltasystem_1_1subsystems_1_1_motion_sub_system.html", [

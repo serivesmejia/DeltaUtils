@@ -63,8 +63,15 @@ public class Vec2d {
     }
 
     /**
+     * @return the magnitude of the vector
+     */
+    public double mag(){
+        return Math.hypot(x(), y());
+    }
+
+    /**
      * Adds another Vec2d to this Vec2d
-     * @param o the Vector
+     * @param o the Vector to subtract to this vector
      */
     public void add(Vec2d o){
         setX(o.x() + x());
@@ -73,7 +80,7 @@ public class Vec2d {
 
     /**
      * Subtracts another Vec2d to this Vec2d
-     * @param o the Vector
+     * @param o the Vector to subtract to this vector
      */
     public void subtract(Vec2d o){
         setX(x() - o.x());
@@ -106,6 +113,10 @@ public class Vec2d {
         setY(-y());
     }
 
+    /**
+     * Multiply this Vec2d's X and Y by a value
+     * @param by value to multiply by
+     */
     public void multiply(double by){
         setX(x() * by);
         setY(x() * by);

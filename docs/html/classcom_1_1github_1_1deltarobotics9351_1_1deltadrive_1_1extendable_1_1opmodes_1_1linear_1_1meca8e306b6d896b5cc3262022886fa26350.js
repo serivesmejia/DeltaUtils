@@ -1,13 +1,16 @@
 var classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350 =
 [
     [ "_runOpMode", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#a6d110abd1fe3f5f32f1c330413f23604", null ],
-    [ "defineHardware", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#adb2885004308780da152cef7d4b2875a", null ],
     [ "joystick", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#ad6fbf9f165d495f216c82238b7dc7361", null ],
     [ "runOpMode", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#aae5b6362024442e2847074002d82fd7c", null ],
+    [ "setup", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#a3592e12b4cd44c8702b2e1c7df848973", null ],
     [ "backLeft", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#af1eb82a7163630c33f038427e0dae132", null ],
     [ "backRight", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#aa7d652230fab5adb19709693c4890b45", null ],
     [ "frontLeft", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#abd20125c5dde64a86e01cd995a3ec028", null ],
     [ "frontRight", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#aaccc245f2cc3d6890cfbc8c29ae21b79", null ],
+    [ "RESET_ROBOT_HEADING", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#ab4f7da417354969f21ba09d22e87e49c", null ],
+    [ "ROBOT_INITIAL_HEADING", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#a9a6143f9effc034d6d3d8680cc4886ab", null ],
+    [ "UPDATE_ROBOT_HEADING", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#a31fb65dc1e4b8929570aa02485fc11f9", null ],
     [ "WHEELS_BRAKE", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#aa20c8f7a6b078616fc4570fe0b64a9e0", null ],
     [ "WHEELS_INVERT", "classcom_1_1github_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1meca8e306b6d896b5cc3262022886fa26350.html#a54b0b0cdef355cf63f0cf49556caa040", null ]
 ];

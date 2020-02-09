@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="Delta Robotics logo 128 (no bg).png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">DeltaUtils
-   &#160;<span id="projectnumber">v1.8-beta</span>
+   &#160;<span id="projectnumber">v1.9-beta</span>
    </div>
    <div id="projectbrief">Easy to use library containing many functions to control your FTC robot.</div>
   </td>
@@ -110,6 +110,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac841595a890ae22adfd174ebcf0c2432"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f305629adefb0eee3f0e56b3cb46ce1"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a9f305629adefb0eee3f0e56b3cb46ce1">toString</a> ()</td></tr>
 <tr class="separator:a9f305629adefb0eee3f0e56b3cb46ce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0225e1a6ae6e3293767e80afe8df3beb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a0225e1a6ae6e3293767e80afe8df3beb">mag</a> ()</td></tr>
+<tr class="separator:a0225e1a6ae6e3293767e80afe8df3beb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59f2e013c117262dc1fe22d54d340a9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a59f2e013c117262dc1fe22d54d340a9a">add</a> (<a class="el" href="classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html">Vec2d</a> o)</td></tr>
 <tr class="separator:a59f2e013c117262dc1fe22d54d340a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33e1d7ce42b5c6fa12c8f1197b740584"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a33e1d7ce42b5c6fa12c8f1197b740584">subtract</a> (<a class="el" href="classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html">Vec2d</a> o)</td></tr>
@@ -219,7 +221,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Adds another <a class="el" href="classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html">Vec2d</a> to this <a class="el" href="classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html">Vec2d</a> </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">o</td><td>the Vector </td></tr>
+    <tr><td class="paramname">o</td><td>the Vector to subtract to this vector </td></tr>
   </table>
   </dd>
 </dl>
@@ -268,6 +270,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a0225e1a6ae6e3293767e80afe8df3beb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0225e1a6ae6e3293767e80afe8df3beb">&#9670;&nbsp;</a></span>mag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double com.github.deltarobotics9351.deltamath.geometry.Vec2d.mag </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the magnitude of the vector </dd></dl>
+
+</div>
+</div>
 <a id="ab1a89e7a0e3205c46fa062e5c9cb9e63"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab1a89e7a0e3205c46fa062e5c9cb9e63">&#9670;&nbsp;</a></span>multiply()</h2>
 
@@ -283,6 +303,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Multiply this <a class="el" href="classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html">Vec2d</a>'s X and Y by a value </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">by</td><td>value to multiply by </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -375,7 +401,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Subtracts another <a class="el" href="classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html">Vec2d</a> to this <a class="el" href="classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html">Vec2d</a> </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">o</td><td>the Vector </td></tr>
+    <tr><td class="paramname">o</td><td>the Vector to subtract to this vector </td></tr>
   </table>
   </dd>
 </dl>

@@ -22,15 +22,13 @@ public class PIDController
 
     /**
      * Allocate a PID object with the given constants for P, I, D
-     * @param Kp the proportional coefficient
-     * @param Ki the integral coefficient
-     * @param Kd the derivative coefficient
+     * @param pidConst Object containing the PID constants
      */
-    public PIDController(double Kp, double Ki, double Kd)
+    public PIDController(PIDConstants pidConst)
     {
-        m_P = Kp;
-        m_I = Ki;
-        m_D = Kd;
+        m_P = pidConst.p;
+        m_I = pidConst.i;
+        m_D = pidConst.d;
     }
 
     /**
@@ -87,15 +85,13 @@ public class PIDController
     /**
      * Set the PID Controller gain parameters.
      * Set the proportional, integral, and differential coefficients.
-     * @param p Proportional coefficient
-     * @param i Integral coefficient
-     * @param d Differential coefficient
+     * @param pidConst Object containing the PID constants
      */
-    public void setPID(double p, double i, double d)
+    public void setPID(PIDConstants pidConst)
     {
-        m_P = p;
-        m_I = i;
-        m_D = d;
+        m_P = pidConst.p;
+        m_I = pidConst.i;
+        m_D = pidConst.d;
     }
 
     /**

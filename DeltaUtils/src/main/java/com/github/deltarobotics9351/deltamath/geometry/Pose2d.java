@@ -2,20 +2,20 @@ package com.github.deltarobotics9351.deltamath.geometry;
 
 public class Pose2d {
 
-    private Vector2d vec;
+    private Vec2d vec;
     private double heading;
 
     public Pose2d(){
-        vec = new Vector2d(0, 0);
+        vec = new Vec2d(0, 0);
         heading = 0;
     }
 
     public Pose2d(double x, double y, double heading){
-        vec = new Vector2d(x, y);
+        vec = new Vec2d(x, y);
         this.heading = heading;
     }
 
-    public Pose2d(Vector2d vec, double heading){
+    public Pose2d(Vec2d vec, double heading){
         this.vec = vec;
         this.heading = heading;
     }
@@ -25,7 +25,7 @@ public class Pose2d {
         heading = o.heading;
     }
 
-    public Vector2d getPosition(){
+    public Vec2d getPosition(){
         return vec;
     }
 

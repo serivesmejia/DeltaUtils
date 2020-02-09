@@ -1,6 +1,6 @@
 package com.github.deltarobotics9351.deltasystem.subsystems;
 
-import com.github.deltarobotics9351.deltadrive.hardware.DeltaHardware;
+import com.github.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
 import com.github.deltarobotics9351.deltasystem.utils.HardwareType;
 
 public class MecanumChassisSubSystem extends MotionSubSystem {
@@ -9,7 +9,7 @@ public class MecanumChassisSubSystem extends MotionSubSystem {
         super(name);
     }
 
-    public DeltaHardware deltaHardware;
+    public DeltaHardwareMecanum deltaHardware;
 
     String frontleft;
     String frontright;

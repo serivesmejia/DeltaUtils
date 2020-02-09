@@ -44,7 +44,7 @@ public class Vec2d {
     }
 
     /**
-     * @param The Y value to set to this Vec2d
+     * @param y the Y value to set to this Vec2d
      */
     public void setY(double y){
         vec[1] = y;

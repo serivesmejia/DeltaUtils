@@ -24,10 +24,11 @@ allprojects {
 ## Features
  
 **Mecanum wheels:**
-   - IMU sensor turns w/automatic corrections
+   - Normal & field centric joystick drive 
+   - IMU sensor turns with automatic correction
+   - PID with IMU turns
    - Time based drive
    - Encoder based drive
-   - PID with IMU turns
    
 **Math:**
    - Vector2d 

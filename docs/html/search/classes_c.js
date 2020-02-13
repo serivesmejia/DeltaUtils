@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['vec2d_301',['Vec2d',['../classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html',1,'com::github::deltarobotics9351::deltamath::geometry']]],
-  ['vector2d_302',['Vector2d',['../classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vector2d.html',1,'com::github::deltarobotics9351::deltamath::geometry']]],
-  ['vector2f_303',['Vector2f',['../classcom_1_1github_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vector2f.html',1,'com::github::deltarobotics9351::deltamath::geometry']]]
+  ['subsystem_307',['SubSystem',['../classcom_1_1deltarobotics9351_1_1deltasystem_1_1subsystems_1_1_sub_system.html',1,'com::deltarobotics9351::deltasystem::subsystems']]],
+  ['system_308',['System',['../classcom_1_1deltarobotics9351_1_1deltasystem_1_1_system.html',1,'com::deltarobotics9351::deltasystem']]]
 ];

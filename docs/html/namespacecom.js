@@ -1,4 +1,4 @@
 var namespacecom =
 [
-    [ "github", "namespacecom_1_1github.html", "namespacecom_1_1github" ]
+    [ "deltarobotics9351", "namespacecom_1_1deltarobotics9351.html", "namespacecom_1_1deltarobotics9351" ]
 ];

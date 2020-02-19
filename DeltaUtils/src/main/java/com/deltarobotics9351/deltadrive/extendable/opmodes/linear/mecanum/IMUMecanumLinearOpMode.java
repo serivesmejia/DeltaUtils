@@ -1,11 +1,13 @@
 package com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum;
 
+import com.deltarobotics9351.LibraryData;
 import com.deltarobotics9351.deltadrive.drive.mecanum.IMUDriveMecanum;
 import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
 import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 import com.deltarobotics9351.deltadrive.utils.Invert;
 import com.deltarobotics9351.deltadrive.utils.RobotHeading;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
+import com.deltarobotics9351.deltamath.geometry.Twist2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -88,9 +90,9 @@ public class IMUMecanumLinearOpMode extends LinearOpMode {
         imuDrive = new IMUDriveMecanum(deltaHardware, telemetry);
         imuDrive.initIMU(imuParameters);
 
-        while (!imuDrive.isIMUCalibrated() && !isStopRequested()) {
+        while(!imuDrive.isIMUCalibrated() && !isStopRequested()){
             telemetry.addData("[/!\\]", "Calibrating IMU Gyro sensor, please wait...");
-            telemetry.addData("[Status]", imuDrive.getIMUCalibrationStatus());
+            telemetry.addData("[Status]", imuDrive.getIMUCalibrationStatus() + "\nDeltaUtils v" + LibraryData.VERSION);
             telemetry.update();
         }
 
@@ -119,8 +121,8 @@ public class IMUMecanumLinearOpMode extends LinearOpMode {
 
     }
 
-    public final void rotate(Rot2d rot, double power, double timeoutS){
-        imuDrive.rotate(rot, power, timeoutS);
+    public final Twist2d rotate(Rot2d rot, double power, double timeoutS){
+        return imuDrive.rotate(rot, power, timeoutS);
     }
 
     public final Rot2d getRobotAngle(){

@@ -22,13 +22,23 @@ public class EncoderDriveParameters {
     public double     WHEEL_DIAMETER_INCHES   = 0 ;
 
     /**
-     * The right side max speed, from 0 to 1
+     * The right side % of speed, from 0 to 1
      */
     public double RIGHT_WHEELS_TURBO = 1;
     /**
-     * The left side max speed, from 0 to 1
+     * The left side % of speed, from 0 to 1
      */
     public double LEFT_WHEELS_TURBO = 1;
+
+    /**
+     * The right side % of speed, from 0 to 1
+     */
+    public double RIGHT_WHEELS_STRAFE_TURBO = 1;
+    /**
+     * The left side % of speed, from 0 to 1
+     */
+    public double LEFT_WHEELS_STRAFE_TURBO = 1;
+
 
     public EncoderDriveParameters(){ }
 

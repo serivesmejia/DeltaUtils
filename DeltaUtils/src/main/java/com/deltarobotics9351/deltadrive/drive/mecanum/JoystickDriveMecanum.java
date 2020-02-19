@@ -25,18 +25,17 @@ public class JoystickDriveMecanum {
      */
     public JoystickDriveMecanum(DeltaHardwareMecanum hdw){ this.hdw = hdw; }
 
-
     /**
      * Control a mecanum chassis using a gamepad's joysticks.
      * Use left stick to go forward, backwards and strafe, and right stick to turn
      * This method should be called always in the teleop loop to update the motor powers
      * @param gamepad the gamepad used to control the chassis.
-     * @param turbo the chassis max speed, from 0 to 1
+     * @param turbo the chassis % of speed, from 0 to 1
      */
     public void joystick(Gamepad gamepad, double turbo){
 
         turbo = Math.abs(turbo);
-        turbo = Range.clip(Math.abs(turbo), 0, 1);
+        turbo = Range.clip(turbo, 0, 1);
 
         this.turbo = turbo;
 

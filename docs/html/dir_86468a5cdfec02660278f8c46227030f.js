@@ -10,9 +10,6 @@ var dir_86468a5cdfec02660278f8c46227030f =
     [ "IMUDrivePIDMecanum.java", "_i_m_u_drive_p_i_d_mecanum_8java.html", [
       [ "IMUDrivePIDMecanum", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum" ]
     ] ],
-    [ "IMUDrivePMecanum.java", "_i_m_u_drive_p_mecanum_8java.html", [
-      [ "IMUDrivePMecanum", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_mecanum.html", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_mecanum" ]
-    ] ],
     [ "JoystickDriveMecanum.java", "_joystick_drive_mecanum_8java.html", [
       [ "JoystickDriveMecanum", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_joystick_drive_mecanum.html", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_joystick_drive_mecanum" ]
     ] ],

@@ -10,6 +10,7 @@ import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMeca
 import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
+import com.deltarobotics9351.deltamath.geometry.Twist2d;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -33,6 +34,8 @@ public class IMUDriveMecanum {
     double                  globalAngle;
 
     IMUDriveParameters parameters;
+
+    private boolean isInitialized = false;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -72,6 +75,8 @@ public class IMUDriveMecanum {
         imu = hdw.hdwMap.get(BNO055IMU.class, "imu");
 
         imu.initialize(param);
+
+        isInitialized = true;
     }
 
     /**
@@ -96,12 +101,23 @@ public class IMUDriveMecanum {
 
     private double getAngle()
     {
-        // We experimentally determined the Z axis is the axis we want to use for heading angle.
-        // We have to process the angle because the imu works in euler angles so the Z axis is
+        // We have to process the angle because the imu works in euler angles so the axis is
         // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
         // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
 
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        Orientation angles = null;
+
+        switch(parameters.IMU_AXIS) {
+            case X:
+                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
+                break;
+            case Y:
+                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YZX, AngleUnit.DEGREES);
+                break;
+            default:
+                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                break;
+        }
 
         double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
 
@@ -140,9 +156,19 @@ public class IMUDriveMecanum {
      * @param rotation
      * @param power Speed to rotate
      * @param timeoutS Max time (in seconds) that the rotation may take, set to 0 for infinite time.
+     * @return a Twist2d representing how much the robot rotated
      */
-    public void rotate(Rot2d rotation, double power, double timeoutS)
+    public Twist2d rotate(Rot2d rotation, double power, double timeoutS)
     {
+
+        if(!isInitialized){
+            telemetry.addData("[/!\\]", "Call initIMU() method before rotating.");
+            telemetry.update();
+            sleep(2000);
+            return new Twist2d();
+        }
+
+        if (!isIMUCalibrated()) return new Twist2d();
 
         resetAngle();
 
@@ -152,7 +178,7 @@ public class IMUDriveMecanum {
             runtime.reset();
             if(runtime.seconds() >= timeoutS){
                 correctedTimes = 0;
-                return;
+                return new Twist2d();
             }
         }
 
@@ -161,8 +187,6 @@ public class IMUDriveMecanum {
         }
 
         power = Math.abs(power);
-
-        if(!isIMUCalibrated()) return;
 
         double  backleftpower, backrightpower, frontrightpower, frontleftpower;
 
@@ -183,7 +207,7 @@ public class IMUDriveMecanum {
             frontleftpower = -power;
             frontrightpower = power;
         }
-        else return;
+        else return new Twist2d();
 
         // definimos el power de los motores
         defineAllWheelPower(frontleftpower,frontrightpower,backleftpower,backrightpower);
@@ -213,16 +237,16 @@ public class IMUDriveMecanum {
         // stop the movement
         defineAllWheelPower(0,0,0,0);
 
-        correctRotation(degrees);
+        return correctRotation(degrees);
     }
 
-    private void correctRotation(double expectedAngle){
+    private Twist2d correctRotation(double expectedAngle){
 
         correctedTimes += 1;
 
         if(correctedTimes > parameters.ROTATE_MAX_CORRECTION_TIMES) {
             correctedTimes = 0;
-            return;
+            return new Twist2d(0, 0, Rot2d.fromDegrees(getAngle()));
         }
 
         double deltaAngle = calculateDeltaAngles(expectedAngle, getAngle());
@@ -232,6 +256,7 @@ public class IMUDriveMecanum {
 
         rotate(Rot2d.fromDegrees(deltaAngle), parameters.ROTATE_CORRECTION_POWER, 0);
 
+        return new Twist2d(0, 0, Rot2d.fromDegrees(getAngle()));
     }
 
     /**

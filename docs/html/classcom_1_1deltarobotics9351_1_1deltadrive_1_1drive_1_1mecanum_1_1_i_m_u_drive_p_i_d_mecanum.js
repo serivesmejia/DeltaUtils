@@ -1,14 +1,17 @@
 var classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum =
 [
-    [ "IMUDrivePIDMecanum", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a03b5cbce447bb6972b4d44181d3e7e4d", null ],
+    [ "IMUDrivePIDMecanum", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#aaa9cfa25ba3fdc5b6ed37968a6ff015f", null ],
+    [ "getD", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#ac3ace268bcd095a43077a78a239e04f8", null ],
+    [ "getDeadZone", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a8b3d5bf8bee1169e101c58f5f674a737", null ],
+    [ "getI", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#aea62c67e238224d2348bee2d0c395933", null ],
     [ "getIMUCalibrationStatus", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a09142245f728ed2bdb8210f4b25de6c1", null ],
-    [ "getPID", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a35532e6a2acbee042ada2a552bcab579", null ],
+    [ "getP", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#ae96b5a1e97eaf66d2bb6c0ad2aca203e", null ],
     [ "getRobotAngle", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a5deeea53d1880000a13df5092bc50607", null ],
     [ "initIMU", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#ac565781ceabe05b70d7a7a6fe3321353", null ],
-    [ "initPID", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a50dbc87a617302ecf3917f7ea5cf440f", null ],
     [ "isIMUCalibrated", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a3142ce2b24d48d6c2688253dfbab8c90", null ],
-    [ "rotate", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a200bccd98e2bc1a3e43c905b1761e306", null ],
-    [ "setPID", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#aa4f1dba7a21529e5b3387ab32e8abf15", null ],
+    [ "rotate", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a8a5eac2f8b7ab378f1f0820e7285c485", null ],
+    [ "setDeadZone", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#ac353a04a76f4177f14b92598c5ffb419", null ],
+    [ "setPID", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#ae9c1459537b215f5d8e1dc3581e019f5", null ],
     [ "sleep", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a9098fa3c149ebdbfcbab9b4bdd73b5a8", null ],
     [ "waitForIMUCalibration", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a29eb086597a58d94f560a10f0dfe6a11", null ],
     [ "imu", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#ab268cae0eb6810acf4841ad6b74ff391", null ]

@@ -1,6 +1,7 @@
 package com.deltarobotics9351.deltadrive.drive.mecanum;
 
 import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -11,6 +12,8 @@ public class TimeDriveMecanum {
 
     DeltaHardwareMecanum hdw;
     Telemetry telemetry;
+
+    private ElapsedTime runtime = new ElapsedTime();
 
     /**
      * Constructor for the time drive class
@@ -25,7 +28,9 @@ public class TimeDriveMecanum {
     //se define el power de todos los motores y el tiempo en el que avanzaran a este power
     //la string es simplemente para mostrarla en la driver station con un mensaje telemetry.
     //(el tiempo es en segundos)
-    public void setAllWheelPower(double frontleft, double frontright, double backleft, double backright, double time, String movementDescription){
+    private void setAllWheelPower(double frontleft, double frontright, double backleft, double backright, double time, String movementDescription){
+
+        runtime.reset();
 
         switch(hdw.invert) {
             case RIGHT_SIDE:
@@ -54,26 +59,25 @@ public class TimeDriveMecanum {
                 break;
         }
 
-        //mandamos mensajes telemetry para informar sobre lo que esta pasando
-        telemetry.addData("movement", movementDescription);
-        telemetry.addData("frontleft", frontleft);
-        telemetry.addData("frontright", frontright);
-        telemetry.addData("backleft", backleft);
-        telemetry.addData("backright", backright);
-        telemetry.addData("time", time);
-        telemetry.update();
-
-        sleep((long) (time * 1000)); //se multiplica * 1000 ya que son milisegundos, y queremos que sean segundos.
+        while(runtime.seconds() <= time){
+            telemetry.addData("[Movement]", movementDescription);
+            telemetry.addData("[frontleft]", frontleft);
+            telemetry.addData("[frontright]", frontright);
+            telemetry.addData("[backleft]", backleft);
+            telemetry.addData("[backright]", backright);
+            telemetry.addData("[Time]", time);
+            telemetry.update();
+        }
 
         hdw.wheelFrontLeft.setPower(0);
         hdw.wheelFrontRight.setPower(0);
         hdw.wheelBackLeft.setPower(0);
         hdw.wheelBackRight.setPower(0);
 
-        telemetry.addData("frontleft", 0);
-        telemetry.addData("frontright", 0);
-        telemetry.addData("backleft", 0);
-        telemetry.addData("backright", 0);
+        telemetry.addData("[frontleft]", 0);
+        telemetry.addData("[frontright]", 0);
+        telemetry.addData("[backleft]", 0);
+        telemetry.addData("[backright]", 0);
         telemetry.update();
     }
 

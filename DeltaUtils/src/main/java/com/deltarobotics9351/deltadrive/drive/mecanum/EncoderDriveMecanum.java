@@ -48,7 +48,7 @@ public class EncoderDriveMecanum {
                              double frontright,
                              double backleft,
                              double backright,
-                             double timeoutS, String movementDescription) {
+                             double timeoutS, double rightTurbo, double leftTurbo, String movementDescription) {
 
         parameters.secureParameters();
 
@@ -103,36 +103,37 @@ public class EncoderDriveMecanum {
 
         // reset the timeout time and start motion.
         runtime.reset();
-        hdw.wheelFrontLeft.setPower(Math.abs(speed) * parameters.LEFT_WHEELS_TURBO);
-        hdw.wheelFrontRight.setPower(Math.abs(speed) * parameters.RIGHT_WHEELS_TURBO);
-        hdw.wheelBackLeft.setPower(Math.abs(speed) * parameters.LEFT_WHEELS_TURBO);
-        hdw.wheelBackRight.setPower(Math.abs(speed) * parameters.RIGHT_WHEELS_TURBO);
+        hdw.wheelFrontLeft.setPower(Math.abs(speed) * leftTurbo);
+        hdw.wheelFrontRight.setPower(Math.abs(speed) * rightTurbo);
+        hdw.wheelBackLeft.setPower(Math.abs(speed) * leftTurbo);
+        hdw.wheelBackRight.setPower(Math.abs(speed) * rightTurbo);
 
         // keep looping while we are still active, and there is time left, and both motors are running.
         // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
         // its target position, the motion will stop.  This is "safer" in the event that the robot will
         // always end the motion as soon as possible.
-        // However, if you require that BOTH motors have finished their moves before the robot continues
-        // onto the next step, use (isBusy() || isBusy()) in the loop test.
         while ((runtime.seconds() < timeoutS) &&
                 (hdw.wheelFrontRight.isBusy() &&
                         hdw.wheelFrontLeft.isBusy() &&
                         hdw.wheelBackLeft.isBusy() &&
                         hdw.wheelBackRight.isBusy())) {
 
-            telemetry.addData("movement", movementDescription);
+            telemetry.addData("[Movement]", movementDescription);
 
-            telemetry.addData("[>]", "Running to %7d :%7d : %7d :%7d",
+            telemetry.addData("[Target]", "%7d : %7d : %7d : %7d",
                     newFrontLeftTarget,
                     newFrontRightTarget,
                     newBackLeftTarget,
                     newBackRightTarget);
 
-            telemetry.addData("[>]", "Running at %7d :%7d : %7d :%7d",
+            telemetry.addData("[Current]", "%7d : %7d : %7d : %7d",
                     hdw.wheelFrontLeft.getCurrentPosition(),
                     hdw.wheelFrontRight.getCurrentPosition(),
                     hdw.wheelBackLeft.getCurrentPosition(),
                     hdw.wheelBackRight.getCurrentPosition());
+
+            telemetry.addData("[>]", "fLeft, fRight, bLeft, bRight");
+
             telemetry.update();
         }
 
@@ -153,32 +154,32 @@ public class EncoderDriveMecanum {
 
     public void forward(double inches, double speed, double timeoutS) {
         inches = Math.abs(inches);
-        encoderDrive(speed, inches, inches, inches, inches, timeoutS, "forward");
+        encoderDrive(speed, inches, inches, inches, inches, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO,  "forward");
     }
 
     public void backwards(double inches, double speed, double timeoutS) {
         inches = Math.abs(inches);
-        encoderDrive(speed, -inches, -inches, -inches, -inches, timeoutS, "backwards");
+        encoderDrive(speed, -inches, -inches, -inches, -inches, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, "backwards");
     }
 
     public void strafeLeft(double inches, double speed, double timeoutS) {
         inches = Math.abs(inches);
-        encoderDrive(speed, -inches, inches, inches, -inches, timeoutS, "strafeLeft");
+        encoderDrive(speed, -inches, inches, inches, -inches, timeoutS, parameters.RIGHT_WHEELS_STRAFE_TURBO, parameters.LEFT_WHEELS_STRAFE_TURBO,  "strafeLeft");
     }
 
     public void strafeRight(double inches, double speed, double timeoutS) {
         inches = Math.abs(inches);
-        encoderDrive(speed, inches, -inches, -inches, inches, timeoutS, "strafeRight");
+        encoderDrive(speed, inches, -inches, -inches, inches, timeoutS, parameters.RIGHT_WHEELS_STRAFE_TURBO, parameters.LEFT_WHEELS_STRAFE_TURBO,  "strafeRight");
     }
 
     public void turnRight(double inches, double speed, double timeoutS) {
         inches = Math.abs(inches);
-        encoderDrive(speed, inches, -inches, inches, -inches, timeoutS, "turnRight");
+        encoderDrive(speed, inches, -inches, inches, -inches, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO,  "turnRight");
     }
 
     public void turnLeft(double inches, double speed, double timeoutS) {
         inches = Math.abs(inches);
-        encoderDrive(speed, -inches, inches, -inches, inches, timeoutS, "turnLeft");
+        encoderDrive(speed, -inches, inches, -inches, inches, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO,  "turnLeft");
     }
 
 }

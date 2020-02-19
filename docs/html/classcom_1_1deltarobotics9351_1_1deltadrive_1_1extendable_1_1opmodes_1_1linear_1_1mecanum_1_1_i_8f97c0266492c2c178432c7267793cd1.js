@@ -4,7 +4,7 @@ var classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1line
     [ "backwards", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_8f97c0266492c2c178432c7267793cd1.html#a11c67676ec8599bd0fb07d80ffa520b0", null ],
     [ "forward", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_8f97c0266492c2c178432c7267793cd1.html#adf9cb453468cefa0a4f58d0f24848dc0", null ],
     [ "getRobotAngle", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_8f97c0266492c2c178432c7267793cd1.html#a1ce390b864439f1ddfa047715c1cdda2", null ],
-    [ "rotate", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_8f97c0266492c2c178432c7267793cd1.html#a37a070f9ff1aa7c9058bff0ed15d901e", null ],
+    [ "rotate", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_8f97c0266492c2c178432c7267793cd1.html#aa7e7bbc33ed23ec9c4e4e4a9d50bc7c2", null ],
     [ "runOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_8f97c0266492c2c178432c7267793cd1.html#a8ce9e029334598f545a562cd2b38b89e", null ],
     [ "setup", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_8f97c0266492c2c178432c7267793cd1.html#a843f198a979295c5571d7f110ff09abb", null ],
     [ "strafeLeft", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_8f97c0266492c2c178432c7267793cd1.html#a09ab0e4f1bfd186b3519a2324e5ee684", null ],

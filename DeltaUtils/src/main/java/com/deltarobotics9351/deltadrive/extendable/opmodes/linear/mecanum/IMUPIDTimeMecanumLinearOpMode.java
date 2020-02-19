@@ -1,5 +1,6 @@
 package com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum;
 
+import com.deltarobotics9351.LibraryData;
 import com.deltarobotics9351.deltadrive.drive.mecanum.IMUDrivePIDMecanum;
 import com.deltarobotics9351.deltadrive.drive.mecanum.TimeDriveMecanum;
 import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
@@ -7,6 +8,7 @@ import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 import com.deltarobotics9351.deltadrive.utils.Invert;
 import com.deltarobotics9351.deltadrive.utils.RobotHeading;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
+import com.deltarobotics9351.deltamath.geometry.Twist2d;
 import com.deltarobotics9351.pid.PIDConstants;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -17,21 +19,22 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class IMUPIDTimeMecanumLinearOpMode extends LinearOpMode {
 
     private IMUDrivePIDMecanum imuDrive;
-    private PIDConstants pidConstants = new PIDConstants(0, 0, 0);
+
+    private IMUDriveParameters parameters;
 
     private TimeDriveMecanum timeDrive;
 
     private DeltaHardwareMecanum deltaHardware;
 
-    /**
-     * IMU parameters that can be defined
-     */
-    public IMUDriveParameters imuParameters = new IMUDriveParameters();
-
     public DcMotor frontLeft = null;
     public DcMotor frontRight = null;
     public DcMotor backLeft = null;
     public DcMotor backRight = null;
+
+    /**
+     * IMU parameters that can be defined
+     */
+    public IMUDriveParameters imuParameters = new IMUDriveParameters();
 
     /**
      * Enum that defines which side of the chassis will be inverted (motors)
@@ -89,45 +92,20 @@ public class IMUPIDTimeMecanumLinearOpMode extends LinearOpMode {
 
         deltaHardware.initHardware(frontLeft, frontRight, backLeft, backRight, WHEELS_BRAKE);
 
-        imuDrive = new IMUDrivePIDMecanum(deltaHardware, this);
+        imuDrive = new IMUDrivePIDMecanum(deltaHardware, telemetry);
         imuDrive.initIMU(imuParameters);
-        imuDrive.initPID(pidConstants.p, pidConstants.i, pidConstants.d);
-
-        while(!imuDrive.isIMUCalibrated() && !isStopRequested()){
-            telemetry.addData("[/!\\]", "Calibrating IMU Gyro sensor, please wait...");
-            telemetry.addData("[Status]", imuDrive.getIMUCalibrationStatus());
-            telemetry.update();
-        }
 
         timeDrive = new TimeDriveMecanum(deltaHardware, telemetry);
 
-        Thread t = new Thread(new ParametersCheck());
-
-        t.start();
+        while(!imuDrive.isIMUCalibrated() && !isStopRequested()){
+            telemetry.addData("[/!\\]", "Calibrating IMU Gyro sensor, please wait...");
+            telemetry.addData("[Status]", imuDrive.getIMUCalibrationStatus() + "\nDeltaUtils v" + LibraryData.VERSION);
+            telemetry.update();
+        }
 
         _runOpMode();
 
         RobotHeading.stop();
-    }
-
-
-    /**
-     * Overridable void to be executed after all required variables are initialized
-     */
-    public void _runOpMode(){
-
-    }
-
-    /**
-     * Overridable void to define all wheel motors, and the uppercase variables
-     * Define frontLeft, frontRight, backLeft and backRight DcMotor variables here!
-     */
-    public void setup(){
-
-    }
-
-    public final void rotate(Rot2d rot, double power, double timeoutSecs){
-        imuDrive.rotate(rot, power, timeoutSecs);
     }
 
     public final void forward(double power, double timeSecs){
@@ -154,20 +132,64 @@ public class IMUPIDTimeMecanumLinearOpMode extends LinearOpMode {
         timeDrive.strafeRight(power, timeSecs);
     }
 
-    public final Rot2d getRobotAngle(){
-        return imuDrive.getRobotAngle();
+    /**
+     * Overridable void to be executed after all required variables are initialized
+     */
+    public void _runOpMode(){
+
     }
 
-    class ParametersCheck implements Runnable{
+    /**
+     * Overridable void to define all wheel motors, and the uppercase variables
+     * Define frontLeft, frontRight, backLeft and backRight DcMotor variables here!
+     */
+    public void setup(){
 
-        @Override
-        public void run(){
-            waitForStart();
-            if(!imuParameters.haveBeenDefined()){
-                telemetry.addData("[/!\\]", "Remember to define IMU constants, IMU functions may not work as expected because parameters are 0 by default.");
-            }
-            telemetry.update();
-        }
+    }
+
+    /**
+     * Set the PID coefficients
+     * @param pid the PID coefficients
+     */
+    public final void setPID(PIDConstants pid){
+        imuDrive.setPID(pid);
+    }
+
+    /**
+     * @return the P coefficient
+     */
+    public final double getP(){
+        return imuDrive.getP();
+    }
+
+    /**
+     * @return the I coefficient
+     */
+    public final double getI(){
+        return imuDrive.getI();
+    }
+
+    /**
+     * @return the D coefficient
+     */
+    public final double getD(){
+        return imuDrive.getD();
+    }
+
+    /**
+     * Sets the death zone, which is the minimum motor power in which the robot moves.
+     * @param deadZone the death zone mentioned above
+     */
+    public final void setDeadZone(double deadZone){
+        imuDrive.setDeadZone(deadZone);
+    }
+
+    public final Twist2d rotate(Rot2d rot, double power, double timeoutSecs){
+        return imuDrive.rotate(rot, power, timeoutSecs);
+    }
+
+    public final Rot2d getRobotAngle(){
+        return imuDrive.getRobotAngle();
     }
 
 }

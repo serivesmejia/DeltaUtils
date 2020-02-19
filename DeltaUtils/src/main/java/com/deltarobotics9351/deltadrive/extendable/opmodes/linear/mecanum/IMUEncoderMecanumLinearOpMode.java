@@ -8,6 +8,7 @@ import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 import com.deltarobotics9351.deltadrive.utils.Invert;
 import com.deltarobotics9351.deltadrive.utils.RobotHeading;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
+import com.deltarobotics9351.deltamath.geometry.Twist2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -129,8 +130,8 @@ public class IMUEncoderMecanumLinearOpMode extends LinearOpMode {
 
     }
 
-    public final void rotate(Rot2d rot, double power, double timeoutSecs){
-        imuDrive.rotate(rot, power, timeoutSecs);
+    public final Twist2d rotate(Rot2d rot, double power, double timeoutS){
+        return imuDrive.rotate(rot, power, timeoutS);
     }
 
     public final void forward(double inches, double speed, double timeOutSecs){

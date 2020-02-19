@@ -18,7 +18,7 @@ allprojects {
   }
 }
 ```
-3. Add the line `implementation 'com.github.DeltaRobotics-9351:DeltaUtils:v1.7-beta'` to TeamCode's `build.release.gradle`, inside the dependencies block
+3. Add the line `implementation 'com.github.DeltaRobotics-9351:DeltaUtils:v1.9-beta'` to TeamCode's `build.release.gradle`, inside the dependencies block
 7. Press the `Sync Now` button that should appear in the top right
 
 ## Features

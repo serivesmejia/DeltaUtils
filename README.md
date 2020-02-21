@@ -31,9 +31,10 @@ allprojects {
    - Encoder based drive
    
 **Math:**
-   - Vector2d 
-   - Rotation2d (Degrees, Radians, From X & Y)
+   - Vec2d 
+   - Rot2d (Degrees, Radians, From X & Y)
    - Pos2d
+   - Twist2d
    
 ## TO-DO
    - Wiki and sample classes

@@ -6,8 +6,6 @@ var hierarchy =
     [ "com.deltarobotics9351.deltadrive.drive.mecanum.EncoderDriveMecanum", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_encoder_drive_mecanum.html", null ],
     [ "com.deltarobotics9351.deltadrive.parameters.EncoderDriveParameters", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1parameters_1_1_encoder_drive_parameters.html", null ],
     [ "com.deltarobotics9351.deltadrive.utils.GearRatio", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_gear_ratio.html", null ],
-    [ "com.deltarobotics9351.deltasystem.utils.Hardware", "classcom_1_1deltarobotics9351_1_1deltasystem_1_1utils_1_1_hardware.html", null ],
-    [ "com.deltarobotics9351.deltasystem.utils.HardwareType", "enumcom_1_1deltarobotics9351_1_1deltasystem_1_1utils_1_1_hardware_type.html", null ],
     [ "com.deltarobotics9351.deltadrive.drive.mecanum.IMUDriveMecanum", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_mecanum.html", null ],
     [ "com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1parameters_1_1_i_m_u_drive_parameters.html", null ],
     [ "com.deltarobotics9351.deltadrive.drive.mecanum.IMUDrivePIDMecanum", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html", null ],
@@ -24,26 +22,37 @@ var hierarchy =
     [ "com.deltarobotics9351.deltamath.geometry.Pose2d", "classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_pose2d.html", null ],
     [ "com.deltarobotics9351.deltadrive.utils.RobotHeading", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_robot_heading.html", null ],
     [ "com.deltarobotics9351.deltamath.geometry.Rot2d", "classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_rot2d.html", null ],
-    [ "com.deltarobotics9351.deltasystem.subsystems.SubSystem", "classcom_1_1deltarobotics9351_1_1deltasystem_1_1subsystems_1_1_sub_system.html", [
-      [ "com.deltarobotics9351.deltasystem.subsystems.MotionSubSystem", "classcom_1_1deltarobotics9351_1_1deltasystem_1_1subsystems_1_1_motion_sub_system.html", [
-        [ "com.deltarobotics9351.deltasystem.subsystems.MecanumChassisSubSystem", "classcom_1_1deltarobotics9351_1_1deltasystem_1_1subsystems_1_1_mecanum_chassis_sub_system.html", null ]
-      ] ]
-    ] ],
-    [ "com.deltarobotics9351.deltasystem.System", "classcom_1_1deltarobotics9351_1_1deltasystem_1_1_system.html", null ],
     [ "com.deltarobotics9351.deltadrive.utils.TelemetryMessage", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_telemetry_message.html", null ],
     [ "com.deltarobotics9351.deltadrive.drive.mecanum.TimeDriveMecanum", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_time_drive_mecanum.html", null ],
     [ "com.deltarobotics9351.deltamath.geometry.Twist2d", "classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_twist2d.html", null ],
     [ "com.deltarobotics9351.deltamath.geometry.Vec2d", "classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html", null ],
     [ "LinearOpMode", null, [
-      [ "com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum.EncoderMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_encoder_mecanum_linear_op_mode.html", null ],
-      [ "com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum.IMUEncoderMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_8f97c0266492c2c178432c7267793cd1.html", null ],
-      [ "com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum.IMUMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_m_u_mecanum_linear_op_mode.html", null ],
-      [ "com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum.IMUPIDEncoderMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_904d78b82143bde2e0b6479c8472201c.html", null ],
-      [ "com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum.IMUPIDMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_73ca0bb377e9b095fcf34a82027026e0.html", null ],
-      [ "com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum.IMUPIDTimeMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_f4f87978955e90b1f87334e0fceaa22c.html", null ],
-      [ "com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum.IMUTimeMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_m_u_time_mecanum_linear_op_mode.html", null ],
-      [ "com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum.JoystickMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_joystick_mecanum_linear_op_mode.html", null ],
-      [ "com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum.TimeMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_time_mecanum_linear_op_mode.html", null ],
-      [ "com.deltarobotics9351.deltasystem.DeltaOpMode", "classcom_1_1deltarobotics9351_1_1deltasystem_1_1_delta_op_mode.html", null ]
+      [ "com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.EncoderMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_encoder_mecanum_linear_op_mode.html", [
+        [ "com.deltarobotics9351.deltadrive.extendable.opmodes.EncoderMecanumOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_encoder_mecanum_op_mode.html", null ]
+      ] ],
+      [ "com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUEncoderMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html", [
+        [ "com.deltarobotics9351.deltadrive.extendable.opmodes.IMUEncoderMecanumOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_encoder_mecanum_op_mode.html", null ]
+      ] ],
+      [ "com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_mecanum_linear_op_mode.html", [
+        [ "com.deltarobotics9351.deltadrive.extendable.opmodes.IMUMecanumOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_mecanum_op_mode.html", null ]
+      ] ],
+      [ "com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUPIDEncoderMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_7565377b0bcd6b35f95b514552d31043.html", [
+        [ "com.deltarobotics9351.deltadrive.extendable.opmodes.IMUPIDEncoderMecanumOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_p_i_d_encoder_mecanum_op_mode.html", null ]
+      ] ],
+      [ "com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUPIDMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_p_i_d_mecanum_linear_op_mode.html", [
+        [ "com.deltarobotics9351.deltadrive.extendable.opmodes.IMUPIDMecanumOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_p_i_d_mecanum_op_mode.html", null ]
+      ] ],
+      [ "com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUPIDTimeMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_ddf8452dd4a183d3762b074a3988d893.html", [
+        [ "com.deltarobotics9351.deltadrive.extendable.opmodes.IMUPIDTimeMecanumOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_p_i_d_time_mecanum_op_mode.html", null ]
+      ] ],
+      [ "com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUTimeMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_time_mecanum_linear_op_mode.html", [
+        [ "com.deltarobotics9351.deltadrive.extendable.opmodes.IMUTimeMecanumOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_time_mecanum_op_mode.html", null ]
+      ] ],
+      [ "com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.JoystickMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_joystick_mecanum_linear_op_mode.html", [
+        [ "com.deltarobotics9351.deltadrive.extendable.opmodes.JoystickMecanumOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_joystick_mecanum_op_mode.html", null ]
+      ] ],
+      [ "com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.TimeMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_time_mecanum_linear_op_mode.html", [
+        [ "com.deltarobotics9351.deltadrive.extendable.opmodes.TimeMecanumOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_time_mecanum_op_mode.html", null ]
+      ] ]
     ] ]
 ];

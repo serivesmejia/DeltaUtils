@@ -28,8 +28,7 @@ public class Twist2d {
 
     /**
      * Constructor for Twist2d from Vec2d and Rot2d theta values
-     * @param x
-     * @param y
+     * @param vector
      * @param theta
      */
     public Twist2d(Vec2d vector, Rot2d theta){
@@ -53,8 +52,7 @@ public class Twist2d {
 
     /**
      * Constructor for Twist2d from Vec2d and double (radians) theta values
-     * @param x
-     * @param y
+     * @param vector
      * @param theta
      */
     public Twist2d(Vec2d vector, double theta){

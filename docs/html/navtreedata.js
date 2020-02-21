@@ -45,8 +45,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_axis_8java.html",
-"classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1linear_1_1mecanum_1_1_i_m_u_time_mecanum_linear_op_mode.html#a19cc3870edd51545038187ea9892a34c",
-"functions_func_d.html"
+"classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_p_i_d_mecanum_linear_op_mode.html#ac244fe2503f77f87ddb4c756cb7d15c2",
+"enumcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_invert.html#a31a2044d03c8939455ac9cf694e2f410"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

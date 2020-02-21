@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="Delta Robotics logo 128 (no bg).png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">DeltaUtils
-   &#160;<span id="projectnumber">v1.10-beta</span>
+   &#160;<span id="projectnumber">v1.11-beta</span>
    </div>
    <div id="projectbrief">Easy to use library containing many functions to control your FTC robot.</div>
   </td>
@@ -98,8 +98,54 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:af7ce712b9c8b01299a2dfb1fede25da2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17d7028faf81b97b8854f6a118c71c11"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltamath_1_1_math_util.html#a17d7028faf81b97b8854f6a118c71c11">clamp</a> (double value, double low, double high)</td></tr>
 <tr class="separator:a17d7028faf81b97b8854f6a118c71c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae07065ac49ff549a54a594ba33d54a82"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltamath_1_1_math_util.html#ae07065ac49ff549a54a594ba33d54a82">calculateDeltaAngles</a> (double angle1, double angle2)</td></tr>
+<tr class="separator:ae07065ac49ff549a54a594ba33d54a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae07065ac49ff549a54a594ba33d54a82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae07065ac49ff549a54a594ba33d54a82">&#9670;&nbsp;</a></span>calculateDeltaAngles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double com.deltarobotics9351.deltamath.MathUtil.calculateDeltaAngles </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>angle1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>angle2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the difference (delta) between two angles (in degrees) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">angle1</td><td>The angle to be subtracted by the angle2 </td></tr>
+    <tr><td class="paramname">angle2</td><td>The angle to be subtracted to angle1 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of the angles difference, considering the -360 to 360 range. </dd></dl>
+
+</div>
+</div>
 <a id="a17d7028faf81b97b8854f6a118c71c11"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a17d7028faf81b97b8854f6a118c71c11">&#9670;&nbsp;</a></span>clamp() <span class="overload">[1/2]</span></h2>
 

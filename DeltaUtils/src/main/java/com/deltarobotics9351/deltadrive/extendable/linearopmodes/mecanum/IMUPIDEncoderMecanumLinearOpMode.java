@@ -1,24 +1,45 @@
-package com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum;
+/*
+ * Created by FTC team Delta Robotics #9351
+ *  Source code licensed under the MIT License
+ *  More info at https://choosealicense.com/licenses/mit/
+ */
 
+package com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum;
+
+import com.deltarobotics9351.LibraryData;
 import com.deltarobotics9351.deltadrive.drive.mecanum.EncoderDriveMecanum;
+import com.deltarobotics9351.deltadrive.drive.mecanum.IMUDrivePIDMecanum;
 import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
 import com.deltarobotics9351.deltadrive.parameters.EncoderDriveParameters;
+import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 import com.deltarobotics9351.deltadrive.utils.Invert;
 import com.deltarobotics9351.deltadrive.utils.RobotHeading;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
+import com.deltarobotics9351.deltamath.geometry.Twist2d;
+import com.deltarobotics9351.pid.PIDConstants;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * Remember to override setup() and define the 4 DcMotor variables in there!
  */
-public class EncoderMecanumLinearOpMode extends LinearOpMode {
+public class IMUPIDEncoderMecanumLinearOpMode extends LinearOpMode {
+
+    private IMUDrivePIDMecanum imuDrive;
 
     private EncoderDriveMecanum encoderDrive;
 
     private DeltaHardwareMecanum deltaHardware;
 
+    /**
+     * Encoder parameters that can be defined
+     */
     public EncoderDriveParameters encoderParameters = new EncoderDriveParameters();
+
+    /**
+     * IMU parameters that can be defined
+     */
+    public IMUDriveParameters imuParameters = new IMUDriveParameters();
 
     public DcMotor frontLeft = null;
     public DcMotor frontRight = null;
@@ -31,7 +52,7 @@ public class EncoderMecanumLinearOpMode extends LinearOpMode {
     public Invert WHEELS_INVERT = Invert.RIGHT_SIDE;
 
     /**
-     * boolean that indicates if motors brake when their power is 0
+     * boolean that defines if motors brake when their power is 0
      */
     public boolean WHEELS_BRAKE = true;
 
@@ -48,12 +69,12 @@ public class EncoderMecanumLinearOpMode extends LinearOpMode {
 
     /**
      * Robot's initial heading
-     * */
+     *
+     */
     public Rot2d ROBOT_INITIAL_HEADING = new Rot2d();
 
     @Override
     public final void runOpMode() {
-
         setup();
 
         if(RESET_ROBOT_HEADING){
@@ -81,7 +102,16 @@ public class EncoderMecanumLinearOpMode extends LinearOpMode {
 
         deltaHardware.initHardware(frontLeft, frontRight, backLeft, backRight, WHEELS_BRAKE);
 
+        imuDrive = new IMUDrivePIDMecanum(deltaHardware, telemetry);
+        imuDrive.initIMU(imuParameters);
+
         encoderDrive = new EncoderDriveMecanum(deltaHardware, telemetry, encoderParameters);
+
+        while(!imuDrive.isIMUCalibrated() && !isStopRequested()){
+            telemetry.addData("[/!\\]", "Calibrating IMU Gyro sensor, please wait...");
+            telemetry.addData("[Status]", imuDrive.getIMUCalibrationStatus() + "\n\nDeltaUtils v" + LibraryData.VERSION);
+            telemetry.update();
+        }
 
         Thread t = new Thread(new ParametersCheck());
 
@@ -95,7 +125,6 @@ public class EncoderMecanumLinearOpMode extends LinearOpMode {
 
     /**
      * Overridable void to be executed after all required variables are initialized
-     * (Remember to override setup() and define the 4 DcMotor variables in there!)
      */
     public void _runOpMode(){
 
@@ -107,6 +136,47 @@ public class EncoderMecanumLinearOpMode extends LinearOpMode {
      */
     public void setup(){
 
+    }
+
+    /**
+     * Set the PID coefficients
+     * @param pid the PID coefficients
+     */
+    public final void setPID(PIDConstants pid){
+        imuDrive.setPID(pid);
+    }
+
+    /**
+     * @return the P coefficient
+     */
+    public final double getP(){
+        return imuDrive.getP();
+    }
+
+    /**
+     * @return the I coefficient
+     */
+    public final double getI(){
+        return imuDrive.getI();
+    }
+
+    /**
+     * @return the D coefficient
+     */
+    public final double getD(){
+        return imuDrive.getD();
+    }
+
+    /**
+     * Sets the death zone, which is the minimum motor power in which the robot moves.
+     * @param deadZone the death zone mentioned above
+     */
+    public final void setDeadZone(double deadZone){
+        imuDrive.setDeadZone(deadZone);
+    }
+
+    public final Twist2d rotate(Rot2d rot, double power, double timeoutS){
+        return imuDrive.rotate(rot, power, timeoutS);
     }
 
     public final void forward(double inches, double speed, double timeOutSecs){
@@ -133,13 +203,17 @@ public class EncoderMecanumLinearOpMode extends LinearOpMode {
         encoderDrive.turnRight(inches, speed, timeOutSecs);
     }
 
+    public final Rot2d getRobotAngle(){
+        return imuDrive.getRobotAngle();
+    }
+
     class ParametersCheck implements Runnable{
 
         @Override
         public void run(){
             waitForStart();
-            if(!encoderParameters.haveBeenDefined()) {
-                telemetry.addData("[/!\\]", "Remember to define encoder constants, encoder functions will not work because parameters are 0 by default. ");
+            if(!encoderParameters.haveBeenDefined()){
+                telemetry.addData("[/!\\]", "Remember to define encoder constants, encoder functions will not work because parameters are 0 by default.");
             }
             telemetry.update();
         }

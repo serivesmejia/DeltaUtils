@@ -1,35 +1,33 @@
-package com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum;
+/*
+ * Created by FTC team Delta Robotics #9351
+ *  Source code licensed under the MIT License
+ *  More info at https://choosealicense.com/licenses/mit/
+ */
 
-import com.deltarobotics9351.LibraryData;
-import com.deltarobotics9351.deltadrive.drive.mecanum.IMUDrivePIDMecanum;
+package com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum;
+
+import com.deltarobotics9351.deltadrive.drive.mecanum.JoystickDriveMecanum;
 import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
-import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 import com.deltarobotics9351.deltadrive.utils.Invert;
 import com.deltarobotics9351.deltadrive.utils.RobotHeading;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
-import com.deltarobotics9351.deltamath.geometry.Twist2d;
-import com.deltarobotics9351.pid.PIDConstants;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * Remember to override setup() and define the 4 DcMotor variables in there!
  */
-public class IMUPIDMecanumLinearOpMode extends LinearOpMode {
+public class JoystickMecanumLinearOpMode extends LinearOpMode {
 
-    private IMUDrivePIDMecanum imuDrive;
-
+    private JoystickDriveMecanum joystick;
     private DeltaHardwareMecanum deltaHardware;
 
     public DcMotor frontLeft = null;
     public DcMotor frontRight = null;
     public DcMotor backLeft = null;
     public DcMotor backRight = null;
-
-    /**
-     * IMU parameters that can be defined
-     */
-    public IMUDriveParameters imuParameters = new IMUDriveParameters();
 
     /**
      * Enum that defines which side of the chassis will be inverted (motors)
@@ -87,14 +85,7 @@ public class IMUPIDMecanumLinearOpMode extends LinearOpMode {
 
         deltaHardware.initHardware(frontLeft, frontRight, backLeft, backRight, WHEELS_BRAKE);
 
-        imuDrive = new IMUDrivePIDMecanum(deltaHardware, telemetry);
-        imuDrive.initIMU(imuParameters);
-
-        while(!imuDrive.isIMUCalibrated() && !isStopRequested()){
-            telemetry.addData("[/!\\]", "Calibrating IMU Gyro sensor, please wait...");
-            telemetry.addData("[Status]", imuDrive.getIMUCalibrationStatus() + "\nDeltaUtils v" + LibraryData.VERSION);
-            telemetry.update();
-        }
+        joystick = new JoystickDriveMecanum(deltaHardware);
 
         _runOpMode();
 
@@ -117,50 +108,18 @@ public class IMUPIDMecanumLinearOpMode extends LinearOpMode {
 
     }
 
-    /**
-     * Set the PID coefficients
-     * @param pid the PID coefficients
-     */
-    public final void setPID(PIDConstants pid){
-        imuDrive.setPID(pid);
+    public final void joystick(Gamepad gamepad, boolean controlSpeedWithTriggers, double maxMinusPower){
+        if(controlSpeedWithTriggers) {
+            if (gamepad.left_trigger > 0.1) {
+                joystick.joystick(gamepad, 1 - Range.clip(gamepad.left_trigger, 0, maxMinusPower));
+            } else if (gamepad.right_trigger > 0.1) {
+                joystick.joystick(gamepad, 1 - Range.clip(gamepad.right_trigger, 0, maxMinusPower));
+            } else {
+                joystick.joystick(gamepad, 1);
+            }
+        }else{
+            joystick.joystick(gamepad, 1);
+        }
     }
-
-    /**
-     * @return the P coefficient
-     */
-    public final double getP(){
-        return imuDrive.getP();
-    }
-
-    /**
-     * @return the I coefficient
-     */
-    public final double getI(){
-        return imuDrive.getI();
-    }
-
-    /**
-     * @return the D coefficient
-     */
-    public final double getD(){
-        return imuDrive.getD();
-    }
-
-    /**
-     * Sets the death zone, which is the minimum motor power in which the robot moves.
-     * @param deadZone the death zone mentioned above
-     */
-    public final void setDeadZone(double deadZone){
-        imuDrive.setDeadZone(deadZone);
-    }
-
-    public final Twist2d rotate(Rot2d rot, double power, double timeoutS){
-        return imuDrive.rotate(rot, power, timeoutS);
-    }
-
-    public final Rot2d getRobotAngle(){
-        return imuDrive.getRobotAngle();
-    }
-
 
 }

@@ -1,3 +1,9 @@
+/*
+ * Created by FTC team Delta Robotics #9351
+ *  Source code licensed under the MIT License
+ *  More info at https://choosealicense.com/licenses/mit/
+ */
+
 package com.deltarobotics9351.deltadrive.utils;
 
 import android.util.Log;
@@ -19,7 +25,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  */
 public class RobotHeading {
 
-    private static volatile BNO055IMU imu2;
+    private static volatile BNO055IMU imu1;
 
     private static volatile boolean hasRun = false;
 
@@ -56,7 +62,7 @@ public class RobotHeading {
         calibrateIMU(hardwareMap);
 
         isRunning = true;
-        isIMUCalibrated = imu2.isGyroCalibrated();
+        isIMUCalibrated = imu1.isGyroCalibrated();
 
     }
 
@@ -81,7 +87,7 @@ public class RobotHeading {
 
         isRunning = false; //set all variables to default values
         isIMUCalibrated = false;
-        imu2 = null;
+        imu1 = null;
     }
 
     /**
@@ -109,11 +115,11 @@ public class RobotHeading {
         param.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         param.loggingEnabled      = false;
 
-        imu2 = hardwareMap.get(BNO055IMU.class, "imu 1");
+        imu1 = hardwareMap.get(BNO055IMU.class, "imu 1");
 
-        imu2.initialize(param);
+        imu1.initialize(param);
 
-        while(!imu2.isGyroCalibrated());
+        while(!imu1.isGyroCalibrated());
     }
 
     /**
@@ -143,7 +149,7 @@ public class RobotHeading {
         // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
         // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
 
-        Orientation angles = imu2.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        Orientation angles = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
 
@@ -161,7 +167,7 @@ public class RobotHeading {
 
     private static void resetAngle()
     {
-        lastAngles = imu2.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        lastAngles = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         globalAngle = 0;
     }
 
@@ -178,7 +184,7 @@ public class RobotHeading {
 
                 if(setTo != null){ heading = setTo; setTo = null; }
 
-                if(imu2.isGyroCalibrated()){
+                if(imu1.isGyroCalibrated()){
                     isWritingHeading = true;
                     heading.rotate(Rot2d.fromDegrees(getAngle()));
                     resetAngle();

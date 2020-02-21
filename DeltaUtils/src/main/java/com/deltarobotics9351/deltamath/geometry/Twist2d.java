@@ -1,3 +1,9 @@
+/*
+ * Created by FTC team Delta Robotics #9351
+ *  Source code licensed under the MIT License
+ *  More info at https://choosealicense.com/licenses/mit/
+ */
+
 package com.deltarobotics9351.deltamath.geometry;
 
 /**
@@ -9,7 +15,7 @@ public class Twist2d {
     private Rot2d theta = new Rot2d();
 
     /**
-     * Constructor for Twist2d from x, y and theta values
+     * Constructor for Twist2d from x, y and Rot2d theta values
      * @param x
      * @param y
      * @param theta
@@ -19,6 +25,44 @@ public class Twist2d {
         twi[1] = y;
         this.theta = theta;
     }
+
+    /**
+     * Constructor for Twist2d from Vec2d and Rot2d theta values
+     * @param x
+     * @param y
+     * @param theta
+     */
+    public Twist2d(Vec2d vector, Rot2d theta){
+        twi[0] = vector.x();
+        twi[1] = vector.y();
+        this.theta = theta;
+    }
+
+
+    /**
+     * Constructor for Twist2d from x, y and double (radians) theta values
+     * @param x
+     * @param y
+     * @param theta
+     */
+    public Twist2d(double x, double y, double theta){
+        twi[0] = x;
+        twi[1] = y;
+        this.theta = new Rot2d(theta);
+    }
+
+    /**
+     * Constructor for Twist2d from Vec2d and double (radians) theta values
+     * @param x
+     * @param y
+     * @param theta
+     */
+    public Twist2d(Vec2d vector, double theta){
+        twi[0] = vector.x();
+        twi[1] = vector.y();
+        this.theta = new Rot2d(theta);
+    }
+
 
     /**
      * Constructor for Twist2d
@@ -36,21 +80,26 @@ public class Twist2d {
     }
 
     /**
-     * @return the X value of this Vec2d
+     * @return the X value of this Twist2d
      */
     public double x(){
         return twi[0];
     }
 
     /**
-     * @return the Y value of this Vec2d
+     * @return the Y value of this Twist2d
      */
     public double y(){
         return twi[1];
     }
 
     /**
-     * @return the theta value of this Vec2d
+     * @return the Vec2d value of this Twist2d
+     */
+    public Vec2d vector(){ return new Vec2d(x(), y()); }
+
+    /**
+     * @return the theta value as a Rot2d of this Twist2d
      */
     public Rot2d theta(){
         return theta;
@@ -58,8 +107,7 @@ public class Twist2d {
 
     @Override
     public String toString(){
-        return "Twist2d(" + x() + ", " + y() + ", ";
+        return "Twist2d(" + x() + ", " + y() + ", " + theta.getRadians();
     }
-
 
 }

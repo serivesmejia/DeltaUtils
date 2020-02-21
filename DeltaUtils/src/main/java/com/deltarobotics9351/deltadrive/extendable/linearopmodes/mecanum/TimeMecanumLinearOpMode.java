@@ -1,36 +1,27 @@
-package com.deltarobotics9351.deltadrive.extendable.opmodes.linear.mecanum;
+/*
+ * Created by FTC team Delta Robotics #9351
+ *  Source code licensed under the MIT License
+ *  More info at https://choosealicense.com/licenses/mit/
+ */
 
-import com.deltarobotics9351.deltadrive.drive.mecanum.EncoderDriveMecanum;
-import com.deltarobotics9351.deltadrive.drive.mecanum.IMUDriveMecanum;
+package com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum;
+
+import com.deltarobotics9351.deltadrive.drive.mecanum.TimeDriveMecanum;
 import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
-import com.deltarobotics9351.deltadrive.parameters.EncoderDriveParameters;
-import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 import com.deltarobotics9351.deltadrive.utils.Invert;
 import com.deltarobotics9351.deltadrive.utils.RobotHeading;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
-import com.deltarobotics9351.deltamath.geometry.Twist2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * Remember to override setup() and define the 4 DcMotor variables in there!
  */
-public class IMUEncoderMecanumLinearOpMode extends LinearOpMode {
+public class TimeMecanumLinearOpMode extends LinearOpMode {
 
-    private IMUDriveMecanum imuDrive;
-    private EncoderDriveMecanum encoderDrive;
+    private TimeDriveMecanum timeDrive;
 
     private DeltaHardwareMecanum deltaHardware;
-
-    /**
-     * IMU parameters that can be defined
-     */
-    public IMUDriveParameters imuParameters = new IMUDriveParameters();
-
-    /**
-     * Encoder parameters that can be defined
-     */
-    public EncoderDriveParameters encoderParameters = new EncoderDriveParameters();
 
     public DcMotor frontLeft = null;
     public DcMotor frontRight = null;
@@ -60,7 +51,8 @@ public class IMUEncoderMecanumLinearOpMode extends LinearOpMode {
 
     /**
      * Robot's initial heading
-     * */
+     *
+     */
     public Rot2d ROBOT_INITIAL_HEADING = new Rot2d();
 
 
@@ -93,21 +85,7 @@ public class IMUEncoderMecanumLinearOpMode extends LinearOpMode {
 
         deltaHardware.initHardware(frontLeft, frontRight, backLeft, backRight, WHEELS_BRAKE);
 
-
-        imuDrive = new IMUDriveMecanum(deltaHardware, telemetry);
-        imuDrive.initIMU(imuParameters);
-
-        while(!imuDrive.isIMUCalibrated() && !isStopRequested()){
-            telemetry.addData("[/!\\]", "Calibrating IMU Gyro sensor, please wait...");
-            telemetry.addData("[Status]", imuDrive.getIMUCalibrationStatus());
-            telemetry.update();
-        }
-
-        encoderDrive = new EncoderDriveMecanum(deltaHardware, telemetry, encoderParameters);
-
-        Thread t = new Thread(new ParametersCheck());
-
-        t.start();
+        timeDrive = new TimeDriveMecanum(deltaHardware, telemetry);
 
         _runOpMode();
 
@@ -130,52 +108,28 @@ public class IMUEncoderMecanumLinearOpMode extends LinearOpMode {
 
     }
 
-    public final Twist2d rotate(Rot2d rot, double power, double timeoutS){
-        return imuDrive.rotate(rot, power, timeoutS);
+    public final void forward(double power, double timeSecs){
+        timeDrive.forward(power, timeSecs);
     }
 
-    public final void forward(double inches, double speed, double timeOutSecs){
-        encoderDrive.forward(inches, speed, timeOutSecs);
+    public final void backwards(double power, double timeSecs){
+        timeDrive.backwards(power, timeSecs);
     }
 
-    public final void backwards(double inches, double speed, double timeOutSecs){
-        encoderDrive.backwards(inches, speed, timeOutSecs);
+    public final void strafeLeft(double power, double timeSecs){
+        timeDrive.strafeLeft(power, timeSecs);
     }
 
-    public final void strafeLeft(double inches, double speed, double timeOutSecs){
-        encoderDrive.strafeLeft(inches, speed, timeOutSecs);
+    public final void strafeRight(double power, double timeSecs){
+        timeDrive.strafeRight(power, timeSecs);
     }
 
-    public final void strafeRight(double inches, double speed, double timeOutSecs){
-        encoderDrive.strafeRight(inches, speed, timeOutSecs);
+    public final void turnLeft(double power, double timeSecs){
+        timeDrive.turnLeft(power, timeSecs);
     }
 
-    public final void turnLeft(double inches, double speed, double timeOutSecs){
-        encoderDrive.turnLeft(inches, speed, timeOutSecs);
-    }
-
-    public final void turnRight(double inches, double speed, double timeOutSecs){
-        encoderDrive.turnRight(inches, speed, timeOutSecs);
-    }
-
-    public final Rot2d getRobotAngle(){
-        return imuDrive.getRobotAngle();
-    }
-
-    class ParametersCheck implements Runnable{
-
-        @Override
-        public void run(){
-            waitForStart();
-            if(!encoderParameters.haveBeenDefined()) {
-                telemetry.addData("[/!\\]", "Remember to define encoder constants, encoder functions will not work because parameters are 0 by default.");
-            }
-
-            if(!imuParameters.haveBeenDefined()){
-                telemetry.addData("[/!\\]", "Remember to define IMU constants, IMU functions may not work as expected because parameters are 0 by default.");
-            }
-            telemetry.update();
-        }
+    public final void turnRight(double power, double timeSecs){
+        timeDrive.strafeRight(power, timeSecs);
     }
 
 }

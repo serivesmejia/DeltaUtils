@@ -1,5 +1,12 @@
+/*
+ * Created by FTC team Delta Robotics #9351
+ *  Source code licensed under the MIT License
+ *  More info at https://choosealicense.com/licenses/mit/
+ */
+
 package com.deltarobotics9351.deltadrive.parameters;
 
+import com.deltarobotics9351.deltamath.MathUtil;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -46,9 +53,14 @@ public class EncoderDriveParameters {
      * Make sure the values are in the correct range (0 to 1 or positive).
      */
     public void secureParameters(){
-        RIGHT_WHEELS_TURBO = Range.clip(Math.abs(RIGHT_WHEELS_TURBO), 0, 1);
-        LEFT_WHEELS_TURBO = Range.clip(Math.abs(LEFT_WHEELS_TURBO), 0, 1);
+        RIGHT_WHEELS_TURBO = MathUtil.clamp(RIGHT_WHEELS_TURBO, -1, 1);
+        LEFT_WHEELS_TURBO = MathUtil.clamp(LEFT_WHEELS_TURBO, -1, 1);
+
+        RIGHT_WHEELS_STRAFE_TURBO = MathUtil.clamp(RIGHT_WHEELS_STRAFE_TURBO, -1, 1);
+        LEFT_WHEELS_STRAFE_TURBO = MathUtil.clamp(LEFT_WHEELS_STRAFE_TURBO, -1, 1);
+
         WHEEL_DIAMETER_INCHES = Math.abs(WHEEL_DIAMETER_INCHES);
+        COUNTS_PER_REV = Math.abs(COUNTS_PER_REV);
     }
 
     /**

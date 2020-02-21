@@ -1,3 +1,9 @@
+/*
+ * Created by FTC team Delta Robotics #9351
+ *  Source code licensed under the MIT License
+ *  More info at https://choosealicense.com/licenses/mit/
+ */
+
 package com.deltarobotics9351.deltadrive.drive.mecanum;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -9,6 +15,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
 import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 
+import com.deltarobotics9351.deltamath.MathUtil;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
 import com.deltarobotics9351.deltamath.geometry.Twist2d;
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -36,6 +43,8 @@ public class IMUDriveMecanum {
     IMUDriveParameters parameters;
 
     private boolean isInitialized = false;
+
+    private boolean invertRotations = false;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -149,6 +158,17 @@ public class IMUDriveMecanum {
         return Rot2d.fromDegrees(getAngle());
     }
 
+    /**
+     * Invert the turning direction.
+     */
+    public void invert(){ invertRotations = !invertRotations; }
+
+    /**
+     * Invert the turning direction
+     * @param invert inverted or not.
+     */
+    public void invert(boolean invert){ invertRotations = invert; }
+
     int correctedTimes = 0;
 
     /**
@@ -174,6 +194,8 @@ public class IMUDriveMecanum {
 
         double degrees = rotation.getDegrees();
 
+        if(invertRotations) degrees = -degrees;
+
         if(correctedTimes == 0) {
             runtime.reset();
             if(runtime.seconds() >= timeoutS){
@@ -192,7 +214,7 @@ public class IMUDriveMecanum {
 
         parameters.secureParameters();
 
-        if (degrees < 0) //si es menor que el angulo actual significa que el robot girara a la derecha
+        if (degrees < 0) //si es menor que 0 significa que el robot girara a la derecha
         {   // girar a la derecha
             backleftpower = power;
             backrightpower = -power;
@@ -200,7 +222,7 @@ public class IMUDriveMecanum {
             frontrightpower = -power;
         }
 
-        else if (degrees > 0) // si es mayor que el angulo actual significa que el robot girara a la izquierda
+        else if (degrees > 0) // si es mayor que 0 significa que el robot girara a la izquierda
         {   // girar a la izquierda
             backleftpower = -power;
             backrightpower = power;
@@ -249,7 +271,7 @@ public class IMUDriveMecanum {
             return new Twist2d(0, 0, Rot2d.fromDegrees(getAngle()));
         }
 
-        double deltaAngle = calculateDeltaAngles(expectedAngle, getAngle());
+        double deltaAngle = MathUtil.calculateDeltaAngles(expectedAngle, getAngle());
 
         telemetry.addData("error", deltaAngle);
         telemetry.update();
@@ -257,23 +279,6 @@ public class IMUDriveMecanum {
         rotate(Rot2d.fromDegrees(deltaAngle), parameters.ROTATE_CORRECTION_POWER, 0);
 
         return new Twist2d(0, 0, Rot2d.fromDegrees(getAngle()));
-    }
-
-    /**
-     * Get the difference (delta) between two angles (in degrees)
-     * @param angle1 The angle to be subtracted by the angle2
-     * @param angle2 The angle to be subtracted to angle1
-     * @return The result of the angles difference, considering the -360 to 360 range.
-     */
-    public static double calculateDeltaAngles(double angle1, double angle2){
-        double deltaAngle = angle1 - angle2;
-
-        if (deltaAngle < -180)
-            deltaAngle += 360;
-        else if (deltaAngle > 180)
-            deltaAngle -= 360;
-
-        return deltaAngle;
     }
 
     private void defineAllWheelPower(double frontleft, double frontright, double backleft, double backright){
@@ -312,39 +317,5 @@ public class IMUDriveMecanum {
             Thread.currentThread().interrupt();
         }
     }
-
-    //esta funcion sirve para esperar que el robot este totalmente estatico.
-    private void waitForTurnToFinish(){
-
-        double beforeAngle = getAngle();
-        double deltaAngle = 0;
-
-        sleep(500);
-
-        deltaAngle = getAngle() - beforeAngle;
-
-        telemetry.addData("currentAngle", getAngle());
-        telemetry.addData("beforeAngle", beforeAngle);
-        telemetry.addData("deltaAngle", deltaAngle);
-        telemetry.update();
-
-        while(deltaAngle != 0){
-
-            telemetry.addData("currentAngle", getAngle());
-            telemetry.addData("beforeAngle", beforeAngle);
-            telemetry.addData("deltaAngle", deltaAngle);
-            telemetry.update();
-
-            deltaAngle = getAngle() - beforeAngle;
-
-            beforeAngle = getAngle();
-
-            sleep(500);
-
-        }
-
-    }
-
-
 
 }

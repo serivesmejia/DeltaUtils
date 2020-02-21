@@ -2,6 +2,7 @@ var classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1
 [
     [ "_runOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_mecanum_linear_op_mode.html#ae4412d187887ae5364d7df3dc410f518", null ],
     [ "getRobotAngle", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_mecanum_linear_op_mode.html#a31f385aeb2f11f5f593ca6ed697fab5a", null ],
+    [ "imuInvert", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_mecanum_linear_op_mode.html#a93cf3b75ff55aa41100eae6a00db83fc", null ],
     [ "rotate", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_mecanum_linear_op_mode.html#a6167201b26b2bf541ae6c08337dfecf6", null ],
     [ "runOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_mecanum_linear_op_mode.html#a491d01a0ee8c07e9033f02c016425e6b", null ],
     [ "setup", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_mecanum_linear_op_mode.html#aebc804fef6980350176025cffaf72561", null ],

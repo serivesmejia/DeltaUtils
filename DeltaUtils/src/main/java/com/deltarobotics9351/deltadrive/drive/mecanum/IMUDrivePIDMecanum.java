@@ -6,6 +6,7 @@
 
 package com.deltarobotics9351.deltadrive.drive.mecanum;
 
+import com.deltarobotics9351.LibraryData;
 import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
 import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 import com.deltarobotics9351.deltamath.MathUtil;
@@ -129,6 +130,9 @@ public class IMUDrivePIDMecanum {
      */
     public void waitForIMUCalibration() {
         while (!imu.isGyroCalibrated() && !Thread.interrupted()) {
+            telemetry.addData("[/!\\]", "Calibrating IMU Gyro sensor, please wait...");
+            telemetry.addData("[Status]", getIMUCalibrationStatus() + "\n\nDeltaUtils v" + LibraryData.VERSION);
+            telemetry.update();
         }
     }
 
@@ -206,6 +210,13 @@ public class IMUDrivePIDMecanum {
         return Rot2d.fromDegrees(getAngle());
     }
 
+    /**
+     * Rotate by a Rot2d with a PID loop.
+     * @param rotation The Rot2d to rotate by (use Rot2d.fromDegrees() to create a new Rot2d from degrees)
+     * @param power The initial power to rotate
+     * @param timeoutS The max time the rotation can take, to avoid robot getting stuck.
+     * @return
+     */
     public Twist2d rotate(Rot2d rotation, double power, double timeoutS) {
 
         parameters.secureParameters();
@@ -221,9 +232,9 @@ public class IMUDrivePIDMecanum {
 
         resetAngle();
 
-        double degrees = rotation.getDegrees();
+        double setpoint = rotation.getDegrees();
 
-        if(invertRotations) degrees = -degrees;
+        if(invertRotations) setpoint = -setpoint;
 
         runtime.reset();
 
@@ -243,10 +254,10 @@ public class IMUDrivePIDMecanum {
         double backleftpower, backrightpower, frontrightpower, frontleftpower;
 
         // rotaremos hasta que se complete la vuelta
-        if (degrees < 0) {
+        if (setpoint < 0) {
             while (getAngle() == 0 && !Thread.interrupted() && (runtime.seconds() < timeoutS)) { //al girar a la derecha necesitamos salirnos de 0 grados primero
                 telemetry.addData("IMU Angle", getAngle());
-                telemetry.addData("Targeted degrees", degrees);
+                telemetry.addData("Setpoint", setpoint);
                 telemetry.addData("Delta", "Not calculated yet");
                 telemetry.addData("Power", power);
 
@@ -257,22 +268,22 @@ public class IMUDrivePIDMecanum {
                 defineAllWheelPower(frontleftpower, frontrightpower, backleftpower, backrightpower);
             }
 
-            while (velocityDelta != 0 && !Thread.interrupted() && (runtime.seconds() < timeoutS)) { //entramos en un bucle hasta que los degrees sean los esperados
+            while ((velocityDelta != 0 && errorDelta != 0) && !Thread.interrupted() && (runtime.seconds() < timeoutS)) { //entramos en un bucle hasta que los setpoint sean los esperados
                 double nowMillis = System.currentTimeMillis();
 
-                errorDelta = -((-getAngle()) + degrees);
+                errorDelta = -((-getAngle()) + setpoint);
 
                 velocityDelta = errorDelta - prevErrorDelta;
 
-                double divBy = Math.abs(degrees / 90);
+                double divBy = Math.abs(setpoint / 90);
 
                 prevIntegral += errorDelta;
 
-                double proportional = (errorDelta * (P / divBy)) ;
-                double integral = (prevIntegral * (I / divBy));
-                double derivative = (velocityDelta * (D / divBy));
+                double proportional = (errorDelta * (P * divBy)) ;
+                double integral = (prevIntegral * (I * divBy));
+                double derivative = (velocityDelta * (D * divBy));
 
-                double turbo = MathUtil.clamp(proportional + integral - derivative, 0, 1);
+                double turbo = MathUtil.clamp(proportional + integral + derivative, -1, 1);
                 double powerF;
 
                 if (turbo > deadZone) {
@@ -289,8 +300,8 @@ public class IMUDrivePIDMecanum {
                 defineAllWheelPower(frontleftpower, frontrightpower, backleftpower, backrightpower);
 
                 telemetry.addData("IMU Angle", getAngle());
-                telemetry.addData("Targeted degrees", degrees);
-                telemetry.addData("Delta", errorDelta);
+                telemetry.addData("Setpoint", setpoint);
+                telemetry.addData("Error", errorDelta);
                 telemetry.addData("Turbo", turbo);
                 telemetry.addData("Power", powerF);
                 telemetry.update();
@@ -299,23 +310,23 @@ public class IMUDrivePIDMecanum {
                 prevMillis = nowMillis;
             }
         } else
-            while (velocityDelta != 0 && !Thread.interrupted() && (runtime.seconds() < timeoutS)) { //entramos en un bucle hasta que los degrees sean los esperados
+            while ((velocityDelta != 0 && errorDelta != 0) && !Thread.interrupted() && (runtime.seconds() < timeoutS)) { //entramos en un bucle hasta que los setpoint sean los esperados
 
                 double nowMillis = System.currentTimeMillis();
 
-                errorDelta = degrees - getAngle();
+                errorDelta = setpoint - getAngle();
 
                 velocityDelta = errorDelta - prevErrorDelta;
 
-                double divBy = Math.abs(degrees / 90);
+                double divBy = Math.abs(setpoint / 90);
 
                 prevIntegral += errorDelta;
 
-                double proportional = (errorDelta * (P / divBy)) ;
-                double integral = (prevIntegral * (I / divBy));
-                double derivative = (velocityDelta * (D / divBy));
+                double proportional = (errorDelta * (P *divBy));
+                double integral = (prevIntegral * (I * divBy));
+                double derivative = (velocityDelta * (D * divBy));
 
-                double turbo = MathUtil.clamp(proportional + integral - derivative, 0, 1);
+                double turbo = MathUtil.clamp(proportional + integral + derivative, -1, 1);
 
                 double powerF;
 
@@ -333,8 +344,8 @@ public class IMUDrivePIDMecanum {
                 defineAllWheelPower(frontleftpower, frontrightpower, backleftpower, backrightpower);
 
                 telemetry.addData("IMU Angle", getAngle());
-                telemetry.addData("Targeted degrees", degrees);
-                telemetry.addData("Delta", errorDelta);
+                telemetry.addData("Setpoint", setpoint);
+                telemetry.addData("Error", errorDelta);
                 telemetry.addData("Turbo", turbo);
                 telemetry.addData("Power", powerF);
                 telemetry.update();

@@ -7,6 +7,7 @@
 package com.deltarobotics9351.deltamath;
 
 public class MathUtil {
+
     /**
      * Returns value clamped between low and high boundaries.
      *

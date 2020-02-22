@@ -31,14 +31,21 @@ public class IMUDriveParameters {
      */
     public Axis IMU_AXIS = Axis.Z;
 
+    /**
+     *  If you changed the IMU name in the robot config, you should update this variable.
+     */
+    public String IMU_HARDWARE_NAME = "imu";
+
     public IMUDriveParameters(){ }
 
     /**
-     * Make sure parameters are in a correct range (0 to 1 and/or positive)
+     * Make sure parameters are in a correct range (0 to 1 and/or positive and/or not null)
      */
     public void secureParameters(){
         ROTATE_MAX_CORRECTION_TIMES = Math.abs(ROTATE_MAX_CORRECTION_TIMES);
         ROTATE_CORRECTION_POWER = Range.clip(Math.abs(ROTATE_CORRECTION_POWER), 0, 1);
+
+        IMU_HARDWARE_NAME = (IMU_HARDWARE_NAME == null) ? "imu" : IMU_HARDWARE_NAME;
 
         IMU_AXIS = IMU_AXIS == null ? Axis.Z : IMU_AXIS; //set the value to something if it is null, just in case...
     }

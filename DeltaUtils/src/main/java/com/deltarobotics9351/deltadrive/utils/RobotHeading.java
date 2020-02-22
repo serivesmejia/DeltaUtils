@@ -38,6 +38,8 @@ public class RobotHeading {
     private static volatile Orientation lastAngles = new Orientation();
     private static volatile double globalAngle;
 
+    private static volatile Axis imuAxis = Axis.Z;
+
     private static Thread updateTh = new Thread(new updateThread());
 
     /**
@@ -107,6 +109,15 @@ public class RobotHeading {
         }
     }
 
+    /**
+     * Set the axis used by the IMU to get the degrees.
+     * @param axis the axis mentioned above
+     */
+    public static void setIMUAxis(Axis axis){
+        if(axis == null) return;
+        imuAxis = axis;
+    }
+
     private static void calibrateIMU(HardwareMap hardwareMap){
         BNO055IMU.Parameters param = new BNO055IMU.Parameters();
 
@@ -149,7 +160,19 @@ public class RobotHeading {
         // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
         // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
 
-        Orientation angles = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        Orientation angles;
+
+        switch(imuAxis) {
+            case X:
+                angles = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
+                break;
+            case Y:
+                angles = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YZX, AngleUnit.DEGREES);
+                break;
+            default:
+                angles = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                break;
+        }
 
         double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
 
@@ -167,7 +190,18 @@ public class RobotHeading {
 
     private static void resetAngle()
     {
-        lastAngles = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        switch(imuAxis) {
+            case X:
+                lastAngles = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
+                break;
+            case Y:
+                lastAngles = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YZX, AngleUnit.DEGREES);
+                break;
+            default:
+                lastAngles = imu1.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                break;
+        }
+
         globalAngle = 0;
     }
 

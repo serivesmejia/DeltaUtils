@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import com.deltarobotics9351.LibraryData;
 import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
 import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 
@@ -51,7 +52,7 @@ public class IMUDriveMecanum {
     /**
      * Constructor for the IMU drive class
      * (Do not forget to call initIMU() before the OpMode starts!)
-     * @param hdw The initialized hardware containing all the chassis motors
+     * @param hdw The initialized DeltaHardwareMecanum containing all the chassis motors
      * @param telemetry Current OpMode telemetry to show movement info
      */
     public IMUDriveMecanum(DeltaHardwareMecanum hdw, Telemetry telemetry){
@@ -81,7 +82,7 @@ public class IMUDriveMecanum {
         param.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         param.loggingEnabled      = false;
 
-        imu = hdw.hdwMap.get(BNO055IMU.class, "imu");
+        imu = hdw.hdwMap.get(BNO055IMU.class, parameters.IMU_HARDWARE_NAME);
 
         imu.initialize(param);
 
@@ -92,7 +93,11 @@ public class IMUDriveMecanum {
      * Loop until the IMU sensor reports it is calibrated or until OpMode stops.
      */
     public void waitForIMUCalibration(){
-        while (!imu.isGyroCalibrated() && !Thread.interrupted()){ }
+        while (!imu.isGyroCalibrated() && !Thread.interrupted()) {
+            telemetry.addData("[/!\\]", "Calibrating IMU Gyro sensor, please wait...");
+            telemetry.addData("[Status]", getIMUCalibrationStatus() + "\n\nDeltaUtils v" + LibraryData.VERSION);
+            telemetry.update();
+        }
     }
 
     /**

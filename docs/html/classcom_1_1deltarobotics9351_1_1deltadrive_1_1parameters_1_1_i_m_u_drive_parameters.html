@@ -24,10 +24,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="Delta Robotics logo 128 (no bg).png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="DeltaUtils logo (no bg).png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">DeltaUtils
-   &#160;<span id="projectnumber">v1.11.1-beta</span>
+   &#160;<span id="projectnumber">v1.12-beta</span>
    </div>
    <div id="projectbrief">Easy to use library containing many functions to control your FTC robot.</div>
   </td>
@@ -110,6 +110,16 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ad0518d59894105b72bad1361117d77ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8d4b8d837e327a88208483240bb0c30"><td class="memItemLeft" align="right" valign="top"><a class="el" href="enumcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_axis.html">Axis</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1parameters_1_1_i_m_u_drive_parameters.html#aa8d4b8d837e327a88208483240bb0c30">IMU_AXIS</a> = <a class="el" href="enumcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_axis.html#aa5cdb1341b7d7f66c3a289dc97a80f75">Axis.Z</a></td></tr>
 <tr class="separator:aa8d4b8d837e327a88208483240bb0c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0284849b84ef3fd00dbebcb9fe92fd0d"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1parameters_1_1_i_m_u_drive_parameters.html#a0284849b84ef3fd00dbebcb9fe92fd0d">IMU_HARDWARE_NAME</a> = &quot;imu&quot;</td></tr>
+<tr class="separator:a0284849b84ef3fd00dbebcb9fe92fd0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaff2687d4ed9f7558bbf25c3a131e9a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1parameters_1_1_i_m_u_drive_parameters.html#aaaff2687d4ed9f7558bbf25c3a131e9a">DEAD_ZONE</a> = 0</td></tr>
+<tr class="separator:aaaff2687d4ed9f7558bbf25c3a131e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37f445bb30b35b1f0a6981b97acbce40"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1parameters_1_1_i_m_u_drive_parameters.html#a37f445bb30b35b1f0a6981b97acbce40">INVERT_ROTATION</a> = false</td></tr>
+<tr class="separator:a37f445bb30b35b1f0a6981b97acbce40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a741029e7b533cfa82f32fcc41fc78f93"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1parameters_1_1_i_m_u_drive_parameters.html#a741029e7b533cfa82f32fcc41fc78f93">ERROR_TOLERANCE</a> = 0</td></tr>
+<tr class="separator:a741029e7b533cfa82f32fcc41fc78f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2846d725e7a62c9f0e77d9090b14e1b0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1parameters_1_1_i_m_u_drive_parameters.html#a2846d725e7a62c9f0e77d9090b14e1b0">VELOCITY_TOLERANCE</a> = 0</td></tr>
+<tr class="separator:a2846d725e7a62c9f0e77d9090b14e1b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class containing public variables for setting IMU rotation parameters </p>
@@ -164,11 +174,41 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Make sure parameters are in a correct range (0 to 1 and/or positive) </p>
+<p>Make sure parameters are in a correct range (0 to 1 and/or positive and/or not null) </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="aaaff2687d4ed9f7558bbf25c3a131e9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaff2687d4ed9f7558bbf25c3a131e9a">&#9670;&nbsp;</a></span>DEAD_ZONE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters.DEAD_ZONE = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Wheel motor power in which the robot doesn't move Only for IMU PID </p>
+
+</div>
+</div>
+<a id="a741029e7b533cfa82f32fcc41fc78f93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a741029e7b533cfa82f32fcc41fc78f93">&#9670;&nbsp;</a></span>ERROR_TOLERANCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters.ERROR_TOLERANCE = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Amount of error which is considered "acceptable" Only for IMU PID </p>
+
+</div>
+</div>
 <a id="aa8d4b8d837e327a88208483240bb0c30"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa8d4b8d837e327a88208483240bb0c30">&#9670;&nbsp;</a></span>IMU_AXIS</h2>
 
@@ -184,6 +224,36 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0284849b84ef3fd00dbebcb9fe92fd0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0284849b84ef3fd00dbebcb9fe92fd0d">&#9670;&nbsp;</a></span>IMU_HARDWARE_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters.IMU_HARDWARE_NAME = &quot;imu&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>If you changed the IMU name in the robot config, you should update this variable. </p>
+
+</div>
+</div>
+<a id="a37f445bb30b35b1f0a6981b97acbce40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37f445bb30b35b1f0a6981b97acbce40">&#9670;&nbsp;</a></span>INVERT_ROTATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters.INVERT_ROTATION = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Invert the rotation direction </p>
+
+</div>
+</div>
 <a id="ad0518d59894105b72bad1361117d77ea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad0518d59894105b72bad1361117d77ea">&#9670;&nbsp;</a></span>ROTATE_CORRECTION_POWER</h2>
 
@@ -195,7 +265,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The power in which the rotations will be corrected </p>
+<p>The power in which the rotations will be corrected It is not used in IMU PID classes </p>
 
 </div>
 </div>
@@ -210,7 +280,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The maximum times a rotation can be corrected. </p>
+<p>The maximum times a rotation can be corrected. It is not used in IMU PID classes </p>
+
+</div>
+</div>
+<a id="a2846d725e7a62c9f0e77d9090b14e1b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2846d725e7a62c9f0e77d9090b14e1b0">&#9670;&nbsp;</a></span>VELOCITY_TOLERANCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters.VELOCITY_TOLERANCE = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Amount of velocity (delta between current error and last error) whis is considered "acceptable" Only for IMU PID </p>
 
 </div>
 </div>

@@ -45,8 +45,6 @@ public class IMUDriveMecanum {
 
     private boolean isInitialized = false;
 
-    private boolean invertRotations = false;
-
     private ElapsedTime runtime = new ElapsedTime();
 
     /**
@@ -163,17 +161,6 @@ public class IMUDriveMecanum {
         return Rot2d.fromDegrees(getAngle());
     }
 
-    /**
-     * Invert the turning direction.
-     */
-    public void invert(){ invertRotations = !invertRotations; }
-
-    /**
-     * Invert the turning direction
-     * @param invert inverted or not.
-     */
-    public void invert(boolean invert){ invertRotations = invert; }
-
     int correctedTimes = 0;
 
     /**
@@ -199,7 +186,7 @@ public class IMUDriveMecanum {
 
         double degrees = rotation.getDegrees();
 
-        if(invertRotations) degrees = -degrees;
+        if(parameters.INVERT_ROTATION) degrees = -degrees;
 
         if(correctedTimes == 0) {
             runtime.reset();

@@ -75,7 +75,6 @@ public class JoystickFieldCentricDriveMecanum {
                 break;
 
             case LEFT_SIDE:
-
                 wheelFrontLeftPower = -wheelFrontLeftPower;
                 wheelBackLeftPower = -wheelBackLeftPower;
                 break;

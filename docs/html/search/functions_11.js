@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['waitforimucalibration_405',['waitForIMUCalibration',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_mecanum.html#a85be3c03001e5137d01797eb919dd324',1,'com.deltarobotics9351.deltadrive.drive.mecanum.IMUDriveMecanum.waitForIMUCalibration()'],['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a29eb086597a58d94f560a10f0dfe6a11',1,'com.deltarobotics9351.deltadrive.drive.mecanum.IMUDrivePIDMecanum.waitForIMUCalibration()']]]
+  ['unregisterevents_486',['unregisterEvents',['../classcom_1_1deltarobotics9351_1_1deltainput_1_1gamepad_1_1_super_gamepad.html#a4ef7f5cb99dcedf9f811e32985691f2f',1,'com::deltarobotics9351::deltainput::gamepad::SuperGamepad']]],
+  ['update_487',['update',['../classcom_1_1deltarobotics9351_1_1deltainput_1_1gamepad_1_1_super_gamepad.html#adec8f1c4cbb9b093ec67a497dcf143e7',1,'com::deltarobotics9351::deltainput::gamepad::SuperGamepad']]]
 ];

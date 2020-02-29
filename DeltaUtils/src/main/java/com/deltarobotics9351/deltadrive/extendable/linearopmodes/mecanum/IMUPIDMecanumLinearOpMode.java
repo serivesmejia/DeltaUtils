@@ -14,7 +14,7 @@ import com.deltarobotics9351.deltadrive.utils.Invert;
 import com.deltarobotics9351.deltadrive.utils.RobotHeading;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
 import com.deltarobotics9351.deltamath.geometry.Twist2d;
-import com.deltarobotics9351.pid.PIDConstants;
+import com.deltarobotics9351.pid.PIDCoefficients;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -127,7 +127,7 @@ public class IMUPIDMecanumLinearOpMode extends LinearOpMode {
      * Set the PID coefficients
      * @param pid the PID coefficients
      */
-    public final void setPID(PIDConstants pid){
+    public final void setPID(PIDCoefficients pid){
         imuDrive.setPID(pid);
     }
 
@@ -153,22 +153,13 @@ public class IMUPIDMecanumLinearOpMode extends LinearOpMode {
     }
 
     /**
-     * Sets the death zone, which is the minimum motor power in which the robot moves.
-     * @param deadZone the death zone mentioned above
+     * @return the current PIDCoefficients object
      */
-    public final void setDeadZone(double deadZone){
-        imuDrive.setDeadZone(deadZone);
-    }
+    public final PIDCoefficients getPID(){ return imuDrive.getPID(); }
 
     public final Twist2d rotate(Rot2d rot, double power, double timeoutS){
         return imuDrive.rotate(rot, power, timeoutS);
     }
-
-    /**
-     * Inverts the side in which the robot rotates
-     * @param invert
-     */
-    public final void imuInvert(boolean invert){ imuDrive.invert(invert); }
 
     public final Rot2d getRobotAngle(){
         return imuDrive.getRobotAngle();

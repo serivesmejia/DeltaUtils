@@ -24,10 +24,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="Delta Robotics logo 128 (no bg).png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="DeltaUtils logo (no bg).png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">DeltaUtils
-   &#160;<span id="projectnumber">v1.11.1-beta</span>
+   &#160;<span id="projectnumber">v1.12-beta</span>
    </div>
    <div id="projectbrief">Easy to use library containing many functions to control your FTC robot.</div>
   </td>
@@ -87,6 +87,9 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>gamepad
+: <a class="el" href="classcom_1_1deltarobotics9351_1_1deltainput_1_1gamepad_1_1_gamepad_data_packet.html#a35d45f70df87fcc4bbb41dc1dc76bc08">com.deltarobotics9351.deltainput.gamepad.GamepadDataPacket</a>
+</li>
 <li>GEAR_RATIO
 : <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1motors_1_1andymark_1_1_neve_rest___classic__40.html#a13dcbaa14b22821b1c0a77c4d857175e">com.deltarobotics9351.deltadrive.motors.andymark.NeveRest_Classic_40</a>
 , <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1motors_1_1andymark_1_1_neve_rest___classic__60.html#a025fc0088e330d9e27f565aaff7b2e73">com.deltarobotics9351.deltadrive.motors.andymark.NeveRest_Classic_60</a>
@@ -106,11 +109,11 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 , <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_p_i_d_mecanum_linear_op_mode.html#abfe7bfefc228a58fdd730a32c2fb1708">com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUPIDMecanumLinearOpMode</a>
 , <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_ddf8452dd4a183d3762b074a3988d893.html#aa84c20fcb7c2f7863ca364b3c66073f9">com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUPIDTimeMecanumLinearOpMode</a>
 </li>
-<li>getDeadZone()
-: <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a8b3d5bf8bee1169e101c58f5f674a737">com.deltarobotics9351.deltadrive.drive.mecanum.IMUDrivePIDMecanum</a>
-</li>
 <li>getDegrees()
 : <a class="el" href="classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_rot2d.html#ae1742e8cae73b474061cfb431e4f2961">com.deltarobotics9351.deltamath.geometry.Rot2d</a>
+</li>
+<li>getElementFromTicksPressedButtons()
+: <a class="el" href="classcom_1_1deltarobotics9351_1_1deltainput_1_1gamepad_1_1_super_gamepad.html#ac4549e95199e7034bff4745b8d8bf42f">com.deltarobotics9351.deltainput.gamepad.SuperGamepad</a>
 </li>
 <li>getHeading()
 : <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_robot_heading.html#a95611ef8dfeaf534fe72fb4e29dad183">com.deltarobotics9351.deltadrive.utils.RobotHeading</a>
@@ -133,7 +136,10 @@ $(document).ready(function(){initNavTree('functions_g.html',''); initResizable()
 , <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_ddf8452dd4a183d3762b074a3988d893.html#ae8d72c6412ede9e9d58cb924c55639ba">com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUPIDTimeMecanumLinearOpMode</a>
 </li>
 <li>getPID()
-: <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#a6f518b895e7eaabfd8fc9e5a6c4d0662">com.deltarobotics9351.deltadrive.drive.mecanum.IMUDrivePIDMecanum</a>
+: <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html#abc1e1686c949234a7244fcfcf2f00097">com.deltarobotics9351.deltadrive.drive.mecanum.IMUDrivePIDMecanum</a>
+, <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_7565377b0bcd6b35f95b514552d31043.html#a79e15f5d9985bb04f4849b29cb4e9af0">com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUPIDEncoderMecanumLinearOpMode</a>
+, <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_p_i_d_mecanum_linear_op_mode.html#a7d382ee80fbbfdb8295f4908f71384eb">com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUPIDMecanumLinearOpMode</a>
+, <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_ddf8452dd4a183d3762b074a3988d893.html#a1340ce72cfd03f013653857d1d1db3e1">com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.IMUPIDTimeMecanumLinearOpMode</a>
 </li>
 <li>getPosition()
 : <a class="el" href="classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_pose2d.html#a490137d042a9fbbf6ba5e2860e875c0a">com.deltarobotics9351.deltamath.geometry.Pose2d</a>

@@ -7,8 +7,8 @@
 package com.deltarobotics9351.deltainput.event;
 
 import com.deltarobotics9351.deltainput.gamepad.GamepadDataPacket;
+import com.deltarobotics9351.deltainput.gamepad.button.Button;
 import com.deltarobotics9351.deltainput.gamepad.button.Buttons;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +24,26 @@ public class GamepadEvent extends Event {
 
     public double left_trigger = 0;
     public double right_trigger = 0;
+
+
+    public Button A = Button.A;
+    public Button B = Button.B;
+    public Button X = Button.X;
+    public Button Y = Button.Y;
+
+    public Button DPAD_UP = Button.DPAD_UP;
+    public Button DPAD_DOWN = Button.DPAD_DOWN;
+    public Button DPAD_LEFT = Button.DPAD_LEFT;
+    public Button DPAD_RIGHT = Button.DPAD_RIGHT;
+
+    public Button LEFT_BUMPER = Button.LEFT_BUMPER;
+    public Button RIGHT_BUMPER = Button.RIGHT_BUMPER;
+
+    public Button LEFT_TRIGGER = Button.LEFT_TRIGGER;
+    public Button RIGHT_TRIGGER = Button.RIGHT_TRIGGER;
+
+    public Button LEFT_STICK_BUTTON = Button.LEFT_STICK_BUTTON;
+    public Button RIGHT_STICK_BUTTON = Button.RIGHT_STICK_BUTTON;
 
     @Override
     public void execute(Object arg1, Object arg2) {
@@ -47,15 +67,15 @@ public class GamepadEvent extends Event {
         loop(gdp);
 
         if(!gdp.buttonsBeingPressed.isEmpty()){
-            buttonBeingPressed(new Buttons(gdp.buttonsBeingPressed, Buttons.Type.BUTTONS_BEING_PRESSED));
+            buttonsBeingPressed(new Buttons(gdp.buttonsBeingPressed, Buttons.Type.BUTTONS_BEING_PRESSED));
         }
 
         if(!gdp.buttonsPressed.isEmpty()){
-            buttonBeingPressed(new Buttons(gdp.buttonsPressed, Buttons.Type.BUTTONS_PRESSED));
+            buttonsBeingPressed(new Buttons(gdp.buttonsPressed, Buttons.Type.BUTTONS_PRESSED));
         }
 
         if(!gdp.buttonsReleased.isEmpty()){
-            buttonBeingPressed(new Buttons(gdp.buttonsReleased, Buttons.Type.BUTTONS_RELEASED));
+            buttonsBeingPressed(new Buttons(gdp.buttonsReleased, Buttons.Type.BUTTONS_RELEASED));
         }
     }
 
@@ -77,20 +97,20 @@ public class GamepadEvent extends Event {
      * Method to be executed ONCE when at least one button is pressed
      * @param buttons the pressed buttons
      */
-    public void buttonPressed(Buttons buttons){}
+    public void buttonsPressed(Buttons buttons){}
 
     /**
      * Method to be executed ONCE when at least one button is released
      * @param buttons the pressed buttons
      */
-    public void buttonReleased(Buttons buttons){}
+    public void buttonsReleased(Buttons buttons){}
 
 
     /**
      * Method to be executed REPETITIVELY when at least one button is pressed until it is released
      * @param buttons the pressed buttons
      */
-    public void buttonBeingPressed(Buttons buttons){}
+    public void buttonsBeingPressed(Buttons buttons){}
 
     /**
      * Method to be executed REPETITIVELY every time the SuperGamepad updates.

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['mag_373',['mag',['../classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a4d7fada023f4641b4188318825400131',1,'com::deltarobotics9351::deltamath::geometry::Vec2d']]],
-  ['multiply_374',['multiply',['../classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_pose2d.html#a5a9c5e18391d9700fc9c74780a944227',1,'com.deltarobotics9351.deltamath.geometry.Pose2d.multiply()'],['../classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_vec2d.html#a044852331411d885e0af192cd8441214',1,'com.deltarobotics9351.deltamath.geometry.Vec2d.multiply()']]]
+  ['loop_451',['loop',['../classcom_1_1deltarobotics9351_1_1deltainput_1_1event_1_1_gamepad_event.html#aa90f7ba4922ca30ad2103930a51f396d',1,'com::deltarobotics9351::deltainput::event::GamepadEvent']]]
 ];

@@ -12,10 +12,11 @@ import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 import com.deltarobotics9351.deltamath.MathUtil;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
 import com.deltarobotics9351.deltamath.geometry.Twist2d;
-import com.deltarobotics9351.pid.PIDConstants;
+import com.deltarobotics9351.pid.PIDCoefficients;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -48,10 +49,6 @@ public class IMUDrivePIDMecanum {
     private double P = 0;
     private double I = 0;
     private double D = 0;
-
-    private double deadZone = 0;
-
-    private boolean invertRotations = false;
 
     private boolean isInitialized = false;
 
@@ -90,28 +87,15 @@ public class IMUDrivePIDMecanum {
     }
 
     /**
-     * Dead zone is the minimum motor "power" value in which the robot has motion, in order to avoid it getting stuck during P loop.
-     *
-     * @param deadZone the dead zone said above
+     * @param coefficients the coefficients, in a DeltaUtils PIDCoefficients object
      */
-    public void setDeadZone(double deadZone) {
-        this.deadZone = Math.abs(deadZone);
-    }
-
-    public double getDeadZone() {
-        return deadZone;
-    }
-
-    /**
-     * @param coefficients the coefficients, in a PIDConstants object
-     */
-    public void setPID(PIDConstants coefficients) {
+    public void setPID(PIDCoefficients coefficients) {
         this.P = Math.abs(coefficients.p);
         this.I = Math.abs(coefficients.i);
         this.D = Math.abs(coefficients.d);
     }
 
-    public PIDConstants getPID(){ return new PIDConstants(P, I, D); }
+    public PIDCoefficients getPID(){ return new PIDCoefficients(P, I, D); }
 
     public double getP() {
         return P;
@@ -195,17 +179,6 @@ public class IMUDrivePIDMecanum {
         globalAngle = 0;
     }
 
-    /**
-     * Invert the turning direction.
-     */
-    public void invert(){ invertRotations = !invertRotations; }
-
-    /**
-     * Invert the turning direction
-     * @param invert inverted or not.
-     */
-    public void invert(boolean invert){ invertRotations = invert; }
-
     public Rot2d getRobotAngle() {
         return Rot2d.fromDegrees(getAngle());
     }
@@ -215,7 +188,7 @@ public class IMUDrivePIDMecanum {
      * @param rotation The Rot2d to rotate by (use Rot2d.fromDegrees() to create a new Rot2d from degrees)
      * @param power The initial power to rotate
      * @param timeoutS The max time the rotation can take, to avoid robot getting stuck.
-     * @return
+     * @return Twist2d containing how much the robot rotated
      */
     public Twist2d rotate(Rot2d rotation, double power, double timeoutS) {
 
@@ -231,12 +204,12 @@ public class IMUDrivePIDMecanum {
         if (!isIMUCalibrated()) return new Twist2d();
 
         resetAngle();
+        runtime.reset();
 
         double setpoint = rotation.getDegrees();
+        double deadZone = parameters.DEAD_ZONE;
 
-        if(invertRotations) setpoint = -setpoint;
-
-        runtime.reset();
+        if(parameters.INVERT_ROTATION) setpoint = -setpoint;
 
         if (timeoutS == 0) {
             timeoutS = 411495121;
@@ -247,19 +220,25 @@ public class IMUDrivePIDMecanum {
         double prevErrorDelta = 0;
         double prevMillis = 0;
         double prevIntegral = 0;
+        double prevHeading = -1;
 
-        double velocityDelta = -1;
-        double errorDelta = -1;
+        double velocityDelta = parameters.VELOCITY_TOLERANCE + 1;
+        double errorDelta = parameters.ERROR_TOLERANCE + 1;
 
         double backleftpower, backrightpower, frontrightpower, frontleftpower;
 
+        double maxMillis = System.currentTimeMillis() + (timeoutS * 1000);
+
+        boolean firstLoop = true;
+
         // rotaremos hasta que se complete la vuelta
         if (setpoint < 0) {
-            while (getAngle() == 0 && !Thread.interrupted() && (runtime.seconds() < timeoutS)) { //al girar a la derecha necesitamos salirnos de 0 grados primero
+            while (getAngle() == 0 && !Thread.interrupted() && (System.currentTimeMillis() < maxMillis)) { //al girar a la derecha necesitamos salirnos de 0 grados primero
                 telemetry.addData("IMU Angle", getAngle());
                 telemetry.addData("Setpoint", setpoint);
                 telemetry.addData("Delta", "Not calculated yet");
                 telemetry.addData("Power", power);
+                telemetry.update();
 
                 backleftpower = power;
                 backrightpower = -power;
@@ -268,28 +247,33 @@ public class IMUDrivePIDMecanum {
                 defineAllWheelPower(frontleftpower, frontrightpower, backleftpower, backrightpower);
             }
 
-            while ((velocityDelta != 0 && errorDelta != 0) && !Thread.interrupted() && (runtime.seconds() < timeoutS)) { //entramos en un bucle hasta que los setpoint sean los esperados
+            while ((errorDelta > parameters.ERROR_TOLERANCE) && !Thread.interrupted() && (System.currentTimeMillis() < maxMillis)) { //entramos en un bucle hasta que los setpoint sean los esperados
+                if(prevHeading - getAngle() == 0){
+                    break;
+                }
+
                 double nowMillis = System.currentTimeMillis();
 
                 errorDelta = -((-getAngle()) + setpoint);
 
                 velocityDelta = errorDelta - prevErrorDelta;
 
-                double divBy = Math.abs(setpoint / 90);
+                double multiplyByDegs = Math.abs(setpoint / 90);
 
                 prevIntegral += errorDelta;
 
-                double proportional = (errorDelta * (P * divBy)) ;
-                double integral = (prevIntegral * (I * divBy));
-                double derivative = (velocityDelta * (D * divBy));
+                double proportional = (errorDelta * (P * multiplyByDegs));
+                double integral = (prevIntegral * (I * multiplyByDegs));
+                double derivative = (velocityDelta * (D * multiplyByDegs));
 
                 double turbo = MathUtil.clamp(proportional + integral + derivative, -1, 1);
-                double powerF;
 
-                if (turbo > deadZone) {
-                    powerF = power * MathUtil.clamp(turbo, deadZone, 1);
-                } else {
-                    powerF = power * MathUtil.clamp(turbo, -1, deadZone);
+                double powerF = power * turbo;
+
+                if (powerF > 0) {
+                    powerF = MathUtil.clamp(powerF, deadZone, 1);
+                } else if(powerF < 0) {
+                    powerF = MathUtil.clamp(powerF, -1, -deadZone);
                 }
 
                 backleftpower = powerF;
@@ -308,9 +292,16 @@ public class IMUDrivePIDMecanum {
 
                 prevErrorDelta = errorDelta;
                 prevMillis = nowMillis;
+                prevHeading = getAngle();
+
+                sleep(20);
             }
         } else
-            while ((velocityDelta != 0 && errorDelta != 0) && !Thread.interrupted() && (runtime.seconds() < timeoutS)) { //entramos en un bucle hasta que los setpoint sean los esperados
+            while ((errorDelta > parameters.ERROR_TOLERANCE) && !Thread.interrupted() && (System.currentTimeMillis() < maxMillis)) { //entramos en un bucle hasta que los setpoint sean los esperados
+
+                if(prevHeading - getAngle() == 0){
+                    //break;
+                }
 
                 double nowMillis = System.currentTimeMillis();
 
@@ -318,22 +309,22 @@ public class IMUDrivePIDMecanum {
 
                 velocityDelta = errorDelta - prevErrorDelta;
 
-                double divBy = Math.abs(setpoint / 90);
+                double multiplyBy = Math.abs(setpoint / 90);
 
                 prevIntegral += errorDelta;
 
-                double proportional = (errorDelta * (P *divBy));
-                double integral = (prevIntegral * (I * divBy));
-                double derivative = (velocityDelta * (D * divBy));
+                double proportional = (errorDelta * (P * multiplyBy));
+                double integral = (prevIntegral * (I * multiplyBy));
+                double derivative = (velocityDelta * (D * multiplyBy));
 
                 double turbo = MathUtil.clamp(proportional + integral + derivative, -1, 1);
 
-                double powerF;
+                double powerF = power * turbo;
 
-                if (turbo > deadZone) {
-                    powerF = power * MathUtil.clamp(turbo, deadZone, 1);
-                } else {
-                    powerF = power * MathUtil.clamp(turbo, -1, -deadZone);
+                if (powerF > 0) {
+                    powerF = MathUtil.clamp(powerF, deadZone, 1);
+                } else if(powerF < 0) {
+                    powerF = MathUtil.clamp(powerF, -1, -deadZone);
                 }
 
                 backleftpower = -powerF;
@@ -352,6 +343,9 @@ public class IMUDrivePIDMecanum {
 
                 prevErrorDelta = errorDelta;
                 prevMillis = nowMillis;
+                prevHeading = getAngle();
+
+                sleep(20);
             }
 
         // stop the movement

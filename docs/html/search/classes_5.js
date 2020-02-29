@@ -1,19 +1,6 @@
 var searchData=
 [
-  ['imudrivemecanum_226',['IMUDriveMecanum',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_mecanum.html',1,'com::deltarobotics9351::deltadrive::drive::mecanum']]],
-  ['imudriveparameters_227',['IMUDriveParameters',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1parameters_1_1_i_m_u_drive_parameters.html',1,'com::deltarobotics9351::deltadrive::parameters']]],
-  ['imudrivepidmecanum_228',['IMUDrivePIDMecanum',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_p_i_d_mecanum.html',1,'com::deltarobotics9351::deltadrive::drive::mecanum']]],
-  ['imuencodermecanumlinearopmode_229',['IMUEncoderMecanumLinearOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html',1,'com::deltarobotics9351::deltadrive::extendable::linearopmodes::mecanum']]],
-  ['imuencodermecanumopmode_230',['IMUEncoderMecanumOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_encoder_mecanum_op_mode.html',1,'com::deltarobotics9351::deltadrive::extendable::opmodes']]],
-  ['imumecanumlinearopmode_231',['IMUMecanumLinearOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_mecanum_linear_op_mode.html',1,'com::deltarobotics9351::deltadrive::extendable::linearopmodes::mecanum']]],
-  ['imumecanumopmode_232',['IMUMecanumOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_mecanum_op_mode.html',1,'com::deltarobotics9351::deltadrive::extendable::opmodes']]],
-  ['imupidencodermecanumlinearopmode_233',['IMUPIDEncoderMecanumLinearOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_7565377b0bcd6b35f95b514552d31043.html',1,'com::deltarobotics9351::deltadrive::extendable::linearopmodes::mecanum']]],
-  ['imupidencodermecanumopmode_234',['IMUPIDEncoderMecanumOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_p_i_d_encoder_mecanum_op_mode.html',1,'com::deltarobotics9351::deltadrive::extendable::opmodes']]],
-  ['imupidmecanumlinearopmode_235',['IMUPIDMecanumLinearOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_p_i_d_mecanum_linear_op_mode.html',1,'com::deltarobotics9351::deltadrive::extendable::linearopmodes::mecanum']]],
-  ['imupidmecanumopmode_236',['IMUPIDMecanumOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_p_i_d_mecanum_op_mode.html',1,'com::deltarobotics9351::deltadrive::extendable::opmodes']]],
-  ['imupidtimemecanumlinearopmode_237',['IMUPIDTimeMecanumLinearOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_ddf8452dd4a183d3762b074a3988d893.html',1,'com::deltarobotics9351::deltadrive::extendable::linearopmodes::mecanum']]],
-  ['imupidtimemecanumopmode_238',['IMUPIDTimeMecanumOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_p_i_d_time_mecanum_op_mode.html',1,'com::deltarobotics9351::deltadrive::extendable::opmodes']]],
-  ['imutimemecanumlinearopmode_239',['IMUTimeMecanumLinearOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_time_mecanum_linear_op_mode.html',1,'com::deltarobotics9351::deltadrive::extendable::linearopmodes::mecanum']]],
-  ['imutimemecanumopmode_240',['IMUTimeMecanumOpMode',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1opmodes_1_1_i_m_u_time_mecanum_op_mode.html',1,'com::deltarobotics9351::deltadrive::extendable::opmodes']]],
-  ['invert_241',['Invert',['../enumcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_invert.html',1,'com::deltarobotics9351::deltadrive::utils']]]
+  ['gamepaddatapacket_282',['GamepadDataPacket',['../classcom_1_1deltarobotics9351_1_1deltainput_1_1gamepad_1_1_gamepad_data_packet.html',1,'com::deltarobotics9351::deltainput::gamepad']]],
+  ['gamepadevent_283',['GamepadEvent',['../classcom_1_1deltarobotics9351_1_1deltainput_1_1event_1_1_gamepad_event.html',1,'com::deltarobotics9351::deltainput::event']]],
+  ['gearratio_284',['GearRatio',['../classcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_gear_ratio.html',1,'com::deltarobotics9351::deltadrive::utils']]]
 ];

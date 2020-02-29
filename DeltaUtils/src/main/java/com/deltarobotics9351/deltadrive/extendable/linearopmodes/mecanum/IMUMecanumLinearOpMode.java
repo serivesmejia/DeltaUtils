@@ -131,12 +131,6 @@ public class IMUMecanumLinearOpMode extends LinearOpMode {
         return imuDrive.rotate(rot, power, timeoutS);
     }
 
-    /**
-     * Inverts the side in which the robot rotates
-     * @param invert
-     */
-    public final void imuInvert(boolean invert){ imuDrive.invert(invert); }
-
     public final Rot2d getRobotAngle(){
         return imuDrive.getRobotAngle();
     }

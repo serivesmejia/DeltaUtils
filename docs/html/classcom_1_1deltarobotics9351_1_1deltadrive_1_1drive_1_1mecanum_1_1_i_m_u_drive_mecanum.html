@@ -24,10 +24,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="Delta Robotics logo 128 (no bg).png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="DeltaUtils logo (no bg).png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">DeltaUtils
-   &#160;<span id="projectnumber">v1.11.1-beta</span>
+   &#160;<span id="projectnumber">v1.12-beta</span>
    </div>
    <div id="projectbrief">Easy to use library containing many functions to control your FTC robot.</div>
   </td>
@@ -107,10 +107,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1452a8363cc5c2a20048650c7a6b8e41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9d02d8f53619f1ab446e88a3fe219c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_rot2d.html">Rot2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_mecanum.html#ab9d02d8f53619f1ab446e88a3fe219c8">getRobotAngle</a> ()</td></tr>
 <tr class="separator:ab9d02d8f53619f1ab446e88a3fe219c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91860edfa4c62dba5b5a4f05e9429be0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_mecanum.html#a91860edfa4c62dba5b5a4f05e9429be0">invert</a> ()</td></tr>
-<tr class="separator:a91860edfa4c62dba5b5a4f05e9429be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9a3d0b5db2466aa400da94a74776531"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_mecanum.html#ad9a3d0b5db2466aa400da94a74776531">invert</a> (boolean invert)</td></tr>
-<tr class="separator:ad9a3d0b5db2466aa400da94a74776531"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3ee4a3cf0a75be9f248a616fe212e98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_twist2d.html">Twist2d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_mecanum.html#af3ee4a3cf0a75be9f248a616fe212e98">rotate</a> (<a class="el" href="classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_rot2d.html">Rot2d</a> rotation, double power, double timeoutS)</td></tr>
 <tr class="separator:af3ee4a3cf0a75be9f248a616fe212e98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e746cfdc2bdd642b3a3fff5fd5a2056"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_mecanum.html#a8e746cfdc2bdd642b3a3fff5fd5a2056">sleep</a> (long millis)</td></tr>
@@ -151,7 +147,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructor for the IMU drive class (Do not forget to call <a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_mecanum.html#a13e980d2cab45d0cf9e2e944cdba1926">initIMU()</a> before the OpMode starts!) </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">hdw</td><td>The initialized hardware containing all the chassis motors </td></tr>
+    <tr><td class="paramname">hdw</td><td>The initialized DeltaHardwareMecanum containing all the chassis motors </td></tr>
     <tr><td class="paramname">telemetry</td><td>Current OpMode telemetry to show movement info </td></tr>
   </table>
   </dd>
@@ -214,48 +210,6 @@ Public Attributes</h2></td></tr>
 <p>Initialize the IMU sensor and set the parameters (Remember to wait for the imu calibration [<a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1drive_1_1mecanum_1_1_i_m_u_drive_mecanum.html#a85be3c03001e5137d01797eb919dd324">waitForIMUCalibration()</a>] before the OpMode starts!) </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">parameters</td><td>Object containing the parameters for IMU Turns </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a91860edfa4c62dba5b5a4f05e9429be0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91860edfa4c62dba5b5a4f05e9429be0">&#9670;&nbsp;</a></span>invert() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void com.deltarobotics9351.deltadrive.drive.mecanum.IMUDriveMecanum.invert </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Invert the turning direction. </p>
-
-</div>
-</div>
-<a id="ad9a3d0b5db2466aa400da94a74776531"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9a3d0b5db2466aa400da94a74776531">&#9670;&nbsp;</a></span>invert() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void com.deltarobotics9351.deltadrive.drive.mecanum.IMUDriveMecanum.invert </td>
-          <td>(</td>
-          <td class="paramtype">boolean&#160;</td>
-          <td class="paramname"><em>invert</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Invert the turning direction </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">invert</td><td>inverted or not. </td></tr>
   </table>
   </dd>
 </dl>

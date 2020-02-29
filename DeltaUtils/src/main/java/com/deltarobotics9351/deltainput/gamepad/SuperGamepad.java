@@ -25,7 +25,7 @@ public class SuperGamepad {
 
     private ArrayList<Button> pressedButtons = new ArrayList<Button>();
 
-    private HashMap<Button, Integer> ticksPressedButtons = new HashMap<Button, Integer>();
+    private ArrayList<ButtonTicks> ticksPressedButtons = new ArrayList<ButtonTicks>();
 
     /**
      * Constructor for SuperGamepad
@@ -35,7 +35,9 @@ public class SuperGamepad {
         this.gamepad = gamepad;
 
         for(Button btt : Button.values()){
-            ticksPressedButtons.put(btt, -1);
+            ButtonTicks bt = new ButtonTicks();
+            bt.button = btt;
+            ticksPressedButtons.add(bt);
         }
     }
 
@@ -85,11 +87,13 @@ public class SuperGamepad {
         gdp.gamepad = gamepad;
 
         for(Button btt : pressedButtons){
-            int ticks = ticksPressedButtons.get(btt);
+            ButtonTicks bt = getElementFromTicksPressedButtons(btt);
 
-            ticksPressedButtons.remove(btt);
+            int ticks = bt.ticks;
+
             ticks++;
-            ticksPressedButtons.put(btt, ticks);
+
+            bt.ticks++;
 
             gdp.buttonsBeingPressed.add(btt);
 
@@ -98,20 +102,16 @@ public class SuperGamepad {
             }
         }
 
-        for (Map.Entry<Button, Integer> entry : ticksPressedButtons.entrySet()) {
-            Button btt = entry.getKey();
-            int ticks = entry.getValue();
+        for (ButtonTicks bt : ticksPressedButtons) {
 
             boolean continueThisIteration = true;
 
-            if(ticks < 0){ continueThisIteration = false; }
+            if(bt.ticks < 0){ continueThisIteration = false; }
 
             if(continueThisIteration){
-                if(!buttonIsPressed(btt)){
-                    ticksPressedButtons.remove(btt);
-                    ticksPressedButtons.put(btt, -1);
-
-                    gdp.buttonsReleased.add(btt);
+                if(!buttonIsPressed(bt.button)){
+                    bt.ticks = -1;
+                    gdp.buttonsReleased.add(bt.button);
                 }
             }
         }
@@ -123,7 +123,6 @@ public class SuperGamepad {
     private void updateAllEvents(GamepadDataPacket gdp){
         for(Event evt : events){
             if(!(evt instanceof GamepadEvent)) throw new IllegalArgumentException("Event is not a GamepadEvent");
-
             evt.execute(gdp);
         }
     }
@@ -162,6 +161,31 @@ public class SuperGamepad {
 
     private boolean buttonIsPressed(Button btt){
         return pressedButtons.contains(btt);
+    }
+
+    private class ButtonTicks{
+
+        public int ticks = -1;
+        public Button button = Button.NONE;
+
+        @Override
+        public boolean equals(Object other){
+            if(other instanceof ButtonTicks) return false;
+
+            ButtonTicks bt = (ButtonTicks)other;
+
+            if(bt.button == bt.button) return true;
+
+            return false;
+        }
+
+    }
+
+    public ButtonTicks getElementFromTicksPressedButtons(Button element){
+        for(ButtonTicks bt : ticksPressedButtons){
+            if(bt.button == element) return bt;
+        }
+        return null;
     }
 
 }

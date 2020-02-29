@@ -18,6 +18,9 @@ var dir_dec7d376e713a2779c1939c6741887b9 =
     [ "IMUPIDTimeMecanumLinearOpMode.java", "_i_m_u_p_i_d_time_mecanum_linear_op_mode_8java.html", [
       [ "IMUPIDTimeMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_ddf8452dd4a183d3762b074a3988d893.html", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_ddf8452dd4a183d3762b074a3988d893" ]
     ] ],
+    [ "IMUPIDTunerLinearOpMode.java", "_i_m_u_p_i_d_tuner_linear_op_mode_8java.html", [
+      [ "IMUPIDTunerLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_p_i_d_tuner_linear_op_mode.html", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_p_i_d_tuner_linear_op_mode" ]
+    ] ],
     [ "IMUTimeMecanumLinearOpMode.java", "_i_m_u_time_mecanum_linear_op_mode_8java.html", [
       [ "IMUTimeMecanumLinearOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_time_mecanum_linear_op_mode.html", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_time_mecanum_linear_op_mode" ]
     ] ],

@@ -126,7 +126,7 @@ public class EncoderDriveMecanum {
                 (hdw.wheelFrontRight.isBusy() &&
                         hdw.wheelFrontLeft.isBusy() &&
                         hdw.wheelBackLeft.isBusy() &&
-                        hdw.wheelBackRight.isBusy())) {
+                        hdw.wheelBackRight.isBusy()) && !Thread.interrupted()) {
 
             double averageCurrentTicks = (hdw.wheelFrontRight.getCurrentPosition() +
                                           hdw.wheelFrontLeft.getCurrentPosition() +

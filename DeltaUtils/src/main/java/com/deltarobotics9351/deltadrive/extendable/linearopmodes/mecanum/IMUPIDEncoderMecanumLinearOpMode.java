@@ -47,11 +47,6 @@ public class IMUPIDEncoderMecanumLinearOpMode extends LinearOpMode {
     public DcMotor backRight = null;
 
     /**
-     * Enum that defines which side of the chassis will be inverted (motors)
-     */
-    public Invert WHEELS_INVERT = Invert.RIGHT_SIDE;
-
-    /**
      * boolean that defines if motors brake when their power is 0
      */
     public boolean WHEELS_BRAKE = true;
@@ -98,7 +93,7 @@ public class IMUPIDEncoderMecanumLinearOpMode extends LinearOpMode {
             return;
         }
 
-        deltaHardware = new DeltaHardwareMecanum(hardwareMap, WHEELS_INVERT);
+        deltaHardware = new DeltaHardwareMecanum(hardwareMap, Invert.RIGHT_SIDE);
 
         deltaHardware.initHardware(frontLeft, frontRight, backLeft, backRight, WHEELS_BRAKE);
 
@@ -165,6 +160,14 @@ public class IMUPIDEncoderMecanumLinearOpMode extends LinearOpMode {
      */
     public final double getD(){
         return imuDrive.getD();
+    }
+
+    /**
+     * The side of the chassis which has its motors inverted
+     * @param invert the wheels invert enum
+     */
+    public final void setWheelsInvert(Invert invert){
+        deltaHardware.invert = invert;
     }
 
     /**

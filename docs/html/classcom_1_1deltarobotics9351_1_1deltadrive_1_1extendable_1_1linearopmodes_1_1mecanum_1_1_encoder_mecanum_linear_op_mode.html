@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="DeltaUtils logo (no bg).png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">DeltaUtils
-   &#160;<span id="projectnumber">v1.12.1-beta</span>
+   &#160;<span id="projectnumber">v1.13-beta</span>
    </div>
    <div id="projectbrief">Easy to use library containing many functions to control your FTC robot.</div>
   </td>
@@ -128,6 +128,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a276273ab42f2e92dfd8bed873556a350"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0851efaf10a6117588ea7454cd9814a6"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_encoder_mecanum_linear_op_mode.html#a0851efaf10a6117588ea7454cd9814a6">turnRight</a> (double inches, double speed, double timeOutSecs)</td></tr>
 <tr class="separator:a0851efaf10a6117588ea7454cd9814a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a981d899007dd384ddc4e384550a5eb17"><td class="memItemLeft" align="right" valign="top">final void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_encoder_mecanum_linear_op_mode.html#a981d899007dd384ddc4e384550a5eb17">setWheelsInvert</a> (<a class="el" href="enumcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_invert.html">Invert</a> invert)</td></tr>
+<tr class="separator:a981d899007dd384ddc4e384550a5eb17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -141,8 +143,6 @@ Public Attributes</h2></td></tr>
 <tr class="separator:afeb96ef5075fc754a5a02eac71245842"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd9029d6ca9a865e91be4ccb734a5692"><td class="memItemLeft" align="right" valign="top">DcMotor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_encoder_mecanum_linear_op_mode.html#afd9029d6ca9a865e91be4ccb734a5692">backRight</a> = null</td></tr>
 <tr class="separator:afd9029d6ca9a865e91be4ccb734a5692"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a656bac7971c0841473b198f2801c9005"><td class="memItemLeft" align="right" valign="top"><a class="el" href="enumcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_invert.html">Invert</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_encoder_mecanum_linear_op_mode.html#a656bac7971c0841473b198f2801c9005">WHEELS_INVERT</a> = <a class="el" href="enumcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_invert.html#a9f6057d05a72777040e3851ae25caab5">Invert.RIGHT_SIDE</a></td></tr>
-<tr class="separator:a656bac7971c0841473b198f2801c9005"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7fd96e54faf69f1337922812130166c"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_encoder_mecanum_linear_op_mode.html#ac7fd96e54faf69f1337922812130166c">WHEELS_BRAKE</a> = true</td></tr>
 <tr class="separator:ac7fd96e54faf69f1337922812130166c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af416eece7f4c5fc8205dfed8d7fff787"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_encoder_mecanum_linear_op_mode.html#af416eece7f4c5fc8205dfed8d7fff787">UPDATE_ROBOT_HEADING</a> = false</td></tr>
@@ -275,6 +275,30 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Overridable void to define all wheel motors, and the uppercase variables Define frontLeft, frontRight, backLeft and backRight DcMotor variables here! </p>
+
+</div>
+</div>
+<a id="a981d899007dd384ddc4e384550a5eb17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a981d899007dd384ddc4e384550a5eb17">&#9670;&nbsp;</a></span>setWheelsInvert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">final void com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.EncoderMecanumLinearOpMode.setWheelsInvert </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="enumcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_invert.html">Invert</a>&#160;</td>
+          <td class="paramname"><em>invert</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The side of the chassis which has its motors inverted </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">invert</td><td>the wheels invert enum </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -542,21 +566,6 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>boolean that indicates if motors brake when their power is 0 </p>
-
-</div>
-</div>
-<a id="a656bac7971c0841473b198f2801c9005"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a656bac7971c0841473b198f2801c9005">&#9670;&nbsp;</a></span>WHEELS_INVERT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="enumcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_invert.html">Invert</a> com.deltarobotics9351.deltadrive.extendable.linearopmodes.mecanum.EncoderMecanumLinearOpMode.WHEELS_INVERT = <a class="el" href="enumcom_1_1deltarobotics9351_1_1deltadrive_1_1utils_1_1_invert.html#a9f6057d05a72777040e3851ae25caab5">Invert.RIGHT_SIDE</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Enum that defines which side of the chassis will be inverted (motors) </p>
 
 </div>
 </div>

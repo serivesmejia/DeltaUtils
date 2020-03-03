@@ -7,6 +7,7 @@ var classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1
     [ "rotate", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a06d52e6f076fb8f2f557e9b023ea2a9f", null ],
     [ "runOpMode", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#af22461319e31c154c47055efaa749b47", null ],
     [ "setup", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a2d8f12546ec3ea2f14ffb56bbd078175", null ],
+    [ "setWheelsInvert", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a1c7bbc9f28be0ba911294b8431122431", null ],
     [ "strafeLeft", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a8808de5acb21647ec0d37b3240a05f38", null ],
     [ "strafeRight", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a3c627d60bbf3c6ff95439f1efb4870ef", null ],
     [ "turnLeft", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a580aefdefdb6d994e58a0a6c61e73583", null ],
@@ -20,6 +21,5 @@ var classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1
     [ "RESET_ROBOT_HEADING", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a5cc8751f7c91ffc798a1d08e612e24db", null ],
     [ "ROBOT_INITIAL_HEADING", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a356657978c656ce864931c538b7cbe9b", null ],
     [ "UPDATE_ROBOT_HEADING", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a9edb4dae032b0c350d48a875dce91224", null ],
-    [ "WHEELS_BRAKE", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a036b54c64598f7b3901442fad291daa3", null ],
-    [ "WHEELS_INVERT", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a2c0c7564d82ac896e828ab08b84e5080", null ]
+    [ "WHEELS_BRAKE", "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_encoder_mecanum_linear_op_mode.html#a036b54c64598f7b3901442fad291daa3", null ]
 ];

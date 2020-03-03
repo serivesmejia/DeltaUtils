@@ -33,7 +33,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", "functions_vars" ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -46,7 +46,7 @@ var NAVTREEINDEX =
 [
 "_axis_8java.html",
 "classcom_1_1deltarobotics9351_1_1deltadrive_1_1extendable_1_1linearopmodes_1_1mecanum_1_1_i_m_u_p_i_d_mecanum_linear_op_mode.html#ac244fe2503f77f87ddb4c756cb7d15c2",
-"classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_rot2d.html#adeae54dc062ec07cc37322d0ef373ba9"
+"classcom_1_1deltarobotics9351_1_1deltamath_1_1geometry_1_1_rot2d.html#aac1ecb48634af03b81dbaf6942d68e49"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

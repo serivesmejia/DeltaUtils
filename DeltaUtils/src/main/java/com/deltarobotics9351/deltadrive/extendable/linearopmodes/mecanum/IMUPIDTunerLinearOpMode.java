@@ -16,7 +16,7 @@ import com.deltarobotics9351.pid.PIDCoefficients;
  * You need to override the setup() methods and define the motor variables (starting with "wheel") in there.
  * You also need to add the @Autonomous annotation for this to show up in the driver station list.
  */
-public class IMUPIDTunerLinearOpMode extends IMUPIDMecanumLinearOpMode { //extendemos una clase que ya contiene todos los metodos de encoders y IMU para optimizar el codigo y el tiempo
+public class IMUPIDTunerLinearOpMode extends IMUPIDMecanumLinearOpMode {
 
     static double P = 0.01;
     static double I = 0.000001;

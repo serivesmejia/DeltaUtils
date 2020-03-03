@@ -163,6 +163,13 @@ public class SuperGamepad {
         return pressedButtons.contains(btt);
     }
 
+    private ButtonTicks getElementFromTicksPressedButtons(Button element){
+        for(ButtonTicks bt : ticksPressedButtons){
+            if(bt.button == element) return bt;
+        }
+        return null;
+    }
+
     private class ButtonTicks{
 
         public int ticks = -1;
@@ -179,13 +186,6 @@ public class SuperGamepad {
             return false;
         }
 
-    }
-
-    public ButtonTicks getElementFromTicksPressedButtons(Button element){
-        for(ButtonTicks bt : ticksPressedButtons){
-            if(bt.button == element) return bt;
-        }
-        return null;
     }
 
 }

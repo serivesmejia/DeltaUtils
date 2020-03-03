@@ -45,6 +45,10 @@ public class GamepadEvent extends Event {
     public Button LEFT_STICK_BUTTON = Button.LEFT_STICK_BUTTON;
     public Button RIGHT_STICK_BUTTON = Button.RIGHT_STICK_BUTTON;
 
+    public Buttons.Type BUTTONS_BEING_PRESSED = Buttons.Type.BUTTONS_BEING_PRESSED;
+    public Buttons.Type BUTTONS_PRESSED = Buttons.Type.BUTTONS_PRESSED;
+    public Buttons.Type BUTTONS_RELEASED = Buttons.Type.BUTTONS_RELEASED;
+
     @Override
     public void execute(Object arg1, Object arg2) {
         execute(arg1);
@@ -67,15 +71,15 @@ public class GamepadEvent extends Event {
         loop(gdp);
 
         if(!gdp.buttonsBeingPressed.isEmpty()){
-            buttonsBeingPressed(new Buttons(gdp.buttonsBeingPressed, Buttons.Type.BUTTONS_BEING_PRESSED));
+            buttonsBeingPressed(new Buttons(gdp.buttonsBeingPressed, BUTTONS_BEING_PRESSED));
         }
 
         if(!gdp.buttonsPressed.isEmpty()){
-            buttonsBeingPressed(new Buttons(gdp.buttonsPressed, Buttons.Type.BUTTONS_PRESSED));
+            buttonsPressed(new Buttons(gdp.buttonsPressed, BUTTONS_PRESSED));
         }
 
         if(!gdp.buttonsReleased.isEmpty()){
-            buttonsBeingPressed(new Buttons(gdp.buttonsReleased, Buttons.Type.BUTTONS_RELEASED));
+            buttonsReleased(new Buttons(gdp.buttonsReleased, BUTTONS_RELEASED));
         }
     }
 

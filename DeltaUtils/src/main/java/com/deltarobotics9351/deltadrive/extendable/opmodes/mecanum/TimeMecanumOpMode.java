@@ -17,7 +17,7 @@ public class TimeMecanumOpMode extends TimeMecanumLinearOpMode {
     public final void _runOpMode(){
         _init();
 
-        while(!isStarted()){ _init_loop(); }
+        while(!isStarted() && opModeIsActive()){ _init_loop(); }
 
         if(!isStarted()) return;
 

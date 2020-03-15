@@ -6,7 +6,7 @@
 
 package com.deltarobotics9351.deltadrive.drive.mecanum;
 
-import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
+import com.deltarobotics9351.deltadrive.hardware.DeltaHardwareMecanum;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
 import com.deltarobotics9351.deltamath.geometry.Vec2d;
 import com.qualcomm.robotcore.hardware.Gamepad;

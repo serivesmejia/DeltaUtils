@@ -6,7 +6,7 @@
 
 package com.deltarobotics9351.deltadrive.drive.mecanum;
 
-import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
+import com.deltarobotics9351.deltadrive.hardware.DeltaHardwareMecanum;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 

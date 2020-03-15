@@ -21,7 +21,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * Static class to get the robot heading from the driver's view.
  * You need 2 IMU sensors for this, which means you need 2 Expansion Hubs.
  * This uses a separate thread to update the heading, so you will not need to update it in your opmode
- * You'd probably want to use this for field centric drive.
+ * You'kD probably want to use this for field centric drive.
  */
 public class RobotHeading {
 

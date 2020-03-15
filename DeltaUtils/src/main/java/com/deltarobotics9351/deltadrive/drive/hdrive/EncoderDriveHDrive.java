@@ -4,8 +4,9 @@
  *  More info at https://choosealicense.com/licenses/mit/
  */
 
-package com.deltarobotics9351.deltadrive.drive.mecanum;
+package com.deltarobotics9351.deltadrive.drive.hdrive;
 
+import com.deltarobotics9351.deltadrive.hardware.DeltaHardwareHDrive;
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardwareMecanum;
 import com.deltarobotics9351.deltadrive.parameters.EncoderDriveParameters;
 import com.deltarobotics9351.deltadrive.utils.DistanceUnit;
@@ -17,9 +18,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 /**
  * Class to use encoders to move the robot precisely (in inches) during autonomous
  */
-public class EncoderDriveMecanum {
+public class EncoderDriveHDrive {
 
-    private DeltaHardwareMecanum hdw;
+    private DeltaHardwareHDrive hdw;
 
     private final Telemetry telemetry;
 
@@ -33,7 +34,7 @@ public class EncoderDriveMecanum {
      * @param telemetry The current OpMode telemetry to show movement info.
      * @param parameters Encoder parameters, in order to calculate the ticks per inch for each motor
      */
-    public EncoderDriveMecanum(DeltaHardwareMecanum hdw, Telemetry telemetry, EncoderDriveParameters parameters){
+    public EncoderDriveHDrive(DeltaHardwareHDrive hdw, Telemetry telemetry, EncoderDriveParameters parameters){
         this.hdw = hdw;
         this.telemetry = telemetry;
         this.parameters = parameters;
@@ -44,13 +45,13 @@ public class EncoderDriveMecanum {
     }
 
     private void encoderDrive(double speed,
-                             double frontleft,
-                             double frontright,
-                             double backleft,
-                             double backright,
+                             double left,
+                             double right,
+                             double middle,
                              double timeoutS,
                               double rightTurbo,
                               double leftTurbo,
+                              double middleTurbo,
                               String movementDescription) {
 
         parameters.secureParameters();
@@ -59,34 +60,30 @@ public class EncoderDriveMecanum {
                 (parameters.WHEEL_DIAMETER_INCHES * Math.PI);
 
         if(parameters.DISTANCE_UNIT == DistanceUnit.CENTIMETERS) {
-            frontleft *= 0.393701;
-            frontright *= 0.393701;
-            backleft *= 0.3937014;
-            backright *= 0.393701;
+            left *= 0.393701;
+            right *= 0.393701;
+            middle *= 0.3937014;
         }
 
-        int newFrontLeftTarget,
-        newFrontRightTarget,
-        newBackLeftTarget,
-        newBackRightTarget;
+        int newLeftTarget,
+        newRightTarget,
+        newMiddleTarget;
 
         // Determine new target position, and pass to motor controller
-        newFrontLeftTarget = hdw.wheelFrontLeft.getCurrentPosition() + (int) (frontleft * TICKS_PER_INCH);
-        newFrontRightTarget = hdw.wheelFrontRight.getCurrentPosition() + (int) (frontright * TICKS_PER_INCH);
-        newBackLeftTarget = hdw.wheelBackLeft.getCurrentPosition() + (int) (backleft * TICKS_PER_INCH);
-        newBackRightTarget = hdw.wheelBackRight.getCurrentPosition() + (int) (backright * TICKS_PER_INCH);
+        newLeftTarget = hdw.wheelsLeft.getCurrentPosition() + (int) (left * TICKS_PER_INCH);
+        newRightTarget = hdw.wheelsRight.getCurrentPosition() + (int) (right * TICKS_PER_INCH);
+        newMiddleTarget = hdw.wheelMiddle.getCurrentPosition() + (int) (middle * TICKS_PER_INCH);
 
-        hdw.setTargetPositions(newFrontLeftTarget, newFrontRightTarget, newBackLeftTarget, newBackRightTarget);
+        hdw.setTargetPositions(newLeftTarget, newRightTarget, newMiddleTarget);
 
         // Turn On RUN_TO_POSITION
         hdw.setRunModes(DcMotor.RunMode.RUN_TO_POSITION);
 
         // reset the timeout time and start motion.
         runtime.reset();
-        hdw.wheelFrontLeft.setPower(Math.abs(speed) * leftTurbo);
-        hdw.wheelFrontRight.setPower(Math.abs(speed) * rightTurbo);
-        hdw.wheelBackLeft.setPower(Math.abs(speed) * leftTurbo);
-        hdw.wheelBackRight.setPower(Math.abs(speed) * rightTurbo);
+        hdw.wheelsLeft.setPower(Math.abs(speed) * leftTurbo);
+        hdw.wheelsRight.setPower(Math.abs(speed) * rightTurbo);
+        hdw.wheelMiddle.setPower(Math.abs(speed) * middleTurbo);
 
         double travelledAverageInches = 0;
 
@@ -95,31 +92,44 @@ public class EncoderDriveMecanum {
         // its target position, the motion will stop.  This is "safer" in the event that the robot will
         // always end the motion as soon as possible.
         while ((runtime.seconds() < timeoutS) &&
-                (hdw.wheelFrontRight.isBusy() &&
-                        hdw.wheelFrontLeft.isBusy() &&
-                        hdw.wheelBackLeft.isBusy() &&
-                        hdw.wheelBackRight.isBusy()) && !Thread.interrupted()) {
+                (hdw.wheelsLeft.isBusy() &&
+                hdw.wheelsRight.isBusy())
+                && !Thread.interrupted()) {
 
-            double averageCurrentTicks = (hdw.wheelFrontRight.getCurrentPosition() +
-                                          hdw.wheelFrontLeft.getCurrentPosition() +
-                                          hdw.wheelBackLeft.getCurrentPosition() +
-                                          hdw.wheelBackRight.getCurrentPosition()) / 4;
+            if(middle != 0 && !hdw.wheelMiddle.isBusy()) return;
 
-            travelledAverageInches =  averageCurrentTicks / TICKS_PER_INCH;
+            double averageCurrentTicks = 0;
+
+            if(middle == 0){
+
+                averageCurrentTicks = (hdw.wheelFrontRight.getCurrentPosition() +
+                        hdw.wheelFrontLeft.getCurrentPosition()) / 2;
+
+            }else if(middle != 0 && left == 0 && right == 0){
+
+                averageCurrentTicks = (hdw.wheelMiddle.getCurrentPosition());
+
+            }else{
+
+                averageCurrentTicks = (hdw.wheelFrontRight.getCurrentPosition() +
+                        hdw.wheelFrontLeft.getCurrentPosition()
+                        + hdw.wheelMiddle.getTargetPosition()) / 3;
+            }
+
+            travelledAverageInches = averageCurrentTicks / TICKS_PER_INCH;
 
             telemetry.addData("[Movement]", movementDescription);
 
-            telemetry.addData("[Target]", "%7d : %7d : %7d : %7d",
-                    newFrontLeftTarget,
-                    newFrontRightTarget,
-                    newBackLeftTarget,
-                    newBackRightTarget);
+            telemetry.addData("[Target]", "%7d : %7d : %7d",
+                    newLeftTarget,
+                    newRightTarget,
+                    newMiddleTarget
+            );
 
-            telemetry.addData("[Current]", "%7d : %7d : %7d : %7d",
-                    hdw.wheelFrontLeft.getCurrentPosition(),
-                    hdw.wheelFrontRight.getCurrentPosition(),
-                    hdw.wheelBackLeft.getCurrentPosition(),
-                    hdw.wheelBackRight.getCurrentPosition());
+            telemetry.addData("[Current]", "%7d : %7d : %7d",
+                    hdw.wheelsLeft.getCurrentPosition(),
+                    hdw.wheelsRight.getCurrentPosition(),
+                    hdw.wheelMiddle.getCurrentPosition());
 
             telemetry.addData("[Travelled Avg Inches]", travelledAverageInches);
 
@@ -137,32 +147,32 @@ public class EncoderDriveMecanum {
 
     public void forward(double distance, double speed, double timeoutS) {
         distance = Math.abs(distance);
-        encoderDrive(speed, distance, distance, distance, distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO,  "forward");
+        encoderDrive(speed, distance, distance, 0, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, parameters.HDRIVE_WHEEL_STRAFE_TURBO,  "forward");
     }
 
     public void backwards(double distance, double speed, double timeoutS) {
         distance = Math.abs(distance);
-        encoderDrive(speed, -distance, -distance, -distance, -distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, "backwards");
+        encoderDrive(speed, -distance, -distance, 0, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, parameters.HDRIVE_WHEEL_STRAFE_TURBO,  "backwards");
     }
 
     public void strafeLeft(double distance, double speed, double timeoutS) {
         distance = Math.abs(distance);
-        encoderDrive(speed, -distance, distance, distance, -distance, timeoutS, parameters.RIGHT_WHEELS_STRAFE_TURBO, parameters.LEFT_WHEELS_STRAFE_TURBO,  "strafeLeft");
+        encoderDrive(speed, 0, 0, distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, parameters.HDRIVE_WHEEL_STRAFE_TURBO,  "strafeLeft");
     }
 
     public void strafeRight(double distance, double speed, double timeoutS) {
         distance = Math.abs(distance);
-        encoderDrive(speed, distance, -distance, -distance, distance, timeoutS, parameters.RIGHT_WHEELS_STRAFE_TURBO, parameters.LEFT_WHEELS_STRAFE_TURBO,  "strafeRight");
+        encoderDrive(speed, 0, 0, -distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, parameters.HDRIVE_WHEEL_STRAFE_TURBO,  "strafeRight");
     }
 
     public void turnRight(double distance, double speed, double timeoutS) {
         distance = Math.abs(distance);
-        encoderDrive(speed, distance, -distance, distance, -distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO,  "turnRight");
+        encoderDrive(speed, distance, -distance, 0, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, parameters.HDRIVE_WHEEL_STRAFE_TURBO,  "turnRight");
     }
 
     public void turnLeft(double distance, double speed, double timeoutS) {
         distance = Math.abs(distance);
-        encoderDrive(speed, -distance, distance, -distance, distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO,  "turnLeft");
+        encoderDrive(speed, -distance, distance, 0, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, parameters.HDRIVE_WHEEL_STRAFE_TURBO,  "turnLeft");
     }
 
 }

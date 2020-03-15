@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import com.deltarobotics9351.LibraryData;
-import com.deltarobotics9351.deltadrive.drive.mecanum.hardware.DeltaHardwareMecanum;
+import com.deltarobotics9351.deltadrive.hardware.DeltaHardwareMecanum;
 import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 
 import com.deltarobotics9351.deltamath.MathUtil;
@@ -224,7 +224,7 @@ public class IMUDriveMecanum {
         else return new Twist2d();
 
         // definimos el power de los motores
-        defineAllWheelPower(frontleftpower,frontrightpower,backleftpower,backrightpower);
+        hdw.setAllMotorPower(frontleftpower,frontrightpower,backleftpower,backrightpower);
 
         // rotaremos hasta que se complete la vuelta
         if (degrees < 0)
@@ -249,7 +249,7 @@ public class IMUDriveMecanum {
             }
 
         // stop the movement
-        defineAllWheelPower(0,0,0,0);
+        hdw.setAllMotorPower(0,0,0,0);
 
         return correctRotation(degrees);
     }
@@ -263,7 +263,7 @@ public class IMUDriveMecanum {
             return new Twist2d(0, 0, Rot2d.fromDegrees(getAngle()));
         }
 
-        double deltaAngle = MathUtil.calculateDeltaAngles(expectedAngle, getAngle());
+        double deltaAngle = MathUtil.deltaDegrees(expectedAngle, getAngle());
 
         telemetry.addData("error", deltaAngle);
         telemetry.update();
@@ -271,35 +271,6 @@ public class IMUDriveMecanum {
         rotate(Rot2d.fromDegrees(deltaAngle), parameters.ROTATE_CORRECTION_POWER, 0);
 
         return new Twist2d(0, 0, Rot2d.fromDegrees(getAngle()));
-    }
-
-    private void defineAllWheelPower(double frontleft, double frontright, double backleft, double backright){
-        switch(hdw.invert) {
-            case RIGHT_SIDE:
-                hdw.wheelFrontLeft.setPower(frontleft);
-                hdw.wheelFrontRight.setPower(-frontright);
-                hdw.wheelBackLeft.setPower(backleft);
-                hdw.wheelBackRight.setPower(-backright);
-                break;
-            case LEFT_SIDE:
-                hdw.wheelFrontLeft.setPower(-frontleft);
-                hdw.wheelFrontRight.setPower(frontright);
-                hdw.wheelBackLeft.setPower(-backleft);
-                hdw.wheelBackRight.setPower(backright);
-                break;
-            case BOTH_SIDES:
-                hdw.wheelFrontLeft.setPower(-frontleft);
-                hdw.wheelFrontRight.setPower(-frontright);
-                hdw.wheelBackLeft.setPower(-backleft);
-                hdw.wheelBackRight.setPower(-backright);
-                break;
-            case NO_INVERT:
-                hdw.wheelFrontLeft.setPower(frontleft);
-                hdw.wheelFrontRight.setPower(frontright);
-                hdw.wheelBackLeft.setPower(backleft);
-                hdw.wheelBackRight.setPower(backright);
-                break;
-        }
     }
 
     public void sleep(long millis){

@@ -1,11 +1,8 @@
-/*
- * Created by FTC team Delta Robotics #9351
- *  Source code licensed under the MIT License
- *  More info at https://choosealicense.com/licenses/mit/
- */
-
 package com.deltarobotics9351.deltamath;
 
+/**
+ * Class with WPILib FRC Lib math methods and extra custom ones.
+ */
 public class MathUtil {
 
     /**
@@ -36,7 +33,7 @@ public class MathUtil {
      * @param angle2 The angle to be subtracted to angle1
      * @return The result of the angles difference, considering the -360 to 360 range.
      */
-    public static double calculateDeltaAngles(double angle1, double angle2){
+    public static double deltaDegrees(double angle1, double angle2){
         double deltaAngle = angle1 - angle2;
 
         if (deltaAngle < -180)
@@ -46,4 +43,5 @@ public class MathUtil {
 
         return deltaAngle;
     }
+
 }

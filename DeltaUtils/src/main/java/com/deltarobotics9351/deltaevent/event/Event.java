@@ -4,7 +4,7 @@
  *  More info at https://choosealicense.com/licenses/mit/
  */
 
-package com.deltarobotics9351.deltainput.event;
+package com.deltarobotics9351.deltaevent.event;
 
 import java.util.ArrayList;
 import java.util.HashMap;

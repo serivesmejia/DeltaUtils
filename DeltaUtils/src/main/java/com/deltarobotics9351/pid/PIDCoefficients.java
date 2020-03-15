@@ -14,18 +14,18 @@ public class PIDCoefficients {
     /**
      * PID Coefficients
      */
-    public double p, i, d;
+    public double kP, kI, kD;
 
     /**
      * Constructor for PIDCoefficients class
-     * @param p the Proportional coefficient
-     * @param i the Integral coefficient
-     * @param d the Derivative coefficient
+     * @param kP the Proportional coefficient
+     * @param kI the Integral coefficient
+     * @param kD the Derivative coefficient
      */
-    public PIDCoefficients(double p, double i, double d){
-        this.p = p;
-        this.i = i;
-        this.d = d;
+    public PIDCoefficients(double kP, double kI, double kD){
+        this.kP = kP;
+        this.kI = kI;
+        this.kD = kD;
     }
 
 }

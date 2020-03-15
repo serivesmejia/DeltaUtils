@@ -4,9 +4,9 @@
  *  More info at https://choosealicense.com/licenses/mit/
  */
 
-package com.deltarobotics9351.deltainput.gamepad;
+package com.deltarobotics9351.deltaevent.gamepad;
 
-import com.deltarobotics9351.deltainput.gamepad.button.Button;
+import com.deltarobotics9351.deltaevent.gamepad.button.Button;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import java.util.ArrayList;

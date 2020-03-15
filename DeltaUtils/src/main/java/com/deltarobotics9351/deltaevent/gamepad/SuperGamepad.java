@@ -3,25 +3,23 @@
  *  Source code licensed under the MIT License
  *  More info at https://choosealicense.com/licenses/mit/
  */
-package com.deltarobotics9351.deltainput.gamepad;
+package com.deltarobotics9351.deltaevent.gamepad;
 
-import com.deltarobotics9351.deltainput.gamepad.button.Button;
-import com.deltarobotics9351.deltainput.event.Event;
-import com.deltarobotics9351.deltainput.event.GamepadEvent;
+import com.deltarobotics9351.deltaevent.Super;
+import com.deltarobotics9351.deltaevent.event.gamepad.GamepadEvent;
+import com.deltarobotics9351.deltaevent.event.gamepad.SuperGamepadEvent;
+import com.deltarobotics9351.deltaevent.gamepad.button.Button;
+import com.deltarobotics9351.deltaevent.event.Event;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * Improved gamepad class in which you can use "GamepadEvent", needs to update() inside your OpMode loop.
+ * Improved gamepad class in which you can use "SuperGamepadEvent", needs to update() inside your OpMode loop.
  */
-public class SuperGamepad {
+public class SuperGamepad implements Super {
 
     private Gamepad gamepad;
-
-    private ArrayList<GamepadEvent> events = new ArrayList<GamepadEvent>();
 
     private ArrayList<Button> pressedButtons = new ArrayList<Button>();
 
@@ -49,9 +47,11 @@ public class SuperGamepad {
 
     /**
      * Register an event
-     * @param event the GamepadEvent to register
+     * @param event the SuperGamepadEvent to register
      */
-    public SuperGamepad registerEvent(GamepadEvent event){
+    @Override
+    public SuperGamepad registerEvent(Event event){
+        if(!(event instanceof GamepadEvent)){ throw new IllegalArgumentException("Event is not GamepadEvent"); }
         events.add(event);
         return this;
     }
@@ -59,6 +59,7 @@ public class SuperGamepad {
     /**
      * Unregister all the events
      */
+    @Override
     public void unregisterEvents(){
         events.clear();
     }
@@ -67,6 +68,7 @@ public class SuperGamepad {
      * Update the pressed buttons and execute all the events.
      * This method should be placed at the end or at the start of your loop in your OpMode
      */
+    @Override
     public void update() {
 
         GamepadDataPacket gdp = new GamepadDataPacket();
@@ -122,7 +124,7 @@ public class SuperGamepad {
 
     private void updateAllEvents(GamepadDataPacket gdp){
         for(Event evt : events){
-            if(!(evt instanceof GamepadEvent)) throw new IllegalArgumentException("Event is not a GamepadEvent");
+            if(!(evt instanceof SuperGamepadEvent)) throw new IllegalArgumentException("Event is not a SuperGamepadEvent");
             evt.execute(gdp);
         }
     }

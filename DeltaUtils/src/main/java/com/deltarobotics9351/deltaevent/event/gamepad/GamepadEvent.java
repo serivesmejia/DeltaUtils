@@ -4,11 +4,18 @@
  *  More info at https://choosealicense.com/licenses/mit/
  */
 
-package com.deltarobotics9351.deltainput.event;
+/*
+ * Created by FTC team Delta Robotics #9351
+ *  Source code licensed under the MIT License
+ *  More info at https://choosealicense.com/licenses/mit/
+ */
 
-import com.deltarobotics9351.deltainput.gamepad.GamepadDataPacket;
-import com.deltarobotics9351.deltainput.gamepad.button.Button;
-import com.deltarobotics9351.deltainput.gamepad.button.Buttons;
+package com.deltarobotics9351.deltaevent.event.gamepad;
+
+import com.deltarobotics9351.deltaevent.event.Event;
+import com.deltarobotics9351.deltaevent.gamepad.GamepadDataPacket;
+import com.deltarobotics9351.deltaevent.gamepad.button.Button;
+import com.deltarobotics9351.deltaevent.gamepad.button.Buttons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +64,7 @@ public class GamepadEvent extends Event {
     @Override
     public final void execute(Object arg1){
         if(!(arg1 instanceof GamepadDataPacket)) throw new IllegalArgumentException("Object is not a GamepadDataPacket");
+
         GamepadDataPacket gdp = (GamepadDataPacket)arg1;
 
         left_stick_x = gdp.left_stick_x;
@@ -70,18 +78,10 @@ public class GamepadEvent extends Event {
 
         loop(gdp);
 
-        if(!gdp.buttonsBeingPressed.isEmpty()){
-            buttonsBeingPressed(new Buttons(gdp.buttonsBeingPressed, BUTTONS_BEING_PRESSED));
-        }
-
-        if(!gdp.buttonsPressed.isEmpty()){
-            buttonsPressed(new Buttons(gdp.buttonsPressed, BUTTONS_PRESSED));
-        }
-
-        if(!gdp.buttonsReleased.isEmpty()){
-            buttonsReleased(new Buttons(gdp.buttonsReleased, BUTTONS_RELEASED));
-        }
+        performEvent(gdp);
     }
+
+    public void performEvent(GamepadDataPacket gdp){ }
 
     @Override
     public final void execute(ArrayList<Object> args){
@@ -96,25 +96,6 @@ public class GamepadEvent extends Event {
             execute(entry.getKey(), entry.getValue());
         }
     }
-
-    /**
-     * Method to be executed ONCE when at least one button is pressed
-     * @param buttons the pressed buttons
-     */
-    public void buttonsPressed(Buttons buttons){}
-
-    /**
-     * Method to be executed ONCE when at least one button is released
-     * @param buttons the pressed buttons
-     */
-    public void buttonsReleased(Buttons buttons){}
-
-
-    /**
-     * Method to be executed REPETITIVELY when at least one button is pressed until it is released
-     * @param buttons the pressed buttons
-     */
-    public void buttonsBeingPressed(Buttons buttons){}
 
     /**
      * Method to be executed REPETITIVELY every time the SuperGamepad updates.

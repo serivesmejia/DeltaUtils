@@ -9,4 +9,8 @@ package com.deltarobotics9351.deltadrive.utils;
 /**
  * Enum that indicates which side of the chassis will have its motors inverted
  */
-public enum Invert { LEFT_SIDE, RIGHT_SIDE, BOTH_SIDES, NO_INVERT }
+public enum Invert {
+    LEFT_SIDE, RIGHT_SIDE, BOTH_SIDES,
+    MIDDLE, LEFT_SIDE_MIDDLE, RIGHT_SIDE_MIDDLE, BOTH_SIDES_MIDDLE,
+    NO_INVERT
+}

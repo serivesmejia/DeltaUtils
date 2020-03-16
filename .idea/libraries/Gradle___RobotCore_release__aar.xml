@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: :RobotCore-release:@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62ba8b79166d32fc11be2e45332949c8/RobotCore-release/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62ba8b79166d32fc11be2e45332949c8/RobotCore-release/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62ba8b79166d32fc11be2e45332949c8/RobotCore-release/jars/libs/gson-2.8.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62ba8b79166d32fc11be2e45332949c8/RobotCore-release/jars/libs/gson-extras-0.2.1.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62ba8b79166d32fc11be2e45332949c8/RobotCore-release/jars/libs/slf4j-api-1.7.26.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62ba8b79166d32fc11be2e45332949c8/RobotCore-release/jars/libs/slf4j-handroid-1.7.27.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62ba8b79166d32fc11be2e45332949c8/RobotCore-release/jars/libs/Vuforia.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

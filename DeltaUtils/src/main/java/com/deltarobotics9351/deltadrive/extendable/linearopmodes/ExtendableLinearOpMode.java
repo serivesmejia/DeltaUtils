@@ -7,12 +7,9 @@
 package com.deltarobotics9351.deltadrive.extendable.linearopmodes;
 
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
-import com.deltarobotics9351.deltadrive.hardware.DeltaHardwareMecanum;
 import com.deltarobotics9351.deltadrive.utils.Invert;
-import com.deltarobotics9351.deltadrive.utils.RobotHeading;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 public abstract class ExtendableLinearOpMode extends LinearOpMode{
 

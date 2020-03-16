@@ -20,6 +20,7 @@ public class DeltaHardwareHDrive extends DeltaHardware{
      */
     public DeltaHardwareHDrive(HardwareMap hdwMap, Invert invert){
         super(hdwMap, invert);
+        type = Type.HDRIVE;
     }
 
     /**

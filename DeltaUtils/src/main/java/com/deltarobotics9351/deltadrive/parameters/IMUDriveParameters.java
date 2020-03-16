@@ -29,8 +29,8 @@ public class IMUDriveParameters {
 
     /**
      * The axis we'll use for the robot rotation. (Z by default)
-     * If the expansion hub 1 is mounted horizontally, flat on the robot chassis, you'kD use the Z axis.
-     * If the expansion hub 1 is mounted vertically, in a wall or something, you'kD use the Y axis.
+     * If the expansion hub 1 is mounted horizontally, flat on the robot chassis, you'd use the Z axis.
+     * If the expansion hub 1 is mounted vertically, in a wall or something, you'd use the Y axis.
      */
     public Axis IMU_AXIS = Axis.Z;
 

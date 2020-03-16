@@ -24,6 +24,10 @@ public class DeltaHardware {
 
     DcMotor[] chassisMotorsArray = {null, null, null, null};
 
+    public enum Type { DEFAULT, HOLONOMIC, HDRIVE }
+
+    public Type type = Type.DEFAULT;
+
     /**
      * Enum specifying the side of the chassis which will be inverted
      * Most of the time, you need to invert the right side.
@@ -33,7 +37,7 @@ public class DeltaHardware {
     public HardwareMap hdwMap = null;
 
     /**
-     * Constructor for the delta hardware mecanum class
+     * Constructor for the delta hardware holonomic class
      * Do not forget to initialize the motors with initHardware()
      * @param hdwMap The current OpMode hardware map
      * @param invert Enum specifying which side will be inverted (motors), most of the time you need to invert the right side.

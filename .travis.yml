@@ -2,4 +2,4 @@ language: android
 before_install:
  - chmod +x gradlew
 script:
- - chmod +x gradlew :DeltaUtils:clean :DeltaUtils:build
+ - ./gradlew :DeltaUtils:clean :DeltaUtils:build

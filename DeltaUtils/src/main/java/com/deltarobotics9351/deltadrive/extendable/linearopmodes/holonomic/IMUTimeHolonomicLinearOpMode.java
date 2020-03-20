@@ -71,15 +71,6 @@ public class IMUTimeHolonomicLinearOpMode extends ExtendableHolonomicLinearOpMod
 
     }
 
-
-    /**
-     * The side of the chassis which has its motors inverted
-     * @param invert the wheels invert enum
-     */
-    public final void setWheelsInvert(Invert invert){
-        deltaHardware.invert = invert;
-    }
-
     public final Twist2d rotate(Rot2d rot, double power, double timeoutS){
         return imuDrive.rotate(rot, power, timeoutS);
     }

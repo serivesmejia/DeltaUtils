@@ -42,7 +42,7 @@ public class IMUTimeHolonomicLinearOpMode extends ExtendableHolonomicLinearOpMod
             telemetry.update();
         }
 
-        timeDrive = new TimeDriveHolonomic(deltaHardware, telemetry);
+        timeDrive = new TimeDriveHolonomic((DeltaHardwareHolonomic)deltaHardware, telemetry);
 
         Thread t = new Thread(new ParametersCheck());
 

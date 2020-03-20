@@ -77,14 +77,6 @@ public class IMUPIDTimeHolonomicLinearOpMode extends ExtendableHolonomicLinearOp
 
 
     /**
-     * The side of the chassis which has its motors inverted
-     * @param invert the wheels invert enum
-     */
-    public final void setWheelsInvert(Invert invert){
-        deltaHardware.invert = invert;
-    }
-
-    /**
      * Overridable void to be executed after all required variables are initialized
      */
     @Override

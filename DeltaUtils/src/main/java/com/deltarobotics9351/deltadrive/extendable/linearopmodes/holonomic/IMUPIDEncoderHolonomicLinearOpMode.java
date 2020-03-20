@@ -43,7 +43,7 @@ public class IMUPIDEncoderHolonomicLinearOpMode extends ExtendableHolonomicLinea
         imuDrive = new IMUDrivePIDHolonomic((DeltaHardwareHolonomic)deltaHardware, telemetry);
         imuDrive.initIMU(imuParameters);
 
-        encoderDrive = new EncoderDriveHolonomic(deltaHardware, telemetry, encoderParameters);
+        encoderDrive = new EncoderDriveHolonomic((DeltaHardwareHolonomic)deltaHardware, telemetry, encoderParameters);
 
         while(!imuDrive.isIMUCalibrated() && !isStopRequested()){
             telemetry.addData("[/!\\]", "Calibrating IMU Gyro sensor, please wait...");

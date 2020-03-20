@@ -3,4 +3,3 @@ before_install:
  - chmod +x gradlew
 script:
  - chmod +x ./gradlew :DeltaUtils:clean :DeltaUtils:build
-z

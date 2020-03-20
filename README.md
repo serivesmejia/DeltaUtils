@@ -41,9 +41,11 @@ allprojects {
    - Wiki and sample classes
    - More chassis types:
       - 2-motor 4-wheel omni
-      - 4-wheel omni
+      - 4-motor 4-wheel omni
       - H-Drive 
       - X-Drive 
    - OpenCV pipelines
    - Systems and Subsystems
    - State Machines
+   - Odometry
+   - DeltaPanel

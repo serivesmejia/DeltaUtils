@@ -30,7 +30,7 @@ allprojects {
    - PID with IMU turns
    - Time based drive
    - Encoder based drive
-   - Extendable OpModes already containing the code for various drives, to a quick setup
+   - Extendable OpModes already containing the code for various drives, for a quick setup
    
 **Math:**
    - Vec2d 

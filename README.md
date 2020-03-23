@@ -24,12 +24,13 @@ allprojects {
 
 ## Features
  
-**Mecanum wheels:**
+**Holonomic wheels:**
    - Normal & field centric joystick drive 
    - IMU sensor turns with automatic correction
    - PID with IMU turns
    - Time based drive
    - Encoder based drive
+   - Extendable OpModes already containing the code for various drives, to a quick setup
    
 **Math:**
    - Vec2d 
@@ -43,7 +44,6 @@ allprojects {
       - 2-motor 4-wheel omni
       - 4-motor 4-wheel omni
       - H-Drive 
-      - X-Drive 
    - OpenCV pipelines
    - Systems and Subsystems
    - State Machines

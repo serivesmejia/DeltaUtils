@@ -38,6 +38,9 @@ allprojects {
    - Pos2d
    - Twist2d
    
+**Input:**
+   - Event based gamepads (SuperGamepad) which simplify the code in your TeleOp
+  
 ## TO-DO
    - Wiki and sample classes
    - More chassis types:

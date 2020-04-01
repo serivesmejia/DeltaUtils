@@ -1,5 +1,5 @@
 # DeltaUtils
-[![](https://jitpack.io/v/DeltaRobotics-9351/DeltaDrive.svg)](https://jitpack.io/#DeltaRobotics-9351/DeltaDrive)<br/>
+[![](https://jitpack.io/v/DeltaRobotics-9351/DeltaUtils.svg)](https://jitpack.io/#DeltaRobotics-9351/DeltaUtils)<br/>
 [![](https://travis-ci.com/DeltaRobotics-9351/DeltaUtils.svg?branch=master)](https://travis-ci.com/DeltaRobotics-9351/DeltaUtils)
 
 Easy to use library containing many functions to control your FTC robot
@@ -24,12 +24,13 @@ allprojects {
 
 ## Features
  
-**Mecanum wheels:**
+**Holonomic wheels:**
    - Normal & field centric joystick drive 
    - IMU sensor turns with automatic correction
    - PID with IMU turns
    - Time based drive
    - Encoder based drive
+   - Extendable OpModes already containing the code for various drives, for a quick setup
    
 **Math:**
    - Vec2d 
@@ -37,13 +38,15 @@ allprojects {
    - Pos2d
    - Twist2d
    
+**Input:**
+   - Event based gamepads (SuperGamepad) which simplify the code in your TeleOp
+  
 ## TO-DO
    - Wiki and sample classes
    - More chassis types:
       - 2-motor 4-wheel omni
       - 4-motor 4-wheel omni
       - H-Drive 
-      - X-Drive 
    - OpenCV pipelines
    - Systems and Subsystems
    - State Machines

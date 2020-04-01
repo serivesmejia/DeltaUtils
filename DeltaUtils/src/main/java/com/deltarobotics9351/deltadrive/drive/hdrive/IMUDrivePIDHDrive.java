@@ -6,7 +6,7 @@
 
 package com.deltarobotics9351.deltadrive.drive.hdrive;
 
-import com.deltarobotics9351.deltadrive.drive.holonomic.ExtendableIMUDrivePID;
+import com.deltarobotics9351.deltadrive.drive.ExtendableIMUDrivePID;
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardwareHDrive;
 

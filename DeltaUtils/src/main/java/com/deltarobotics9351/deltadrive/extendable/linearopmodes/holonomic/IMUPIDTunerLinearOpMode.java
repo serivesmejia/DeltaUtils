@@ -93,7 +93,7 @@ public class IMUPIDTunerLinearOpMode extends IMUPIDHolonomicLinearOpMode {
             }
 
             telemetry.update();
-            sleep(80);
+            sleep(40);
         }
 
         if(!isStarted()) return;

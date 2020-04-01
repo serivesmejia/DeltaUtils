@@ -68,14 +68,14 @@ public class IMUPIDHolonomicLinearOpMode extends ExtendableHolonomicLinearOpMode
      * @param pid the PID coefficients
      */
     public final void setPID(PIDCoefficients pid){
-        imuDrive.setPID(pid);
+        imuDrive.setRotatePID(pid);
     }
 
     /**
      * @return the P coefficient
      */
     public final double getP(){
-        return imuDrive.getP();
+        return imuDrive.getRkP();
     }
 
     /**
@@ -89,7 +89,7 @@ public class IMUPIDHolonomicLinearOpMode extends ExtendableHolonomicLinearOpMode
      * @return the D coefficient
      */
     public final double getD(){
-        return imuDrive.getD();
+        return imuDrive.getRkD();
     }
 
     /**

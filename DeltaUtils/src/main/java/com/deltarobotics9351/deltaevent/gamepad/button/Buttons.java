@@ -7,24 +7,33 @@
 package com.deltarobotics9351.deltaevent.gamepad.button;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Buttons {
 
-    private List<Button> buttons = new ArrayList<>();
+    private HashMap<Button, Integer> buttons = new HashMap<>();
     private Type type;
 
     public enum Type{
         BUTTONS_PRESSED, BUTTONS_RELEASED, BUTTONS_BEING_PRESSED
     }
 
-    public Buttons(List<Button> buttons, Type type){
+    public Buttons(HashMap<Button, Integer> buttons, Type type){
         this.buttons = buttons;
         this.type = type;
     }
 
     public boolean is(Button btt){
-        return buttons.contains(btt);
+        return buttons.containsKey(btt);
+    }
+
+    public int ticks(Button btt){
+        if(buttons.containsKey(btt)){
+            return buttons.get(btt);
+        }else{
+            return 0;
+        }
     }
 
     public Type type(){

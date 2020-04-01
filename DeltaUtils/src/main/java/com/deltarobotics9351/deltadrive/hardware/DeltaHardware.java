@@ -84,10 +84,10 @@ public class DeltaHardware {
         throw new UnsupportedOperationException("Method setTargetPositions() with two motors is not supported in this DeltaHardware");
     }
 
-    public void setBrakes(boolean brake){}
+    public void setBrakes(boolean brake){ throw new UnsupportedOperationException("Method setBrakes() is not supported in this DeltaHardware"); }
 
-    public void setRunModes(DcMotor.RunMode runMode){ }
+    public void setRunModes(DcMotor.RunMode runMode){ throw new UnsupportedOperationException("Method setBrakes() is not supported in this DeltaHardware"); }
 
-    public void updateChassisMotorsArray(){ }
+    public void updateChassisMotorsArray(){ throw new UnsupportedOperationException("Method setBrakes() is not supported in this DeltaHardware"); }
 
 }

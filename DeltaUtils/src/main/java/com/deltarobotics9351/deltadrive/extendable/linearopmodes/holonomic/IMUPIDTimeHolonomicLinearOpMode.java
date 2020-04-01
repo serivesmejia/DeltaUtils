@@ -11,7 +11,6 @@ import com.deltarobotics9351.deltadrive.drive.holonomic.IMUDrivePIDHolonomic;
 import com.deltarobotics9351.deltadrive.drive.holonomic.TimeDriveHolonomic;
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardwareHolonomic;
 import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
-import com.deltarobotics9351.deltadrive.utils.Invert;
 import com.deltarobotics9351.deltadrive.utils.RobotHeading;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
 import com.deltarobotics9351.deltamath.geometry.Twist2d;
@@ -98,14 +97,14 @@ public class IMUPIDTimeHolonomicLinearOpMode extends ExtendableHolonomicLinearOp
      * @param pid the PID coefficients
      */
     public final void setPID(PIDCoefficients pid){
-        imuDrive.setPID(pid);
+        imuDrive.setRotatePID(pid);
     }
 
     /**
      * @return the P coefficient
      */
     public final double getP(){
-        return imuDrive.getP();
+        return imuDrive.getRkP();
     }
 
     /**
@@ -119,7 +118,7 @@ public class IMUPIDTimeHolonomicLinearOpMode extends ExtendableHolonomicLinearOp
      * @return the D coefficient
      */
     public final double getD(){
-        return imuDrive.getD();
+        return imuDrive.getRkD();
     }
 
     /**

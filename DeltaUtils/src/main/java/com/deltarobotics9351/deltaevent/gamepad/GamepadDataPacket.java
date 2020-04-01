@@ -10,6 +10,7 @@ import com.deltarobotics9351.deltaevent.gamepad.button.Button;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,9 +18,9 @@ import java.util.List;
  */
 public class GamepadDataPacket {
 
-    public List<Button> buttonsBeingPressed = new ArrayList<>();
-    public List<Button> buttonsReleased = new ArrayList<>();
-    public List<Button> buttonsPressed = new ArrayList<>();
+    public HashMap<Button, Integer> buttonsBeingPressed = new HashMap<>();
+    public HashMap<Button, Integer> buttonsReleased = new HashMap<>();
+    public HashMap<Button, Integer> buttonsPressed = new HashMap<>();
 
     public double left_stick_x = 0;
     public double left_stick_y = 0;

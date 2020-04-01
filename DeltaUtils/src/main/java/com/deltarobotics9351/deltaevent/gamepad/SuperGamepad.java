@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import java.util.ArrayList;
 
 /**
- * Improved gamepad class in which you can use "SuperGamepadEvent", needs to update() inside your OpMode loop.
+ * Improved gamepad class in which you can use "SuperGamepadEvent", needs to update() inside your OpMode repeat.
  */
 public class SuperGamepad implements Super {
 
@@ -48,11 +48,53 @@ public class SuperGamepad implements Super {
     /**
      * Register an event
      * @param event the SuperGamepadEvent to register
+     * @return itself
      */
     @Override
     public SuperGamepad registerEvent(Event event){
-        if(!(event instanceof GamepadEvent)){ throw new IllegalArgumentException("Event is not GamepadEvent"); }
-        events.add(event);
+        registerEvent(event);
+        return this;
+    }
+
+    /**
+     * Registers an event, the parameter is ignored
+     * @param event the Event to register
+     * @param parameter parameter ignored
+     * @return itself
+     */
+    @Override
+    public SuperGamepad registerEvent(Event event, int parameter) {
+        registerEvent(event);
+        return this;
+    }
+
+    /**
+     * Registers an event, the parameter is ignored
+     * @param event the Event to register
+     * @param parameter parameter ignored
+     * @return itself
+     */
+    @Override
+    public SuperGamepad registerEvent(Event event, double parameter) {
+        registerEvent(event);
+        return this;
+    }
+
+    @Override
+    public SuperGamepad registerEvent(Event event, boolean parameterBoolean1) {
+        registerEvent(event);
+        return this;
+    }
+
+    @Override
+    public SuperGamepad registerEvent(Event event, int parameterInt1, boolean parameterBoolean1) {
+        registerEvent(event);
+        return this;
+    }
+
+    @Override
+    public SuperGamepad registerEvent(Event event, double parameterDouble1, boolean parameterBoolean1) {
+        registerEvent(event);
         return this;
     }
 
@@ -66,7 +108,7 @@ public class SuperGamepad implements Super {
 
     /**
      * Update the pressed buttons and execute all the events.
-     * This method should be placed at the end or at the start of your loop in your OpMode
+     * This method should be placed at the end or at the start of your repeat in your OpMode
      */
     @Override
     public void update() {
@@ -97,24 +139,20 @@ public class SuperGamepad implements Super {
 
             bt.ticks++;
 
-            gdp.buttonsBeingPressed.add(btt);
+            gdp.buttonsBeingPressed.put(btt, bt.ticks);
 
-            if(ticks == 0){
-                gdp.buttonsPressed.add(btt);
+            if(ticks == 1){
+                gdp.buttonsPressed.put(btt, bt.ticks);
             }
         }
 
         for (ButtonTicks bt : ticksPressedButtons) {
 
-            boolean continueThisIteration = true;
+            if(bt.ticks <= 0){ continue; }
 
-            if(bt.ticks < 0){ continueThisIteration = false; }
-
-            if(continueThisIteration){
-                if(!buttonIsPressed(bt.button)){
-                    bt.ticks = -1;
-                    gdp.buttonsReleased.add(bt.button);
-                }
+            if(!buttonIsPressed(bt.button)){
+                bt.ticks = 0;
+                gdp.buttonsReleased.put(bt.button, bt.ticks);
             }
         }
 
@@ -174,7 +212,7 @@ public class SuperGamepad implements Super {
 
     private class ButtonTicks{
 
-        public int ticks = -1;
+        public int ticks = 0;
         public Button button = Button.NONE;
 
         @Override

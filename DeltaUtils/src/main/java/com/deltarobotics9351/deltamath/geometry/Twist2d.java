@@ -11,7 +11,7 @@ package com.deltarobotics9351.deltamath.geometry;
  */
 public class Twist2d {
 
-    private double[] twi = { 0, 0};
+    private double[] twi = { 0, 0 };
     private Rot2d theta = new Rot2d();
 
     /**

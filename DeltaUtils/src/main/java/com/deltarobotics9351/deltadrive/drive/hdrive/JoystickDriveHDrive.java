@@ -33,7 +33,7 @@ public class JoystickDriveHDrive {
     /**
      * Control an H-Drive chassis using a gamepad's joysticks.
      * Use left stick to go forward, backwards and strafe, and right stick to turn
-     * This method should be called always in the teleop loop to update the motor powers
+     * This method should be called always in the teleop repeat to update the motor powers
      * @param gamepad the gamepad used to control the chassis.
      * @param turbo the chassis % of speed, from 0 to 1
      */

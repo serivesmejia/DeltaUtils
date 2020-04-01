@@ -22,7 +22,13 @@ public class ExtendableHolonomicLinearOpMode extends ExtendableLinearOpMode {
     @Override
     public void runOpMode(){ }
 
+    private boolean alreadyPerformedInit = false;
+
     public final void performInit(){
+        if(alreadyPerformedInit){ return; }
+
+        alreadyPerformedInit = true;
+
         setup();
 
         if(RESET_ROBOT_HEADING){

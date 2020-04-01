@@ -130,7 +130,6 @@ public class XYHeadingOdometers {
         DcMotorEx yMotor = hdwMap.get(DcMotorEx.class, yOdometer.deviceName);
         DcMotorEx headingMotor = hdwMap.get(DcMotorEx.class, headingOdometer.deviceName);
 
-
         xMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         yMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         headingMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -49,6 +49,7 @@ public class DeltaHardwareHDrive extends DeltaHardware{
         setRunModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
+    @Override
     public final void updateChassisMotorsArray(){
         chassisMotorsArray[0] = wheelsLeft;
         chassisMotorsArray[1] = wheelsRight;
@@ -102,7 +103,109 @@ public class DeltaHardwareHDrive extends DeltaHardware{
     }
 
     @Override
+    public final void setAllMotorPower(double frontleft, double frontright, double backleft, double backright){
+
+        double left = (frontleft + backleft) / 2;
+        double right = (frontleft + backleft) / 2;
+        double middle = 0;
+
+        switch(invert) {
+            case RIGHT_SIDE:
+                wheelsLeft.setPower(left);
+                wheelsRight.setPower(-right);
+                wheelMiddle.setPower(middle);
+                break;
+            case LEFT_SIDE:
+                wheelsLeft.setPower(-left);
+                wheelsRight.setPower(right);
+                wheelMiddle.setPower(middle);
+                break;
+            case BOTH_SIDES:
+                wheelsLeft.setPower(-left);
+                wheelsRight.setPower(-right);
+                wheelMiddle.setPower(middle);
+                break;
+            case MIDDLE:
+                wheelsLeft.setPower(left);
+                wheelsRight.setPower(right);
+                wheelMiddle.setPower(-middle);
+                break;
+            case RIGHT_SIDE_MIDDLE:
+                wheelsLeft.setPower(left);
+                wheelsRight.setPower(-right);
+                wheelMiddle.setPower(-middle);
+                break;
+            case LEFT_SIDE_MIDDLE:
+                wheelsLeft.setPower(-left);
+                wheelsRight.setPower(right);
+                wheelMiddle.setPower(-middle);
+                break;
+            case BOTH_SIDES_MIDDLE:
+                wheelsLeft.setPower(-left);
+                wheelsRight.setPower(-right);
+                wheelMiddle.setPower(-middle);
+                break;
+            default:
+                wheelsLeft.setPower(left);
+                wheelsRight.setPower(right);
+                wheelMiddle.setPower(middle);
+                break;
+        }
+    }
+
+    @Override
     public final void setTargetPositions(int left, int right, int middle){
+        switch(invert) {
+            case RIGHT_SIDE:
+                wheelsLeft.setTargetPosition(left);
+                wheelsRight.setTargetPosition(-right);
+                wheelMiddle.setTargetPosition(middle);
+                break;
+            case LEFT_SIDE:
+                wheelsLeft.setTargetPosition(-left);
+                wheelsRight.setTargetPosition(right);
+                wheelMiddle.setTargetPosition(middle);
+                break;
+            case BOTH_SIDES:
+                wheelsLeft.setTargetPosition(-left);
+                wheelsRight.setTargetPosition(-right);
+                wheelMiddle.setTargetPosition(middle);
+                break;
+            case MIDDLE:
+                wheelsLeft.setTargetPosition(left);
+                wheelsRight.setTargetPosition(right);
+                wheelMiddle.setTargetPosition(-middle);
+                break;
+            case RIGHT_SIDE_MIDDLE:
+                wheelsLeft.setTargetPosition(left);
+                wheelsRight.setTargetPosition(-right);
+                wheelMiddle.setTargetPosition(-middle);
+                break;
+            case LEFT_SIDE_MIDDLE:
+                wheelsLeft.setTargetPosition(-left);
+                wheelsRight.setTargetPosition(right);
+                wheelMiddle.setTargetPosition(-middle);
+                break;
+            case BOTH_SIDES_MIDDLE:
+                wheelsLeft.setTargetPosition(-left);
+                wheelsRight.setTargetPosition(-right);
+                wheelMiddle.setTargetPosition(-middle);
+                break;
+            default:
+                wheelsLeft.setTargetPosition(left);
+                wheelsRight.setTargetPosition(right);
+                wheelMiddle.setTargetPosition(middle);
+                break;
+        }
+    }
+
+    @Override
+    public final void setTargetPositions(int frontleft, int frontright, int backleft, int backright){
+
+        int left = Math.round((frontleft + backleft) / 2);
+        int right = Math.round((frontright + backright) / 2);
+        int middle = 0;
+
         switch(invert) {
             case RIGHT_SIDE:
                 wheelsLeft.setTargetPosition(left);

@@ -32,29 +32,28 @@ public class GamepadEvent extends Event {
     public double left_trigger = 0;
     public double right_trigger = 0;
 
+    public final Button A = Button.A;
+    public final Button B = Button.B;
+    public final Button X = Button.X;
+    public final Button Y = Button.Y;
 
-    public Button A = Button.A;
-    public Button B = Button.B;
-    public Button X = Button.X;
-    public Button Y = Button.Y;
+    public final Button DPAD_UP = Button.DPAD_UP;
+    public final Button DPAD_DOWN = Button.DPAD_DOWN;
+    public final Button DPAD_LEFT = Button.DPAD_LEFT;
+    public final Button DPAD_RIGHT = Button.DPAD_RIGHT;
 
-    public Button DPAD_UP = Button.DPAD_UP;
-    public Button DPAD_DOWN = Button.DPAD_DOWN;
-    public Button DPAD_LEFT = Button.DPAD_LEFT;
-    public Button DPAD_RIGHT = Button.DPAD_RIGHT;
+    public final Button LEFT_BUMPER = Button.LEFT_BUMPER;
+    public final Button RIGHT_BUMPER = Button.RIGHT_BUMPER;
 
-    public Button LEFT_BUMPER = Button.LEFT_BUMPER;
-    public Button RIGHT_BUMPER = Button.RIGHT_BUMPER;
+    public final Button LEFT_TRIGGER = Button.LEFT_TRIGGER;
+    public final Button RIGHT_TRIGGER = Button.RIGHT_TRIGGER;
 
-    public Button LEFT_TRIGGER = Button.LEFT_TRIGGER;
-    public Button RIGHT_TRIGGER = Button.RIGHT_TRIGGER;
+    public final Button LEFT_STICK_BUTTON = Button.LEFT_STICK_BUTTON;
+    public final Button RIGHT_STICK_BUTTON = Button.RIGHT_STICK_BUTTON;
 
-    public Button LEFT_STICK_BUTTON = Button.LEFT_STICK_BUTTON;
-    public Button RIGHT_STICK_BUTTON = Button.RIGHT_STICK_BUTTON;
-
-    public Buttons.Type BUTTONS_BEING_PRESSED = Buttons.Type.BUTTONS_BEING_PRESSED;
-    public Buttons.Type BUTTONS_PRESSED = Buttons.Type.BUTTONS_PRESSED;
-    public Buttons.Type BUTTONS_RELEASED = Buttons.Type.BUTTONS_RELEASED;
+    public final Buttons.Type BUTTONS_BEING_PRESSED = Buttons.Type.BUTTONS_BEING_PRESSED;
+    public final Buttons.Type BUTTONS_PRESSED = Buttons.Type.BUTTONS_PRESSED;
+    public final Buttons.Type BUTTONS_RELEASED = Buttons.Type.BUTTONS_RELEASED;
 
     @Override
     public void execute(Object arg1, Object arg2) {

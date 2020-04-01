@@ -37,7 +37,7 @@ public class JoystickFieldCentricDriveHolonomic {
      * Control a mecanum chassis using a gamepad's joysticks, field centric.
      * Field centric works like 3d games: Pushing forwards will always make the robot drive away from you, no matter the rotation.
      * Use left stick to go forward, backwards and strafe, and right stick to turn
-     * This method should be called always in the teleop loop to update the motor powers
+     * This method should be called always in the teleop repeat to update the motor powers
      * @param gamepad the gamepad used to control the chassis.
      * @param turbo the chassis max speed, from 0 to 1
      * @param heading the current robot heading

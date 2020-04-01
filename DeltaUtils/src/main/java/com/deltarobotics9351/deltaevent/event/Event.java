@@ -15,7 +15,6 @@ public abstract class Event {
 
     public abstract void execute(Object arg1);
 
-
     public abstract void execute(ArrayList<Object> args);
 
     public abstract void execute(HashMap<Object, Object> args);

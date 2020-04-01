@@ -4,10 +4,12 @@
  *  More info at https://choosealicense.com/licenses/mit/
  */
 
-package com.deltarobotics9351.deltadrive.drive.holonomic;
+package com.deltarobotics9351.deltadrive.drive;
 
 import com.deltarobotics9351.LibraryData;
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardware;
+import com.deltarobotics9351.deltadrive.hardware.DeltaHardwareHolonomic;
+import com.deltarobotics9351.deltadrive.parameters.EncoderDriveParameters;
 import com.deltarobotics9351.deltadrive.parameters.IMUDriveParameters;
 import com.deltarobotics9351.deltamath.MathUtil;
 import com.deltarobotics9351.deltamath.geometry.Rot2d;
@@ -22,8 +24,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
+import java.util.Base64;
+
 /**
- * Turning using the IMU sensor integrated in the Expansion Hub and a PID loop, which slows the motors speed the more closer the robot is to the target.
+ * Turning using the IMU sensor integrated in the Expansion Hub and a PID repeat, which slows the motors speed the more closer the robot is to the target.
  */
 public class ExtendableIMUDrivePID {
 
@@ -39,13 +43,23 @@ public class ExtendableIMUDrivePID {
 
     private IMUDriveParameters parameters;
 
-    private double P = 0;
-    private double I = 0;
-    private double D = 0;
+    private double rkP = 0;
+    private double rkI = 0;
+    private double rkD = 0;
+
+    private PIDCoefficients pidCoefficientsRotate = new PIDCoefficients(0, 0, 0);
+
+    private double dkP = 0;
+    private double dkI = 0;
+    private double dkD = 0;
+
+    private PIDCoefficients pidCoefficientsDrive = new PIDCoefficients(0, 0, 0);
 
     private boolean isInitialized = false;
 
     private DeltaHardware.Type allowedDeltaHardwareType = DeltaHardware.Type.DEFAULT;
+
+    private EncoderDriveParameters encoderDriveParameters;
 
     /**
      * Constructor for the IMU drive class
@@ -72,7 +86,7 @@ public class ExtendableIMUDrivePID {
 
     public void initIMU(IMUDriveParameters parameters) {
 
-        if(!(hdw.type == allowedDeltaHardwareType)) throw new IllegalArgumentException("Given DeltaHardware is not mecanum");
+        if(!(hdw.type == allowedDeltaHardwareType)) throw new IllegalArgumentException("Given DeltaHardware is not the expected");
 
         this.parameters = parameters;
 
@@ -91,30 +105,57 @@ public class ExtendableIMUDrivePID {
     }
 
     /**
-     * @param coefficients the PID coefficients, in a DeltaUtils PIDCoefficients object
+     * @param coefficients the rotate PID coefficients, in a DeltaUtils PIDCoefficients object
      */
-    public void setPID(PIDCoefficients coefficients) {
-        this.P = Math.abs(coefficients.kP);
-        this.I = Math.abs(coefficients.kI);
-        this.D = Math.abs(coefficients.kD);
+    public void setRotatePID(PIDCoefficients coefficients) {
+        this.rkP = Math.abs(coefficients.kP);
+        this.rkI = Math.abs(coefficients.kI);
+        this.rkD = Math.abs(coefficients.kD);
+        pidCoefficientsRotate = coefficients;
     }
 
-    public PIDCoefficients getPID(){ return new PIDCoefficients(P, I, D); }
+    public PIDCoefficients getRotatePID(){ return pidCoefficientsRotate; }
 
-    public double getP() {
-        return P;
+    public double getRotateP() {
+        return rkP;
     }
 
-    public double getI() {
-        return I;
+    public double getRotateI() {
+        return rkI;
     }
 
-    public double getD() {
-        return D;
+    public double getRotateD() {
+        return rkD;
     }
 
     /**
-     * Enter in a while loop until the IMU reports it is calibrated or until the opmode stops
+     * @param coefficients the drive (forward & backwards) PID coefficients, in a DeltaUtils PIDCoefficients object
+     */
+    public void setDrivePID(PIDCoefficients coefficients) {
+        this.dkP = Math.abs(coefficients.kP);
+        this.dkI = Math.abs(coefficients.kI);
+        this.dkD = Math.abs(coefficients.kD);
+        pidCoefficientsDrive = coefficients;
+    }
+
+    public PIDCoefficients getDrivePID(){ return pidCoefficientsDrive; }
+
+    public double getDriveP() {
+        return dkP;
+    }
+
+    public double getDriveI() {
+        return dkI;
+    }
+
+    public double getDriveD() {
+        return dkD;
+    }
+
+    public void setEncoderDriveParameters(EncoderDriveParameters parameters){ encoderDriveParameters = parameters; }
+
+    /**
+     * Enter in a while repeat until the IMU reports it is calibrated or until the opmode stops
      */
     public void waitForIMUCalibration() {
         while (!imu.isGyroCalibrated() && !Thread.interrupted()) {
@@ -188,7 +229,7 @@ public class ExtendableIMUDrivePID {
     }
 
     /**
-     * Rotate by a Rot2d with a PID loop.
+     * Rotate by a Rot2d with a PID repeat.
      * @param rotation The Rot2d to rotate by (use Rot2d.fromDegrees() to create a new Rot2d from degrees)
      * @param power The initial power to rotate
      * @param timeoutS The max time the rotation can take, to avoid robot getting stuck.
@@ -264,9 +305,9 @@ public class ExtendableIMUDrivePID {
 
                 prevIntegral += errorDelta;
 
-                double proportional = (errorDelta * (P * multiplyByDegs));
-                double integral = (prevIntegral * (I * multiplyByDegs));
-                double derivative = (velocityDelta * (D * multiplyByDegs));
+                double proportional = (errorDelta * (rkP * multiplyByDegs));
+                double integral = (prevIntegral * (rkI * multiplyByDegs));
+                double derivative = (velocityDelta * (rkD * multiplyByDegs));
 
                 double turbo = MathUtil.clamp(proportional + integral + derivative, -1, 1);
 
@@ -311,9 +352,9 @@ public class ExtendableIMUDrivePID {
 
                 prevIntegral += errorDelta;
 
-                double proportional = (errorDelta * (P * multiplyBy));
-                double integral = (prevIntegral * (I * multiplyBy));
-                double derivative = (velocityDelta * (D * multiplyBy));
+                double proportional = (errorDelta * (rkP * multiplyBy));
+                double integral = (prevIntegral * (rkI * multiplyBy));
+                double derivative = (velocityDelta * (rkD * multiplyBy));
 
                 double turbo = MathUtil.clamp(proportional + integral + derivative, -1, 1);
 
@@ -353,6 +394,64 @@ public class ExtendableIMUDrivePID {
         return new Twist2d(0, 0, Rot2d.fromDegrees(getAngle()));
     }
 
+    public void encoderPIDForward(double inches, double speed, double timeoutS){
+
+        if(encoderDriveParameters == null) return;
+
+        double initialRobotHeading = getAngle();
+        encoderPIDDrive(speed, inches, inches, inches, inches, timeoutS, encoderDriveParameters.RIGHT_WHEELS_TURBO, encoderDriveParameters.LEFT_WHEELS_TURBO, "PID Forward", initialRobotHeading, this, encoderDriveParameters, hdw, telemetry);
+
+    }
+
+
+    public void encoderPIDBackwards(double inches, double speed, double timeoutS){
+
+        if(encoderDriveParameters == null) return;
+
+        speed = Math.abs(speed);
+
+        double initialRobotHeading = getAngle();
+        encoderPIDDrive(speed, -inches, -inches, -inches, -inches, timeoutS, encoderDriveParameters.RIGHT_WHEELS_TURBO, encoderDriveParameters.LEFT_WHEELS_TURBO, "PID Backwards", initialRobotHeading, this, encoderDriveParameters, hdw, telemetry);
+
+    }
+
+    public void timePIDForward(double power, double timeSecs){
+
+        power = Math.abs(power);
+        double initialRobotHeading = getAngle();
+
+        timePIDDrive(power, power, power, power, timeSecs, initialRobotHeading, this, "PID Forward");
+
+    }
+
+    public void timePIDBackwards(double power, double timeSecs){
+
+        power = Math.abs(power);
+        double initialRobotHeading = getAngle();
+
+        timePIDDrive(power, power, power, power, timeSecs, initialRobotHeading, this, "PID Backwards");
+
+    }
+
+    //needs to extend
+    public void timePIDDrive(double frontleft, double frontright, double backleft, double backright, double timeSecs, double initialRobotHeading, ExtendableIMUDrivePID imu, String movementDescription) { }
+
+    //needs to extend
+    public void encoderPIDDrive(double speed,
+                              double frontleft,
+                              double frontright,
+                              double backleft,
+                              double backright,
+                              double timeoutS,
+                              double rightTurbo,
+                              double leftTurbo,
+                              String movementDescription,
+                              double initialRobotHeading,
+                              ExtendableIMUDrivePID imu,
+                              EncoderDriveParameters encoderDriveParameters,
+                              DeltaHardware hdw,
+                              Telemetry telemetry  ) { }
+
     private void setAllMotorPower(double frontleftpower, double frontrightpower, double backleftpower, double backrightpower) {
 
         switch(hdw.type) {
@@ -362,7 +461,6 @@ public class ExtendableIMUDrivePID {
             case HDRIVE:
                 double averageLeft = (frontleftpower + backleftpower) / 2;
                 double averageRight = (frontrightpower + backrightpower) / 2;
-
                 hdw.setAllMotorPower(averageLeft, averageRight, 0);
 
                 break;

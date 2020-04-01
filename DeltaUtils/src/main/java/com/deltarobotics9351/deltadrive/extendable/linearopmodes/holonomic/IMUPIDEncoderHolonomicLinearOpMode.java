@@ -79,38 +79,72 @@ public class IMUPIDEncoderHolonomicLinearOpMode extends ExtendableHolonomicLinea
     }
 
     /**
-     * Set the PID coefficients
+     * Set the rotate PID coefficients
      * @param pid the PID coefficients
      */
-    public final void setPID(PIDCoefficients pid){
+    public final void setRotatePID(PIDCoefficients pid){
         imuDrive.setRotatePID(pid);
     }
 
     /**
-     * @return the P coefficient
+     * @return the rotate Proportional coefficient
      */
-    public final double getP(){
-        return imuDrive.getRkP();
+    public final double getRotateP(){
+        return imuDrive.getRotateP();
     }
 
     /**
-     * @return the I coefficient
+     * @return the rotate Integral coefficient
      */
-    public final double getI(){
-        return imuDrive.getI();
+    public final double getRotateI(){
+        return imuDrive.getRotateI();
     }
 
     /**
-     * @return the D coefficient
+     * @return the rotate Derivative coefficient
      */
-    public final double getD(){
-        return imuDrive.getRkD();
+    public final double getRotateD(){
+        return imuDrive.getRotateD();
     }
 
     /**
-     * @return the current PIDCoefficients object
+     * @return the current rotate PIDCoefficients object
      */
-    public final PIDCoefficients getPID(){ return imuDrive.getPID(); }
+    public final PIDCoefficients getRotatePID(){ return imuDrive.getRotatePID(); }
+
+    /**
+     * Set the drive PID coefficients
+     * @param pid the PID coefficients
+     */
+    public final void setDrivePID(PIDCoefficients pid){
+        imuDrive.setDrivePID(pid);
+    }
+
+    /**
+     * @return the drive Proportional coefficient
+     */
+    public final double getDriveP(){
+        return imuDrive.getDriveP();
+    }
+
+    /**
+     * @return the drive Integral coefficient
+     */
+    public final double getDriveI(){
+        return imuDrive.getDriveI();
+    }
+
+    /**
+     * @return the drive Derivative coefficient
+     */
+    public final double getDriveD(){
+        return imuDrive.getDriveD();
+    }
+
+    /**
+     * @return the current rotate PIDCoefficients object
+     */
+    public final PIDCoefficients getDrivePID(){ return imuDrive.getDrivePID(); }
 
     public final Twist2d rotate(Rot2d rot, double power, double timeoutS){
         return imuDrive.rotate(rot, power, timeoutS);

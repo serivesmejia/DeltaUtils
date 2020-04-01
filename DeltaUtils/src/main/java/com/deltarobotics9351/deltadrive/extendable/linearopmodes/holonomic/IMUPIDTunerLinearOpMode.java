@@ -98,7 +98,7 @@ public class IMUPIDTunerLinearOpMode extends IMUPIDHolonomicLinearOpMode {
 
         if(!isStarted()) return;
 
-        setPID(new PIDCoefficients(P, I, D));
+        setRotatePID(new PIDCoefficients(P, I, D));
 
         Twist2d twist = rotate(Rot2d.fromDegrees(90), 0.7, 5);
 

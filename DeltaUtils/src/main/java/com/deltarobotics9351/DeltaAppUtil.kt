@@ -25,6 +25,8 @@ package com.deltarobotics9351
 import com.qualcomm.robotcore.hardware.HardwareMap
 import com.qualcomm.robotcore.hardware.RobotCoreLynxUsbDevice
 import com.qualcomm.robotcore.util.RobotLog
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil
 import org.firstinspires.ftc.robotcore.internal.ui.UILocation
 import java.util.concurrent.CountDownLatch
@@ -36,13 +38,13 @@ class DeltaAppUtil {
         fun restartAppCausedByError(hardwareMap: HardwareMap, globalErrorMessage: String, toast: String) {
             val countDownFailsafe = CountDownLatch(1);
 
-            AsyncUtil.asyncExecute(Runnable {
+            GlobalScope.launch {
                 for (device in hardwareMap.getAll(RobotCoreLynxUsbDevice::class.java)) {
                     device.lockNetworkLockAcquisitions();
                     device.failSafe();
                 }
                 countDownFailsafe.countDown();
-            });
+            }
 
             try {
                 if (countDownFailsafe.await(250, TimeUnit.MILLISECONDS)) { //wait for failSafe command to be sent, with a timeout of 250 ms

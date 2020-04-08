@@ -11,25 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15dedc17-52a4-4742-b160-1a2213697791" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_1_3_5_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/DeltaUtils.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/DeltaUtils.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/AsyncUtil.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/TelemetryMessage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/TelemetryMessage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/gear/ThreeGearRatio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/gear/ThreeGearRatio.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/gear/TwoGearRatio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/gear/TwoGearRatio.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltaevent/timer/SuperAsyncTimer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltaevent/timer/SuperAsyncTimer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltaevent/timer/SuperSyncTimer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltaevent/timer/SuperSyncTimer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltamath/DeltaMathUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltamath/DeltaMathUtil.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltamath/geometry/Rot2d.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltamath/geometry/Rot2d.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltamath/geometry/Vec2d.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltamath/geometry/Vec2d.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/pid/PIDCoefficients.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/pid/PIDCoefficients.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

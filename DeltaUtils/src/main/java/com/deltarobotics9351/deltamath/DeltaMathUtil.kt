@@ -23,7 +23,7 @@
 package com.deltarobotics9351.deltamath
 
 /**
- * Class with WPILib FRC Lib math methods and extra custom ones.
+ * Class with some WPILib FRC Lib math methods and extra custom ones.
  */
 class DeltaMathUtil {
 

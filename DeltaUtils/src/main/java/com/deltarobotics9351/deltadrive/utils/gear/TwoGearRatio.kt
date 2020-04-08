@@ -35,19 +35,9 @@ class TwoGearRatio : GearRatio{
      * Constructor for GearRatio class
      * @param T1 Number of teeth of drive gear
      * @param T2 Number of teeth of driven gear
-     */
-    constructor (T1: Double, T2: Double) {
-        ratio[0] = T1
-        ratio[1] = T2
-    }
-
-    /**
-     * Constructor for GearRatio class
-     * @param T1 Number of teeth of drive gear
-     * @param T2 Number of teeth of driven gear
      * @param inputRPM The input RPM (generally the motor RPM)
      */
-    constructor (T1: Double, T2: Double, inputRPM: Double) {
+    constructor (T1: Double, T2: Double, inputRPM: Double = 0.0) {
         ratio[0] = T1
         ratio[1] = T2
         this.inputRPM = inputRPM

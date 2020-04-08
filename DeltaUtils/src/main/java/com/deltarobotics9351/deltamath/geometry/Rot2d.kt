@@ -215,5 +215,4 @@ class Rot2d {
         return "Rot2d(rad " + radians + ", deg " + Math.toDegrees(radians) + ")"
     }
 
-
 }

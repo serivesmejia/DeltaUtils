@@ -22,14 +22,4 @@
 
 package com.deltarobotics9351.deltadrive.utils
 
-class TelemetryMessage {
-
-    var caption: String? = null
-    var value: Any? = null
-
-    constructor (caption: String?, value: Any?) {
-        this.caption = caption
-        this.value = value
-    }
-
-}
+class TelemetryMessage (val caption: String, val value: Any)

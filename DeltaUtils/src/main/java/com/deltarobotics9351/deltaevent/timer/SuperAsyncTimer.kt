@@ -22,8 +22,9 @@
 
 package com.deltarobotics9351.deltaevent.timer
 
-import com.deltarobotics9351.AsyncUtil
 import com.qualcomm.robotcore.hardware.HardwareMap
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class SuperAsyncTimer(hardwareMap: HardwareMap) : SuperSyncTimer(hardwareMap) {
 
@@ -32,7 +33,7 @@ class SuperAsyncTimer(hardwareMap: HardwareMap) : SuperSyncTimer(hardwareMap) {
      * IT NEEDS TO BE CALLED AT THE END OF YOUR OPMODE
      */
     fun asyncDestroy() {
-        AsyncUtil.asyncExecute(Runnable { destroy() })
+        GlobalScope.launch { destroy() }
     }
 
 }

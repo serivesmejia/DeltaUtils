@@ -22,7 +22,6 @@
 
 package com.deltarobotics9351.deltaevent.timer
 
-import com.deltarobotics9351.AsyncUtil
 import com.deltarobotics9351.DeltaAppUtil
 import com.deltarobotics9351.deltaevent.Super
 import com.deltarobotics9351.deltaevent.event.Event
@@ -31,8 +30,9 @@ import com.deltarobotics9351.deltaevent.event.timer.TimerEvent
 import com.qualcomm.robotcore.hardware.HardwareMap
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlinx.coroutines.*
 
-open class SuperSyncTimer : Super {
+open class SuperSyncTimer(private val hardwareMap: HardwareMap) : Super {
 
     private val eventsTime = HashMap<TimerEvent, TimerDataPacket>()
 
@@ -43,12 +43,6 @@ open class SuperSyncTimer : Super {
     private var finishedDestroying = false
 
     val msStuckInDestroy: Long = 1000
-
-    private var hardwareMap: HardwareMap? = null
-
-    constructor (hardwareMap: HardwareMap) {
-        this.hardwareMap = hardwareMap
-    }
 
     override fun registerEvent(event: Event): SuperSyncTimer {
         require(event is TimerEvent) { "Event is not TimerEvent" }
@@ -101,20 +95,28 @@ open class SuperSyncTimer : Super {
      */
     override fun update() {
         if (destroying) return
+
         val evtToRemove = ArrayList<TimerEvent>()
+
         for ((evt, evtTimeDataPacket) in eventsTime) {
+
             if (evtTimeDataPacket.msLastSystemTime == 0L) {
                 evt.startEvent()
                 evtTimeDataPacket.msStartSystemTime = System.currentTimeMillis()
                 evtTimeDataPacket.msLastSystemTime = System.currentTimeMillis()
             }
+
             if (evt.isCancelled()) {
                 evtToRemove.add(evt)
                 continue
             }
+
             evt.loopEvent(TimerDataPacket(evtTimeDataPacket))
+
             if (evtTimeDataPacket.msEventTime < 1) {
+
                 evt.timeoutEvent()
+
                 if (!evtTimeDataPacket.repeat) {
                     evtToRemove.add(evt)
                 } else {
@@ -122,10 +124,13 @@ open class SuperSyncTimer : Super {
                     evtTimeDataPacket.msElapsedTime = 0
                     evtTimeDataPacket.msLastSystemTime = 0
                 }
+
             } else {
                 val msElapsed = System.currentTimeMillis() - evtTimeDataPacket.msStartSystemTime
+
                 evtTimeDataPacket.msElapsedTime = msElapsed
                 evtTimeDataPacket.msLastSystemTime = System.currentTimeMillis()
+
                 if (evtTimeDataPacket.msEventTime >= evtTimeDataPacket.msElapsedTime) {
                     evt.timeoutEvent()
                     if (!evtTimeDataPacket.repeat) {
@@ -140,6 +145,7 @@ open class SuperSyncTimer : Super {
             eventsTime.remove(evt)
             eventsTime[evt] = evtTimeDataPacket
         }
+
         for (evt in evtToRemove) {
             eventsTime.remove(evt)
         }
@@ -150,26 +156,35 @@ open class SuperSyncTimer : Super {
      * IT NEEDS TO BE CALLED AT THE END OF YOUR OPMODE
      */
     fun destroy() {
+
         destroying = true
-        AsyncUtil.asyncExecute(Runnable {
+
+        GlobalScope.launch {
+
             val msStartDestroying = System.currentTimeMillis()
             val msMaxTimeDestroying = msStartDestroying + msStuckInDestroy
-            while (!Thread.interrupted() && System.currentTimeMillis() < msMaxTimeDestroying);
+
+            delay(msMaxTimeDestroying)
+
             if (!finishedDestroying) {
                 DeltaAppUtil.restartAppCausedByError(hardwareMap!!, "User SuperTimer stuck in destroy(). Restarting robot controller app.", "SuperTimer stuck in destroy(). Restarting robot controller app.")
             }
-        })
-        if (this is SuperAsyncTimer) removeAsyncTimer(this as SuperAsyncTimer)
+
+        }
+
+        if (this is SuperAsyncTimer) removeAsyncTimer(this)
         cancelAllEvents()
     }
 
 
     fun cancelAllEvents() {
-        val safeEvents = events.toTypedArray() as Array<Event>
+        val safeEvents = events.toTypedArray()
+
         for (evt in safeEvents) {
             val e = evt as TimerEvent
             e.cancel()
         }
+
         if (destroying) finishedDestroying = true
     }
 

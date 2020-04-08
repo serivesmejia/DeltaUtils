@@ -39,7 +39,7 @@ class Vec2d {
     /**
      * Constructor for Vec2d
      */
-    constructor () {}
+    constructor ()
 
     /**
      * Constructor for Vec2d using another Vec2d

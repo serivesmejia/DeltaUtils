@@ -22,10 +22,11 @@
 
 package com.deltarobotics9351.deltaevent.event.manager
 
-import com.deltarobotics9351.AsyncUtil.Companion.asyncExecute
 import com.deltarobotics9351.deltaevent.timer.SuperAsyncTimer
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegistrar
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 class AsyncTimersManager {
@@ -45,7 +46,7 @@ class AsyncTimersManager {
 
         fun removeAsyncTimers() {
             for (timer in asyncTimers) {
-                asyncExecute(Runnable { timer.destroy() })
+                GlobalScope.launch { timer.destroy() }
                 asyncTimers.remove(timer)
             }
         }
@@ -58,7 +59,7 @@ class AsyncTimersManager {
 
         fun removeAsyncTimer(timer: SuperAsyncTimer) {
             if (asyncTimers.contains(timer)) {
-                asyncExecute(Runnable { timer.destroy() })
+                GlobalScope.launch { timer.destroy() }
                 asyncTimers.remove(timer)
             }
         }
@@ -66,9 +67,9 @@ class AsyncTimersManager {
         private class AsyncTimersManagerRunnable : Runnable {
             override fun run() {
                 while (!Thread.interrupted()) {
-                    val safeAsyncTimers = asyncTimers.toTypedArray() as Array<SuperAsyncTimer>
+                    val safeAsyncTimers = asyncTimers.toTypedArray()
                     for (asyncTimer in safeAsyncTimers) {
-                        asyncExecute(Runnable { asyncTimer.update() })
+                        GlobalScope.launch { asyncTimer.update() }
                     }
                 }
             }

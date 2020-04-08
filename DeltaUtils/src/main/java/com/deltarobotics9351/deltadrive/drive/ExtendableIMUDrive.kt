@@ -248,7 +248,7 @@ open class ExtendableIMUDrive {
         }
     }
 
-    private fun correctRotation(expectedAngle: Double): Twist2d? {
+    private fun correctRotation(expectedAngle: Double): Twist2d {
         correctedTimes += 1
 
         if (correctedTimes > parameters!!.ROTATE_MAX_CORRECTION_TIMES) {

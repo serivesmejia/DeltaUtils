@@ -26,7 +26,7 @@ import com.deltarobotics9351.AsyncUtil
 import com.deltarobotics9351.DeltaAppUtil
 import com.deltarobotics9351.deltaevent.Super
 import com.deltarobotics9351.deltaevent.event.Event
-import com.deltarobotics9351.deltaevent.event.manager.removeAsyncTimer
+import com.deltarobotics9351.deltaevent.event.manager.AsyncTimersManager.Companion.removeAsyncTimer
 import com.deltarobotics9351.deltaevent.event.timer.TimerEvent
 import com.qualcomm.robotcore.hardware.HardwareMap
 import java.util.*

@@ -32,7 +32,7 @@ class Rot2d {
      * Constructor for Rot2d
      */
     constructor () {
-        radians = 0
+        radians = 0.0
         cos = 1.0
         sin = 0.0
     }

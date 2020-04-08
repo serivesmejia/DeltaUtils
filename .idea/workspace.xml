@@ -4,19 +4,27 @@
     <option name="SCOPE_TYPE" value="8" />
     <option name="CUSTOM_SCOPE_NAME" value="Project Files" />
   </component>
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="15dedc17-52a4-4742-b160-1a2213697791" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle___FtcCommon_release__aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle___FtcCommon_release__aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle___Hardware_release__aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle___Hardware_release__aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle___RobotCore_release__aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle___RobotCore_release__aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DeltaUtils/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils2.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,8 +32,10 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DefaultGradleProjectSettings">
-    <option name="isMigrated" value="true" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
   </component>
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
@@ -33,70 +43,6 @@
         <projects_view />
       </state>
     </system>
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62ba8b79166d32fc11be2e45332949c8/RobotCore-release/jars/classes.jar!/com/qualcomm/robotcore/util/ElapsedTime.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/DeltaUtils/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1904">
-              <caret line="118" column="48" selection-start-line="118" selection-start-column="48" selection-end-line="118" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/SubSystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="12" column="37" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/pid/PIDController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3383">
-              <caret line="214" column="4" selection-start-line="214" selection-start-column="4" selection-end-line="214" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -109,72 +55,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/DeltaSystemOpMode.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/utils/Hardware.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/subsystems/MotionSubSystem.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/subsystems/MecanumChassisSubSystem.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/System.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/DeltaOpMode.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltasystem/subsystems/SubSystem.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/WeightDistribution.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/parameters/IMUDriveConstants.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUDriveMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/TimeIMUDriveMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/pid/PIDControl.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/MotionSubSystem.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/DeltaOpMode.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/TimeDriveMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/pid/PIDConstants.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/SubSystem.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/parameters/IMUDriveConstants.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/IMUTurnMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/pid/PIDController.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUTimeDriveMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUEncoderDriveMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDrivePIDMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java" />
-        <option value="$PROJECT_DIR$/DeltaUtils/build.gradle" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <hideEmptyPackages AndroidView="false" />
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="DeltaUtils2" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
-    </panes>
-  </component>
+  <component name="ProjectId" id="1aElolLBEW3I3IXPzQidgyuWJxz" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
@@ -222,172 +103,15 @@
     </task>
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49756098" visible="true" weight="0.32980332" />
-      <window_info id="Structure" order="2" sideWeight="0.502439" side_tool="true" weight="0.32980332" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info id="Build Variants" order="4" side_tool="true" />
-      <window_info id="Image Layers" order="5" />
-      <window_info id="Designer" order="6" />
-      <window_info id="Resources Explorer" order="7" />
-      <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Version Control" order="0" />
-      <window_info anchor="bottom" id="Logcat" order="1" />
-      <window_info anchor="bottom" id="TODO" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Build" order="5" visible="true" weight="0.3289689" />
-      <window_info anchor="bottom" id="Android Profiler" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Find" order="7" weight="0.3289689" />
-      <window_info anchor="bottom" id="Run" order="8" weight="0.3289689" />
-      <window_info anchor="bottom" id="Debug" order="9" />
-      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Gradle" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Palette&#9;" order="4" />
-    </layout>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/build.gradle" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/deltarobotics9351/deltadrive/utils/WeightDistribution.java" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/System.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/utils/HardwareType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/utils/Hardware.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/MotionSubSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/MecanumChassisSubSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/java/util/concurrent/ExecutorService.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62ba8b79166d32fc11be2e45332949c8/RobotCore-release/jars/classes.jar!/com/qualcomm/robotcore/eventloop/opmode/LinearOpMode.class" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/DeltaOpMode.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62ba8b79166d32fc11be2e45332949c8/RobotCore-release/jars/classes.jar!/com/qualcomm/robotcore/hardware/DcMotorSimple.class" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/JoystickDriveMecanum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/hardware/DeltaHardware.java" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDriveMecanum.java" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/TimeDriveMecanum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/pid/PIDConstants.java" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/parameters/EncoderDriveConstants.java" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/parameters/IMUDriveConstants.java" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUTimeDriveMecanum.java" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/pid/IMUEncoderDriveMecanum.java" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/DeltaDrivePIDMecanum.java" />
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/IMUDriveMecanum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/62ba8b79166d32fc11be2e45332949c8/RobotCore-release/jars/classes.jar!/com/qualcomm/robotcore/util/ElapsedTime.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltadrive/drive/mecanum/EncoderDriveMecanum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1904">
-          <caret line="118" column="48" selection-start-line="118" selection-start-column="48" selection-end-line="118" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/deltasystem/subsystems/SubSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="12" column="37" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/deltarobotics9351/pid/PIDController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3383">
-          <caret line="214" column="4" selection-start-line="214" selection-start-column="4" selection-end-line="214" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DeltaUtils/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

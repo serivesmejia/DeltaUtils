@@ -306,7 +306,7 @@ open class ExtendableIMUDrivePID {
         var speed = speed
         speed = abs(speed)
         val initialRobotHeading = imu!!.getAngle().getDegrees()
-        encoderPIDDrive(speed, inches, inches, inches, inches, timeoutS, encoderDriveParameters!!.RIGHT_WHEELS_TURBO, encoderDriveParameters!!.LEFT_WHEELS_TURBO, "PID Forward", initialRobotHeading, this, encoderDriveParameters, hdw!!, telemetry!!)
+        encoderPIDDrive(speed, inches, inches, inches, inches, timeoutS, encoderDriveParameters!!.RIGHT_WHEELS_TURBO, encoderDriveParameters!!.LEFT_WHEELS_TURBO, "PID Backwards")
     }
 
 

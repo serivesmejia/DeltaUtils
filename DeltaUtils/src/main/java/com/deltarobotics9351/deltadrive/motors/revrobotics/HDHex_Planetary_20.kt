@@ -22,14 +22,13 @@
 
 package com.deltarobotics9351.deltadrive.motors.revrobotics
 
+import com.deltarobotics9351.deltadrive.motors.MotorData
 import com.deltarobotics9351.deltadrive.utils.gear.TwoGearRatio
 
-class HDHex_Planetary_20 {
+object HDHex_Planetary_20 : MotorData {
 
-    companion object {
-        const val TICKS_PER_REVOLUTION = 560
-        const val NO_LOAD_RPM = 300
-        val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 20.0, NO_LOAD_RPM * 20.0)
-    }
+    override val TICKS_PER_REVOLUTION = 560.0
+    override val NO_LOAD_RPM = 300.0
+    override val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 20.0, NO_LOAD_RPM * 20.0)
 
 }

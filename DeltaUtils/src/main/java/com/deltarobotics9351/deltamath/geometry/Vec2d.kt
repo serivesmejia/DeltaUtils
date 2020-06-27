@@ -22,6 +22,8 @@
 
 package com.deltarobotics9351.deltamath.geometry
 
+import kotlin.math.hypot
+
 class Vec2d {
 
     private val vec = doubleArrayOf(0.0, 0.0)
@@ -78,42 +80,83 @@ class Vec2d {
         return vec[1]
     }
 
-    override fun toString(): String {
-        return "Vect2d(" + x() + ", " + y()
-    }
-
     /**
      * @return the magnitude of the vector
      */
     fun mag(): Double {
-        return Math.hypot(x(), y())
+        return hypot(x(), y())
     }
 
-    /**
-     * Adds another Vec2d to this Vec2d
-     * @param o the Vector to subtract to this vector
-     */
-    fun add(o: Vec2d) {
-        setX(o.x() + x())
-        setY(o.y() + y())
+    operator fun plus(o: Vec2d): Vec2d {
+
+        val newVec = Vec2d(this)
+
+        newVec.setX(x() + o.x())
+        newVec.setY(y() + o.y())
+
+        return newVec
+
     }
 
-    /**
-     * Subtracts another Vec2d to this Vec2d
-     * @param o the Vector to subtract to this vector
-     */
-    fun subtract(o: Vec2d) {
-        setX(x() - o.x())
-        setY(y() - o.y())
+    operator fun plusAssign(o: Vec2d) {
+
+        this.setX(o.x() + x())
+        this.setY(o.y() + y())
+
     }
 
-    /**
-     * Divide this Vec2d's X and Y by a value
-     * @param by the value to divide by
-     */
-    fun divide(by: Double) {
-        setX(x() / by)
-        setY(y() / by)
+    operator fun minus(o: Vec2d): Vec2d {
+
+        val newVec = Vec2d(this)
+
+        newVec.setX(x() - o.x())
+        newVec.setY(y() - o.y())
+
+        return newVec
+
+    }
+
+    operator fun minusAssign(o: Vec2d) {
+
+        this.setX(x() - o.x())
+        this.setY(y() - o.y())
+
+    }
+
+    operator fun div(o: Vec2d): Vec2d {
+
+        val newVec = Vec2d(this)
+
+        newVec.setX(x() / o.x())
+        newVec.setY(y() / o.y())
+
+        return newVec
+
+    }
+
+    operator fun divAssign(o: Vec2d) {
+
+        this.setX(o.x() * x())
+        this.setY(o.y() * y())
+
+    }
+
+    operator fun times(o: Vec2d): Vec2d {
+
+        val newVec = Vec2d(this)
+
+        newVec.setX(o.x() * x())
+        newVec.setY(o.y() * y())
+
+        return newVec
+
+    }
+
+    operator fun timesAssign(o: Vec2d) {
+
+        this.setX(o.x() * x())
+        this.setY(o.y() * y())
+
     }
 
     /**
@@ -133,14 +176,8 @@ class Vec2d {
         setY(-y())
     }
 
-    /**
-     * Multiply this Vec2d's X and Y by a value
-     * @param by value to multiply by
-     */
-    fun multiply(by: Double) {
-        setX(x() * by)
-        setY(x() * by)
+    override fun toString(): String {
+        return "Vec2d(" + x() + ", " + y()
     }
-
 
 }

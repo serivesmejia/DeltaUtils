@@ -28,7 +28,7 @@ import com.qualcomm.robotcore.hardware.DcMotor.RunMode
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction
 import com.qualcomm.robotcore.hardware.HardwareMap
 
-class DeltaHardwareHolonomic(hdwMap: HardwareMap, invert: Invert) : DeltaHardware(hdwMap, invert) {
+class DeltaHardwareHolonomic(invert: Invert) : DeltaHardware(invert) {
 
     init {
         this.type = Type.HOLONOMIC
@@ -59,7 +59,9 @@ class DeltaHardwareHolonomic(hdwMap: HardwareMap, invert: Invert) : DeltaHardwar
         wheelBackLeft!!.power = 0.0
 
         updateChassisMotorsArray()
+
         setBrakes(brake)
+
         setRunModes(RunMode.RUN_WITHOUT_ENCODER)
     }
 

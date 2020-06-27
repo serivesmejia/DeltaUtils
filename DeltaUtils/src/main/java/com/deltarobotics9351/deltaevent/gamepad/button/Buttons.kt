@@ -38,21 +38,20 @@ class Buttons {
         this.type = type
     }
 
-    fun contains(btt: Button): Boolean {
-        return buttons.containsKey(btt)
-    }
+    fun `is`(btt: Button): Boolean = buttons.containsKey(btt)
 
     fun ticks(btt: Button): Int {
+
         return if (buttons.containsKey(btt)) {
             buttons[btt]!!
         } else {
             0
         }
+
     }
 
-    fun type(): Type {
+    fun type(): Buttons.Type {
         return type
     }
-
 
 }

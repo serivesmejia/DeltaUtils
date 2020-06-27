@@ -23,7 +23,7 @@
 package com.deltarobotics9351.deltadrive.parameters
 
 import com.deltarobotics9351.deltadrive.utils.Axis
-import com.deltarobotics9351.deltamath.DeltaMathUtil.Companion.clamp
+import com.deltarobotics9351.deltamath.DeltaMathUtil.clamp
 import kotlin.math.abs
 
 /**
@@ -48,12 +48,12 @@ class IMUDriveParameters {
      * If the expansion hub 1 is mounted horizontally, flat on the robot chassis, you'd use the Z axis.
      * If the expansion hub 1 is mounted vertically, in a wall or something, you'd use the Y axis.
      */
-    var IMU_AXIS: Axis? = Axis.Z
+    var IMU_AXIS: Axis = Axis.Z
 
     /**
      * If you changed the IMU name in the robot config, you should update this variable.
      */
-    var IMU_HARDWARE_NAME: String? = "imu"
+    var IMU_HARDWARE_NAME: String = "imu"
 
     /**
      * Wheel motor power in which the robot doesn't move

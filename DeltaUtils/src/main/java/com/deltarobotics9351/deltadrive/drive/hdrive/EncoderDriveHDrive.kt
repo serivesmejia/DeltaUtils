@@ -70,7 +70,7 @@ class EncoderDriveHDrive {
         var middle = middle
 
         parameters!!.secureParameters()
-        val TICKS_PER_INCH = parameters!!.TICKS_PER_REV * parameters!!.DRIVE_GEAR_REDUCTION /
+        val TICKS_PER_INCH = parameters!!.TICKS_PER_REV * parameters!!.DRIVE_GEAR_REDUCTION.getRatioAsDecimal() /
                 (parameters!!.WHEEL_DIAMETER_INCHES * Math.PI)
 
         if (parameters!!.DISTANCE_UNIT === DistanceUnit.CENTIMETERS) {
@@ -106,12 +106,11 @@ class EncoderDriveHDrive {
         // Note: We use (isBusy() && isBusy()) in the repeat test, which means that when EITHER motor hits
         // its target position, the motion will stop.  This is "safer" in the event that the robot will
         // always end the motion as soon as possible.
-        while (runtime.seconds() < timeoutS &&
-                hdw!!.wheelsLeft!!.isBusy &&
-                hdw!!.wheelsRight!!.isBusy
-                && !Thread.interrupted()) {
+        while (runtime.seconds() < timeoutS && !Thread.interrupted()) {
 
             if (middle != 0.0 && !hdw!!.wheelMiddle!!.isBusy) break
+
+
 
             var averageCurrentTicks = if (middle == 0.0) {
                 (hdw!!.wheelFrontRight!!.currentPosition +

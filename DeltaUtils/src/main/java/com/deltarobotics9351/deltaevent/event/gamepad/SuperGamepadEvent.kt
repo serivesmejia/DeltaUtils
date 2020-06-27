@@ -43,20 +43,20 @@ open class SuperGamepadEvent : GamepadEvent() {
      * Method to be executed ONCE when at least one button is pressed
      * @param buttons the pressed buttons
      */
-    fun buttonsPressed(buttons: Buttons) {}
+    open fun buttonsPressed(buttons: Buttons) {}
 
     /**
      * Method to be executed ONCE when at least one button is released
      * @param buttons the released buttons
      */
-    fun buttonsReleased(buttons: Buttons) {}
+    open fun buttonsReleased(buttons: Buttons) {}
 
 
     /**
      * Method to be executed REPETITIVELY when at least one button is pressed until it is released
      * @param buttons the being pressed buttons
      */
-    fun buttonsBeingPressed(buttons: Buttons) {}
+    open fun buttonsBeingPressed(buttons: Buttons) {}
 
 
 }

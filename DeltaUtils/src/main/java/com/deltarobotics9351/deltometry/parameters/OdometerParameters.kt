@@ -20,46 +20,51 @@
  * SOFTWARE.
  */
 
-package com.deltarobotics9351.deltadrive.extendable.linearopmode
+package com.deltarobotics9351.deltometry.parameters
 
-import com.deltarobotics9351.deltadrive.hardware.DeltaHardware
-import com.deltarobotics9351.deltadrive.utils.Invert
-import com.deltarobotics9351.deltamath.geometry.Rot2d
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+import com.deltarobotics9351.deltadrive.utils.gear.GearRatio
+import kotlin.math.abs
 
-
-open class ExtendableLinearOpMode : LinearOpMode() {
+class OdometerParameters {
 
     /**
-     * boolean that indicates if motors brake when their power is 0
-     * this will only take effect if it is changed in the setup() overriden method
+     * The Odometer encoder ticks per revolution
+     * It is probably specified in the page you bought the encoder from.
      */
-    var WHEELS_BRAKE = true
-
-    var deltaHardware: DeltaHardware? = null
+    var TICKS_PER_REV = 0.0
 
     /**
-     * Overridable void to be executed after all required variables are initialized
-     * (Remember to override setup() and define the 4 DcMotor variables in there!)
+     * The Odometer wheel diameter, in inches
      */
-    open fun _runOpMode() {}
+    var WHEEL_DIAMETER_INCHES = 0.0
 
     /**
-     * Overridable void to define all wheel motors, and the uppercase variables
-     * Define frontLeft, frontRight, backLeft and backRight DcMotor variables here!
+     * Set to true if the Odometer is returning inverted tick values.
      */
-    open fun setup() {}
+    var RETURNS_FLIPPED_VALUES = false
 
-    open fun performInit() {}
+    private val EMPTY_GEAR_REDUCTION: GearRatio = GearRatio()
 
     /**
-     * The side of the chassis which has its motors inverted
-     * @param invert the wheels invert enum
+     * This is < 1.0 and > 0 if geared UP
      */
-    fun setWheelsInvert(invert: Invert) {
-        deltaHardware!!.invert = invert
+    var GEAR_REDUCTION: GearRatio = EMPTY_GEAR_REDUCTION
+
+    /**
+     * Make sure the values are in the correct range.
+     */
+    fun secureParameters() {
+        WHEEL_DIAMETER_INCHES = Math.abs(WHEEL_DIAMETER_INCHES)
+        TICKS_PER_REV = abs(TICKS_PER_REV)
     }
 
-    override fun runOpMode() { }
+    /**
+     * Checks if any value is 0.
+     * @return boolean depending if all values are or are not 0
+     */
+    fun haveBeenDefined(): Boolean {
+        return !(TICKS_PER_REV == 0.0 || GEAR_REDUCTION !== EMPTY_GEAR_REDUCTION || WHEEL_DIAMETER_INCHES == 0.0)
+    }
+
 
 }

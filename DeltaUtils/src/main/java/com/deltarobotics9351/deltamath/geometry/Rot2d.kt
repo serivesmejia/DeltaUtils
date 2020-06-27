@@ -22,7 +22,23 @@
 
 package com.deltarobotics9351.deltamath.geometry
 
-class Rot2d {
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.hypot
+import kotlin.math.sin
+
+class Rot2d() {
+
+    companion object {
+        /**
+         * Creates a new Rot2d from degrees
+         * @param degrees degrees to set to the new Rot2d
+         * @return new Rot2d from degrees
+         */
+        fun degrees(degrees: Double): Rot2d {
+            return Rot2d(Math.toRadians(degrees))
+        }
+    }
 
     private var radians = 0.0
     private var cos = 0.0
@@ -31,7 +47,7 @@ class Rot2d {
     /**
      * Constructor for Rot2d
      */
-    constructor () {
+    init {
         radians = 0.0
         cos = 1.0
         sin = 0.0
@@ -41,16 +57,16 @@ class Rot2d {
      * Constructor for Rot2d
      * @param rad Radians
      */
-    constructor (rad: Double) {
+    constructor (rad: Double): this() {
         radians = rad
-        cos = Math.cos(radians)
-        sin = Math.sin(radians)
+        cos = cos(radians)
+        sin = sin(radians)
     }
 
-    constructor (o : Rot2d){
+    constructor (o : Rot2d): this() {
         radians = o.getRadians()
-        cos = Math.cos(radians)
-        sin = Math.sin(radians)
+        cos = cos(radians)
+        sin = sin(radians)
     }
 
     /**
@@ -58,8 +74,10 @@ class Rot2d {
      * @param x
      * @param y
      */
-    constructor (x: Double, y: Double) {
-        val hy = Math.hypot(x, y)
+    constructor (x: Double, y: Double): this() {
+
+        val hy = hypot(x, y)
+
         if (hy > 0.00001) {
             sin = y / hy
             cos = x / hy
@@ -67,18 +85,9 @@ class Rot2d {
             sin = 0.0
             cos = 1.0
         }
-        radians = Math.atan2(sin, cos)
-    }
 
-    companion object {
-        /**
-         * Creates a new Rot2d from degrees
-         * @param degrees degrees to set to the new Rot2d
-         * @return new Rot2d from degrees
-         */
-        fun fromDegrees(degrees: Double): Rot2d {
-            return Rot2d(Math.toRadians(degrees))
-        }
+        radians = atan2(sin, cos)
+
     }
 
     /**
@@ -86,11 +95,14 @@ class Rot2d {
      * @param degrees
      * @return Result Rot2d
      */
-    fun setDegrees(degrees: Double): Rot2d? {
+    fun setDegrees(degrees: Double): Rot2d {
+
         radians = Math.toRadians(degrees)
-        cos = Math.cos(radians)
-        sin = Math.sin(radians)
+        cos = cos(radians)
+        sin = sin(radians)
+
         return Rot2d(radians)
+
     }
 
     /**
@@ -98,60 +110,55 @@ class Rot2d {
      * @param radians
      * @return Result Rot2d
      */
-    fun setRadians(radians: Double): Rot2d? {
+    fun setRadians(radians: Double): Rot2d {
+
         this.radians = radians
+
         cos = Math.cos(radians)
         sin = Math.sin(radians)
+
         return Rot2d(radians)
+
     }
 
     /**
      * @return the degrees from this Rot2d
      */
-    fun getDegrees(): Double {
-        return Math.toDegrees(radians)
-    }
+    fun getDegrees(): Double { return Math.toDegrees(radians) }
 
     /**
      * @param other Other Rot2d
      * @return the difference in radians between this and other Rot2d
      */
-    fun deltaRadians(other: Rot2d): Double {
-        var deltaAngle = getDegrees() - other.getDegrees()
-        if (deltaAngle < -180) deltaAngle += 360.0 else if (deltaAngle > 180) deltaAngle -= 360.0
-        return Math.toRadians(deltaAngle)
-    }
+    fun deltaRadians(other: Rot2d): Double { return Math.toRadians(deltaDegrees(other)) }
 
     /**
      * @param other Other Rot2d
      * @return the difference in degrees between this and other Rot2d
      */
     fun deltaDegrees(other: Rot2d): Double {
+
         var deltaAngle = getDegrees() - other.getDegrees()
         if (deltaAngle < -180) deltaAngle += 360.0 else if (deltaAngle > 180) deltaAngle -= 360.0
+
         return deltaAngle
+
     }
 
     /**
      * @return the calculated tan
      */
-    fun calculateTan(): Double {
-        return sin / cos
-    }
+    fun calculateTan(): Double = sin / cos
 
     /**
      * @return the calculated sin
      */
-    fun getSin(): Double {
-        return sin
-    }
+    fun getSin(): Double = sin
 
     /**
      * @return the calculated cos
      */
-    fun getCos(): Double {
-        return cos
-    }
+    fun getCos(): Double = cos
 
     /**
      * @return the calculated radians
@@ -166,11 +173,12 @@ class Rot2d {
      * @return Result Rot2d
      */
     fun rotate(o: Rot2d): Rot2d {
-        val x = cos * (o.getCos()) - (o.getSin()) * (o?.getCos())
-        val y = cos * (o.getSin()) + (o.getSin()) * (o?.getCos())
-        val hy = Math.hypot(
-                x,
-                y)
+
+        val x = cos * (o.getCos()) - (o.getSin()) * (o.getCos())
+        val y = cos * (o.getSin()) + (o.getSin()) * (o.getCos())
+
+        val hy = Math.hypot(x, y)
+
         if (hy > 0.00001) {
             sin = y / hy
             cos = x / hy
@@ -178,28 +186,37 @@ class Rot2d {
             sin = 0.0
             cos = 1.0
         }
-        radians = Math.atan2(sin, cos)
+
+        radians = atan2(sin, cos)
+
         return Rot2d(x, y)
+
     }
 
-    /**
-     * Add another Rot2d and returns a new Rot2d with the result
-     * @param o the Rot2d to add by
-     * @return Result Rot2d
-     */
-    fun add(o: Rot2d): Rot2d {
-        rotate(o)
-        return Rot2d(radians)
+    operator fun plus(o: Rot2d): Rot2d {
+
+        val newRot = Rot2d(this)
+
+        return newRot.rotate(o)
+
     }
 
-    /**
-     * Subtract another Rot2d and returns a new Rot2d with the result
-     * @param o the Rot2d to subtract by
-     * @return Result Rot2d
-     */
-    fun subtract(o: Rot2d): Rot2d {
-        rotate(o.invert())
-        return Rot2d(radians)
+    operator fun plusAssign(o: Rot2d) {
+        this.rotate(o)
+    }
+
+    operator fun minus(o: Rot2d): Rot2d {
+
+        val newRot = Rot2d(this)
+
+        return newRot.rotate(Rot2d(o).invert())
+
+    }
+
+    operator fun minusAssign(o: Rot2d) {
+
+        this.rotate(Rot2d(o).invert())
+
     }
 
     /**

@@ -43,5 +43,4 @@ class GamepadDataPacket {
 
     var gamepad: Gamepad = Gamepad()
 
-
 }

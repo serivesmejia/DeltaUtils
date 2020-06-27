@@ -25,27 +25,27 @@ package com.deltarobotics9351.deltamath.geometry
 import com.deltarobotics9351.deltamath.geometry.Pose2d
 import com.deltarobotics9351.deltamath.geometry.Vec2d
 
-class Pose2d {
+class Pose2d() {
 
     private var vec: Vec2d = Vec2d()
     private var heading = 0.0
 
-    constructor() {
+    init {
         vec = Vec2d(0.0, 0.0)
         heading = 0.0
     }
 
-    constructor(x: Double, y: Double, heading: Double) {
+    constructor(x: Double, y: Double, heading: Double): this() {
         vec = Vec2d(x, y)
         this.heading = heading
     }
 
-    constructor(vec: Vec2d, heading: Double) {
+    constructor(vec: Vec2d, heading: Double): this() {
         this.vec = vec
         this.heading = heading
     }
 
-    constructor(o: Pose2d) {
+    constructor(o: Pose2d): this() {
         vec = o.getPosition()
         heading = o.heading
     }
@@ -59,12 +59,12 @@ class Pose2d {
     }
 
     fun add(o: Pose2d) {
-        vec.add(o.getPosition())
+        vec += o.getPosition()
         heading += o.heading
     }
 
     fun divide(by: Double) {
-        vec.divide(by)
+        vec /= Vec2d(by, by)
         heading /= by
     }
 
@@ -74,7 +74,7 @@ class Pose2d {
     }
 
     fun multiply(by: Double) {
-        vec.multiply(by)
+        vec *= Vec2d(by, by)
         heading *= by
     }
 
@@ -83,9 +83,11 @@ class Pose2d {
     }
 
     override fun toString(): String {
+
         val v = vec.toString()
         val h = heading.toString()
         return "Pose2d($v, $h)"
+
     }
 
 }

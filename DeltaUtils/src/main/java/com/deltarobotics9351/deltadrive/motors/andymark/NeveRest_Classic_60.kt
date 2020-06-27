@@ -22,14 +22,13 @@
 
 package com.deltarobotics9351.deltadrive.motors.andymark
 
+import com.deltarobotics9351.deltadrive.motors.MotorData
 import com.deltarobotics9351.deltadrive.utils.gear.TwoGearRatio
 
-class NeveRest_Classic_60 {
+object NeveRest_Classic_60 : MotorData {
 
-    companion object {
-        const val TICKS_PER_REVOLUTION = 1680.0
-        const val NO_LOAD_RPM = 105.0
-        val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 60.0, NO_LOAD_RPM * 60)
-    }
+    override val TICKS_PER_REVOLUTION = 1680.0
+    override val NO_LOAD_RPM = 105.0
+    override val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 60.0, NO_LOAD_RPM * 60)
 
 }

@@ -20,22 +20,15 @@
  * SOFTWARE.
  */
 
-/*
- * Created by FTC team Delta Robotics #9351
- *  Source code licensed under the MIT License
- *  More info at https://choosealicense.com/licenses/mit/
- */
-
 package com.deltarobotics9351.deltadrive.motors.gobilda
 
+import com.deltarobotics9351.deltadrive.motors.MotorData
 import com.deltarobotics9351.deltadrive.utils.gear.TwoGearRatio
 
-class YellowJacket_Planetary_71_2 {
+object YellowJacket_Planetary_71_2 : MotorData {
 
-    companion object {
-        const val TICKS_PER_REVOLUTION = 498.4
-        const val NO_LOAD_RPM = 84
-        val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 71.2, NO_LOAD_RPM * 71.2)
-    }
+    override val TICKS_PER_REVOLUTION = 498.4
+    override val NO_LOAD_RPM = 84.0
+    override val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 71.2, NO_LOAD_RPM * 71.2)
 
 }

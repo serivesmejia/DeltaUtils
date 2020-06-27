@@ -22,12 +22,12 @@
 
 package com.deltarobotics9351.deltadrive.utils.gear
 
-interface GearRatio {
+class GearRatio {
 
-    fun getRatioAsDecimal() : Double
+    open fun getRatioAsDecimal() : Double = 0.0
 
-    fun getRatioAsPercentage() : Double
+    open fun getRatioAsPercentage() : Double = 0.0
 
-    fun getOutputRPM() : Double
+    open fun getOutputRPM() : Double = 0.0
 
 }

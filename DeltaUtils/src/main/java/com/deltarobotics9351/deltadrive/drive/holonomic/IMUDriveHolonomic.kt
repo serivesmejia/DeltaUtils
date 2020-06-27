@@ -27,4 +27,4 @@ import com.deltarobotics9351.deltadrive.hardware.DeltaHardware
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardwareHolonomic
 import org.firstinspires.ftc.robotcore.external.Telemetry
 
-class IMUDriveHolonomic(deltaHardware: DeltaHardwareHolonomic, telemetry: Telemetry) : ExtendableIMUDrive(deltaHardware, telemetry, DeltaHardware.Type.HOLONOMIC) { }
+class IMUDriveHolonomic(deltaHardware: DeltaHardwareHolonomic, telemetry: Telemetry) : ExtendableIMUDrive(deltaHardware, telemetry, DeltaHardware.Type.HOLONOMIC)

@@ -22,11 +22,9 @@
 
 package com.deltarobotics9351
 
-class LibraryData {
+object LibraryData {
 
-    companion object {
-        const val VERSION = "1.14-beta"
-        const val RELASE_NUMBER = 20
-    }
+    const val VERSION = "1.14-beta"
+    const val RELASE_NUMBER = 20
 
 }

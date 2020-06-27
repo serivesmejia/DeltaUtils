@@ -22,8 +22,10 @@
 
 package com.deltarobotics9351.deltadrive.parameters
 
+import com.deltarobotics9351.deltadrive.motors.andymark.NeveRest_Classic_40
 import com.deltarobotics9351.deltadrive.utils.DistanceUnit
-import com.deltarobotics9351.deltamath.DeltaMathUtil.Companion.clamp
+import com.deltarobotics9351.deltadrive.utils.gear.GearRatio
+import com.deltarobotics9351.deltamath.DeltaMathUtil.clamp
 import kotlin.math.abs
 
 class EncoderDriveParameters {
@@ -34,10 +36,12 @@ class EncoderDriveParameters {
      */
     var TICKS_PER_REV = 0.0
 
+    private val EMPTY_GEAR_REDUCTION: GearRatio = GearRatio()
+
     /**
      * This is < 1.0 and > 0 if geared UP
      */
-    var DRIVE_GEAR_REDUCTION = 1.0
+    var DRIVE_GEAR_REDUCTION: GearRatio = EMPTY_GEAR_REDUCTION
 
     /**
      * The wheels diameter, in inches
@@ -87,15 +91,14 @@ class EncoderDriveParameters {
 
         WHEEL_DIAMETER_INCHES = abs(WHEEL_DIAMETER_INCHES)
         TICKS_PER_REV = abs(TICKS_PER_REV)
-        DRIVE_GEAR_REDUCTION = abs(clamp(DRIVE_GEAR_REDUCTION, 0.0, 1.0))
     }
 
     /**
      * Checks if any value is 0.
      * @return boolean depending if all values are or are not 0
      */
-    fun haveBeenDefined(): Boolean {
-        return (TICKS_PER_REV != 0.0 && DRIVE_GEAR_REDUCTION != 0.0 && WHEEL_DIAMETER_INCHES != 0.0)
+    fun haveBeenDefined() : Boolean {
+        return (TICKS_PER_REV != 0.0 && DRIVE_GEAR_REDUCTION !== EMPTY_GEAR_REDUCTION && WHEEL_DIAMETER_INCHES != 0.0)
     }
 
 }

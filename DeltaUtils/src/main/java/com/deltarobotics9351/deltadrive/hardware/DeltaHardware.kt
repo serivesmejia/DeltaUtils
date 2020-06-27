@@ -23,6 +23,7 @@
 package com.deltarobotics9351.deltadrive.hardware
 
 import com.deltarobotics9351.deltadrive.utils.Invert
+import com.deltarobotics9351.deltadrive.utils.Robot
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotor.RunMode
 import com.qualcomm.robotcore.hardware.HardwareMap
@@ -53,7 +54,7 @@ open class DeltaHardware {
      */
     var invert: Invert = Invert.RIGHT_SIDE
 
-    var hdwMap: HardwareMap? = null
+    var hdwMap: HardwareMap = Robot.getCurrentOpMode().hardwareMap
 
     /**
      * Constructor for the delta hardware holonomic class
@@ -61,9 +62,8 @@ open class DeltaHardware {
      * @param hdwMap The current OpMode hardware map
      * @param invert Enum specifying which side will be inverted (motors), most of the time you need to invert the right side.
      */
-    constructor (hdwMap: HardwareMap, invert: Invert) {
+    constructor (invert: Invert) {
         this.invert = invert
-        this.hdwMap = hdwMap
     }
 
     open fun initHardware(frontleft: DcMotor, frontright: DcMotor, backleft: DcMotor, backright: DcMotor, brake: Boolean) {

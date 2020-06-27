@@ -22,14 +22,13 @@
 
 package com.deltarobotics9351.deltadrive.motors.gobilda
 
+import com.deltarobotics9351.deltadrive.motors.MotorData
 import com.deltarobotics9351.deltadrive.utils.gear.TwoGearRatio
 
-class YellowJacket_Planetary_99_5 {
+object YellowJacket_Planetary_99_5 : MotorData {
 
-    companion object {
-        const val TICKS_PER_REVOLUTION = 696.5
-        const val NO_LOAD_RPM = 60
-        val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 99.5, NO_LOAD_RPM * 99.5)
-    }
+    override val TICKS_PER_REVOLUTION = 696.5
+    override val NO_LOAD_RPM = 60.0
+    override val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 99.5, NO_LOAD_RPM * 99.5)
 
 }

@@ -26,6 +26,7 @@ import com.deltarobotics9351.deltaevent.Super
 import com.deltarobotics9351.deltaevent.event.Event
 import com.deltarobotics9351.deltaevent.event.gamepad.SuperGamepadEvent
 import com.deltarobotics9351.deltaevent.gamepad.button.Button
+import com.deltarobotics9351.deltaevent.gamepad.button.Buttons
 import com.qualcomm.robotcore.hardware.Gamepad
 import kotlin.collections.ArrayList
 
@@ -112,9 +113,12 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
      * This method should be placed at the end or at the start of your repeat in your OpMode
      */
     override fun update() {
+
         val gdp = GamepadDataPacket()
+
         pressedButtons.clear()
         updatePressedButtons()
+
         gdp.left_stick_x = gamepad!!.left_stick_x.toDouble()
         gdp.left_stick_y = gamepad!!.left_stick_y.toDouble()
         gdp.right_stick_x = gamepad!!.right_stick_x.toDouble()
@@ -124,24 +128,32 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
         gdp.gamepad = gamepad
 
         for (btt in pressedButtons) {
+
             val bt = getElementFromTicksPressedButtons(btt)
             var ticks = bt!!.ticks
+
             ticks++
             bt.ticks++
+
             gdp.buttonsBeingPressed[btt] = bt.ticks
+
             if (ticks == 1) {
                 gdp.buttonsPressed[btt] = bt.ticks
             }
+
         }
+
         for (bt in ticksPressedButtons) {
-            if (bt.ticks <= 0) {
-                continue
-            }
+
+            if (bt.ticks <= 0) continue
+
             if (!buttonIsPressed(bt.button)) {
                 bt.ticks = 0
                 gdp.buttonsReleased[bt.button] = bt.ticks
             }
+
         }
+
         updateAllEvents(gdp)
     }
 
@@ -153,6 +165,7 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
     }
 
     private fun updatePressedButtons() {
+
         if (gamepad!!.a) pressedButtons.add(Button.A)
         if (gamepad!!.b) pressedButtons.add(Button.B)
         if (gamepad!!.x) pressedButtons.add(Button.X)

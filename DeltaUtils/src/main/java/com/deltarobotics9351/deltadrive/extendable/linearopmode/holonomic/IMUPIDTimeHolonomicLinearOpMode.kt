@@ -58,8 +58,16 @@ open class IMUPIDTimeHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
         timeDrive!!.forward(power, timeSecs)
     }
 
+    fun pidForward(power: Double, timeSecs: Double) {
+        imuDrive!!.timePIDForward(power, timeSecs)
+    }
+
     fun backwards(power: Double, timeSecs: Double) {
         timeDrive!!.backwards(power, timeSecs)
+    }
+
+    fun pidBackwards(power: Double, timeSecs: Double) {
+        imuDrive!!.timePIDBackwards(power, timeSecs)
     }
 
     fun strafeLeft(power: Double, timeSecs: Double) {
@@ -88,8 +96,7 @@ open class IMUPIDTimeHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
      * Overridable void to define all wheel motors, and the uppercase variables
      * Define frontLeft, frontRight, backLeft and backRight DcMotor variables here!
      */
-    override fun setup() {}
-
+    override fun setup() { }
 
     /**
      * Set the rotate PID coefficients

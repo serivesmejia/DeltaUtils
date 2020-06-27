@@ -20,15 +20,31 @@
  * SOFTWARE.
  */
 
-package com.deltarobotics9351.deltadrive.motors.revrobotics
+package com.deltarobotics9351.deltometry.parameters
 
-import com.deltarobotics9351.deltadrive.motors.MotorData
-import com.deltarobotics9351.deltadrive.utils.gear.TwoGearRatio
+import com.deltarobotics9351.deltadrive.utils.gear.GearRatio
+import kotlin.math.abs
 
-object CoreHex : MotorData {
+class OdometersParameters {
 
-    override val TICKS_PER_REVOLUTION = 288.0
-    override val NO_LOAD_RPM = 125.0
-    override val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 72.0, NO_LOAD_RPM * 72.0)
+    var Y_TRACK_WIDTH = 0.0
+    var X_TRACK_WIDTH = 0.0
+
+
+    /**
+     * Make sure the values are in the correct range.
+     */
+    fun secureParameters() {
+
+    }
+
+    /**
+     * Checks if any value is 0.
+     * @return boolean depending if all values are or are not 0
+     */
+    fun haveBeenDefined(): Boolean {
+
+    }
+
 
 }

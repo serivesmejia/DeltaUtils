@@ -162,8 +162,16 @@ open class IMUPIDEncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode(
         encoderDrive!!.forward(inches, speed, timeOutSecs)
     }
 
+    fun pidForward(inches: Double, speed: Double, timeOutSecs: Double) {
+        imuDrive!!.encoderPIDForward(inches, speed, timeOutSecs)
+    }
+
     fun backwards(inches: Double, speed: Double, timeOutSecs: Double) {
         encoderDrive!!.backwards(inches, speed, timeOutSecs)
+    }
+
+    fun pidBackwards(inches: Double, speed: Double, timeOutSecs: Double) {
+        imuDrive!!.encoderPIDBackwards(inches, speed, timeOutSecs)
     }
 
     fun strafeLeft(inches: Double, speed: Double, timeOutSecs: Double) {
@@ -182,7 +190,7 @@ open class IMUPIDEncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode(
         encoderDrive!!.turnRight(inches, speed, timeOutSecs)
     }
 
-    fun getRobotAngle(): Rot2d? {
+    fun getRobotAngle(): Rot2d {
         return imuDrive!!.getRobotAngle()
     }
 

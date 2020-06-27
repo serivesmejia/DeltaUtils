@@ -27,17 +27,19 @@ import com.deltarobotics9351.deltadrive.hardware.DeltaHardware
 import com.deltarobotics9351.deltadrive.hardware.DeltaHardwareHolonomic
 import com.deltarobotics9351.deltadrive.parameters.EncoderDriveParameters
 import com.deltarobotics9351.deltadrive.utils.DistanceUnit
+import com.deltarobotics9351.pid.PIDController
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.robotcore.external.Telemetry
 import java.lang.Math.round
+import kotlin.math.abs
 import kotlin.math.round
 import kotlin.math.roundToInt
 
 
 class IMUDrivePIDHolonomic(hdw: DeltaHardwareHolonomic, telemetry: Telemetry) : ExtendableIMUDrivePID(hdw, telemetry, DeltaHardware.Type.HOLONOMIC) {
 
-    var runtime = ElapsedTime()
+    private var runtime = ElapsedTime()
 
     override fun encoderPIDDrive(speed: Double,
                         frontleft: Double,
@@ -47,28 +49,29 @@ class IMUDrivePIDHolonomic(hdw: DeltaHardwareHolonomic, telemetry: Telemetry) : 
                         timeoutS: Double,
                         rightTurbo: Double,
                         leftTurbo: Double,
-                        movementDescription: String,
-                        initialRobotHeading: Double,
-                        imu: ExtendableIMUDrivePID,
-                        encoderParameters: EncoderDriveParameters,
-                        hdw: DeltaHardware,
-                        telemetry: Telemetry) {
+                        movementDescription: String) {
 
-        encoderParameters.secureParameters()
+        encoderDriveParameters.secureParameters()
+
+        val initialRobotHeading = imu!!.getAngle().getDegrees()
+
+        val controller = PIDController(this.getDrivePID())
+
+        controller.setSetpoint(initialRobotHeading).setInitialPower(abs(speed))
 
         var frontleft = 0.0
         var frontright = 0.0
         var backleft = 0.0
         var backright = 0.0
 
-        val TICKS_PER_INCH = encoderParameters.TICKS_PER_REV * encoderParameters.DRIVE_GEAR_REDUCTION /
-                (encoderParameters.WHEEL_DIAMETER_INCHES * Math.PI)
+        val TICKS_PER_INCH = encoderDriveParameters.TICKS_PER_REV * encoderDriveParameters.DRIVE_GEAR_REDUCTION.getRatioAsDecimal() /
+                (encoderDriveParameters.WHEEL_DIAMETER_INCHES * Math.PI)
 
-        if (encoderParameters.DISTANCE_UNIT === DistanceUnit.CENTIMETERS) {
-            frontleft *= 0.393701
-            frontright *= 0.393701
+        if (encoderDriveParameters.DISTANCE_UNIT === DistanceUnit.CENTIMETERS) {
+            frontleft *= 0.3937014
+            frontright *= 0.3937014
             backleft *= 0.3937014
-            backright *= 0.393701
+            backright *= 0.3937014
         }
 
         val newFrontLeftTarget: Int
@@ -77,25 +80,25 @@ class IMUDrivePIDHolonomic(hdw: DeltaHardwareHolonomic, telemetry: Telemetry) : 
         val newBackRightTarget: Int
 
         // Determine new target position, and pass to motor controller
-        newFrontLeftTarget = (hdw.wheelFrontLeft!!.currentPosition + (frontleft * TICKS_PER_INCH)).roundToInt()
-        newFrontRightTarget = (hdw.wheelFrontRight!!.currentPosition + (frontright * TICKS_PER_INCH)).roundToInt()
-        newBackLeftTarget = (hdw.wheelBackLeft!!.currentPosition + (backleft * TICKS_PER_INCH)).roundToInt()
-        newBackRightTarget = (hdw.wheelBackRight!!.currentPosition + (backright * TICKS_PER_INCH)).roundToInt()
+        newFrontLeftTarget = (hdw!!.wheelFrontLeft!!.currentPosition + (frontleft * TICKS_PER_INCH)).roundToInt()
+        newFrontRightTarget = (hdw!!.wheelFrontRight!!.currentPosition + (frontright * TICKS_PER_INCH)).roundToInt()
+        newBackLeftTarget = (hdw!!.wheelBackLeft!!.currentPosition + (backleft * TICKS_PER_INCH)).roundToInt()
+        newBackRightTarget = (hdw!!.wheelBackRight!!.currentPosition + (backright * TICKS_PER_INCH)).roundToInt()
 
-        hdw.setTargetPositions(newFrontLeftTarget, newFrontRightTarget, newBackLeftTarget, newBackRightTarget)
+        hdw!!.setTargetPositions(newFrontLeftTarget, newFrontRightTarget, newBackLeftTarget, newBackRightTarget)
 
         // Turn On RUN_TO_POSITION
-        hdw.setRunModes(DcMotor.RunMode.RUN_TO_POSITION)
+        hdw!!.setRunModes(DcMotor.RunMode.RUN_TO_POSITION)
 
         // reset the timeout time and start motion.
         runtime.reset()
 
-        var frontleftpower = Math.abs(speed) * leftTurbo
-        var frontrightpower = Math.abs(speed) * rightTurbo
-        var backleftpower = Math.abs(speed) * leftTurbo
-        var backrightpower = Math.abs(speed) * rightTurbo
+        var frontleftpower = abs(speed) * leftTurbo
+        var frontrightpower = abs(speed) * rightTurbo
+        var backleftpower = abs(speed) * leftTurbo
+        var backrightpower = abs(speed) * rightTurbo
 
-        hdw.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
+        hdw!!.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
 
         var travelledAverageInches = 0.0
         var error: Double
@@ -105,45 +108,48 @@ class IMUDrivePIDHolonomic(hdw: DeltaHardwareHolonomic, telemetry: Telemetry) : 
         // its target position, the motion will stop.  This is "safer" in the event that the robot will
         // always end the motion as soon as possible.
         while (runtime.seconds() < timeoutS &&
-                hdw.wheelFrontRight!!.isBusy &&
-                hdw.wheelFrontLeft!!.isBusy &&
-                hdw.wheelBackLeft!!.isBusy &&
-                hdw.wheelBackRight!!.isBusy && !Thread.interrupted()) {
+                hdw!!.wheelFrontRight!!.isBusy &&
+                hdw!!.wheelFrontLeft!!.isBusy &&
+                hdw!!.wheelBackLeft!!.isBusy &&
+                hdw!!.wheelBackRight!!.isBusy && !Thread.interrupted()) {
 
             val averageCurrentTicks =
-                    (hdw.wheelFrontRight!!.currentPosition +
-                    hdw.wheelFrontLeft!!.currentPosition +
-                    hdw.wheelBackLeft!!.currentPosition +
-                    hdw.wheelBackRight!!.currentPosition) / 4.0
+                    (hdw!!.wheelFrontRight!!.currentPosition +
+                    hdw!!.wheelFrontLeft!!.currentPosition +
+                    hdw!!.wheelBackLeft!!.currentPosition +
+                    hdw!!.wheelBackRight!!.currentPosition) / 4.0
 
             travelledAverageInches = averageCurrentTicks / TICKS_PER_INCH
 
-            //----- PID CODE START -----
-            error = initialRobotHeading - imu.getRobotAngle()!!.getDegrees()
+            var powerF = controller.calculate(getRobotAngle().getDegrees())
 
+            frontleftpower = powerF * leftTurbo
+            frontrightpower = powerF * rightTurbo
+            backleftpower = powerF * leftTurbo
+            backrightpower = powerF * rightTurbo
 
-            //----- PID CODE END -----
-            telemetry.addData("[Movement]", movementDescription)
-            telemetry.addData("[Target]", "%7d : %7d : %7d : %7d",
+            telemetry!!.addData("[Movement]", movementDescription)
+            telemetry!!.addData("[Target]", "%7d : %7d : %7d : %7d",
                     newFrontLeftTarget,
                     newFrontRightTarget,
                     newBackLeftTarget,
                     newBackRightTarget)
-            telemetry.addData("[Current]", "%7d : %7d : %7d : %7d",
-                    hdw.wheelFrontLeft!!.currentPosition,
-                    hdw.wheelFrontRight!!.currentPosition,
-                    hdw.wheelBackLeft!!.currentPosition,
-                    hdw.wheelBackRight!!.currentPosition)
-            telemetry.addData("[Travelled Avg Inches]", travelledAverageInches)
-            telemetry.update()
+            telemetry!!.addData("[Current]", "%7d : %7d : %7d : %7d",
+                    hdw!!.wheelFrontLeft!!.currentPosition,
+                    hdw!!.wheelFrontRight!!.currentPosition,
+                    hdw!!.wheelBackLeft!!.currentPosition,
+                    hdw!!.wheelBackRight!!.currentPosition)
+            telemetry!!.addData("[Travelled Avg Inches]", travelledAverageInches)
+            telemetry!!.update()
         }
-        telemetry.update()
+        telemetry!!.update()
 
         // Stop all motion
-        hdw.setAllMotorPower(0.0, 0.0, 0.0, 0.0)
+        hdw!!.setAllMotorPower(0.0, 0.0, 0.0, 0.0)
 
         // Turn off RUN_TO_POSITION
-        hdw.setRunModes(DcMotor.RunMode.RUN_USING_ENCODER)
+        hdw!!.setRunModes(DcMotor.RunMode.RUN_USING_ENCODER)
+
     }
 
 

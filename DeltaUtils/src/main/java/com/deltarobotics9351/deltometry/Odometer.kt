@@ -20,15 +20,10 @@
  * SOFTWARE.
  */
 
-package com.deltarobotics9351.deltadrive.motors.revrobotics
+package com.deltarobotics9351.deltometry
 
-import com.deltarobotics9351.deltadrive.motors.MotorData
-import com.deltarobotics9351.deltadrive.utils.gear.TwoGearRatio
+import com.deltarobotics9351.deltometry.parameters.OdometerParameters
 
-object CoreHex : MotorData {
-
-    override val TICKS_PER_REVOLUTION = 288.0
-    override val NO_LOAD_RPM = 125.0
-    override val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 72.0, NO_LOAD_RPM * 72.0)
-
+data class Odometer(var deviceName: String, val parameters: OdometerParameters){
+    constructor() : this("", OdometerParameters())
 }

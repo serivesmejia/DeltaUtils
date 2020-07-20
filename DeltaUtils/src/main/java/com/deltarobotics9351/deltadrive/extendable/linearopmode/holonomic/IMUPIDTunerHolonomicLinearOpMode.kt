@@ -38,7 +38,9 @@ open class IMUPIDTunerHolonomicLinearOpMode : IMUPIDHolonomicLinearOpMode(){
     override fun _runOpMode() {
 
         var selected = 0
+
         while (!isStarted) {
+
             if (gamepad1.x) {
                 P = 0.0
                 I = 0.0
@@ -47,63 +49,68 @@ open class IMUPIDTunerHolonomicLinearOpMode : IMUPIDHolonomicLinearOpMode(){
 
             if (gamepad1.a) selected++
             if (gamepad1.b) selected--
+
             if (selected < 0) selected = 2
             if (selected > 2) selected = 0
+
             if (selected == 0) {
+
                 if (gamepad1.dpad_up) {
                     P += 0.0001
                 } else if (gamepad1.dpad_down) {
                     P -= 0.0001
                 }
+
                 telemetry.addData("->P", String.format("%.10f", P))
                 telemetry.addData("I", String.format("%.10f", I))
-                telemetry.addData("D", """
-     ${String.format("%.10f", D)}
-     
-     To change selection, (A) or (B)
-     
-     To change selected value, DPAD UP or DPAD DOWN
-     To reset values back to 0, (X)
-     
-     DeltaUtils v${LibraryData.VERSION}
-     """.trimIndent())
+                telemetry.addData("D", String.format("%.10f", D) +
+                        "\n   To change selection, (A) or (B)\n" +
+                        "     \n" +
+                        "     To change selected value, DPAD UP or DPAD DOWN\n" +
+                        "     To reset values back to 0, (X)\n" +
+                        "     \n" +
+                        "     DeltaUtils v${LibraryData.VERSION}");
+
             } else if (selected == 1) {
+
                 if (gamepad1.dpad_up) {
                     I += 0.0001
                 } else if (gamepad1.dpad_down) {
                     I -= 0.0001
                 }
+
                 telemetry.addData("P", String.format("%.10f", P))
                 telemetry.addData("->I", String.format("%.10f", I))
-                telemetry.addData("D", """
-     ${String.format("%.10f", D)}
-     
-     To change selection, (A) or (B)
-     
-     To change selected value, DPAD UP or DPAD DOWN
-     To reset values back to 0, (X)
-     
-     DeltaUtils v${LibraryData.VERSION}
-     """.trimIndent())
-            } else if (selected == 2) {
+                telemetry.addData("D", String.format("%.10f", D) +
+                        "     To change selection, (A) or (B)\n" +
+                        "     \n" +
+                        "     To change selected value, DPAD UP or DPAD DOWN\n" +
+                        "     To reset values back to 0, (X)\n" +
+                        "     \n" +
+                        "     DeltaUtils v${LibraryData.VERSION}");
+
+            } else if(selected == 2) {
+
+
                 if (gamepad1.dpad_up) {
                     D += 0.0001
                 } else if (gamepad1.dpad_down) {
                     D -= 0.0001
                 }
+
                 telemetry.addData("P", String.format("%.10f", P))
                 telemetry.addData("I", String.format("%.10f", I))
-                telemetry.addData("->D", """
-     ${String.format("%.10f", D)}
-     
-     To change selection, (A) or (B)
-     
-     To change selected value, DPAD_UP or DPAD DOWN
-     To reset values back to 0, (X)
-     
-     DeltaUtils v${LibraryData.VERSION}
-     """.trimIndent())
+                telemetry.addData("->D", String.format("%.10f", D) +
+                        "\n   To change selection, (A) or (B)\n" +
+                        "     \n" +
+                        "     To change selected value, DPAD UP or DPAD DOWN\n" +
+                        "     To reset values back to 0, (X)\n" +
+                        "     \n" +
+                        "     DeltaUtils v${LibraryData.VERSION}");
+
+
             }
+
             telemetry.update()
             sleep(40)
         }
@@ -112,7 +119,7 @@ open class IMUPIDTunerHolonomicLinearOpMode : IMUPIDHolonomicLinearOpMode(){
 
         setRotatePID(PIDCoefficients(P, I, D))
 
-        val twist: Twist2d = rotate(Rot2d.fromDegrees(90.0), 0.7, 5.0)
+        val twist: Twist2d = rotate(Rot2d.degrees(90.0), 0.7, 5.0)
 
         sleep(3000)
 

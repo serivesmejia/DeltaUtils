@@ -22,7 +22,9 @@
 
 package com.deltarobotics9351.deltamath.geometry
 
+import kotlin.math.cos
 import kotlin.math.hypot
+import kotlin.math.sin
 
 class Vec2d {
 
@@ -164,8 +166,8 @@ class Vec2d {
      * @param by the Rot2d to rotate by
      */
     fun rotate(by: Rot2d) {
-        setX(x() * Math.cos(by.getRadians()) - y() * Math.sin(by.getRadians()))
-        setY(x() * Math.sin(by.getRadians()) + y() * Math.cos(by.getRadians()))
+        setX(x() * cos(by.getRadians()) - y() * sin(by.getRadians()))
+        setY(x() * sin(by.getRadians()) + y() * cos(by.getRadians()))
     }
 
     /**

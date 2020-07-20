@@ -44,6 +44,8 @@ class OdometersParameters {
      */
     fun haveBeenDefined(): Boolean {
 
+        return (X_TRACK_WIDTH != 0.0 && Y_TRACK_WIDTH != 0.0)
+
     }
 
 

@@ -25,7 +25,7 @@ package com.deltarobotics9351.deltadrive.utils.gear
 /**
  * Class representing a two gear ratio
  */
-class TwoGearRatio : GearRatio{
+class TwoGearRatio : GearRatio {
 
     private val ratio = doubleArrayOf(0.0, 0.0)
 

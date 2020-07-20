@@ -202,7 +202,9 @@ class Rot2d() {
     }
 
     operator fun plusAssign(o: Rot2d) {
+
         this.rotate(o)
+
     }
 
     operator fun minus(o: Rot2d): Rot2d {

@@ -50,7 +50,7 @@ open class ExtendableHolonomicLinearOpMode : ExtendableLinearOpMode() {
         setup()
 
         if (frontLeft == null || frontRight == null || backLeft == null || backRight == null) {
-            telemetry.addData("[/!\\]", "OpMode will not start in order to avoid Robot Controller crash.")
+            telemetry.addData("[/!\\]", "OpMode will not start in order to avoid Robot Controller crash:")
             telemetry.addData("frontLeft", if (frontLeft == null) "is null" else "OK")
             telemetry.addData("frontRight", if (frontRight == null) "is null" else "OK")
             telemetry.addData("backLeft", if (backLeft == null) "is null" else "OK")
@@ -62,7 +62,7 @@ open class ExtendableHolonomicLinearOpMode : ExtendableLinearOpMode() {
             return
         }
 
-        deltaHardware = DeltaHardwareHolonomic(hardwareMap, Invert.RIGHT_SIDE)
+        deltaHardware = DeltaHardwareHolonomic(Invert.RIGHT_SIDE)
         (deltaHardware as DeltaHardwareHolonomic).initHardware(frontLeft!!, frontRight!!, backLeft!!, backRight!!, WHEELS_BRAKE)
     }
 

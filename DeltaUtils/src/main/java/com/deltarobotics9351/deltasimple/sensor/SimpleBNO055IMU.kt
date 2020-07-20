@@ -90,7 +90,7 @@ class SimpleBNO055IMU(private val imu: BNO055IMU) {
         globalAngle += deltaAngle
         lastAngles = angles
 
-        lastAngle = Rot2d.fromDegrees(globalAngle)
+        lastAngle = Rot2d.degrees(globalAngle)
         return lastAngle
 
     }

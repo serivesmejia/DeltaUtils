@@ -50,21 +50,17 @@ class Pose2d() {
         heading = o.heading
     }
 
-    fun getPosition(): Vec2d {
-        return vec
-    }
+    fun getPosition() = vec
 
-    fun getHeading(): Double {
-        return heading
-    }
+    fun getHeading() = heading
 
     fun add(o: Pose2d) {
-        vec += o.getPosition()
+        vec = vec + o.getPosition()
         heading += o.heading
     }
 
     fun divide(by: Double) {
-        vec /= Vec2d(by, by)
+        vec = vec / Vec2d(by, by)
         heading /= by
     }
 
@@ -74,7 +70,7 @@ class Pose2d() {
     }
 
     fun multiply(by: Double) {
-        vec *= Vec2d(by, by)
+        vec = vec * Vec2d(by, by)
         heading *= by
     }
 

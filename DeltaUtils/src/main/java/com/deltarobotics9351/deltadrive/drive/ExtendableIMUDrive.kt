@@ -241,9 +241,9 @@ open class ExtendableIMUDrive {
         telemetry!!.addData("Error", deltaAngle)
         telemetry!!.update()
 
-        rotate(Rot2d.fromDegrees(deltaAngle), parameters!!.ROTATE_CORRECTION_POWER, timeoutS)
+        rotate(Rot2d.degrees(deltaAngle), parameters!!.ROTATE_CORRECTION_POWER, timeoutS)
 
-        return Twist2d(0.0, 0.0,imu!!.getAngle())
+        return Twist2d(0.0, 0.0, imu!!.getAngle())
 
     }
 

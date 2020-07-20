@@ -22,7 +22,7 @@
 
 package com.deltarobotics9351.deltadrive.utils.gear
 
-class GearRatio {
+open class GearRatio {
 
     open fun getRatioAsDecimal() : Double = 0.0
 

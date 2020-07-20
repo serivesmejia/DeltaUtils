@@ -79,7 +79,7 @@ class JoystickFieldCentricDriveHolonomic {
         turnSpeed = DeltaMathUtil.clamp(turnSpeed, -1.0, 1.0)
 
         var driveStrafeVec = Vec2d(drive, strafe)
-        driveStrafeVec.rotate(Rot2d.fromDegrees(-degrees))
+        driveStrafeVec.rotate(Rot2d.degrees(-degrees))
 
         val theta = Math.atan2(strafe, drive)
         val wheelSpeeds = DoubleArray(4)

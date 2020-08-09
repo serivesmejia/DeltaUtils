@@ -1,5 +1,5 @@
 # DeltaUtils
-[![](https://jitpack.io/v/DeltaRobotics-9351/DeltaUtils.svg)](https://jitpack.io/#DeltaRobotics-9351/DeltaUtils)<br/>
+[![](https://jitpack.io/v/serivesmejia/DeltaUtils.svg)](https://jitpack.io/#serivesmejia/DeltaUtils)
 [![](https://travis-ci.com/DeltaRobotics-9351/DeltaUtils.svg?branch=master)](https://travis-ci.com/DeltaRobotics-9351/DeltaUtils)
 
 Easy to use library containing many functions to control your FTC robot
@@ -19,7 +19,7 @@ allprojects {
   }
 }
 ```
-3. Add the line `implementation 'com.github.DeltaRobotics-9351:DeltaUtils:1.14-beta'` to TeamCode's `build.release.gradle`, inside the dependencies block
+3. Add the line `implementation 'com.github.serivesmejia:DeltaUtils:1.14-beta'` to TeamCode's `build.release.gradle`, inside the dependencies block
 7. Press the `Sync Now` button that will appear in the top right
 
 ## Features

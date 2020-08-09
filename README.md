@@ -1,6 +1,6 @@
 # DeltaUtils
 [![](https://jitpack.io/v/serivesmejia/DeltaUtils.svg)](https://jitpack.io/#serivesmejia/DeltaUtils)
-[![](https://travis-ci.com/DeltaRobotics-9351/DeltaUtils.svg?branch=master)](https://travis-ci.com/DeltaRobotics-9351/DeltaUtils)
+[![Build Status](https://travis-ci.com/serivesmejia/DeltaUtils.svg?branch=master)](https://travis-ci.com/serivesmejia/DeltaUtils)
 
 Easy to use library containing many functions to control your FTC robot
 

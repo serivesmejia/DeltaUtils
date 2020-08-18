@@ -30,7 +30,7 @@ import com.serivesmejia.deltamath.geometry.Rot2d
 import com.serivesmejia.deltamath.geometry.Twist2d
 
 
-class IMUTimeHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode(){
+open class IMUTimeHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode(){
 
     private var imuDrive: IMUDriveHolonomic? = null
     private var timeDrive: TimeDriveHolonomic? = null

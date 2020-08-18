@@ -29,7 +29,7 @@ import com.serivesmejia.deltamath.DeltaMathUtil
 import com.qualcomm.robotcore.hardware.Gamepad
 
 
-class JoystickHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
+open class JoystickHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
     var joystick: JoystickDriveHolonomic? = null
     var superGamepad1: SuperGamepad? = null

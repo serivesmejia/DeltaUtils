@@ -5,7 +5,7 @@
 Easy to use library containing many functions to control your FTC robot
 
 ## Docs
-You can see the generated docs [here](https://deltarobotics-9351.github.io/DeltaUtils/ "DeltaUtils Docs").
+You can see the generated docs [here](https://serivesmejia.github.io/DeltaUtils/ "DeltaUtils Docs").
 
 ## Install (Credit to DogeCV)
 ### This library requires an SDK version of at least 5.4

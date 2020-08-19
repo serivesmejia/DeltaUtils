@@ -32,7 +32,7 @@ import com.serivesmejia.pid.PIDCoefficients
 
 open class IMUPIDHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
-    private var imuDrive: IMUDrivePIDHolonomic? = null
+    open var imuDrive: IMUDrivePIDHolonomic? = null
 
     /**
      * IMU parameters that can be defined

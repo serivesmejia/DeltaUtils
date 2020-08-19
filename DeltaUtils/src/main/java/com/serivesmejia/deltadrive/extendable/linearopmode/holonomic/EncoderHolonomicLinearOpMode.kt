@@ -29,8 +29,8 @@ import com.serivesmejia.deltadrive.parameters.EncoderDriveParameters
 
 open class EncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
-    private var encoderDrive: EncoderDriveHolonomic? = null
-    var encoderParameters = EncoderDriveParameters()
+    open var encoderDrive: EncoderDriveHolonomic? = null
+    open var encoderParameters = EncoderDriveParameters()
 
     override fun runOpMode() {
         performInit()

@@ -34,9 +34,9 @@ import com.serivesmejia.pid.PIDCoefficients
 
 open class IMUPIDEncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
-    private var imuDrive: IMUDrivePIDHolonomic? = null
+    open var imuDrive: IMUDrivePIDHolonomic? = null
 
-    private var encoderDrive: EncoderDriveHolonomic? = null
+    open var encoderDrive: EncoderDriveHolonomic? = null
 
     /**
      * Encoder parameters that can be defined

@@ -30,7 +30,6 @@ import com.serivesmejia.pid.PIDCoefficients
 
 open class IMUPIDTunerHolonomicLinearOpMode : IMUPIDHolonomicLinearOpMode(){
 
-
     var P = 0.01
     var I = 0.000001
     var D = 0.000001

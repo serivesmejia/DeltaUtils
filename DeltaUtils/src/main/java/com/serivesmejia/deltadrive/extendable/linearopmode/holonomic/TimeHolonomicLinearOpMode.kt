@@ -28,7 +28,7 @@ import com.serivesmejia.deltadrive.hardware.DeltaHardwareHolonomic
 
 open class TimeHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
-    private var timeDrive: TimeDriveHolonomic? = null
+    open var timeDrive: TimeDriveHolonomic? = null
 
     override fun runOpMode() {
         performInit()

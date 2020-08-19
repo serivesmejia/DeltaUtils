@@ -31,9 +31,9 @@ import com.qualcomm.robotcore.hardware.Gamepad
 
 open class JoystickHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
-    var joystick: JoystickDriveHolonomic? = null
-    var superGamepad1: SuperGamepad? = null
-    var superGamepad2: SuperGamepad? = null
+    open var joystick: JoystickDriveHolonomic? = null
+    open var superGamepad1: SuperGamepad? = null
+    open var superGamepad2: SuperGamepad? = null
 
     override fun runOpMode() {
         superGamepad1 = SuperGamepad(gamepad1)
@@ -60,12 +60,16 @@ open class JoystickHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
     fun joystick(gamepad: Gamepad, controlSpeedWithTriggers: Boolean, maxMinusPower: Double) {
         if (controlSpeedWithTriggers) {
-            if (gamepad.left_trigger > 0.1) {
-                joystick!!.update(1.0 - DeltaMathUtil.clamp(gamepad.left_trigger.toDouble(), 0.0, maxMinusPower))
-            } else if (gamepad.right_trigger > 0.1) {
-                joystick!!.update(1.0 - DeltaMathUtil.clamp(gamepad.right_trigger.toDouble(), 0.0, maxMinusPower))
-            } else {
-                joystick!!.update(1.0)
+            when {
+                gamepad.left_trigger > 0.1 -> {
+                    joystick!!.update(1.0 - DeltaMathUtil.clamp(gamepad.left_trigger.toDouble(), 0.0, maxMinusPower))
+                }
+                gamepad.right_trigger > 0.1 -> {
+                    joystick!!.update(1.0 - DeltaMathUtil.clamp(gamepad.right_trigger.toDouble(), 0.0, maxMinusPower))
+                }
+                else -> {
+                    joystick!!.update(1.0)
+                }
             }
         } else {
             joystick!!.update(1.0)

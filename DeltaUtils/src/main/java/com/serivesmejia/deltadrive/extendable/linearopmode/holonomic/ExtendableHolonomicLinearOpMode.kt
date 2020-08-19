@@ -30,10 +30,10 @@ import com.qualcomm.robotcore.hardware.DcMotor
 
 open class ExtendableHolonomicLinearOpMode : ExtendableLinearOpMode() {
 
-    var frontLeft: DcMotor? = null
-    var frontRight: DcMotor? = null
-    var backLeft: DcMotor? = null
-    var backRight: DcMotor? = null
+    open var frontLeft: DcMotor? = null
+    open var frontRight: DcMotor? = null
+    open var backLeft: DcMotor? = null
+    open var backRight: DcMotor? = null
 
     override fun runOpMode() {}
 

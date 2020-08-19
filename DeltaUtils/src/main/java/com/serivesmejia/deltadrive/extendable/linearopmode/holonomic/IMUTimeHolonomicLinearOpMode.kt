@@ -32,8 +32,8 @@ import com.serivesmejia.deltamath.geometry.Twist2d
 
 open class IMUTimeHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode(){
 
-    private var imuDrive: IMUDriveHolonomic? = null
-    private var timeDrive: TimeDriveHolonomic? = null
+    open var imuDrive: IMUDriveHolonomic? = null
+    open var timeDrive: TimeDriveHolonomic? = null
 
     /**
      * IMU parameters that can be defined

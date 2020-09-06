@@ -35,6 +35,9 @@ open class ExtendableLinearOpMode : LinearOpMode() {
      */
     var WHEELS_BRAKE = true
 
+    val DEF_IMU_PARAMS = "Remember to define IMU constants, IMU functions may not work as expected because parameters are 0 by default."
+    val DEF_ENCODER_PARAMS = "Remember to define encoder constants, encoder functions will not work because parameters are 0 by default."
+
     var deltaHardware: DeltaHardware? = null
 
     /**

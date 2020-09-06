@@ -59,10 +59,10 @@ open class IMUEncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
         Thread(Runnable(){
             waitForStart()
             if (!encoderParameters.haveBeenDefined()) {
-                telemetry.addData("[/!\\]", "Remember to define encoder constants, encoder functions will not work because parameters are 0 by default.")
+                telemetry.addData("[/!\\]", DEF_ENCODER_PARAMS)
             }
             if (!imuParameters.haveBeenDefined()) {
-                telemetry.addData("[/!\\]", "Remember to define IMU constants, IMU functions may not work as expected because parameters are 0 by default.")
+                telemetry.addData("[/!\\]", DEF_IMU_PARAMS)
             }
             telemetry.update()
         }).start()
@@ -110,7 +110,7 @@ open class IMUEncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
         encoderDrive!!.turnRight(inches, speed, timeOutSecs)
     }
 
-    fun getRobotAngle(): Rot2d? {
+    fun getRobotAngle(): Rot2d {
         return imuDrive!!.getRobotAngle()
     }
 

@@ -34,12 +34,12 @@ open class EncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
     override fun runOpMode() {
         performInit()
-        encoderDrive = EncoderDriveHolonomic((deltaHardware as DeltaHardwareHolonomic?)!!, telemetry, encoderParameters)
+        encoderDrive = EncoderDriveHolonomic(deltaHardware as DeltaHardwareHolonomic, telemetry, encoderParameters)
 
         Thread(Runnable{
             waitForStart()
             if (!encoderParameters.haveBeenDefined()) {
-                telemetry.addData("[/!\\]", "Remember to define encoder constants, encoder functions will not work because parameters are 0 by default. ")
+                telemetry.addData("[/!\\]", DEF_ENCODER_PARAMS)
             }
             telemetry.update()
         }).start()

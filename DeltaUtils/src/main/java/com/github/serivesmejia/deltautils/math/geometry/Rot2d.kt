@@ -231,7 +231,7 @@ class Rot2d() {
     }
 
     override fun toString(): String {
-        return "Rot2d(rad " + radians + ", deg " + Math.toDegrees(radians) + ")"
+        return "Rot2d(rad ${radians}, deg ${Math.toDegrees(radians)})"
     }
 
 }

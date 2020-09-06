@@ -41,14 +41,21 @@ open class IMUPIDHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
     override fun runOpMode() {
         performInit()
-        imuDrive = IMUDrivePIDHolonomic((deltaHardware as DeltaHardwareHolonomic?)!!, telemetry)
+        imuDrive = IMUDrivePIDHolonomic(deltaHardware as DeltaHardwareHolonomic, telemetry)
         imuDrive!!.initIMU(imuParameters)
 
         imuDrive!!.waitForIMUCalibration()
 
+        Thread(Runnable{
+            waitForStart()
+            if (!imuParameters.haveBeenDefined()) {
+                telemetry.addData("[/!\\]", DEF_IMU_PARAMS)
+            }
+            telemetry.update()
+        }).start()
+
         _runOpMode()
     }
-
 
     /**
      * Overridable void to be executed after all required variables are initialized

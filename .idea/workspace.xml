@@ -11,11 +11,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15dedc17-52a4-4742-b160-1a2213697791" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DeltaUtils/DeltaUtils.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/DeltaUtils.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/ExtendableLinearOpMode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/ExtendableLinearOpMode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/EncoderHolonomicLinearOpMode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/EncoderHolonomicLinearOpMode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/ExtendableHolonomicLinearOpMode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/ExtendableHolonomicLinearOpMode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUEncoderHolonomicLinearOpMode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUEncoderHolonomicLinearOpMode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUHolonomicLinearOpMode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUHolonomicLinearOpMode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUPIDEncoderHolonomicLinearOpMode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUPIDEncoderHolonomicLinearOpMode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUPIDHolonomicLinearOpMode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUPIDHolonomicLinearOpMode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUPIDTimeHolonomicLinearOpMode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUPIDTimeHolonomicLinearOpMode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUTimeHolonomicLinearOpMode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/extendable/linearopmode/holonomic/IMUTimeHolonomicLinearOpMode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/utils/TelemetryMessage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/utils/TelemetryMessage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/utils/gear/ThreeGearRatio.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/drive/utils/gear/ThreeGearRatio.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/math/geometry/Point2d.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/math/geometry/Point2d.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/math/geometry/Rot2d.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/math/geometry/Rot2d.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/math/geometry/Twist2d.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/math/geometry/Twist2d.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/math/geometry/Vec2d.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/math/geometry/Vec2d.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,9 +86,15 @@
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="com.deltarobotics9351.deltometry.position" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.github" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.github.deltarobotics9351.deltadrive" />
       <recent name="com.github.deltarobotics9351.deltadrive.drive.mecanum.pid" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\d4n1_\StudioProjects\DeltaUtils2\DeltaUtils\src\main\java\com\github\serivesmejia\deltautils" />
     </key>
   </component>
   <component name="RunManager">
@@ -120,9 +139,29 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="363" y="92" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1599356867504">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="363" y="92" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.728@0.0.1366.728" timestamp="1599356867504" />
+    <state x="479" y="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1599355459197">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="479" y="270" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1366.728@0.0.1366.728" timestamp="1599355459197" />
+    <state x="462" y="28" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1599358776874">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="462" y="28" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1599358776874" />
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1597797336818">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1597797336818" />
+    <state x="339" y="162" key="run.anything.popup" timestamp="1599359156820">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1599359156820" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1599359222633">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1599359222633" />
   </component>
 </project>

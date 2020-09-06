@@ -22,4 +22,4 @@
 
 package com.github.serivesmejia.deltautils.drive.utils
 
-class TelemetryMessage (val caption: String, val value: Any)
+data class TelemetryMessage (val caption: String, val value: Any)

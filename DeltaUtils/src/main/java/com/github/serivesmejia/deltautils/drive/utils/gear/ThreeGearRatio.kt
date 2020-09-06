@@ -29,7 +29,7 @@ class ThreeGearRatio : GearRatio {
 
     private val ratio = doubleArrayOf(0.0, 0.0, 0.0)
 
-    private var inputRPM = 0.0;
+    private var inputRPM = 0.0
 
     /**
      * Constructor for GearRatio class

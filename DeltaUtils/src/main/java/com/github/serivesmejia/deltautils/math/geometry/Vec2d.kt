@@ -179,7 +179,7 @@ class Vec2d {
     }
 
     override fun toString(): String {
-        return "Vec2d(" + x() + ", " + y()
+        return "Vec2d(${x()}, ${y()})"
     }
 
 }

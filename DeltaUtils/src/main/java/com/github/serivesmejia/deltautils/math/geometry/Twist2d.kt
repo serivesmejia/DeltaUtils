@@ -27,12 +27,12 @@ class Twist2d {
     var tw : Vec2d = Vec2d()
     var th : Rot2d = Rot2d()
 
-    constructor (x : Double, y : Double, theta : Rot2d) {
+    constructor (x: Double, y: Double, theta: Rot2d) {
         this.tw = Vec2d(x, y)
         this.th = Rot2d(theta)
     }
 
-    constructor (vec : Vec2d, theta : Rot2d){
+    constructor (vec: Vec2d, theta : Rot2d){
         this.tw = Vec2d(vec)
         this.th = Rot2d(theta)
     }

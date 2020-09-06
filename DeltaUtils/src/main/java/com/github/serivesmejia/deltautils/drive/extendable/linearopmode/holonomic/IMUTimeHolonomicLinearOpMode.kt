@@ -52,7 +52,7 @@ open class IMUTimeHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode(){
         Thread(Runnable{
             waitForStart()
             if (!imuParameters.haveBeenDefined()) {
-                telemetry.addData("[/!\\]", "Remember to define IMU constants, IMU functions may not work as expected because parameters are 0 by default.")
+                telemetry.addData("[/!\\]", DEF_IMU_PARAMS)
             }
             telemetry.update()
         }).start()

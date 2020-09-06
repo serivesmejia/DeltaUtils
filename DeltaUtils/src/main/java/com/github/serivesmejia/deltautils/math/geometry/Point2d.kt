@@ -79,7 +79,7 @@ class Point2d {
     }
 
     override fun toString(): String {
-        return "Point2d(" + x() + ", " + y()
+        return "Point2d(${x()}, ${y()})"
     }
 
     operator fun plus(o: Point2d): Point2d {

@@ -61,7 +61,7 @@ open class IMUPIDEncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode(
         Thread(Runnable{
             waitForStart()
             if (!encoderParameters.haveBeenDefined()) {
-                telemetry.addData("[/!\\]", "Remember to define encoder constants, encoder functions will not work because parameters are 0 by default.")
+                telemetry.addData("[/!\\]", DEF_ENCODER_PARAMS)
             }
             telemetry.update()
         }).start()

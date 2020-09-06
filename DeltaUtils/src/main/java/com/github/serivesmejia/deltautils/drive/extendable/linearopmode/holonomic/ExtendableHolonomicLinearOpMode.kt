@@ -56,7 +56,7 @@ open class ExtendableHolonomicLinearOpMode : ExtendableLinearOpMode() {
             telemetry.addData("backLeft", if (backLeft == null) "is null" else "OK")
             telemetry.addData("backRight", if (backRight == null) "is null" else "OK")
             telemetry.addData("POSSIBLE SOLUTION 1", "Override setup() method in your OpMode class and\ndefine the null motor variables specified above.")
-            telemetry.addData("POSSIBLE SOLUTION 2", "Check that all your motors are correctly named and\nthat they are get from the hardwareMap")
+            telemetry.addData("POSSIBLE SOLUTION 2", "Check that all your motors are correctly named and\nthat they are gotten from the hardwareMap")
             telemetry.update()
             while (opModeIsActive());
             return

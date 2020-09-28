@@ -1,4 +1,4 @@
-com.github.deltarobotics9351.deltadrive
+com.github.serivesmejia.deltadrive
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom
@@ -11,6 +11,18 @@ anim abc_slide_out_bottom
 anim abc_slide_out_top
 anim abc_tooltip_enter
 anim abc_tooltip_exit
+anim btn_checkbox_to_checked_box_inner_merged_animation
+anim btn_checkbox_to_checked_box_outer_merged_animation
+anim btn_checkbox_to_checked_icon_null_animation
+anim btn_checkbox_to_unchecked_box_inner_merged_animation
+anim btn_checkbox_to_unchecked_check_path_merged_animation
+anim btn_checkbox_to_unchecked_icon_null_animation
+anim btn_radio_to_off_mtrl_dot_group_animation
+anim btn_radio_to_off_mtrl_ring_outer_animation
+anim btn_radio_to_off_mtrl_ring_outer_path_animation
+anim btn_radio_to_on_mtrl_dot_group_animation
+anim btn_radio_to_on_mtrl_ring_outer_animation
+anim btn_radio_to_on_mtrl_ring_outer_path_animation
 array app_theme_colors
 array app_theme_ids
 array app_theme_names
@@ -90,6 +102,7 @@ attr buttonBarNegativeButtonStyle
 attr buttonBarNeutralButtonStyle
 attr buttonBarPositiveButtonStyle
 attr buttonBarStyle
+attr buttonCompat
 attr buttonGravity
 attr buttonIconDimen
 attr buttonPanelSideLayout
@@ -127,6 +140,7 @@ attr controlBackground
 attr coordinatorLayoutStyle
 attr customNavigationLayout
 attr defaultQueryHint
+attr dialogCornerRadius
 attr dialogPreferredPadding
 attr dialogTheme
 attr displayOptions
@@ -134,7 +148,15 @@ attr divider
 attr dividerHorizontal
 attr dividerPadding
 attr dividerVertical
+attr drawableBottomCompat
+attr drawableEndCompat
+attr drawableLeftCompat
+attr drawableRightCompat
 attr drawableSize
+attr drawableStartCompat
+attr drawableTint
+attr drawableTintMode
+attr drawableTopCompat
 attr drawerArrowStyle
 attr dropDownListViewStyle
 attr dropdownListPreferredItemHeight
@@ -146,6 +168,7 @@ attr expandActivityOverflowButtonDrawable
 attr feedbackBackground
 attr feedbackBorder
 attr feedbackShape
+attr firstBaselineToTopHeight
 attr font
 attr fontFamily
 attr fontProviderAuthority
@@ -173,6 +196,7 @@ attr initialActivityCount
 attr isLightTheme
 attr itemPadding
 attr keylines
+attr lastBaselineToBottomHeight
 attr layout
 attr layout_anchor
 attr layout_anchorGravity
@@ -181,8 +205,11 @@ attr layout_dodgeInsetEdges
 attr layout_insetEdge
 attr layout_keyline
 attr lineBright
+attr lineHeight
 attr lineLight
 attr listChoiceBackgroundIndicator
+attr listChoiceIndicatorMultipleAnimated
+attr listChoiceIndicatorSingleAnimated
 attr listDividerAlertDialog
 attr listItemLayout
 attr listLayout
@@ -191,12 +218,15 @@ attr listPopupWindowStyle
 attr listPreferredItemHeight
 attr listPreferredItemHeightLarge
 attr listPreferredItemHeightSmall
+attr listPreferredItemPaddingEnd
 attr listPreferredItemPaddingLeft
 attr listPreferredItemPaddingRight
+attr listPreferredItemPaddingStart
 attr logo
 attr logoDescription
 attr maxButtonHeight
 attr measureWithLargestChild
+attr menu
 attr multiChoiceItemLayout
 attr navigationContentDescription
 attr navigationIcon
@@ -264,6 +294,7 @@ attr textBright
 attr textColorAlertDialogListItem
 attr textColorSearchUrl
 attr textLight
+attr textLocale
 attr textMedium
 attr textMediumAlmostDark
 attr textMediumDark
@@ -322,6 +353,8 @@ color abc_background_cache_hint_selector_material_light
 color abc_btn_colored_borderless_text_material
 color abc_btn_colored_text_material
 color abc_color_highlight_material
+color abc_decor_view_status_guard
+color abc_decor_view_status_guard_light
 color abc_hint_foreground_material_dark
 color abc_hint_foreground_material_light
 color abc_input_method_navigation_guard
@@ -350,6 +383,8 @@ color almost_dark_orange
 color almost_dark_purple
 color almost_dark_red
 color almost_dark_teal
+color androidx_core_ripple_material_light
+color androidx_core_secondary_text_default_material_light
 color background_black
 color background_dark_gray
 color background_floating_material_dark
@@ -357,8 +392,8 @@ color background_floating_material_light
 color background_material_dark
 color background_material_light
 color background_orange
+color background_very_light_grey
 color background_white
-color black
 color border_orange
 color bright_blue
 color bright_foreground_disabled_material_dark
@@ -371,7 +406,6 @@ color bright_green
 color bright_orange
 color bright_purple
 color bright_red
-color bright_red_text
 color bright_teal
 color button_material_dark
 color button_material_light
@@ -380,13 +414,14 @@ color dark_green
 color dark_orange
 color dark_purple
 color dark_red
-color dark_red_background
 color dark_teal
 color dim_foreground_disabled_material_dark
 color dim_foreground_disabled_material_light
 color dim_foreground_material_dark
 color dim_foreground_material_light
 color error_color_material
+color error_color_material_dark
+color error_color_material_light
 color firstblue
 color firstgreen
 color firstorgange
@@ -402,9 +437,9 @@ color light_green
 color light_orange
 color light_purple
 color light_red
-color light_red_background
 color light_teal
 color line_gray
+color logviewer_bgcolor
 color material_blue_grey_800
 color material_blue_grey_900
 color material_blue_grey_950
@@ -440,7 +475,6 @@ color medium_medium_teal
 color medium_orange
 color medium_purple
 color medium_red
-color medium_red_background
 color medium_teal
 color notification_action_color_filter
 color notification_icon_bg_color
@@ -466,13 +500,10 @@ color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
 color text_error
 color text_okay
-color text_toast
 color text_warning
 color text_white
 color tooltip_background_dark
 color tooltip_background_light
-color transparent_color
-color very_bright_red
 color very_dark_blue
 color very_dark_green
 color very_dark_orange
@@ -485,7 +516,6 @@ color very_very_dark_orange
 color very_very_dark_purple
 color very_very_dark_red
 color very_very_dark_teal
-color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
 dimen abc_action_bar_default_height_material
@@ -514,6 +544,7 @@ dimen abc_config_prefDialogWidth
 dimen abc_control_corner_material
 dimen abc_control_inset_material
 dimen abc_control_padding_material
+dimen abc_dialog_corner_radius_material
 dimen abc_dialog_fixed_height_major
 dimen abc_dialog_fixed_height_minor
 dimen abc_dialog_fixed_width_major
@@ -534,6 +565,9 @@ dimen abc_edit_text_inset_bottom_material
 dimen abc_edit_text_inset_horizontal_material
 dimen abc_edit_text_inset_top_material
 dimen abc_floating_window_z
+dimen abc_list_item_height_large_material
+dimen abc_list_item_height_material
+dimen abc_list_item_height_small_material
 dimen abc_list_item_padding_horizontal_material
 dimen abc_panel_menu_list_width
 dimen abc_progress_bar_height_material
@@ -606,11 +640,13 @@ drawable abc_ab_share_pack_mtrl_alpha
 drawable abc_action_bar_item_background_material
 drawable abc_btn_borderless_material
 drawable abc_btn_check_material
+drawable abc_btn_check_material_anim
 drawable abc_btn_check_to_on_mtrl_000
 drawable abc_btn_check_to_on_mtrl_015
 drawable abc_btn_colored_material
 drawable abc_btn_default_mtrl_shape
 drawable abc_btn_radio_material
+drawable abc_btn_radio_material_anim
 drawable abc_btn_radio_to_on_mtrl_000
 drawable abc_btn_radio_to_on_mtrl_015
 drawable abc_btn_switch_to_on_mtrl_00001
@@ -642,6 +678,7 @@ drawable abc_ic_star_half_black_48dp
 drawable abc_ic_voice_search_api_material
 drawable abc_item_background_holo_dark
 drawable abc_item_background_holo_light
+drawable abc_list_divider_material
 drawable abc_list_divider_mtrl_alpha
 drawable abc_list_focused_holo
 drawable abc_list_longpressed_holo
@@ -685,6 +722,14 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable btn_checkbox_checked_mtrl
+drawable btn_checkbox_checked_to_unchecked_mtrl_animation
+drawable btn_checkbox_unchecked_mtrl
+drawable btn_checkbox_unchecked_to_checked_mtrl_animation
+drawable btn_radio_off_mtrl
+drawable btn_radio_off_to_on_mtrl_animation
+drawable btn_radio_on_mtrl
+drawable btn_radio_on_to_off_mtrl_animation
 drawable button_shape
 drawable feedback_shape_orange
 drawable ic_arrow_back_black_24dp
@@ -706,6 +751,40 @@ drawable notify_panel_notification_icon_bg
 drawable skystone_background
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+drawable ultimategoal_background
+id accessibility_action_clickable_span
+id accessibility_custom_action_0
+id accessibility_custom_action_1
+id accessibility_custom_action_10
+id accessibility_custom_action_11
+id accessibility_custom_action_12
+id accessibility_custom_action_13
+id accessibility_custom_action_14
+id accessibility_custom_action_15
+id accessibility_custom_action_16
+id accessibility_custom_action_17
+id accessibility_custom_action_18
+id accessibility_custom_action_19
+id accessibility_custom_action_2
+id accessibility_custom_action_20
+id accessibility_custom_action_21
+id accessibility_custom_action_22
+id accessibility_custom_action_23
+id accessibility_custom_action_24
+id accessibility_custom_action_25
+id accessibility_custom_action_26
+id accessibility_custom_action_27
+id accessibility_custom_action_28
+id accessibility_custom_action_29
+id accessibility_custom_action_3
+id accessibility_custom_action_30
+id accessibility_custom_action_31
+id accessibility_custom_action_4
+id accessibility_custom_action_5
+id accessibility_custom_action_6
+id accessibility_custom_action_7
+id accessibility_custom_action_8
+id accessibility_custom_action_9
 id action_bar
 id action_bar_activity_content
 id action_bar_container
@@ -730,7 +809,10 @@ id add
 id addButton
 id addressListCaption
 id airplaneMode
+id airplaneModeLayout
 id alertTitle
+id androidVersion
+id androidVersionLayout
 id appsInstalled
 id appsStatus
 id async
@@ -754,6 +836,7 @@ id cancelButton
 id channelPickList
 id checkbox
 id checkbox_port
+id checked
 id choiceMotorSpinner
 id choiceSpinner
 id chronometer
@@ -763,7 +846,10 @@ id configureButton
 id configureFromTemplate
 id configureFromTemplateArea
 id container
+id content
 id contentPanel
+id controlHubOsVersion
+id controlHubOsVersionLayout
 id controller_name
 id controller_name_prompt_text
 id controllersList
@@ -777,6 +863,7 @@ id default_activity_button
 id device_interface_module_name
 id devices_holder
 id devices_info_btn
+id dialog_button
 id disconnect_from_wifidirect
 id doneButton
 id dropdown_layout
@@ -805,6 +892,7 @@ id files_holder
 id fixButton
 id forever
 id groupList
+id group_divider
 id holds_buttons
 id home
 id horizontalButtons
@@ -821,14 +909,14 @@ id info
 id infoButton
 id info_btn
 id inspectionRootLayout
-id isCCInstalled
 id isDSInstalled
+id isDefaultPassword
 id isRCInstalled
 id italic
 id item_list_parent
 id labelManufacturer
 id labelModel
-id labelWidiName
+id labelWifiName
 id left
 id line1
 id line3
@@ -855,8 +943,10 @@ id loadingIndicator
 id loadingIndicatorOverlay
 id lynxAddressButtons
 id lynxAddressListInstructions
+id lynxFirmwareAvailableFilesGroup
+id lynxFirmwareFilesHeader
+id lynxFirmwareHubsHeader
 id lynxFirmwareInstructionsPost
-id lynxFirmwareInstructionsPre
 id lynxFirmwareModuleList
 id lynxFirmwareUpdateButton
 id lynxUsbDeviceModules
@@ -877,9 +967,9 @@ id normal
 id notification_background
 id notification_main_column
 id notification_main_column_container
+id off
+id on
 id orange_end_of_list_anchor
-id osVersion
-id osVersionLayout
 id parentPanel
 id permDeniedText
 id port0
@@ -943,6 +1033,11 @@ id tableLayout
 id tableLayout_analogOutput_devices
 id tableLayout_analog_input_devices
 id table_header
+id tag_accessibility_actions
+id tag_accessibility_clickable_spans
+id tag_accessibility_heading
+id tag_accessibility_pane_title
+id tag_screen_reader_focusable
 id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
@@ -951,7 +1046,6 @@ id templateListCaption
 id templateNameText
 id text
 id text2
-id textAdbLogs
 id textBadDeviceName
 id textDeviceName
 id textPleaseWait
@@ -964,12 +1058,12 @@ id textView12
 id textView13
 id textView3
 id textView4
-id textView5
 id textView6
 id textView7
 id textView8
 id textView9
 id textViewHubFirmware
+id textViewPassword
 id time
 id title
 id titleDividerNoCustom
@@ -980,25 +1074,32 @@ id topPanel
 id top_bar
 id trafficCount
 id trafficCountLabel
-id txtIsCCInstalled
 id txtIsDSInstalled
 id txtIsRCInstalled
 id txtManufacturer
 id txtModel
+id unchecked
 id uniform
 id up
 id webView
 id widiConnected
-id widiName
 id wifiConnected
 id wifiDisabledNotification
 id wifiEnabled
+id wifiName
 id wrap_content
 integer abc_config_activityDefaultDur
 integer abc_config_activityShortDur
 integer cancel_button_image_alpha
 integer config_tooltipAnimTime
 integer status_bar_notification_info_maxnum
+interpolator btn_checkbox_checked_mtrl_animation_interpolator_0
+interpolator btn_checkbox_checked_mtrl_animation_interpolator_1
+interpolator btn_checkbox_unchecked_mtrl_animation_interpolator_0
+interpolator btn_checkbox_unchecked_mtrl_animation_interpolator_1
+interpolator btn_radio_to_off_mtrl_animation_interpolator_0
+interpolator btn_radio_to_on_mtrl_animation_interpolator_0
+interpolator fast_out_slow_in
 layout abc_action_bar_title_item
 layout abc_action_bar_up_container
 layout abc_action_menu_item_layout
@@ -1010,6 +1111,7 @@ layout abc_activity_chooser_view_list_item
 layout abc_alert_dialog_button_bar_material
 layout abc_alert_dialog_material
 layout abc_alert_dialog_title_material
+layout abc_cascading_menu_item_layout
 layout abc_dialog_title_material
 layout abc_expanded_menu_layout
 layout abc_list_menu_item_checkbox
@@ -1048,6 +1150,7 @@ layout backbar_layout
 layout banner_parent
 layout button_list
 layout color_list_preference_line_item
+layout custom_dialog
 layout device_interface_module
 layout digital_device
 layout digital_device_lynx
@@ -1152,6 +1255,16 @@ string abc_font_family_headline_material
 string abc_font_family_menu_material
 string abc_font_family_subhead_material
 string abc_font_family_title_material
+string abc_menu_alt_shortcut_label
+string abc_menu_ctrl_shortcut_label
+string abc_menu_delete_shortcut_label
+string abc_menu_enter_shortcut_label
+string abc_menu_function_shortcut_label
+string abc_menu_meta_shortcut_label
+string abc_menu_shift_shortcut_label
+string abc_menu_space_shortcut_label
+string abc_menu_sym_shortcut_label
+string abc_prepend_shortcut_label
 string abc_search_hint
 string abc_searchview_description_clear
 string abc_searchview_description_query
@@ -1192,6 +1305,7 @@ string add_motor_controller_menu_item
 string add_servo_controller_menu_item
 string alertLynxFirmwareUpdateFailed
 string alertLynxFirmwareUpdateFailedTitle
+string alertLynxFirmwareUpdateFailedWithReason
 string alertLynxFirmwareUpdateTimedout
 string alertMessageNoActionGetContent
 string alertTitleRobotControllerConsole
@@ -1203,6 +1317,7 @@ string appThemeChangeRestartNotifyRC
 string app_name
 string app_result_type_attempting_installation
 string app_result_type_auto_updated_app
+string app_result_type_backup_uninstalling_existing_app
 string app_result_type_failed_and_reverted
 string app_result_type_failed_to_restore
 string app_result_type_generic_install_failure
@@ -1220,6 +1335,7 @@ string app_result_type_storage_failure
 string app_result_type_timeout_expired
 string app_result_type_uninstall_failed
 string app_result_type_uninstall_required
+string app_result_type_uninstall_required_backup_possible
 string app_result_type_uninstalled_wrong_app_variant
 string app_result_type_uninstalling_existing_app
 string app_result_type_unknown_install_status
@@ -1327,6 +1443,10 @@ string confirmConfigDeleteTitle
 string connection_owner_default
 string connection_owner_password_default
 string continuous_servo_description
+string controlHubDisplayName
+string controlHubFirmwareUpdateMessage
+string control_hub_module_name
+string control_hub_usb_device_name
 string controllerPortConnectionInfoFormat
 string counted_camera_name
 string counted_device_interface_module_name
@@ -1377,6 +1497,7 @@ string errorParsingConfiguration
 string errorScanningDevicesTitle
 string error_text_error
 string error_text_warning
+string expansionHubDisplayName
 string expansionHubFirmwareUpdateMessage
 string file_activate_button
 string file_delete_button
@@ -1403,13 +1524,17 @@ string legacy_controller_name
 string load_menu_item
 string locationServices
 string lynxAnalogInputControllerDisplayName
-string lynxBatteryToLowMotor
-string lynxBatteryToLowServo
 string lynxDcMotorControllerDisplayName
 string lynxDigitalChannelControllerDisplayName
+string lynxFirmwareUpdateAlreadyInProgress
 string lynxFirmwareUpdateReadme
 string lynxI2cDeviceSynchDisplayName
-string lynxModuleDisplayName
+string lynxModuleBatteryIsCurrentlyLow
+string lynxModuleBatteryWasLow
+string lynxModuleCurrentlyNotResponding
+string lynxModuleFirmwareOutdated
+string lynxModulePowerLost
+string lynxModulePreviouslyNotResponding
 string lynxPwmOutputControllerDisplayName
 string lynxServoControllerDisplayName
 string lynxUnavailableFWVersionString
@@ -1423,8 +1548,10 @@ string lynx_address_instructions_static
 string lynx_address_instructions_update
 string lynx_embedded_imu_description
 string lynx_embedded_imu_name
+string lynx_fw_available_files
+string lynx_fw_instructions_controlhub_item_title
+string lynx_fw_instructions_exhub_item_title
 string lynx_fw_instructions_firmware_version
-string lynx_fw_instructions_item_title
 string lynx_fw_instructions_module_address
 string lynx_fw_instructions_module_address_unavailable
 string lynx_fw_instructions_no_binary
@@ -1504,13 +1631,14 @@ string ota_result_type_invalid_file_location
 string ota_result_type_invalid_update_file
 string ota_result_type_ota_update_finished
 string ota_result_type_verification_succeeded
+string ota_result_type_verification_succeeded_localhost
 string packageName
 string packageNameDriverStation
 string packageNameRobotController
 string pairing_kind_title
 string peerStatusConnected
 string peerStatusDisconnected
-string permAccessCoarseLocationExplain
+string permAccessLocationExplain
 string permDsReadExternalStorageExplain
 string permDsWriteExternalStorageExplain
 string permGenericExplain
@@ -1519,7 +1647,9 @@ string permPermanentlyDeniedRecovery
 string permRcCameraExplain
 string permRcReadExternalStorageExplain
 string permRcWriteExternalStorageExplain
+string permReadPhoneState
 string port
+string powerIssueTip
 string pref_app_category
 string pref_app_category_rc
 string pref_app_theme
@@ -1538,6 +1668,8 @@ string pref_device_name_old
 string pref_device_name_rc
 string pref_device_name_rc_display
 string pref_device_name_tracking
+string pref_ds_supports_5_ghz
+string pref_ds_version_code
 string pref_gamepad_user1_type_key
 string pref_gamepad_user2_type_key
 string pref_hardware_config_filename
@@ -1558,7 +1690,6 @@ string pref_launch_wifi_remembered_groups_edit
 string pref_lib_version
 string pref_lib_version_rc
 string pref_match_logging_on_off
-string pref_match_logging_on_off_not_supported
 string pref_match_logging_on_off_summary
 string pref_match_logging_on_off_title
 string pref_network_connection_info
@@ -1575,6 +1706,9 @@ string pref_pairing_kind_title
 string pref_rc_connected
 string pref_sound_on_off
 string pref_sound_on_off_rc
+string pref_warn_about_2_4_ghz_band
+string pref_warn_about_mismatched_app_versions
+string pref_warn_about_outdated_firmware
 string pref_wifi_automute
 string pref_wifip2p_channel
 string pref_wifip2p_groupowner_connectedto
@@ -1645,7 +1779,9 @@ string rev_laser_sensor_name
 string rev_spark_mini_description
 string rev_spark_mini_name
 string rev_touch_sensor_description
+string rev_ultraplanetary_hd_hex_name
 string robotControllerAppUpdateReadme
+string robotOffTip
 string robotStateEmergencyStop
 string robotStateInit
 string robotStateInternalError
@@ -1694,6 +1830,10 @@ string string_WifiRememberedGroupsInstructions
 string summaryAdvancedRCSettings
 string summaryLynxAddressUpdate
 string summaryLynxFirmwareUpdate
+string summaryLynxFirmwareUpdateCH
+string summaryWarnAbout2_4GhzBand
+string summaryWarnAboutMismatchedAppVersions
+string summaryWarnAboutOutdatedHubs
 string swapPrompt
 string templateConfigurationInstructions
 string templateConfigureConfigurationInstructionsTitle
@@ -1715,6 +1855,9 @@ string titleLynxModuleAddressUpdate
 string titleSaveConfiguration
 string titleText_view
 string titleUnsavedChanges
+string titleWarnAbout2_4GhzBand
+string titleWarnAboutMismatchedAppVersions
+string titleWarnAboutOutdatedHubs
 string title_activity_config_wifi_direct
 string title_activity_configfromtemplate
 string title_activity_load
@@ -1737,7 +1880,6 @@ string toastRestartRobotComplete
 string toastRestartingRobot
 string toastRobotSetupComplete
 string toastSaved
-string toastUnableToLaunchZTEWifiChannelEditor
 string toastWebViewDownloadFile
 string toastWebViewDownloadsComplete
 string toastWifiP2pChannelChangeRequestedDS
@@ -1764,7 +1906,10 @@ string usb_vid_name_microsoft
 string usb_vid_name_qualcomm
 string userSensorTypeBusDefault
 string view_logs_activity
+string warning2_4GhzUnnecessaryUsage
+string warningMismatchedAppVersions
 string warningProblemCommunicatingWithUSBDevice
+string warningTtsFailedToInitialize
 string warningUSBDeviceDetached
 string warningUnableToOpen
 string webViewDownloadRequestDescription
@@ -1879,6 +2024,8 @@ style Base_V23_Theme_AppCompat_Light
 style Base_V26_Theme_AppCompat
 style Base_V26_Theme_AppCompat_Light
 style Base_V26_Widget_AppCompat_Toolbar
+style Base_V28_Theme_AppCompat
+style Base_V28_Theme_AppCompat_Light
 style Base_V7_ThemeOverlay_AppCompat_Dialog
 style Base_V7_Theme_AppCompat
 style Base_V7_Theme_AppCompat_Dialog
@@ -1941,6 +2088,7 @@ style Base_Widget_AppCompat_SeekBar
 style Base_Widget_AppCompat_SeekBar_Discrete
 style Base_Widget_AppCompat_Spinner
 style Base_Widget_AppCompat_Spinner_Underlined
+style Base_Widget_AppCompat_TextView
 style Base_Widget_AppCompat_TextView_SpinnerItem
 style Base_Widget_AppCompat_Toolbar
 style Base_Widget_AppCompat_Toolbar_Button_Navigation
@@ -1966,7 +2114,10 @@ style RtlOverlay_Widget_AppCompat_ActionBar_TitleItem
 style RtlOverlay_Widget_AppCompat_DialogTitle_Icon
 style RtlOverlay_Widget_AppCompat_PopupMenuItem
 style RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup
+style RtlOverlay_Widget_AppCompat_PopupMenuItem_Shortcut
+style RtlOverlay_Widget_AppCompat_PopupMenuItem_SubmenuArrow
 style RtlOverlay_Widget_AppCompat_PopupMenuItem_Text
+style RtlOverlay_Widget_AppCompat_PopupMenuItem_Title
 style RtlOverlay_Widget_AppCompat_SearchView_MagIcon
 style RtlOverlay_Widget_AppCompat_Search_DropDown
 style RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1
@@ -2035,6 +2186,8 @@ style ThemeOverlay_AppCompat
 style ThemeOverlay_AppCompat_ActionBar
 style ThemeOverlay_AppCompat_Dark
 style ThemeOverlay_AppCompat_Dark_ActionBar
+style ThemeOverlay_AppCompat_DayNight
+style ThemeOverlay_AppCompat_DayNight_ActionBar
 style ThemeOverlay_AppCompat_Dialog
 style ThemeOverlay_AppCompat_Dialog_Alert
 style ThemeOverlay_AppCompat_Light
@@ -2051,6 +2204,7 @@ style Theme_AppCompat_Dialog
 style Theme_AppCompat_DialogWhenLarge
 style Theme_AppCompat_Dialog_Alert
 style Theme_AppCompat_Dialog_MinWidth
+style Theme_AppCompat_Empty
 style Theme_AppCompat_Light
 style Theme_AppCompat_Light_DarkActionBar
 style Theme_AppCompat_Light_Dialog
@@ -2128,6 +2282,7 @@ style Widget_AppCompat_Spinner
 style Widget_AppCompat_Spinner_DropDown
 style Widget_AppCompat_Spinner_DropDown_ActionBar
 style Widget_AppCompat_Spinner_Underlined
+style Widget_AppCompat_TextView
 style Widget_AppCompat_TextView_SpinnerItem
 style Widget_AppCompat_Toolbar
 style Widget_AppCompat_Toolbar_Button_Navigation
@@ -2137,18 +2292,22 @@ style Widget_Support_CoordinatorLayout
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
 styleable ActionMenuItemView android_minWidth
+styleable ActionMenuView
 styleable ActionMode background backgroundSplit closeItemLayout height subtitleTextStyle titleTextStyle
 styleable ActivityChooserView expandActivityOverflowButtonDrawable initialActivityCount
 styleable AlertDialog android_layout buttonIconDimen buttonPanelSideLayout listItemLayout listLayout multiChoiceItemLayout showTitle singleChoiceItemLayout
+styleable AnimatedStateListDrawableCompat android_constantSize android_dither android_enterFadeDuration android_exitFadeDuration android_variablePadding android_visible
+styleable AnimatedStateListDrawableItem android_drawable android_id
+styleable AnimatedStateListDrawableTransition android_drawable android_fromId android_reversible android_toId
 styleable AppCompatImageView android_src srcCompat tint tintMode
 styleable AppCompatSeekBar android_thumb tickMark tickMarkTint tickMarkTintMode
 styleable AppCompatTextHelper android_drawableBottom android_drawableEnd android_drawableLeft android_drawableRight android_drawableStart android_drawableTop android_textAppearance
-styleable AppCompatTextView android_textAppearance autoSizeMaxTextSize autoSizeMinTextSize autoSizePresetSizes autoSizeStepGranularity autoSizeTextType fontFamily textAllCaps
-styleable AppCompatTheme actionBarDivider actionBarItemBackground actionBarPopupTheme actionBarSize actionBarSplitStyle actionBarStyle actionBarTabBarStyle actionBarTabStyle actionBarTabTextStyle actionBarTheme actionBarWidgetTheme actionButtonStyle actionDropDownStyle actionMenuTextAppearance actionMenuTextColor actionModeBackground actionModeCloseButtonStyle actionModeCloseDrawable actionModeCopyDrawable actionModeCutDrawable actionModeFindDrawable actionModePasteDrawable actionModePopupWindowStyle actionModeSelectAllDrawable actionModeShareDrawable actionModeSplitBackground actionModeStyle actionModeWebSearchDrawable actionOverflowButtonStyle actionOverflowMenuStyle activityChooserViewStyle alertDialogButtonGroupStyle alertDialogCenterButtons alertDialogStyle alertDialogTheme android_windowAnimationStyle android_windowIsFloating autoCompleteTextViewStyle borderlessButtonStyle buttonBarButtonStyle buttonBarNegativeButtonStyle buttonBarNeutralButtonStyle buttonBarPositiveButtonStyle buttonBarStyle buttonStyle buttonStyleSmall checkboxStyle checkedTextViewStyle colorAccent colorBackgroundFloating colorButtonNormal colorControlActivated colorControlHighlight colorControlNormal colorError colorPrimary colorPrimaryDark colorSwitchThumbNormal controlBackground dialogPreferredPadding dialogTheme dividerHorizontal dividerVertical dropDownListViewStyle dropdownListPreferredItemHeight editTextBackground editTextColor editTextStyle homeAsUpIndicator imageButtonStyle listChoiceBackgroundIndicator listDividerAlertDialog listMenuViewStyle listPopupWindowStyle listPreferredItemHeight listPreferredItemHeightLarge listPreferredItemHeightSmall listPreferredItemPaddingLeft listPreferredItemPaddingRight panelBackground panelMenuListTheme panelMenuListWidth popupMenuStyle popupWindowStyle radioButtonStyle ratingBarStyle ratingBarStyleIndicator ratingBarStyleSmall searchViewStyle seekBarStyle selectableItemBackground selectableItemBackgroundBorderless spinnerDropDownItemStyle spinnerStyle switchStyle textAppearanceLargePopupMenu textAppearanceListItem textAppearanceListItemSecondary textAppearanceListItemSmall textAppearancePopupMenuHeader textAppearanceSearchResultSubtitle textAppearanceSearchResultTitle textAppearanceSmallPopupMenu textColorAlertDialogListItem textColorSearchUrl toolbarNavigationButtonStyle toolbarStyle tooltipForegroundColor tooltipFrameBackground viewInflaterClass windowActionBar windowActionBarOverlay windowActionModeOverlay windowFixedHeightMajor windowFixedHeightMinor windowFixedWidthMajor windowFixedWidthMinor windowMinWidthMajor windowMinWidthMinor windowNoTitle
+styleable AppCompatTextView android_textAppearance autoSizeMaxTextSize autoSizeMinTextSize autoSizePresetSizes autoSizeStepGranularity autoSizeTextType drawableBottomCompat drawableEndCompat drawableLeftCompat drawableRightCompat drawableStartCompat drawableTint drawableTintMode drawableTopCompat firstBaselineToTopHeight fontFamily fontVariationSettings lastBaselineToBottomHeight lineHeight textAllCaps textLocale
+styleable AppCompatTheme actionBarDivider actionBarItemBackground actionBarPopupTheme actionBarSize actionBarSplitStyle actionBarStyle actionBarTabBarStyle actionBarTabStyle actionBarTabTextStyle actionBarTheme actionBarWidgetTheme actionButtonStyle actionDropDownStyle actionMenuTextAppearance actionMenuTextColor actionModeBackground actionModeCloseButtonStyle actionModeCloseDrawable actionModeCopyDrawable actionModeCutDrawable actionModeFindDrawable actionModePasteDrawable actionModePopupWindowStyle actionModeSelectAllDrawable actionModeShareDrawable actionModeSplitBackground actionModeStyle actionModeWebSearchDrawable actionOverflowButtonStyle actionOverflowMenuStyle activityChooserViewStyle alertDialogButtonGroupStyle alertDialogCenterButtons alertDialogStyle alertDialogTheme android_windowAnimationStyle android_windowIsFloating autoCompleteTextViewStyle borderlessButtonStyle buttonBarButtonStyle buttonBarNegativeButtonStyle buttonBarNeutralButtonStyle buttonBarPositiveButtonStyle buttonBarStyle buttonStyle buttonStyleSmall checkboxStyle checkedTextViewStyle colorAccent colorBackgroundFloating colorButtonNormal colorControlActivated colorControlHighlight colorControlNormal colorError colorPrimary colorPrimaryDark colorSwitchThumbNormal controlBackground dialogCornerRadius dialogPreferredPadding dialogTheme dividerHorizontal dividerVertical dropDownListViewStyle dropdownListPreferredItemHeight editTextBackground editTextColor editTextStyle homeAsUpIndicator imageButtonStyle listChoiceBackgroundIndicator listChoiceIndicatorMultipleAnimated listChoiceIndicatorSingleAnimated listDividerAlertDialog listMenuViewStyle listPopupWindowStyle listPreferredItemHeight listPreferredItemHeightLarge listPreferredItemHeightSmall listPreferredItemPaddingEnd listPreferredItemPaddingLeft listPreferredItemPaddingRight listPreferredItemPaddingStart panelBackground panelMenuListTheme panelMenuListWidth popupMenuStyle popupWindowStyle radioButtonStyle ratingBarStyle ratingBarStyleIndicator ratingBarStyleSmall searchViewStyle seekBarStyle selectableItemBackground selectableItemBackgroundBorderless spinnerDropDownItemStyle spinnerStyle switchStyle textAppearanceLargePopupMenu textAppearanceListItem textAppearanceListItemSecondary textAppearanceListItemSmall textAppearancePopupMenuHeader textAppearanceSearchResultSubtitle textAppearanceSearchResultTitle textAppearanceSmallPopupMenu textColorAlertDialogListItem textColorSearchUrl toolbarNavigationButtonStyle toolbarStyle tooltipForegroundColor tooltipFrameBackground viewInflaterClass windowActionBar windowActionBarOverlay windowActionModeOverlay windowFixedHeightMajor windowFixedHeightMinor windowFixedWidthMajor windowFixedWidthMinor windowMinWidthMajor windowMinWidthMinor windowNoTitle
 styleable ButtonBarLayout allowStacking
 styleable ColorListPreference colors
 styleable ColorStateListItem alpha android_alpha android_color
-styleable CompoundButton android_button buttonTint buttonTintMode
+styleable CompoundButton android_button buttonCompat buttonTint buttonTintMode
 styleable CoordinatorLayout keylines statusBarBackground
 styleable CoordinatorLayout_Layout android_layout_gravity layout_anchor layout_anchorGravity layout_behavior layout_dodgeInsetEdges layout_insetEdge layout_keyline
 styleable DrawerArrowToggle arrowHeadLength arrowShaftLength barLength color drawableSize gapBetweenBars spinBars thickness
@@ -2167,15 +2326,18 @@ styleable PopupWindowBackgroundState state_above_anchor
 styleable RecycleListView paddingBottomNoButtons paddingTopNoTitle
 styleable SearchView android_focusable android_imeOptions android_inputType android_maxWidth closeIcon commitIcon defaultQueryHint goIcon iconifiedByDefault layout queryBackground queryHint searchHintIcon searchIcon submitBackground suggestionRowLayout voiceIcon
 styleable Spinner android_dropDownWidth android_entries android_popupBackground android_prompt popupTheme
+styleable StateListDrawable android_constantSize android_dither android_enterFadeDuration android_exitFadeDuration android_variablePadding android_visible
+styleable StateListDrawableItem android_drawable
 styleable SwitchCompat android_textOff android_textOn android_thumb showText splitTrack switchMinWidth switchPadding switchTextAppearance thumbTextPadding thumbTint thumbTintMode track trackTint trackTintMode
-styleable TextAppearance android_fontFamily android_shadowColor android_shadowDx android_shadowDy android_shadowRadius android_textColor android_textColorHint android_textColorLink android_textSize android_textStyle android_typeface fontFamily textAllCaps
-styleable Toolbar android_gravity android_minHeight buttonGravity collapseContentDescription collapseIcon contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation logo logoDescription maxButtonHeight navigationContentDescription navigationIcon popupTheme subtitle subtitleTextAppearance subtitleTextColor title titleMargin titleMarginBottom titleMarginEnd titleMarginStart titleMarginTop titleMargins titleTextAppearance titleTextColor
+styleable TextAppearance android_fontFamily android_shadowColor android_shadowDx android_shadowDy android_shadowRadius android_textColor android_textColorHint android_textColorLink android_textFontWeight android_textSize android_textStyle android_typeface fontFamily fontVariationSettings textAllCaps textLocale
+styleable Toolbar android_gravity android_minHeight buttonGravity collapseContentDescription collapseIcon contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation logo logoDescription maxButtonHeight menu navigationContentDescription navigationIcon popupTheme subtitle subtitleTextAppearance subtitleTextColor title titleMargin titleMarginBottom titleMarginEnd titleMarginStart titleMarginTop titleMargins titleTextAppearance titleTextColor
 styleable View android_focusable android_theme paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_inflatedId android_layout
 xml advanced_rc_settings
 xml app_settings
 xml builtinwebcamcalibrations
+xml file_provider_paths
 xml ftc_about_activity
 xml ftc_about_activity_rc
 xml k9legacybot

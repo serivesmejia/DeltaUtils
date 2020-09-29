@@ -28,12 +28,11 @@ import com.github.serivesmejia.deltautils.deltaevent.gamepad.SuperGamepad
 import com.github.serivesmejia.deltautils.deltamath.DeltaMathUtil
 import com.qualcomm.robotcore.hardware.Gamepad
 
-
 open class JoystickHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
-    open var joystick: JoystickDriveHolonomic? = null
-    open var superGamepad1: SuperGamepad? = null
-    open var superGamepad2: SuperGamepad? = null
+    open lateinit var joystick: JoystickDriveHolonomic
+    open lateinit var superGamepad1: SuperGamepad
+    open lateinit var superGamepad2: SuperGamepad
 
     override fun runOpMode() {
         superGamepad1 = SuperGamepad(gamepad1)
@@ -41,11 +40,10 @@ open class JoystickHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
         performInit()
 
-        joystick = JoystickDriveHolonomic((deltaHardware as DeltaHardwareHolonomic)!!, gamepad1)
+        joystick = JoystickDriveHolonomic(deltaHardware as DeltaHardwareHolonomic, gamepad1)
 
         _runOpMode()
     }
-
 
     /**
      * Overridable void to be executed after all required variables are initialized
@@ -62,17 +60,17 @@ open class JoystickHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
         if (controlSpeedWithTriggers) {
             when {
                 gamepad.left_trigger > 0.1 -> {
-                    joystick!!.update(1.0 - DeltaMathUtil.clamp(gamepad.left_trigger.toDouble(), 0.0, maxMinusPower))
+                    joystick.update(1.0 - DeltaMathUtil.clamp(gamepad.left_trigger.toDouble(), 0.0, maxMinusPower))
                 }
                 gamepad.right_trigger > 0.1 -> {
-                    joystick!!.update(1.0 - DeltaMathUtil.clamp(gamepad.right_trigger.toDouble(), 0.0, maxMinusPower))
+                    joystick.update(1.0 - DeltaMathUtil.clamp(gamepad.right_trigger.toDouble(), 0.0, maxMinusPower))
                 }
                 else -> {
-                    joystick!!.update(1.0)
+                    joystick.update(1.0)
                 }
             }
         } else {
-            joystick!!.update(1.0)
+            joystick.update(1.0)
         }
     }
 

@@ -167,7 +167,7 @@ open class SuperSyncTimer(private val hardwareMap: HardwareMap) : Super {
             delay(msMaxTimeDestroying)
 
             if (!finishedDestroying) {
-                DeltaAppUtil.restartAppCausedByError(hardwareMap!!, "User SuperTimer stuck in destroy(). Restarting robot controller app.", "SuperTimer stuck in destroy(). Restarting robot controller app.")
+                DeltaAppUtil.restartAppCausedByError(hardwareMap, "User SuperTimer stuck in destroy(). Restarting robot controller app.", "SuperTimer stuck in destroy(). Restarting robot controller app.")
             }
 
         }
@@ -191,6 +191,5 @@ open class SuperSyncTimer(private val hardwareMap: HardwareMap) : Super {
     fun hasFinishedDestroying(): Boolean {
         return finishedDestroying
     }
-
 
 }

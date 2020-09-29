@@ -28,6 +28,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_firstinspires_ftc_RobotCore_6_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_firstinspires_ftc_RobotCore_6_0_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/DeltaUtils/DeltaUtils.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/DeltaUtils.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DeltaUtils/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DeltaUtils/build/generated/source/buildConfig/debug/com/github/serivesmejia/deltadrive/BuildConfig.java" beforeDir="false" />
@@ -143,6 +144,15 @@
       <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltaevent/timer/SuperSyncTimer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltaevent/timer/SuperSyncTimer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/ExtendableIMUDrive.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/ExtendableIMUDrive.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/ExtendableIMUDrivePID.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/ExtendableIMUDrivePID.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/holonomic/IMUDrivePIDHolonomic.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/holonomic/IMUDrivePIDHolonomic.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/holonomic/JoystickFieldCentricDriveHolonomic.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/holonomic/JoystickFieldCentricDriveHolonomic.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/hardware/DeltaHardwareHDrive.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/hardware/DeltaHardwareHDrive.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/hardware/DeltaHardwareHolonomic.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/hardware/DeltaHardwareHolonomic.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltastate/State.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltacommander/State.kt" afterDir="false" />
+>>>>>>> 220308cc9a062a84955a53588dcc625be8cd9796
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -39,10 +39,10 @@ import kotlin.math.abs
 //srry this is an old class, most of the comments are in spanish.
 open class ExtendableIMUDrive {
 
-    var imu: SimpleBNO055IMU? = null
-    var hdw: DeltaHardware? = null
+    lateinit var imu: SimpleBNO055IMU
+    val hdw: DeltaHardware
 
-    var telemetry: Telemetry? = null
+    val telemetry: Telemetry
 
     var lastAngles: Orientation = Orientation()
     var globalAngle = 0.0
@@ -72,14 +72,16 @@ open class ExtendableIMUDrive {
      */
     fun initIMU(parameters: IMUDriveParameters) {
 
-        if(imu!!.isInitialized()) return
+        if(imu.isInitialized()) return
 
-        require(!(hdw!!.type !== allowedDeltaHardwareType)) { "Given DeltaHardware in the constructor is not the expected type $allowedDeltaHardwareType" }
+        require(hdw.type == allowedDeltaHardwareType) { "Given DeltaHardware in the constructor is not the expected type $allowedDeltaHardwareType" }
 
         this.parameters = parameters
         parameters.secureParameters()
 
         imu = SimpleBNO055IMU(hdw!!.hdwMap!!.get(BNO055IMU::class.java, parameters.IMU_HARDWARE_NAME))
+
+        imu.initIMU()
 
     }
 
@@ -87,7 +89,7 @@ open class ExtendableIMUDrive {
      * Loop until the IMU sensor reports it is calibrated or until OpMode stops.
      */
     fun waitForIMUCalibration() {
-        imu!!.waitForIMUCalibration(telemetry!!)
+        imu.waitForIMUCalibration(telemetry)
     }
 
     /**
@@ -95,14 +97,14 @@ open class ExtendableIMUDrive {
      * @return the String containing the sensor calibration status.
      */
     fun getIMUCalibrationStatus(): String {
-        return imu!!.getIMUCalibrationStatus()
+        return imu.getIMUCalibrationStatus()
     }
 
     /**
      * @return boolean depending if IMU sensor is calibrated.
      */
     fun isIMUCalibrated(): Boolean {
-        return imu!!.isIMUCalibrated()
+        return imu.isIMUCalibrated()
     }
 
     /**
@@ -111,8 +113,8 @@ open class ExtendableIMUDrive {
      * @return Rot2d with current the Robot angle.
      */
     fun getRobotAngle(): Rot2d {
-        imu!!.setAxis(parameters.IMU_AXIS)
-        return imu!!.getAngle()
+        imu.setAxis(parameters.IMU_AXIS)
+        return imu.getAngle()
     }
 
     var correctedTimes = 0
@@ -128,20 +130,20 @@ open class ExtendableIMUDrive {
         var power = power
         var timeoutS = timeoutS
 
-        if (!imu!!.isInitialized()) {
-            telemetry!!.addData("[/!\\]", "Call initIMU() method before rotating.")
-            telemetry!!.update()
+        if (!imu.isInitialized()) {
+            telemetry.addData("[/!\\]", "Call initIMU() method before rotating.")
+            telemetry.update()
             sleep(2000)
             return Twist2d()
         }
 
         if (!isIMUCalibrated()) return Twist2d()
 
-        imu!!.resetAngle()
+        imu.resetAngle()
 
         var degrees = rotation.getDegrees()
 
-        if (parameters!!.INVERT_ROTATION) degrees = -degrees
+        if (parameters.INVERT_ROTATION) degrees = -degrees
 
         if (correctedTimes == 0) {
             runtime.reset()
@@ -162,10 +164,10 @@ open class ExtendableIMUDrive {
         val frontrightpower: Double
         val frontleftpower: Double
 
-        parameters!!.secureParameters()
+        parameters.secureParameters()
 
-        if (degrees < 0) //si es menor que 0 significa que el robot girara a la derecha
-        {
+        if (degrees < 0) { //si es menor que 0 significa que el robot girara a la derecha
+
             // girar a la derecha
             backleftpower = power
             backrightpower = -power
@@ -178,8 +180,8 @@ open class ExtendableIMUDrive {
             backleftpower = -power
             backrightpower = power
             frontleftpower = -power
-
             frontrightpower = power
+
         } else return Twist2d()
 
         // definimos el power de los motores
@@ -187,18 +189,18 @@ open class ExtendableIMUDrive {
 
         // rotaremos hasta que se complete la vuelta
         if (degrees < 0) {
-            while (imu!!.getAngle().getDegrees() == 0.0 && !Thread.interrupted() && runtime.seconds() < timeoutS) { //al girar a la derecha necesitamos salirnos de 0 grados primero
+            while (imu.getAngle().getDegrees() == 0.0 && !Thread.interrupted() && runtime.seconds() < timeoutS) { //al girar a la derecha necesitamos salirnos de 0 grados primero
 
-                telemetry!!.addData("IMU Angle", imu!!.getLastAngle())
-                telemetry!!.addData("Targeted degrees", degrees)
-                telemetry!!.update()
+                telemetry.addData("IMU Angle", imu!!.getLastAngle())
+                telemetry.addData("Targeted degrees", degrees)
+                telemetry.update()
 
             }
             while (imu!!.getAngle().getDegrees() > degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
 
-                telemetry!!.addData("IMU Angle", imu!!.getLastAngle())
-                telemetry!!.addData("Targeted degrees", degrees)
-                telemetry!!.update()
+                telemetry.addData("IMU Angle", imu!!.getLastAngle())
+                telemetry.addData("Targeted degrees", degrees)
+                telemetry.update()
 
             }
         } else while (imu!!.getAngle().getDegrees() < degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
@@ -216,34 +218,36 @@ open class ExtendableIMUDrive {
     }
 
     private fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double) {
-        when (hdw!!.type) {
-            DeltaHardware.Type.HOLONOMIC -> hdw!!.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
+        when (hdw.type) {
+
+            DeltaHardware.Type.HOLONOMIC -> hdw.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
 
             DeltaHardware.Type.HDRIVE -> {
                 val averageLeft = (frontleftpower + backleftpower) / 2
                 val averageRight = (frontrightpower + backrightpower) / 2
-                hdw!!.setAllMotorPower(averageLeft, averageRight, 0.0)
+                hdw.setAllMotorPower(averageLeft, averageRight, 0.0)
             }
 
         }
     }
 
     private fun correctRotation(expectedAngle: Double, timeoutS: Double): Twist2d {
+
         correctedTimes += 1
 
         if (correctedTimes > parameters.ROTATE_MAX_CORRECTION_TIMES) {
             correctedTimes = 0
-            return Twist2d(0.0, 0.0, imu!!.getAngle())
+            return Twist2d(0.0, 0.0, imu.getAngle())
         }
 
-        val deltaAngle: Double = DeltaMathUtil.deltaDegrees(expectedAngle, imu!!.getAngle().getDegrees())
+        val deltaAngle: Double = DeltaMathUtil.deltaDegrees(expectedAngle, imu.getAngle().getDegrees())
 
-        telemetry!!.addData("Error", deltaAngle)
-        telemetry!!.update()
+        telemetry.addData("Error", deltaAngle)
+        telemetry.update()
 
-        rotate(Rot2d.degrees(deltaAngle), parameters!!.ROTATE_CORRECTION_POWER, timeoutS)
+        rotate(Rot2d.degrees(deltaAngle), parameters.ROTATE_CORRECTION_POWER, timeoutS)
 
-        return Twist2d(0.0, 0.0, imu!!.getAngle())
+        return Twist2d(0.0, 0.0, imu.getAngle())
 
     }
 

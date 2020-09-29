@@ -31,7 +31,7 @@ import com.qualcomm.robotcore.hardware.DcMotor.RunMode
 class DeltaHardwareHDrive(invert: Invert) : DeltaHardware(invert) {
 
     init {
-        type = Type.HOLONOMIC
+        type = Type.HDRIVE
     }
 
     /**

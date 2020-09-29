@@ -39,10 +39,10 @@ import kotlin.math.abs
 
 open class ExtendableIMUDrivePID {
 
-    protected var imu: SimpleBNO055IMU? = null
-    protected var hdw: DeltaHardware? = null
+    protected lateinit var imu: SimpleBNO055IMU
+    protected val hdw: DeltaHardware
 
-    protected var telemetry: Telemetry? = null
+    protected val telemetry: Telemetry
 
     private val runtime = ElapsedTime()
 
@@ -82,15 +82,15 @@ open class ExtendableIMUDrivePID {
 
     fun initIMU(parameters: IMUDriveParameters) {
 
-        if(imu!!.isInitialized()) return
+        if(imu.isInitialized()) return
 
-        require(hdw!!.type === allowedDeltaHardwareType) { "Given DeltaHardware is not the expected type ($allowedDeltaHardwareType)" }
+        require(hdw.type === allowedDeltaHardwareType) { "Given DeltaHardware is not the expected type ($allowedDeltaHardwareType)" }
 
         this.imuParameters = parameters
         parameters.secureParameters()
 
-        imu = SimpleBNO055IMU(hdw!!.hdwMap!!.get(BNO055IMU::class.java, parameters.IMU_HARDWARE_NAME))
-        imu!!.initIMU()
+        imu = SimpleBNO055IMU(hdw.hdwMap!!.get(BNO055IMU::class.java, parameters.IMU_HARDWARE_NAME))
+        imu.initIMU()
 
     }
 
@@ -331,7 +331,7 @@ open class ExtendableIMUDrivePID {
     }
 
     //needs to extend
-    fun timePIDDrive(frontleft: Double, frontright: Double, backleft: Double, backright: Double, timeSecs: Double, initialRobotHeading: Double, imu: ExtendableIMUDrivePID?, movementDescription: String?) {}
+    fun timePIDDrive(frontleft: Double, frontright: Double, backleft: Double, backright: Double, timeSecs: Double, initialRobotHeading: Double, imu: ExtendableIMUDrivePID, movementDescription: String) {}
 
     //needs to extend
     open fun encoderPIDDrive(speed: Double,

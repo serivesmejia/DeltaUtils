@@ -47,15 +47,15 @@ class DeltaHardwareHolonomic(invert: Invert) : DeltaHardware(invert) {
         wheelBackLeft = backleft
         wheelBackRight = backright
 
-        wheelFrontLeft!!.direction = Direction.FORWARD //all motors need to be ALWAYS FORWARD for the drive classes to work correctly
-        wheelFrontRight!!.direction = Direction.FORWARD
-        wheelBackLeft!!.direction = Direction.FORWARD
-        wheelBackRight!!.direction = Direction.FORWARD
+        wheelFrontLeft?.direction = Direction.FORWARD //all motors need to be ALWAYS FORWARD for the drive classes to work correctly
+        wheelFrontRight?.direction = Direction.FORWARD
+        wheelBackLeft?.direction = Direction.FORWARD
+        wheelBackRight?.direction = Direction.FORWARD
 
-        wheelFrontRight!!.power = 0.0 //just in case.
-        wheelBackRight!!.power = 0.0
-        wheelFrontLeft!!.power = 0.0
-        wheelBackLeft!!.power = 0.0
+        wheelFrontRight?.power = 0.0 //just in case.
+        wheelBackRight?.power = 0.0
+        wheelFrontLeft?.power = 0.0
+        wheelBackLeft?.power = 0.0
 
         updateChassisMotorsArray()
 
@@ -74,46 +74,46 @@ class DeltaHardwareHolonomic(invert: Invert) : DeltaHardware(invert) {
     override fun setAllMotorPower(frontleft: Double, frontright: Double, backleft: Double, backright: Double) {
         when (invert) {
             Invert.RIGHT_SIDE -> {
-                wheelFrontLeft!!.power = frontleft
-                wheelFrontRight!!.power = -frontright
-                wheelBackLeft!!.power = backleft
-                wheelBackRight!!.power = -backright
+                wheelFrontLeft?.power = frontleft
+                wheelFrontRight?.power = -frontright
+                wheelBackLeft?.power = backleft
+                wheelBackRight?.power = -backright
             }
             Invert.LEFT_SIDE -> {
-                wheelFrontLeft!!.power = -frontleft
-                wheelFrontRight!!.power = frontright
-                wheelBackLeft!!.power = -backleft
-                wheelBackRight!!.power = backright
+                wheelFrontLeft?.power = -frontleft
+                wheelFrontRight?.power = frontright
+                wheelBackLeft?.power = -backleft
+                wheelBackRight?.power = backright
             }
             Invert.BOTH_SIDES -> {
-                wheelFrontLeft!!.power = -frontleft
-                wheelFrontRight!!.power = -frontright
-                wheelBackLeft!!.power = -backleft
-                wheelBackRight!!.power = -backright
+                wheelFrontLeft?.power = -frontleft
+                wheelFrontRight?.power = -frontright
+                wheelBackLeft?.power = -backleft
+                wheelBackRight?.power = -backright
             }
             Invert.RIGHT_SIDE_MIDDLE -> {
-                wheelFrontLeft!!.power = frontleft
-                wheelFrontRight!!.power = -frontright
-                wheelBackLeft!!.power = backleft
-                wheelBackRight!!.power = -backright
+                wheelFrontLeft?.power = frontleft
+                wheelFrontRight?.power = -frontright
+                wheelBackLeft?.power = backleft
+                wheelBackRight?.power = -backright
             }
             Invert.LEFT_SIDE_MIDDLE -> {
-                wheelFrontLeft!!.power = -frontleft
-                wheelFrontRight!!.power = frontright
-                wheelBackLeft!!.power = -backleft
-                wheelBackRight!!.power = backright
+                wheelFrontLeft?.power = -frontleft
+                wheelFrontRight?.power = frontright
+                wheelBackLeft?.power = -backleft
+                wheelBackRight?.power = backright
             }
             Invert.BOTH_SIDES_MIDDLE -> {
-                wheelFrontLeft!!.power = -frontleft
-                wheelFrontRight!!.power = -frontright
-                wheelBackLeft!!.power = -backleft
-                wheelBackRight!!.power = -backright
+                wheelFrontLeft?.power = -frontleft
+                wheelFrontRight?.power = -frontright
+                wheelBackLeft?.power = -backleft
+                wheelBackRight?.power = -backright
             }
             else -> {
-                wheelFrontLeft!!.power = frontleft
-                wheelFrontRight!!.power = frontright
-                wheelBackLeft!!.power = backleft
-                wheelBackRight!!.power = backright
+                wheelFrontLeft?.power = frontleft
+                wheelFrontRight?.power = frontright
+                wheelBackLeft?.power = backleft
+                wheelBackRight?.power = backright
             }
         }
     }
@@ -121,69 +121,76 @@ class DeltaHardwareHolonomic(invert: Invert) : DeltaHardware(invert) {
     override fun setTargetPositions(frontleft: Int, frontright: Int, backleft: Int, backright: Int) {
         when (invert) {
             Invert.RIGHT_SIDE -> {
-                wheelFrontLeft!!.targetPosition = frontleft
-                wheelFrontRight!!.targetPosition = -frontright
-                wheelBackLeft!!.targetPosition = backleft
-                wheelBackRight!!.targetPosition = -backright
+                wheelFrontLeft?.targetPosition = frontleft
+                wheelFrontRight?.targetPosition = -frontright
+                wheelBackLeft?.targetPosition = backleft
+                wheelBackRight?.targetPosition = -backright
             }
             Invert.LEFT_SIDE -> {
-                wheelFrontLeft!!.targetPosition = -frontleft
-                wheelFrontRight!!.targetPosition = frontright
-                wheelBackLeft!!.targetPosition = -backleft
-                wheelBackRight!!.targetPosition = backright
+                wheelFrontLeft?.targetPosition = -frontleft
+                wheelFrontRight?.targetPosition = frontright
+                wheelBackLeft?.targetPosition = -backleft
+                wheelBackRight?.targetPosition = backright
             }
             Invert.BOTH_SIDES -> {
-                wheelFrontLeft!!.targetPosition = -frontleft
-                wheelFrontRight!!.targetPosition = -frontright
-                wheelBackLeft!!.targetPosition = -backleft
-                wheelBackRight!!.targetPosition = -backright
+                wheelFrontLeft?.targetPosition = -frontleft
+                wheelFrontRight?.targetPosition = -frontright
+                wheelBackLeft?.targetPosition = -backleft
+                wheelBackRight?.targetPosition = -backright
             }
             Invert.RIGHT_SIDE_MIDDLE -> {
-                wheelFrontLeft!!.targetPosition = frontleft
-                wheelFrontRight!!.targetPosition = -frontright
-                wheelBackLeft!!.targetPosition = backleft
-                wheelBackRight!!.targetPosition = -backright
+                wheelFrontLeft?.targetPosition = frontleft
+                wheelFrontRight?.targetPosition = -frontright
+                wheelBackLeft?.targetPosition = backleft
+                wheelBackRight?.targetPosition = -backright
             }
             Invert.LEFT_SIDE_MIDDLE -> {
-                wheelFrontLeft!!.targetPosition = -frontleft
-                wheelFrontRight!!.targetPosition = frontright
-                wheelBackLeft!!.targetPosition = -backleft
-                wheelBackRight!!.targetPosition = backright
+                wheelFrontLeft?.targetPosition = -frontleft
+                wheelFrontRight?.targetPosition = frontright
+                wheelBackLeft?.targetPosition = -backleft
+                wheelBackRight?.targetPosition = backright
             }
             Invert.BOTH_SIDES_MIDDLE -> {
-                wheelFrontLeft!!.targetPosition = -frontleft
-                wheelFrontRight!!.targetPosition = -frontright
-                wheelBackLeft!!.targetPosition = -backleft
-                wheelBackRight!!.targetPosition = -backright
+                wheelFrontLeft?.targetPosition = -frontleft
+                wheelFrontRight?.targetPosition = -frontright
+                wheelBackLeft?.targetPosition = -backleft
+                wheelBackRight?.targetPosition = -backright
             }
             else -> {
-                wheelFrontLeft!!.targetPosition = frontleft
-                wheelFrontRight!!.targetPosition = frontright
-                wheelBackLeft!!.targetPosition = backleft
-                wheelBackRight!!.targetPosition = backright
+                wheelFrontLeft?.targetPosition = frontleft
+                wheelFrontRight?.targetPosition = frontright
+                wheelBackLeft?.targetPosition = backleft
+                wheelBackRight?.targetPosition = backright
             }
         }
     }
 
     override fun setBrakes(brake: Boolean) {
+
         updateChassisMotorsArray()
+
         for (motor in chassisMotorsArray) {
+
             if (brake && motor != null) {
                 motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
             } else if (motor != null) {
                 motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
             }
+
         }
+
     }
 
     override fun setRunModes(runMode: RunMode) {
+
         updateChassisMotorsArray()
+
         for (motor in chassisMotorsArray) {
             if (motor != null) {
                 motor.mode = runMode
             }
         }
-    }
 
+    }
 
 }

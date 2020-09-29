@@ -9,9 +9,19 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="15dedc17-52a4-4742-b160-1a2213697791" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/ExtendableIMUDrive.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/ExtendableIMUDrive.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/ExtendableIMUDrivePID.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/ExtendableIMUDrivePID.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/holonomic/IMUDrivePIDHolonomic.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/holonomic/IMUDrivePIDHolonomic.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/holonomic/JoystickFieldCentricDriveHolonomic.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/drive/holonomic/JoystickFieldCentricDriveHolonomic.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/hardware/DeltaHardwareHDrive.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/hardware/DeltaHardwareHDrive.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/hardware/DeltaHardwareHolonomic.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltadrive/hardware/DeltaHardwareHolonomic.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltastate/State.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DeltaUtils/src/main/java/com/github/serivesmejia/deltautils/deltacommander/State.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -65,7 +65,9 @@ class JoystickFieldCentricDriveHolonomic {
      * @param turn the turn speed of the robot, derived from input
      * @param degrees the heading of the robot, derived from the gyro
      */
-    fun update(degrees: Double, turbo: Double) {
+    fun update(turbo: Double) {
+
+        var degrees = 0.0
 
         var drive = -gamepad.left_stick_y as Double
         var strafe = gamepad.left_stick_x as Double

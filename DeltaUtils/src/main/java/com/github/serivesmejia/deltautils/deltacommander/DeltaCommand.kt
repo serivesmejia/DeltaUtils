@@ -1,10 +1,16 @@
 package com.github.serivesmejia.deltautils.deltacommander
 
-class State {
+open abstract class DeltaCommand {
 
-    fun update() {
+    open abstract fun init()
 
+    open abstract fun execute()
 
+    open abstract fun end()
+
+    open abstract fun idle()
+
+    fun require() {
 
     }
 

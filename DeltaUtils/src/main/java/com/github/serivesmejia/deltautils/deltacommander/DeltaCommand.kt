@@ -1,17 +1,26 @@
 package com.github.serivesmejia.deltautils.deltacommander
 
-open abstract class DeltaCommand {
+import java.util.*
 
-    open abstract fun init()
+abstract class DeltaCommand {
 
-    open abstract fun execute()
+    val name = this.javaClass.simpleName
+    val requirements: ArrayList<DeltaSubsystem> = ArrayList()
 
-    open abstract fun end()
+    var finished = false
 
-    open abstract fun idle()
+    abstract fun init()
 
-    fun require() {
+    abstract fun execute()
 
+    abstract fun end()
+
+    abstract fun idle()
+
+    fun require(vararg reqs: DeltaSubsystem) {
+        reqs.forEach { requirements.add(it) }
     }
+
+    class State(val interruptible: Boolean)
 
 }

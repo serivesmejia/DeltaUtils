@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/DeltaUtils/DeltaUtils.iml" filepath="$PROJECT_DIR$/DeltaUtils/DeltaUtils.iml" group="DeltaUtils2/DeltaUtils" />
-      <module fileurl="file://$PROJECT_DIR$/DeltaUtils2.iml" filepath="$PROJECT_DIR$/DeltaUtils2.iml" group="DeltaUtils2" />
-    </modules>
-  </component>
-</project>

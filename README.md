@@ -8,7 +8,7 @@ Easy to use library containing many functions to control your FTC robot
 You can see the generated docs [here](https://serivesmejia.github.io/DeltaUtils/ "DeltaUtils Docs").
 
 ## Install (Credit to DogeCV)
-### This library requires an SDK version of at least 5.4
+### This library requires an SDK version of at least 5.4git
 1. Pull up Android Studio, with the FTC application SDK open
 2. Go to the root `build.gradle`
 3. To the repositories section, add the lines 
@@ -38,9 +38,10 @@ allprojects {
    - Pos2d
    - Twist2d
    
-**Input:**
+**Coding paradigms:**
    - Event based gamepads (SuperGamepad) which simplify the code in your TeleOp
-  
+   - Simple commander-subsystems implementation, inspired by WPILib & FTCLib
+
 ## TO-DO
    - Wiki and sample classes
    - More chassis types:
@@ -48,7 +49,5 @@ allprojects {
       - 4-motor 4-wheel omni
       - H-Drive 
    - OpenCV pipelines
-   - Systems and Subsystems
-   - State Machines
    - Odometry
    - DeltaPanel

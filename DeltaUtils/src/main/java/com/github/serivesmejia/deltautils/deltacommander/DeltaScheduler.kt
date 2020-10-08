@@ -40,7 +40,7 @@ open class DeltaScheduler {
 
     //user events
     private val initEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
-    private val executeEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
+    private val runEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
     private val interruptEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
     private val endEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
 
@@ -58,6 +58,8 @@ open class DeltaScheduler {
     fun schedule(cmd: DeltaCommand, isInterruptible: Boolean) {
 
         if(!enabled) return
+
+        if(cmd == null) return
 
         val cmdReqs = cmd.requirements
         var reqsCurrentlyInUse = false
@@ -118,7 +120,7 @@ open class DeltaScheduler {
 
             cmd.run() //actually run the command
 
-            for(evt in executeEvents) { evt.run(cmd) } //execute the user events
+            for(evt in runEvents) { evt.run(cmd) } //execute the user events
 
             if(cmd.finished) { //end and remove the command if it's finished
 
@@ -158,7 +160,7 @@ open class DeltaScheduler {
     fun setDefaultCommand(subsystem: DeltaSubsystem, command: DeltaCommand) {
 
         if(!command.requirements.contains(subsystem)) {
-            throw IllegalArgumentException("Default command \"${command.name}\" does not require subsystem \"${subsystem.name}\"")
+            throw IllegalArgumentException("Default command \"${command.name}\" does not require its subsystem \"${subsystem.name}\"")
         }
 
         if(command.finished) {
@@ -216,7 +218,7 @@ open class DeltaScheduler {
 
     fun onInitCommand(event: DeltaSchedulerEvent) = initEvents.add(event)
 
-    fun onExecuteCommand(event: DeltaSchedulerEvent) = executeEvents.add(event)
+    fun onRunCommand(event: DeltaSchedulerEvent) = runEvents.add(event)
 
     fun onInterruptCommand(event: DeltaSchedulerEvent) = interruptEvents.add(event)
 

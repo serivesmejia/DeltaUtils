@@ -15,8 +15,6 @@ abstract class DeltaCommand {
 
     abstract fun end(interrupted: Boolean)
 
-    abstract fun idle()
-
     fun require(vararg reqs: DeltaSubsystem) {
         reqs.forEach { requirements.add(it) }
     }

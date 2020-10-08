@@ -223,4 +223,10 @@ lint/tmp/
 # lint/reports/
 
 
-DeltaUtils/buld/
+DeltaUtils/build/
+
+build
+*.iml
+/local.properties
+.DS_Store
+/.idea 

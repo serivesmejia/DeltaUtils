@@ -22,6 +22,7 @@
 
 package com.github.serivesmejia.deltautils.deltadrive.drive.holonomic
 
+import com.github.serivesmejia.deltautils.deltacommander.DeltaScheduler
 import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardwareHolonomic
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.robotcore.external.Telemetry
@@ -55,13 +56,18 @@ class TimeDriveHolonomic {
         hdw!!.setAllMotorPower(frontleft, frontright, backleft, backright)
 
         while (runtime.seconds() <= time) {
+
             telemetry!!.addData("[Movement]", movementDescription)
             telemetry!!.addData("[frontleft]", frontleft)
             telemetry!!.addData("[frontright]", frontright)
             telemetry!!.addData("[backleft]", backleft)
             telemetry!!.addData("[backright]", backright)
             telemetry!!.addData("[Time]", time)
+
             telemetry!!.update()
+
+            DeltaScheduler.instance.run()
+
         }
 
         hdw!!.setAllMotorPower(0.0, 0.0, 0.0, 0.0)
@@ -86,45 +92,32 @@ class TimeDriveHolonomic {
 
     //hacia atras
     fun backwards(power: Double, timeSecs: Double) {
-        var power = power
-        power = abs(power)
+        val power = abs(power)
         timeDrive(-power, -power, -power, -power, timeSecs, "backwards")
     }
 
     //deslizarse a la izquierda
     fun strafeRight(power: Double, timeSecs: Double) {
-        var power = power
-        power = abs(power)
+        val power = abs(power)
         timeDrive(power, -power, -power, power, timeSecs, "strafeLeft")
     }
 
     //deslizarse a la izquierda
     fun strafeLeft(power: Double, timeSecs: Double) {
-        var power = power
-        power = abs(power)
+        var power = abs(power)
         timeDrive(-power, power, power, -power, timeSecs, "strafeRight")
     }
 
     //girar a la derecha
     fun turnRight(power: Double, timeSecs: Double) {
-        var power = power
-        power = abs(power)
+        var power = abs(power)
         timeDrive(power, -power, power, -power, timeSecs, "turnRight")
     }
 
     //girar a la izquierda
     fun turnLeft(power: Double, timeSecs: Double) {
-        var power = power
-        power = abs(power)
+        var power = abs(power)
         timeDrive(-power, power, -power, power, timeSecs, "turnLeft")
-    }
-
-    fun sleep(millis: Long) {
-        try {
-            Thread.sleep(millis)
-        } catch (e: InterruptedException) {
-            Thread.currentThread().interrupt()
-        }
     }
 
 }

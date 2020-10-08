@@ -22,6 +22,7 @@
 
 package com.github.serivesmejia.deltautils.deltadrive.drive
 
+import com.github.serivesmejia.deltautils.deltacommander.DeltaScheduler
 import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardware
 import com.github.serivesmejia.deltautils.deltadrive.parameters.IMUDriveParameters
 import com.github.serivesmejia.deltautils.deltasimple.sensor.SimpleBNO055IMU
@@ -40,8 +41,8 @@ import kotlin.math.abs
 open class ExtendableIMUDrive {
 
     lateinit var imu: SimpleBNO055IMU
-    val hdw: DeltaHardware
 
+    val hdw: DeltaHardware
     val telemetry: Telemetry
 
     var lastAngles: Orientation = Orientation()
@@ -79,7 +80,7 @@ open class ExtendableIMUDrive {
         this.parameters = parameters
         parameters.secureParameters()
 
-        imu = SimpleBNO055IMU(hdw!!.hdwMap!!.get(BNO055IMU::class.java, parameters.IMU_HARDWARE_NAME))
+        imu = SimpleBNO055IMU(hdw.hdwMap.get(BNO055IMU::class.java, parameters.IMU_HARDWARE_NAME))
 
         imu.initIMU()
 
@@ -127,6 +128,7 @@ open class ExtendableIMUDrive {
      * @return a Twist2d representing how much the robot rotated
      */
     fun rotate(rotation: Rot2d, power: Double, timeoutS: Double): Twist2d {
+
         var power = power
         var timeoutS = timeoutS
 
@@ -146,16 +148,17 @@ open class ExtendableIMUDrive {
         if (parameters.INVERT_ROTATION) degrees = -degrees
 
         if (correctedTimes == 0) {
+
             runtime.reset()
+
             if (runtime.seconds() >= timeoutS) {
                 correctedTimes = 0
                 return Twist2d()
             }
+
         }
 
-        if (timeoutS == 0.0) {
-            timeoutS = 99999999.0 //literally forever.
-        }
+        if (timeoutS == 0.0) timeoutS = 99999999.0 //literally forever.
 
         power = abs(power)
 
@@ -191,23 +194,29 @@ open class ExtendableIMUDrive {
         if (degrees < 0) {
             while (imu.getAngle().getDegrees() == 0.0 && !Thread.interrupted() && runtime.seconds() < timeoutS) { //al girar a la derecha necesitamos salirnos de 0 grados primero
 
-                telemetry.addData("IMU Angle", imu!!.getLastAngle())
+                telemetry.addData("IMU Angle", imu.getLastAngle())
                 telemetry.addData("Targeted degrees", degrees)
                 telemetry.update()
 
-            }
-            while (imu!!.getAngle().getDegrees() > degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
+                DeltaScheduler.instance.run()
 
-                telemetry.addData("IMU Angle", imu!!.getLastAngle())
+            }
+            while (imu.getAngle().getDegrees() > degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
+
+                telemetry.addData("IMU Angle", imu.getLastAngle())
                 telemetry.addData("Targeted degrees", degrees)
                 telemetry.update()
 
-            }
-        } else while (imu!!.getAngle().getDegrees() < degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
+                DeltaScheduler.instance.run()
 
-            telemetry!!.addData("IMU Angle", imu!!.getLastAngle())
-            telemetry!!.addData("Targeted degrees", degrees)
-            telemetry!!.update()
+            }
+        } else while (imu.getAngle().getDegrees() < degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
+
+            telemetry.addData("IMU Angle", imu.getLastAngle())
+            telemetry.addData("Targeted degrees", degrees)
+            telemetry.update()
+
+            DeltaScheduler.instance.run()
 
         }
 
@@ -218,6 +227,7 @@ open class ExtendableIMUDrive {
     }
 
     private fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double) {
+
         when (hdw.type) {
 
             DeltaHardware.Type.HOLONOMIC -> hdw.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
@@ -229,6 +239,7 @@ open class ExtendableIMUDrive {
             }
 
         }
+
     }
 
     private fun correctRotation(expectedAngle: Double, timeoutS: Double): Twist2d {

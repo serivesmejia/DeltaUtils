@@ -22,6 +22,7 @@
 
 package com.github.serivesmejia.deltautils.deltadrive.drive.holonomic
 
+import com.github.serivesmejia.deltautils.deltacommander.DeltaScheduler
 import com.github.serivesmejia.deltautils.deltadrive.drive.ExtendableIMUDrivePID
 import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardware
 import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardwareHolonomic
@@ -117,7 +118,7 @@ class IMUDrivePIDHolonomic(hdw: DeltaHardwareHolonomic, telemetry: Telemetry) : 
 
             travelledAverageInches = averageCurrentTicks / TICKS_PER_INCH
 
-            var powerF = controller.calculate(getRobotAngle().getDegrees())
+            val powerF = controller.calculate(getRobotAngle().getDegrees())
 
             frontleftpower = powerF * leftTurbo
             frontrightpower = powerF * rightTurbo
@@ -125,19 +126,26 @@ class IMUDrivePIDHolonomic(hdw: DeltaHardwareHolonomic, telemetry: Telemetry) : 
             backrightpower = powerF * rightTurbo
 
             telemetry.addData("[Movement]", movementDescription)
+
             telemetry.addData("[Target]", "%7d : %7d : %7d : %7d",
                     newFrontLeftTarget,
                     newFrontRightTarget,
                     newBackLeftTarget,
                     newBackRightTarget)
+
             telemetry.addData("[Current]", "%7d : %7d : %7d : %7d",
                     hdw.wheelFrontLeft!!.currentPosition,
                     hdw.wheelFrontRight!!.currentPosition,
                     hdw.wheelBackLeft!!.currentPosition,
                     hdw.wheelBackRight!!.currentPosition)
+
             telemetry.addData("[Travelled Avg Inches]", travelledAverageInches)
+
             telemetry.addData("[PID Error]", controller.getCurrentError())
+
             telemetry.update()
+
+            DeltaScheduler.instance.run()
 
         }
 

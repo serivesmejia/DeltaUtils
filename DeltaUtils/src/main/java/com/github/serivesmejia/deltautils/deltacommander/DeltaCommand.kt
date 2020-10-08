@@ -11,14 +11,18 @@ abstract class DeltaCommand {
 
     abstract fun init()
 
-    abstract fun execute()
+    abstract fun run()
 
-    abstract fun end()
+    abstract fun end(interrupted: Boolean)
 
     abstract fun idle()
 
     fun require(vararg reqs: DeltaSubsystem) {
         reqs.forEach { requirements.add(it) }
+    }
+
+    fun finish() {
+        finished = true
     }
 
     class State(val interruptible: Boolean)

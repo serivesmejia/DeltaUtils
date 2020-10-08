@@ -22,6 +22,7 @@
 
 package com.github.serivesmejia.deltautils.deltadrive.drive
 
+import com.github.serivesmejia.deltautils.deltacommander.DeltaScheduler
 import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardware
 import com.github.serivesmejia.deltautils.deltadrive.parameters.EncoderDriveParameters
 import com.github.serivesmejia.deltautils.deltadrive.parameters.IMUDriveParameters
@@ -89,7 +90,7 @@ open class ExtendableIMUDrivePID {
         this.imuParameters = parameters
         parameters.secureParameters()
 
-        imu = SimpleBNO055IMU(hdw.hdwMap!!.get(BNO055IMU::class.java, parameters.IMU_HARDWARE_NAME))
+        imu = SimpleBNO055IMU(hdw.hdwMap.get(BNO055IMU::class.java, parameters.IMU_HARDWARE_NAME))
         imu.initIMU()
 
     }
@@ -156,23 +157,23 @@ open class ExtendableIMUDrivePID {
      * Enter in a while loop until the IMU reports it is calibrated or until the opmode stops
      */
     fun waitForIMUCalibration() {
-        imu!!.waitForIMUCalibration(telemetry!!)
+        imu.waitForIMUCalibration(telemetry)
     }
 
     /**
      * @return the IMU calibration status as a String
      */
     fun getIMUCalibrationStatus(): String {
-        return imu!!.getIMUCalibrationStatus()
+        return imu.getIMUCalibrationStatus()
     }
 
     fun isIMUCalibrated(): Boolean {
-        return imu!!.isIMUCalibrated()
+        return imu.isIMUCalibrated()
     }
 
     fun getRobotAngle(): Rot2d {
-        imu!!.setAxis(imuParameters.IMU_AXIS)
-        return imu!!.getAngle()
+        imu.setAxis(imuParameters.IMU_AXIS)
+        return imu.getAngle()
     }
 
     /**
@@ -192,26 +193,25 @@ open class ExtendableIMUDrivePID {
 
         imuParameters.secureParameters()
 
-        if (!imu!!.isInitialized()) {
-            telemetry!!.addData("[/!\\]", "Call initIMU() method before rotating.")
-            telemetry!!.update()
+        if (!imu.isInitialized()) {
+            telemetry.addData("[/!\\]", "Call initIMU() method before rotating.")
+            telemetry.update()
             sleep(2000)
             return Twist2d()
         }
 
         if (!isIMUCalibrated()) return Twist2d()
 
-        imu!!.resetAngle() //reset everything
+        imu.resetAngle() //reset everything
         runtime.reset()
         pidControllerRotate.reset()
 
-        imu!!.setAxis(imuParameters.IMU_AXIS)
+        imu.setAxis(imuParameters.IMU_AXIS)
 
-        if (imuParameters!!.INVERT_ROTATION) setpoint = -setpoint
+        if (imuParameters.INVERT_ROTATION) setpoint = -setpoint
 
-        if (timeoutS == 0.0) {
-            timeoutS = 999999999.0 //basically infinite time.
-        }
+        if (timeoutS == 0.0) timeoutS = 999999999.0 //basically infinite time.
+
 
         pidControllerRotate.setSetpoint(setpoint)
                            .setDeadzone(deadZone)
@@ -223,18 +223,18 @@ open class ExtendableIMUDrivePID {
         var frontrightpower: Double
         var frontleftpower: Double
         val maxMillis = System.currentTimeMillis() + timeoutS * 1000
-        val firstLoop = true
 
         // rotaremos hasta que se complete la vuelta
         if (setpoint < 0) {
             pidControllerRotate.setErrorInverted()
 
-            while (imu!!.getAngle().getDegrees() == 0.0 && !Thread.interrupted() && System.currentTimeMillis() < maxMillis) { //al girar a la derecha necesitamos salirnos de 0 grados primero
-                telemetry!!.addData("IMU Angle", imu!!.getLastAngle().getDegrees())
-                telemetry!!.addData("Setpoint", setpoint)
-                telemetry!!.addData("Delta", "Not calculated yet")
-                telemetry!!.addData("Power", power)
-                telemetry!!.update()
+            while (imu.getAngle().getDegrees() == 0.0 && !Thread.interrupted() && System.currentTimeMillis() < maxMillis) { //al girar a la derecha necesitamos salirnos de 0 grados primero
+
+                telemetry.addData("IMU Angle", imu.getLastAngle().getDegrees())
+                telemetry.addData("Setpoint", setpoint)
+                telemetry.addData("Delta", "Not calculated yet")
+                telemetry.addData("Power", power)
+                telemetry.update()
 
                 backleftpower = power
                 backrightpower = -power
@@ -242,15 +242,16 @@ open class ExtendableIMUDrivePID {
                 frontrightpower = -power
 
                 setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
+
+                DeltaScheduler.instance.run()
+
             }
 
             while (!pidControllerRotate.onSetpoint() && !Thread.interrupted() && System.currentTimeMillis() < maxMillis) { //entramos en un bucle hasta que los setpoint sean los esperados
 
-                val nowMillis = System.currentTimeMillis().toDouble()
-
                 pidControllerRotate.setPIDMultiplier(Math.abs(setpoint / 90))
 
-                var powerF = pidControllerRotate.calculate(imu!!.getAngle().getDegrees())
+                val powerF = pidControllerRotate.calculate(imu.getAngle().getDegrees())
 
                 backleftpower = powerF
                 backrightpower = -powerF
@@ -259,22 +260,25 @@ open class ExtendableIMUDrivePID {
 
                 setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
 
-                telemetry!!.addData("IMU Angle", imu!!.getLastAngle().getDegrees())
-                telemetry!!.addData("Setpoint", setpoint)
-                telemetry!!.addData("Error", pidControllerRotate.getCurrentError())
-                telemetry!!.addData("Power", powerF)
-                telemetry!!.update()
+                telemetry.addData("IMU Angle", imu.getLastAngle().getDegrees())
+                telemetry.addData("Setpoint", setpoint)
+                telemetry.addData("Error", pidControllerRotate.getCurrentError())
+                telemetry.addData("Power", powerF)
+                telemetry.update()
+
+                DeltaScheduler.instance.run()
 
                 sleep(3)
+
             }
 
         } else while (!pidControllerRotate.onSetpoint() && !Thread.interrupted() && System.currentTimeMillis() < maxMillis) {
 
             val nowMillis = System.currentTimeMillis().toDouble()
 
-            pidControllerRotate.setPIDMultiplier(Math.abs(setpoint / 90))
+            pidControllerRotate.setPIDMultiplier(abs(setpoint / 90))
 
-            var powerF = pidControllerRotate.calculate(imu!!.getAngle().getDegrees())
+            val powerF = pidControllerRotate.calculate(imu.getAngle().getDegrees())
 
             backleftpower = -powerF
             backrightpower = powerF
@@ -283,11 +287,13 @@ open class ExtendableIMUDrivePID {
 
             setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
 
-            telemetry!!.addData("IMU Angle", imu!!.getAngle().getDegrees())
-            telemetry!!.addData("Setpoint", setpoint)
-            telemetry!!.addData("Error", pidControllerRotate.getCurrentError())
-            telemetry!!.addData("Power", powerF)
-            telemetry!!.update()
+            telemetry.addData("IMU Angle", imu.getAngle().getDegrees())
+            telemetry.addData("Setpoint", setpoint)
+            telemetry.addData("Error", pidControllerRotate.getCurrentError())
+            telemetry.addData("Power", powerF)
+            telemetry.update()
+
+            DeltaScheduler.instance.run()
 
             sleep(3)
 
@@ -297,36 +303,31 @@ open class ExtendableIMUDrivePID {
         setAllMotorPower(0.0, 0.0, 0.0, 0.0)
         sleep(20)
 
-        return Twist2d(0.0, 0.0, imu!!.getAngle())
+        return Twist2d(0.0, 0.0, imu.getAngle())
 
     }
 
     fun encoderPIDForward(inches: Double, speed: Double, timeoutS: Double) {
         if (!isInitializedEncoders) return
-        var speed = speed
-        speed = abs(speed)
-        val initialRobotHeading = imu!!.getAngle().getDegrees()
-        encoderPIDDrive(speed, inches, inches, inches, inches, timeoutS, encoderDriveParameters!!.RIGHT_WHEELS_TURBO, encoderDriveParameters!!.LEFT_WHEELS_TURBO, "PID Backwards")
+        val initialRobotHeading = imu.getAngle().getDegrees()
+        encoderPIDDrive(abs(speed), inches, inches, inches, inches, timeoutS, encoderDriveParameters!!.RIGHT_WHEELS_TURBO, encoderDriveParameters!!.LEFT_WHEELS_TURBO, "PID Backwards")
     }
 
 
     fun encoderPIDBackwards(inches: Double, speed: Double, timeoutS: Double) {
         if (!isInitializedEncoders) return
-        var speed = abs(speed)
-        encoderPIDDrive(speed, -inches, -inches, -inches, -inches, timeoutS, encoderDriveParameters!!.RIGHT_WHEELS_TURBO, encoderDriveParameters!!.LEFT_WHEELS_TURBO, "PID Backwards")
+        encoderPIDDrive(abs(speed), -inches, -inches, -inches, -inches, timeoutS, encoderDriveParameters!!.RIGHT_WHEELS_TURBO, encoderDriveParameters!!.LEFT_WHEELS_TURBO, "PID Backwards")
     }
 
     fun timePIDForward(power: Double, timeSecs: Double) {
-        var power = power
-        power = abs(power)
-        val initialRobotHeading = imu!!.getAngle().getDegrees()
+        val power = abs(power)
+        val initialRobotHeading = imu.getAngle().getDegrees()
         timePIDDrive(power, power, power, power, timeSecs, initialRobotHeading, this, "PID Forward")
     }
 
     fun timePIDBackwards(power: Double, timeSecs: Double) {
-        var power = power
-        power = abs(power)
-        val initialRobotHeading = imu!!.getAngle().getDegrees()
+        val power = abs(power)
+        val initialRobotHeading = imu.getAngle().getDegrees()
         timePIDDrive(power, power, power, power, timeSecs, initialRobotHeading, this, "PID Backwards")
     }
 
@@ -345,12 +346,12 @@ open class ExtendableIMUDrivePID {
                         movementDescription: String) { }
 
     private fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double) {
-        when (hdw!!.type) {
-            DeltaHardware.Type.HOLONOMIC -> hdw!!.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
+        when (hdw.type) {
+            DeltaHardware.Type.HOLONOMIC -> hdw.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
             DeltaHardware.Type.HDRIVE -> {
                 val averageLeft = (frontleftpower + backleftpower) / 2
                 val averageRight = (frontrightpower + backrightpower) / 2
-                hdw!!.setAllMotorPower(averageLeft, averageRight, 0.0)
+                hdw.setAllMotorPower(averageLeft, averageRight, 0.0)
             }
         }
     }

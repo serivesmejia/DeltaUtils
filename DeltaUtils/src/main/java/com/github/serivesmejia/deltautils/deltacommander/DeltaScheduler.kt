@@ -2,12 +2,27 @@ package com.github.serivesmejia.deltautils.deltacommander
 
 open class DeltaScheduler {
 
+    //Singleton initializer
     companion object {
 
-        var instance = DeltaScheduler()
+        //actual variable containing the singleton
+        private var inst: DeltaScheduler? = null
 
+        //variable which will be accessed statically
+        val instance: DeltaScheduler get() {
+
+            if(inst == null) inst = DeltaScheduler()
+
+            return inst!!
+
+        }
+
+        /**
+         * Destroys the current scheduler instance
+         * A new one will be created the next time the variable is accessed
+         */
         fun reset() {
-            instance = DeltaScheduler()
+            inst = null
         }
 
     }
@@ -23,7 +38,7 @@ open class DeltaScheduler {
      //hashmap containing the required subsystems by specific commands
     val requirements: HashMap<DeltaSubsystem, DeltaCommand> = HashMap()
 
-    //User events
+    //user events
     private val initEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
     private val executeEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
     private val interruptEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()

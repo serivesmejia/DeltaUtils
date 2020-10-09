@@ -22,10 +22,13 @@
 
 package com.github.serivesmejia.deltautils.deltaevent.gamepad
 
+import com.github.serivesmejia.deltautils.deltacommander.DeltaCommand
+import com.github.serivesmejia.deltautils.deltacommander.DeltaScheduler
 import com.github.serivesmejia.deltautils.deltaevent.Super
 import com.github.serivesmejia.deltautils.deltaevent.event.Event
 import com.github.serivesmejia.deltautils.deltaevent.event.gamepad.SuperGamepadEvent
 import com.github.serivesmejia.deltautils.deltaevent.gamepad.button.Button
+import com.github.serivesmejia.deltautils.deltaevent.gamepad.button.Buttons
 import com.qualcomm.robotcore.hardware.Gamepad
 import kotlin.collections.ArrayList
 
@@ -108,6 +111,44 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
     }
 
     /**
+     * Schedule a command to the DeltaScheduler when a button is pressed
+     * @param btt The button to be watched for press
+     * @params cmd The command to be scheduled when the watched button is pressed
+     */
+    fun scheduleOnPress(btt: Button, cmd: DeltaCommand) {
+
+        registerEvent(object: SuperGamepadEvent() {
+
+            override fun buttonsPressed(buttons: Buttons) {
+
+                if(buttons.`is`(btt)) DeltaScheduler.instance.schedule(cmd)
+
+            }
+
+        })
+
+    }
+
+    /**
+     * Schedule a command to the DeltaScheduler when a button is released
+     * @param btt The button to be watched for release
+     * @params cmd The command to be scheduled when the watched button is released
+     */
+    fun scheduleOnRelease(btt: Button, cmd: DeltaCommand) {
+
+        registerEvent(object: SuperGamepadEvent() {
+
+            override fun buttonsReleased(buttons: Buttons) {
+
+                if(buttons.`is`(btt)) DeltaScheduler.instance.schedule(cmd)
+
+            }
+
+        })
+
+    }
+
+    /**
      * Update the pressed buttons and execute all the events.
      * This method should be placed at the end or at the start of your repeat in your OpMode
      */
@@ -118,26 +159,31 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
         pressedButtons.clear()
         updatePressedButtons()
 
-        gdp.left_stick_x = gamepad!!.left_stick_x.toDouble()
-        gdp.left_stick_y = gamepad!!.left_stick_y.toDouble()
-        gdp.right_stick_x = gamepad!!.right_stick_x.toDouble()
-        gdp.right_stick_y = gamepad!!.right_stick_y.toDouble()
-        gdp.left_trigger = gamepad!!.left_trigger.toDouble()
-        gdp.right_trigger = gamepad!!.right_trigger.toDouble()
+        gdp.left_stick_x = gamepad.left_stick_x.toDouble()
+        gdp.left_stick_y = gamepad.left_stick_y.toDouble()
+        gdp.right_stick_x = gamepad.right_stick_x.toDouble()
+        gdp.right_stick_y = gamepad.right_stick_y.toDouble()
+        gdp.left_trigger = gamepad.left_trigger.toDouble()
+        gdp.right_trigger = gamepad.right_trigger.toDouble()
         gdp.gamepad = gamepad
 
         for (btt in pressedButtons) {
 
             val bt = getElementFromTicksPressedButtons(btt)
-            var ticks = bt!!.ticks
 
-            ticks++
-            bt.ticks++
+            if(bt != null) {
 
-            gdp.buttonsBeingPressed[btt] = bt.ticks
+                var ticks = bt.ticks
 
-            if (ticks == 1) {
-                gdp.buttonsPressed[btt] = bt.ticks
+                ticks++
+                bt.ticks++
+
+                gdp.buttonsBeingPressed[btt] = bt.ticks
+
+                if (ticks == 1) {
+                    gdp.buttonsPressed[btt] = bt.ticks
+                }
+
             }
 
         }
@@ -165,20 +211,21 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
 
     private fun updatePressedButtons() {
 
-        if (gamepad!!.a) pressedButtons.add(Button.A)
-        if (gamepad!!.b) pressedButtons.add(Button.B)
-        if (gamepad!!.x) pressedButtons.add(Button.X)
-        if (gamepad!!.y) pressedButtons.add(Button.Y)
-        if (gamepad!!.dpad_up) pressedButtons.add(Button.DPAD_UP)
-        if (gamepad!!.dpad_down) pressedButtons.add(Button.DPAD_DOWN)
-        if (gamepad!!.dpad_left) pressedButtons.add(Button.DPAD_LEFT)
-        if (gamepad!!.dpad_right) pressedButtons.add(Button.DPAD_RIGHT)
-        if (gamepad!!.right_bumper) pressedButtons.add(Button.RIGHT_BUMPER)
-        if (gamepad!!.left_bumper) pressedButtons.add(Button.LEFT_BUMPER)
-        if (gamepad!!.left_stick_button) pressedButtons.add(Button.LEFT_STICK_BUTTON)
-        if (gamepad!!.right_stick_button) pressedButtons.add(Button.RIGHT_STICK_BUTTON)
-        if (gamepad!!.right_trigger > 0.1) pressedButtons.add(Button.RIGHT_TRIGGER)
-        if (gamepad!!.left_trigger > 0.1) pressedButtons.add(Button.LEFT_TRIGGER)
+        if (gamepad.a) pressedButtons.add(Button.A)
+        if (gamepad.b) pressedButtons.add(Button.B)
+        if (gamepad.x) pressedButtons.add(Button.X)
+        if (gamepad.y) pressedButtons.add(Button.Y)
+        if (gamepad.dpad_up) pressedButtons.add(Button.DPAD_UP)
+        if (gamepad.dpad_down) pressedButtons.add(Button.DPAD_DOWN)
+        if (gamepad.dpad_left) pressedButtons.add(Button.DPAD_LEFT)
+        if (gamepad.dpad_right) pressedButtons.add(Button.DPAD_RIGHT)
+        if (gamepad.right_bumper) pressedButtons.add(Button.RIGHT_BUMPER)
+        if (gamepad.left_bumper) pressedButtons.add(Button.LEFT_BUMPER)
+        if (gamepad.left_stick_button) pressedButtons.add(Button.LEFT_STICK_BUTTON)
+        if (gamepad.right_stick_button) pressedButtons.add(Button.RIGHT_STICK_BUTTON)
+        if (gamepad.right_trigger > 0.1) pressedButtons.add(Button.RIGHT_TRIGGER)
+        if (gamepad.left_trigger > 0.1) pressedButtons.add(Button.LEFT_TRIGGER)
+        
     }
 
     private fun buttonIsPressed(btt: Button): Boolean {

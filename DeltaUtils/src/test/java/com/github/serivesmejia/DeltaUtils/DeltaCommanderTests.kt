@@ -3,6 +3,7 @@ package com.github.serivesmejia.DeltaUtils
 import com.github.serivesmejia.deltautils.deltacommander.DeltaCommand
 import com.github.serivesmejia.deltautils.deltacommander.DeltaScheduler
 import com.github.serivesmejia.deltautils.deltacommander.DeltaSchedulerEvent
+import com.github.serivesmejia.deltautils.deltacommander.DeltaSubsystem
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -168,5 +169,58 @@ class DeltaCommanderTests {
         DeltaScheduler.reset()
 
     }
+
+    @Test
+    fun testCommandSubsystem() {
+
+        x = 0
+        y = 0
+        z = 0
+
+        var subsystem = object: DeltaSubsystem() {
+
+            override fun loop() {
+                x += 1
+            }
+
+            fun test() {
+                y += 1;
+            }
+
+        }
+
+        DeltaScheduler.instance.addSubsystem(subsystem)
+
+        DeltaScheduler.instance.schedule(object: DeltaCommand() {
+
+            init {
+                require(subsystem)
+            }
+
+            override fun init() { }
+
+            override fun run() {
+                subsystem.test()
+                z += 1
+            }
+
+            override fun end(interrupted: Boolean) { }
+
+        })
+
+        DeltaScheduler.instance.run()
+
+        DeltaScheduler.instance.stopAll()
+
+        assertEquals(1, x)
+        assertEquals(1, y)
+        assertEquals(1, z)
+
+        DeltaScheduler.reset()
+
+    }
+
+
+
 
 }

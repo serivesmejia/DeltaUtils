@@ -30,7 +30,7 @@ open class DeltaScheduler {
     var enabled = true
 
     //hashmap containing the subsystems and their default commands
-    val subsystems: HashMap<DeltaSubsystem, DeltaCommand> = HashMap()
+    val subsystems: HashMap<DeltaSubsystem, DeltaCommand?> = HashMap()
 
     //hashmap containing the currently scheduled commands and their state
     val scheduledCommands: HashMap<DeltaCommand, DeltaCommand.State> = HashMap()
@@ -44,7 +44,7 @@ open class DeltaScheduler {
     private val interruptEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
     private val endEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
 
-    fun commandInit(cmd: DeltaCommand, isInterruptible: Boolean, reqs: List<DeltaSubsystem>) {
+    private fun commandInit(cmd: DeltaCommand, isInterruptible: Boolean, reqs: List<DeltaSubsystem>) {
 
         cmd.init()
         val state = DeltaCommand.State(isInterruptible)
@@ -55,6 +55,11 @@ open class DeltaScheduler {
 
     }
 
+    /**
+     * Schedule a command to be runned
+     * @param cmd the command to be scheduled
+     * @param isInterruptible whether the command can be interrupted
+     */
     fun schedule(cmd: DeltaCommand, isInterruptible: Boolean) {
 
         if(!enabled) return
@@ -77,11 +82,9 @@ open class DeltaScheduler {
 
             //check if the commands requiring a specific subsystem are interruptible
             for(req in cmdReqs) {
-
                 if(requirements.containsKey(req) && !scheduledCommands[requirements[req]]!!.interruptible) {
-                    return;
+                    return
                 }
-
             }
 
             //cancel all the commands that require a subsystem
@@ -97,12 +100,35 @@ open class DeltaScheduler {
 
     }
 
+    /**
+     * Schedule multiple commands
+     * @param cmds multiple commands to be scheduled
+     * @param isInterruptible whether the commands can be interrupted
+     */
     fun schedule(vararg cmds: DeltaCommand, isInterruptible: Boolean = true) {
-
         for(cmd in cmds) {
             schedule(cmd, isInterruptible)
         }
+    }
 
+    /**
+     * Add one or multiple subsystems
+     * @param subsystems multiple subsystems to be scheduled
+     */
+    fun addSubsystem(vararg subsystems: DeltaSubsystem) {
+        for(subsystem in subsystems) {
+            this.subsystems[subsystem] = null
+        }
+    }
+
+    /**
+     * Remove one or multiple subsystems
+     * @param subsystems multiple subsystems to be removed
+     */
+    fun removeSubsystem(vararg subsystems: DeltaSubsystem) {
+        for(subsystem in subsystems) {
+            this.subsystems.remove(subsystem)
+        }
     }
 
     /**
@@ -142,11 +168,9 @@ open class DeltaScheduler {
 
         //register default command if no command is requiring the subsystem
         for((subsystem, defCmd) in subsystems) {
-
-            if(!requirements.containsKey(subsystem)) {
+            if(!requirements.containsKey(subsystem) && defCmd != null) {
                 schedule(defCmd) //schedule the default command if no other command is scheduled for this subsystem
             }
-
         }
 
     }
@@ -177,6 +201,15 @@ open class DeltaScheduler {
      */
     fun getDefaultCommand(subsystem: DeltaSubsystem) = subsystems[subsystem]
 
+    /**
+     * Check if a command is scheduled
+     */
+    fun isScheduled(command: DeltaCommand) = scheduledCommands.containsKey(command)
+
+    /**
+     * Stop one or more commands
+     * @param cmds commands to be stopped
+     */
     fun stop(vararg cmds: DeltaCommand) {
 
         for(cmd in cmds) {
@@ -194,17 +227,20 @@ open class DeltaScheduler {
 
     }
 
+    /**
+     * Stop all the currently requested commands
+     */
     fun stopAll() {
-
         for((cmd, state) in scheduledCommands) {
             stop(cmd)
         }
-
     }
 
-    fun isScheduled(command: DeltaCommand) = scheduledCommands.containsKey(command)
-
-    fun requires(subsystem: DeltaSubsystem) = requirements[subsystem]
+    /**
+     * Get the command requiring a subsystem.
+     * Will return null if not currently required.
+     */
+    fun requirements(subsystem: DeltaSubsystem) = requirements[subsystem]
 
     fun enable() {
         enabled = true

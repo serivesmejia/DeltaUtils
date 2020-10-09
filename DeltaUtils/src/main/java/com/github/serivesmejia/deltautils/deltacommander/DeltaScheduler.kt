@@ -105,9 +105,19 @@ open class DeltaScheduler {
      * @param cmds multiple commands to be scheduled
      * @param isInterruptible whether the commands can be interrupted
      */
-    fun schedule(vararg cmds: DeltaCommand, isInterruptible: Boolean = true) {
+    fun schedule(isInterruptible: Boolean, vararg cmds: DeltaCommand) {
         for(cmd in cmds) {
             schedule(cmd, isInterruptible)
+        }
+    }
+
+    /**
+     * Schedule multiple commands
+     * @param cmds multiple commands to be scheduled
+     */
+    fun schedule(vararg cmds: DeltaCommand) {
+        for(cmd in cmds) {
+            schedule(cmd, true)
         }
     }
 
@@ -169,7 +179,7 @@ open class DeltaScheduler {
         //register default command if no command is requiring the subsystem
         for((subsystem, defCmd) in subsystems) {
             if(!requirements.containsKey(subsystem) && defCmd != null) {
-                schedule(defCmd) //schedule the default command if no other command is scheduled for this subsystem
+                schedule(false, defCmd) //schedule the default command if no other command is scheduled for this subsystem
             }
         }
 

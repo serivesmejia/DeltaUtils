@@ -212,11 +212,10 @@ open class ExtendableIMUDrivePID {
 
         if (timeoutS == 0.0) timeoutS = 999999999.0 //basically infinite time.
 
-
         pidControllerRotate.setSetpoint(setpoint)
                            .setDeadzone(deadZone)
                            .setInitialPower(abs(power))
-                           .setErrorTolerance(imuParameters!!.ERROR_TOLERANCE)
+                           .setErrorTolerance(imuParameters.ERROR_TOLERANCE)
 
         var backleftpower: Double
         var backrightpower: Double

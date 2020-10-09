@@ -24,7 +24,7 @@ package com.github.serivesmejia.deltautils
 
 object LibraryData {
 
-    const val VERSION = "1.14-beta"
-    const val RELASE_NUMBER = 20
+    const val VERSION = "1.15-beta"
+    const val RELASE_NUMBER = 21
 
 }

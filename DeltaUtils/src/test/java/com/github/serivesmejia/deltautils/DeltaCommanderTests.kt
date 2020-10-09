@@ -1,9 +1,6 @@
-package com.github.serivesmejia.DeltaUtils
+package com.github.serivesmejia.deltautils
 
-import com.github.serivesmejia.deltautils.deltacommander.DeltaCommand
-import com.github.serivesmejia.deltautils.deltacommander.DeltaScheduler
-import com.github.serivesmejia.deltautils.deltacommander.DeltaSchedulerEvent
-import com.github.serivesmejia.deltautils.deltacommander.DeltaSubsystem
+import com.github.serivesmejia.deltautils.deltacommander.*
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -221,6 +218,85 @@ class DeltaCommanderTests {
     }
 
 
+    @Test
+    fun testRunGroupedCommandParallel() {
 
+        x = 0
+        y = 0
+        z = 0
+
+        val cmd1 = XYZPlusCommand(50)
+        val cmd2 = XYZPlusCommand(50)
+
+        DeltaScheduler.instance.schedule(DeltaGroupedCommand(DeltaGroupedCommand.ExecutionMode.LINEAR, cmd1, cmd2))
+
+        repeat(200) {
+            DeltaScheduler.instance.run()
+        }
+
+        DeltaScheduler.instance.stopAll()
+
+        assertEquals(1, cmd1.x)
+        assertEquals(50, cmd1.y)
+        assertEquals(1, cmd1.z)
+
+        assertEquals(1, cmd2.x)
+        assertEquals(50, cmd2.y)
+        assertEquals(1, cmd2.z)
+
+        DeltaScheduler.reset()
+
+    }
+
+    @Test
+    fun testRunGroupedCommandLinear() {
+
+        x = 0
+        y = 0
+        z = 0
+
+        val cmd1 = XYZPlusCommand(50)
+        val cmd2 = XYZPlusCommand(80)
+
+        DeltaScheduler.instance.schedule(DeltaGroupedCommand(DeltaGroupedCommand.ExecutionMode.PARALLEL, cmd1, cmd2))
+
+        repeat(200) {
+            DeltaScheduler.instance.run()
+        }
+
+        DeltaScheduler.instance.stopAll()
+
+        assertEquals(1, cmd1.x)
+        assertEquals(50, cmd1.y)
+        assertEquals(1, cmd1.z)
+
+        assertEquals(1, cmd2.x)
+        assertEquals(80, cmd2.y)
+        assertEquals(1, cmd2.z)
+
+        DeltaScheduler.reset()
+
+    }
+
+    class XYZPlusCommand(val maxY: Int) : DeltaCommand() {
+
+        var x = 0
+        var y = 0
+        var z = 0
+
+        override fun init() {
+            x += 1
+        }
+
+        override fun run() {
+            y += 1
+            if(y >= maxY) finish()
+        }
+
+        override fun end(interrupted: Boolean) {
+            z += 1
+        }
+
+    }
 
 }

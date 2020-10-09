@@ -69,7 +69,13 @@ class PIDController(var pid: PIDCoefficients) {
 
     fun getCurrentError() = errorDelta
 
-    fun onSetpoint() = (errorDelta == errorTolerance)
+    fun onSetpoint(): Boolean {
+        return if(invertError) {
+            (prevErrorDelta > -errorTolerance) && prevErrorDelta < 0
+        } else {
+            (prevErrorDelta < errorTolerance) && prevErrorDelta > 0
+        }
+    }
 
     /**
      * Calculate the output with a given input

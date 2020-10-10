@@ -8,7 +8,7 @@ Easy to use library containing many functions to control your FTC robot
 You can see the generated docs [here](https://serivesmejia.github.io/DeltaUtils/ "DeltaUtils Docs").
 
 ## Install (Credit to DogeCV)
-### This library requires an SDK version of at least 5.4git
+### This library requires an SDK version of at least 5.4
 1. Pull up Android Studio, with the FTC application SDK open
 2. Go to the root `build.gradle`
 3. To the repositories section, add the lines 

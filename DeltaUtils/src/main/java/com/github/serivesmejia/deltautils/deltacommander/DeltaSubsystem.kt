@@ -4,6 +4,8 @@ abstract class DeltaSubsystem {
 
     val name = this.javaClass.simpleName
 
+    protected var maxAllowedRequirements = 1
+
     /**
      * Method to be executed repeatedly, independently of any command
      * Called on each DeltaScheduler.run() call

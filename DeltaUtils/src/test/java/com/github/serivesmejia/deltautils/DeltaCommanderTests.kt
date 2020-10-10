@@ -39,7 +39,7 @@ class DeltaCommanderTests {
 
         })
 
-        DeltaScheduler.instance.run()
+        DeltaScheduler.instance.update()
 
         DeltaScheduler.instance.stopAll()
 
@@ -75,7 +75,7 @@ class DeltaCommanderTests {
         })
 
         repeat(100) {
-            DeltaScheduler.instance.run()
+            DeltaScheduler.instance.update()
         }
 
         DeltaScheduler.instance.stopAll()
@@ -115,7 +115,7 @@ class DeltaCommanderTests {
 
         DeltaScheduler.instance.schedule(emptyCommand)
 
-        DeltaScheduler.instance.run()
+        DeltaScheduler.instance.update()
 
         DeltaScheduler.instance.stopAll()
 
@@ -154,7 +154,7 @@ class DeltaCommanderTests {
         DeltaScheduler.instance.schedule(command)
 
         repeat(100) {
-            DeltaScheduler.instance.run()
+            DeltaScheduler.instance.update()
         }
 
         DeltaScheduler.instance.stopAll()
@@ -205,7 +205,7 @@ class DeltaCommanderTests {
 
         })
 
-        DeltaScheduler.instance.run()
+        DeltaScheduler.instance.update()
 
         DeltaScheduler.instance.stopAll()
 
@@ -231,7 +231,7 @@ class DeltaCommanderTests {
         DeltaScheduler.instance.schedule(DeltaGroupedCommand(DeltaGroupedCommand.ExecutionMode.LINEAR, cmd1, cmd2))
 
         repeat(200) {
-            DeltaScheduler.instance.run()
+            DeltaScheduler.instance.update()
         }
 
         DeltaScheduler.instance.stopAll()
@@ -261,7 +261,7 @@ class DeltaCommanderTests {
         DeltaScheduler.instance.schedule(DeltaGroupedCommand(DeltaGroupedCommand.ExecutionMode.PARALLEL, cmd1, cmd2))
 
         repeat(200) {
-            DeltaScheduler.instance.run()
+            DeltaScheduler.instance.update()
         }
 
         DeltaScheduler.instance.stopAll()

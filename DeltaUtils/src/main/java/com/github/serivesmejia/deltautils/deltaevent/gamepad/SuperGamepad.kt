@@ -149,6 +149,18 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
     }
 
     /**
+     * By attaching the SuperGamepad to the DeltaScheduler, it
+     * will be updated when the DeltaScheduler is updated.
+     * This can be useful in a case when you want to use only
+     * the commander paradigm with the scheduleOn methods, so that
+     * you don't need to update the gamepads on your loop, only
+     * the DeltaScheduler
+     */
+    fun attachToScheduler() {
+        DeltaScheduler.instance.onRunScheduler(Runnable { update() })
+    }
+
+    /**
      * Update the pressed buttons and execute all the events.
      * This method should be placed at the end or at the start of your repeat in your OpMode
      */
@@ -200,6 +212,7 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
         }
 
         updateAllEvents(gdp)
+
     }
 
     private fun updateAllEvents(gdp: GamepadDataPacket) {

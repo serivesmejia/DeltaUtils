@@ -198,7 +198,7 @@ open class ExtendableIMUDrive {
                 telemetry.addData("Targeted degrees", degrees)
                 telemetry.update()
 
-                DeltaScheduler.instance.run()
+                DeltaScheduler.instance.update()
 
             }
             while (imu.getAngle().getDegrees() > degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
@@ -207,7 +207,7 @@ open class ExtendableIMUDrive {
                 telemetry.addData("Targeted degrees", degrees)
                 telemetry.update()
 
-                DeltaScheduler.instance.run()
+                DeltaScheduler.instance.update()
 
             }
         } else while (imu.getAngle().getDegrees() < degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
@@ -216,7 +216,7 @@ open class ExtendableIMUDrive {
             telemetry.addData("Targeted degrees", degrees)
             telemetry.update()
 
-            DeltaScheduler.instance.run()
+            DeltaScheduler.instance.update()
 
         }
 

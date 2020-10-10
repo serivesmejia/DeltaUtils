@@ -147,7 +147,7 @@ class EncoderDriveHolonomic {
 
             telemetry.update()
 
-            DeltaScheduler.instance.run()
+            DeltaScheduler.instance.update()
 
         }
 

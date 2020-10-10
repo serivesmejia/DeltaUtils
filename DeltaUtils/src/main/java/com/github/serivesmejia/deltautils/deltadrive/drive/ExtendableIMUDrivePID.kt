@@ -242,7 +242,7 @@ open class ExtendableIMUDrivePID {
 
                 setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
 
-                DeltaScheduler.instance.run()
+                DeltaScheduler.instance.update()
 
             }
 
@@ -265,7 +265,7 @@ open class ExtendableIMUDrivePID {
                 telemetry.addData("Power", powerF)
                 telemetry.update()
 
-                DeltaScheduler.instance.run()
+                DeltaScheduler.instance.update()
 
                 sleep(3)
 
@@ -292,7 +292,7 @@ open class ExtendableIMUDrivePID {
             telemetry.addData("Power", powerF)
             telemetry.update()
 
-            DeltaScheduler.instance.run()
+            DeltaScheduler.instance.update()
 
             sleep(3)
 

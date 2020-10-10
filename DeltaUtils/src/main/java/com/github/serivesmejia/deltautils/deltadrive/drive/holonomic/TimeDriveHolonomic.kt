@@ -66,7 +66,7 @@ class TimeDriveHolonomic {
 
             telemetry!!.update()
 
-            DeltaScheduler.instance.run()
+            DeltaScheduler.instance.update()
 
         }
 

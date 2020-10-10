@@ -1,6 +1,6 @@
 package com.github.serivesmejia.deltautils.deltacommander
 
-open class DeltaScheduler {
+class DeltaScheduler {
 
     //Singleton initializer
     companion object {
@@ -43,6 +43,7 @@ open class DeltaScheduler {
     private val runEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
     private val interruptEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
     private val endEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
+    private val runSchedulerEvents: ArrayList<Runnable> = ArrayList()
 
     private fun commandInit(cmd: DeltaCommand, isInterruptible: Boolean, reqs: List<DeltaSubsystem>) {
 
@@ -144,7 +145,7 @@ open class DeltaScheduler {
     /**
      * Run all the scheduled commands & events
      */
-    fun run() {
+    fun update() {
 
         if(!enabled) return //if the schedulers is disabled then abort
 
@@ -182,6 +183,8 @@ open class DeltaScheduler {
                 schedule(false, defCmd) //schedule the default command if no other command is scheduled for this subsystem
             }
         }
+
+        for(evt in runSchedulerEvents) { evt.run() }
 
     }
 
@@ -269,5 +272,7 @@ open class DeltaScheduler {
     fun onInterruptCommand(event: DeltaSchedulerEvent) = interruptEvents.add(event)
 
     fun onEndCommand(event: DeltaSchedulerEvent) = endEvents.add(event)
+
+    fun onRunScheduler(event: Runnable) = runSchedulerEvents.add(event)
 
 }

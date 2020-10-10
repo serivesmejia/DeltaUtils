@@ -145,7 +145,7 @@ class IMUDrivePIDHolonomic(hdw: DeltaHardwareHolonomic, telemetry: Telemetry) : 
 
             telemetry.update()
 
-            DeltaScheduler.instance.run()
+            DeltaScheduler.instance.update()
 
         }
 

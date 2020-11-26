@@ -26,6 +26,7 @@ import com.github.serivesmejia.deltautils.deltacommander.DeltaScheduler
 import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardwareHolonomic
 import com.github.serivesmejia.deltautils.deltadrive.parameters.EncoderDriveParameters
 import com.github.serivesmejia.deltautils.deltadrive.utils.DistanceUnit
+import com.github.serivesmejia.deltautils.deltadrive.utils.Task
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.robotcore.external.Telemetry
@@ -33,30 +34,20 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 
-class EncoderDriveHolonomic {
-
-    private val hdw: DeltaHardwareHolonomic
-    private val telemetry: Telemetry
+class EncoderDriveHolonomic
+/**
+ * Constructor for the encoder drive class
+ * @param hdw The initialized hardware containing all the chassis motors
+ * @param telemetry The current OpMode telemetry to show movement info.
+ * @param parameters Encoder parameters, in order to calculate the ticks per inch for each motor
+ */
+(private val hdw: DeltaHardwareHolonomic, private val telemetry: Telemetry, private var parameters: EncoderDriveParameters) {
 
     private val runtime = ElapsedTime()
 
-    private var parameters = EncoderDriveParameters()
-
-    /**
-     * Constructor for the encoder drive class
-     * @param hdw The initialized hardware containing all the chassis motors
-     * @param telemetry The current OpMode telemetry to show movement info.
-     * @param parameters Encoder parameters, in order to calculate the ticks per inch for each motor
-     */
-    constructor (hdw: DeltaHardwareHolonomic, telemetry: Telemetry, parameters: EncoderDriveParameters) {
-
-        this.hdw = hdw
-        this.telemetry = telemetry
-        this.parameters = parameters
-
+    init {
         hdw.setRunModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER)
         hdw.setRunModes(DcMotor.RunMode.RUN_USING_ENCODER)
-
     }
 
     private fun encoderDrive(speed: Double,
@@ -67,7 +58,7 @@ class EncoderDriveHolonomic {
                              timeoutS: Double,
                              rightTurbo: Double,
                              leftTurbo: Double,
-                             movementDescription: String) {
+                             movementDescription: String) : Task {
 
         var frontleft = frontleft
         var frontright = frontright
@@ -112,83 +103,87 @@ class EncoderDriveHolonomic {
 
         var travelledAverageInches = 0.0
 
-        // keep looping while we are still active, and there is time left, and both motors are running.
-        // Note: We use (isBusy() && isBusy()) in the repeat test, which means that when EITHER motor hits
-        // its target position, the motion will stop.  This is "safer" in the event that the robot will
-        // always end the motion as soon as possible.
-        while (runtime.seconds() < timeoutS &&
-                hdw.wheelFrontRight!!.isBusy &&
-                hdw.wheelFrontLeft!!.isBusy &&
-                hdw.wheelBackLeft!!.isBusy &&
-                hdw.wheelBackRight!!.isBusy && !Thread.interrupted()) {
+        return Task(object: Task.TaskRunnable() {
+            override fun run(): Boolean {
 
-            val averageCurrentTicks = (hdw.wheelFrontRight!!.currentPosition +
-                                       hdw.wheelFrontLeft!!.currentPosition +
-                                       hdw.wheelBackLeft!!.currentPosition +
-                                       hdw.wheelBackRight!!.currentPosition) / 4.0
+                val averageCurrentTicks = (hdw.wheelFrontRight!!.currentPosition +
+                        hdw.wheelFrontLeft!!.currentPosition +
+                        hdw.wheelBackLeft!!.currentPosition +
+                        hdw.wheelBackRight!!.currentPosition) / 4.0
 
-            travelledAverageInches = averageCurrentTicks / TICKS_PER_INCH
+                travelledAverageInches = averageCurrentTicks / TICKS_PER_INCH
 
-            telemetry.addData("[Movement]", movementDescription)
+                telemetry.addData("[Movement]", movementDescription)
 
-            telemetry.addData("[Target]", "%7d : %7d : %7d : %7d",
-                    newFrontLeftTarget,
-                    newFrontRightTarget,
-                    newBackLeftTarget,
-                    newBackRightTarget)
+                telemetry.addData("[Target]", "%7d : %7d : %7d : %7d",
+                        newFrontLeftTarget,
+                        newFrontRightTarget,
+                        newBackLeftTarget,
+                        newBackRightTarget)
 
-            telemetry.addData("[Current]", "%7d : %7d : %7d : %7d",
-                    hdw.wheelFrontLeft!!.currentPosition,
-                    hdw.wheelFrontRight!!.currentPosition,
-                    hdw.wheelBackLeft!!.currentPosition,
-                    hdw.wheelBackRight!!.currentPosition)
+                telemetry.addData("[Current]", "%7d : %7d : %7d : %7d",
+                        hdw.wheelFrontLeft!!.currentPosition,
+                        hdw.wheelFrontRight!!.currentPosition,
+                        hdw.wheelBackLeft!!.currentPosition,
+                        hdw.wheelBackRight!!.currentPosition)
 
-            telemetry.addData("[Travelled Avg Inches]", travelledAverageInches)
+                telemetry.addData("[Travelled Avg Inches]", travelledAverageInches)
 
-            telemetry.update()
+                telemetry.update()
 
-            DeltaScheduler.instance.update()
+                // finish task until there's is time left or no motors are running.
+                // Note: We use (isBusy() && isBusy()) in the repeat test, which means that when EITHER motor hits
+                // its target position, the motion will stop.  This is "safer" in the event that the robot will
+                // always end the motion as soon as possible.
+                val isNotFinished = runtime.seconds() < timeoutS &&
+                        hdw.wheelFrontRight!!.isBusy &&
+                        hdw.wheelFrontLeft!!.isBusy &&
+                        hdw.wheelBackLeft!!.isBusy &&
+                        hdw.wheelBackRight!!.isBusy && !Thread.interrupted();
 
-        }
+                if(!isNotFinished) {
+                    telemetry.update() //clear telemetry
+                    // Stop all motion
+                    hdw.setAllMotorPower(0.0, 0.0, 0.0, 0.0)
+                    // Turn off RUN_TO_POSITION
+                    hdw.setRunModes(DcMotor.RunMode.RUN_USING_ENCODER)
+                }
 
-        telemetry.update()
+                return !isNotFinished
 
-        // Stop all motion
-        hdw.setAllMotorPower(0.0, 0.0, 0.0, 0.0)
-
-        // Turn off RUN_TO_POSITION
-        hdw.setRunModes(DcMotor.RunMode.RUN_USING_ENCODER)
+            }
+        })
 
     }
 
-    fun forward(distance: Double, speed: Double, timeoutS: Double) {
-        var distance = abs(distance)
-        encoderDrive(speed, distance, distance, distance, distance, timeoutS, parameters!!.RIGHT_WHEELS_TURBO, parameters!!.LEFT_WHEELS_TURBO, "forward")
+    fun forward(distance: Double, speed: Double, timeoutS: Double): Task {
+        val distance = abs(distance)
+        return encoderDrive(speed, distance, distance, distance, distance, timeoutS, parameters!!.RIGHT_WHEELS_TURBO, parameters!!.LEFT_WHEELS_TURBO, "forward")
     }
 
-    fun backwards(distance: Double, speed: Double, timeoutS: Double) {
-        var distance = abs(distance)
-        encoderDrive(speed, -distance, -distance, -distance, -distance, timeoutS, parameters!!.RIGHT_WHEELS_TURBO, parameters!!.LEFT_WHEELS_TURBO, "backwards")
+    fun backwards(distance: Double, speed: Double, timeoutS: Double): Task {
+        val distance = abs(distance)
+        return encoderDrive(speed, -distance, -distance, -distance, -distance, timeoutS, parameters!!.RIGHT_WHEELS_TURBO, parameters!!.LEFT_WHEELS_TURBO, "backwards")
     }
 
-    fun strafeLeft(distance: Double, speed: Double, timeoutS: Double) {
-        var distance = abs(distance)
-        encoderDrive(speed, -distance, distance, distance, -distance, timeoutS, parameters!!.RIGHT_WHEELS_STRAFE_TURBO, parameters!!.LEFT_WHEELS_STRAFE_TURBO, "strafeLeft")
+    fun strafeLeft(distance: Double, speed: Double, timeoutS: Double): Task {
+        val distance = abs(distance)
+        return encoderDrive(speed, -distance, distance, distance, -distance, timeoutS, parameters!!.RIGHT_WHEELS_STRAFE_TURBO, parameters!!.LEFT_WHEELS_STRAFE_TURBO, "strafeLeft")
     }
 
-    fun strafeRight(distance: Double, speed: Double, timeoutS: Double) {
-        var distance = abs(distance)
-        encoderDrive(speed, distance, -distance, -distance, distance, timeoutS, parameters.RIGHT_WHEELS_STRAFE_TURBO, parameters.LEFT_WHEELS_STRAFE_TURBO, "strafeRight")
+    fun strafeRight(distance: Double, speed: Double, timeoutS: Double): Task {
+        val distance = abs(distance)
+        return encoderDrive(speed, distance, -distance, -distance, distance, timeoutS, parameters.RIGHT_WHEELS_STRAFE_TURBO, parameters.LEFT_WHEELS_STRAFE_TURBO, "strafeRight")
     }
 
-    fun turnRight(distance: Double, speed: Double, timeoutS: Double) {
-        var distance = abs(distance)
-        encoderDrive(speed, distance, -distance, distance, -distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, "turnRight")
+    fun turnRight(distance: Double, speed: Double, timeoutS: Double): Task {
+        val distance = abs(distance)
+        return encoderDrive(speed, distance, -distance, distance, -distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, "turnRight")
     }
 
-    fun turnLeft(distance: Double, speed: Double, timeoutS: Double) {
-        var distance = abs(distance)
-        encoderDrive(speed, -distance, distance, -distance, distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, "turnLeft")
+    fun turnLeft(distance: Double, speed: Double, timeoutS: Double): Task {
+        val distance = abs(distance)
+        return encoderDrive(speed, -distance, distance, -distance, distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, "turnLeft")
     }
 
 }

@@ -26,6 +26,7 @@ import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardwareHolon
 import com.github.serivesmejia.deltautils.deltadrive.utils.Invert
 import com.qualcomm.robotcore.hardware.Gamepad
 import com.qualcomm.robotcore.util.Range
+import kotlin.math.abs
 
 /**
  * Class to control an holonomic chassis during teleop using a gamepad's joysticks.
@@ -40,9 +41,9 @@ class JoystickDriveHolonomic {
 
     var turbo = 0.0
 
-    private var hdw: DeltaHardwareHolonomic? = null
+    private lateinit var hdw: DeltaHardwareHolonomic
 
-    private var gamepad: Gamepad = Gamepad()
+    private lateinit var gamepad: Gamepad
 
     /**
      * Constructor for the Joystick Drive
@@ -65,9 +66,7 @@ class JoystickDriveHolonomic {
      * @param turbo the chassis % of speed, from 0 to 1
      */
     fun update(turbo: Double) {
-        var turbo = turbo
-
-        turbo = Math.abs(turbo)
+        var turbo = Math.abs(turbo)
         turbo = Range.clip(turbo, 0.0, 1.0)
 
         this.turbo = turbo
@@ -76,35 +75,15 @@ class JoystickDriveHolonomic {
         val x1 = gamepad.left_stick_x.toDouble()
         val x2 = gamepad.right_stick_x.toDouble()
 
-        when (hdw!!.invert) {
-            Invert.RIGHT_SIDE -> {
-                wheelFrontRightPower = -(y1 - x2 - x1)
-                wheelBackRightPower = -(y1 - x2 + x1)
-                wheelFrontLeftPower = y1 + x2 + x1
-                wheelBackLeftPower = y1 + x2 - x1
-            }
-            Invert.LEFT_SIDE -> {
-                wheelFrontRightPower = y1 - x2 - x1
-                wheelBackRightPower = y1 - x2 + x1
-                wheelFrontLeftPower = -(y1 + x2 + x1)
-                wheelBackLeftPower = -(y1 + x2 - x1)
-            }
-            Invert.BOTH_SIDES -> {
-                wheelFrontRightPower = -(y1 - x2 - x1)
-                wheelBackRightPower = -(y1 - x2 + x1)
-                wheelFrontLeftPower = -(y1 + x2 + x1)
-                wheelBackLeftPower = -(y1 + x2 - x1)
-            }
-            Invert.NO_INVERT -> {
-                wheelFrontRightPower = y1 - x2 - x1
-                wheelBackRightPower = y1 - x2 + x1
-                wheelFrontLeftPower = y1 + x2 + x1
-                wheelBackLeftPower = y1 + x2 - x1
-            }
-        }
+        wheelFrontRightPower = y1 - x2 - x1
+        wheelBackRightPower = y1 - x2 + x1
+        wheelFrontLeftPower = y1 + x2 + x1
+        wheelBackLeftPower = y1 + x2 - x1
 
-        val max = Math.max(Math.abs(wheelFrontRightPower), Math.max(Math.abs(wheelBackRightPower),
-                Math.max(Math.abs(wheelFrontLeftPower), Math.abs(wheelBackLeftPower))))
+        val max = abs(wheelFrontRightPower)
+                  .coerceAtLeast(abs(wheelBackRightPower)
+                  .coerceAtLeast(abs(wheelFrontLeftPower)
+                  .coerceAtLeast(abs(wheelBackLeftPower))))
 
         if (max > 1.0) {
             wheelFrontRightPower /= max
@@ -118,10 +97,8 @@ class JoystickDriveHolonomic {
         wheelFrontLeftPower *= turbo
         wheelBackLeftPower *= turbo
 
-        hdw!!.wheelFrontRight!!.power = wheelFrontRightPower
-        hdw!!.wheelFrontLeft!!.power = wheelFrontLeftPower
-        hdw!!.wheelBackRight!!.power = wheelBackRightPower
-        hdw!!.wheelBackLeft!!.power = wheelBackLeftPower
+        hdw.setAllMotorPower(wheelFrontLeftPower, wheelFrontRightPower, wheelBackLeftPower, wheelBackRightPower)
+
     }
 
 }

@@ -56,7 +56,7 @@ open class IMUEncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
         encoderDrive = EncoderDriveHolonomic((deltaHardware as DeltaHardwareHolonomic?)!!, telemetry, encoderParameters)
 
-        Thread(Runnable(){
+        Thread({
             waitForStart()
             if (!encoderParameters.haveBeenDefined()) {
                 telemetry.addData("[/!\\]", DEF_ENCODER_PARAMS)
@@ -69,18 +69,6 @@ open class IMUEncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
         _runOpMode()
     }
-
-
-    /**
-     * Overridable void to be executed after all required variables are initialized
-     */
-    override fun _runOpMode() { }
-
-    /**
-     * Overridable void to define all wheel motors, and the uppercase variables
-     * Define frontLeft, frontRight, backLeft and backRight DcMotor variables here!
-     */
-    override fun setup() { }
 
     fun rotate(rot: Rot2d?, power: Double, timeoutS: Double): Twist2d? {
         return imuDrive!!.rotate(rot!!, power, timeoutS)

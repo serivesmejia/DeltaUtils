@@ -69,18 +69,6 @@ open class IMUPIDEncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode(
         _runOpMode()
     }
 
-
-    /**
-     * Overridable void to be executed after all required variables are initialized
-     */
-    override fun _runOpMode() {}
-
-    /**
-     * Overridable void to define all wheel motors, and the uppercase variables
-     * Define frontLeft, frontRight, backLeft and backRight DcMotor variables here!
-     */
-    override fun setup() {}
-
     /**
      * Set the rotate PID coefficients
      * @param pid the PID coefficients

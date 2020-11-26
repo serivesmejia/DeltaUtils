@@ -25,6 +25,7 @@ package com.github.serivesmejia.deltautils.deltadrive.extendable.linearopmode.ho
 import com.github.serivesmejia.deltautils.deltadrive.drive.holonomic.EncoderDriveHolonomic
 import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardwareHolonomic
 import com.github.serivesmejia.deltautils.deltadrive.parameters.EncoderDriveParameters
+import com.github.serivesmejia.deltautils.deltadrive.utils.Task
 
 
 open class EncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
@@ -36,52 +37,39 @@ open class EncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
         performInit()
         encoderDrive = EncoderDriveHolonomic(deltaHardware as DeltaHardwareHolonomic, telemetry, encoderParameters)
 
-        Thread(Runnable{
+        Thread {
             waitForStart()
             if (!encoderParameters.haveBeenDefined()) {
                 telemetry.addData("[/!\\]", DEF_ENCODER_PARAMS)
             }
             telemetry.update()
-        }).start()
+        }.start()
 
         _runOpMode()
     }
 
-
-    /**
-     * Overridable void to be executed after all required variables are initialized
-     * (Remember to override setup() and define the 4 DcMotor variables in there!)
-     */
-    override fun _runOpMode() { }
-
-    /**
-     * Overridable void to define all wheel motors, and the uppercase variables
-     * Define frontLeft, frontRight, backLeft and backRight DcMotor variables here!
-     */
-    override fun setup() { }
-
-    fun forward(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.forward(inches, speed, timeOutSecs)
+    fun forward(inches: Double, speed: Double, timeOutSecs: Double): Task {
+        return encoderDrive!!.forward(inches, speed, timeOutSecs)
     }
 
-    fun backwards(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.backwards(inches, speed, timeOutSecs)
+    fun backwards(inches: Double, speed: Double, timeOutSecs: Double): Task {
+        return encoderDrive!!.backwards(inches, speed, timeOutSecs)
     }
 
-    fun strafeLeft(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.strafeLeft(inches, speed, timeOutSecs)
+    fun strafeLeft(inches: Double, speed: Double, timeOutSecs: Double): Task {
+        return encoderDrive!!.strafeLeft(inches, speed, timeOutSecs)
     }
 
-    fun strafeRight(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.strafeRight(inches, speed, timeOutSecs)
+    fun strafeRight(inches: Double, speed: Double, timeOutSecs: Double): Task {
+        return encoderDrive!!.strafeRight(inches, speed, timeOutSecs)
     }
 
-    fun turnLeft(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.turnLeft(inches, speed, timeOutSecs)
+    fun turnLeft(inches: Double, speed: Double, timeOutSecs: Double): Task {
+        return encoderDrive!!.turnLeft(inches, speed, timeOutSecs)
     }
 
-    fun turnRight(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.turnRight(inches, speed, timeOutSecs)
+    fun turnRight(inches: Double, speed: Double, timeOutSecs: Double): Task{
+        return encoderDrive!!.turnRight(inches, speed, timeOutSecs)
     }
 
 }

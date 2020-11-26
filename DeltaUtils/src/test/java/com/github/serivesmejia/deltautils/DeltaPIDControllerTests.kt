@@ -41,7 +41,7 @@ class DeltaPIDControllerTests {
     @Test
     fun testPIDControllerOutputInverted() {
 
-        val pidController = PIDController(PIDCoefficients(0.0168, 0.0, 0.0))
+        val pidController = PIDController(0.0168, 0.0, 0.005)
 
         pidController.setSetpoint(-90.0)
                      .setDeadzone(0.1)

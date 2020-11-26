@@ -35,15 +35,11 @@ open class ExtendableHolonomicLinearOpMode : ExtendableLinearOpMode() {
     open var backLeft: DcMotor? = null
     open var backRight: DcMotor? = null
 
-    override fun runOpMode() {}
-
     private var alreadyPerformedInit = false
 
     override fun performInit() {
 
-        if (alreadyPerformedInit) {
-            return
-        }
+        if (alreadyPerformedInit) return
 
         alreadyPerformedInit = true
 

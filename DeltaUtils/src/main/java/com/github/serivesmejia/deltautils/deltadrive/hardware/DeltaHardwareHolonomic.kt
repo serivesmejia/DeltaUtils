@@ -91,24 +91,6 @@ class DeltaHardwareHolonomic(invert: Invert) : DeltaHardware(invert) {
                 wheelBackLeft?.power = -backleft
                 wheelBackRight?.power = -backright
             }
-            Invert.RIGHT_SIDE_MIDDLE -> {
-                wheelFrontLeft?.power = frontleft
-                wheelFrontRight?.power = -frontright
-                wheelBackLeft?.power = backleft
-                wheelBackRight?.power = -backright
-            }
-            Invert.LEFT_SIDE_MIDDLE -> {
-                wheelFrontLeft?.power = -frontleft
-                wheelFrontRight?.power = frontright
-                wheelBackLeft?.power = -backleft
-                wheelBackRight?.power = backright
-            }
-            Invert.BOTH_SIDES_MIDDLE -> {
-                wheelFrontLeft?.power = -frontleft
-                wheelFrontRight?.power = -frontright
-                wheelBackLeft?.power = -backleft
-                wheelBackRight?.power = -backright
-            }
             else -> {
                 wheelFrontLeft?.power = frontleft
                 wheelFrontRight?.power = frontright

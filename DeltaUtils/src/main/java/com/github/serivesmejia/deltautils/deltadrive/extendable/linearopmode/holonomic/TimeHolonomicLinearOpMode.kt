@@ -36,17 +36,6 @@ open class TimeHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
         _runOpMode()
     }
 
-    /**
-     * Overridable void to be executed after all required variables are initialized
-     */
-    override fun _runOpMode() {}
-
-    /**
-     * Overridable void to define all wheel motors, and the uppercase variables
-     * Define frontLeft, frontRight, backLeft and backRight DcMotor variables here!
-     */
-    override fun setup() {}
-
     fun forward(power: Double, timeSecs: Double) {
         timeDrive!!.forward(power, timeSecs)
     }

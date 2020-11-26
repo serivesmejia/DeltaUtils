@@ -26,6 +26,12 @@ class PIDController(var pid: PIDCoefficients) {
 
     private var firstLoop = true
 
+    constructor(kP: Double, kI: Double, kD: Double) : this(PIDCoefficients(kP, kI, kD))
+
+    constructor(kP: Double, kI: Double) : this(kP, kI, 0.0)
+
+    constructor(kP: Double) : this(kP, 0.0, 0.0)
+
     fun setPID(pid: PIDCoefficients) {
         this.pid = pid
     }

@@ -248,8 +248,6 @@ open class ExtendableIMUDrivePID {
 
             while (!pidControllerRotate.onSetpoint() && !Thread.interrupted() && System.currentTimeMillis() < maxMillis) { //entramos en un bucle hasta que los setpoint sean los esperados
 
-                pidControllerRotate.setPIDMultiplier(Math.abs(setpoint / 90))
-
                 val powerF = pidControllerRotate.calculate(imu.getAngle().getDegrees())
 
                 backleftpower = powerF
@@ -275,8 +273,6 @@ open class ExtendableIMUDrivePID {
 
             val nowMillis = System.currentTimeMillis().toDouble()
 
-            pidControllerRotate.setPIDMultiplier(abs(setpoint / 90))
-
             val powerF = pidControllerRotate.calculate(imu.getAngle().getDegrees())
 
             backleftpower = -powerF
@@ -300,50 +296,12 @@ open class ExtendableIMUDrivePID {
 
         // stop the movement
         setAllMotorPower(0.0, 0.0, 0.0, 0.0)
-        sleep(20)
 
         return Twist2d(0.0, 0.0, imu.getAngle())
 
     }
 
-    fun encoderPIDForward(inches: Double, speed: Double, timeoutS: Double) {
-        if (!isInitializedEncoders) return
-        val initialRobotHeading = imu.getAngle().getDegrees()
-        encoderPIDDrive(abs(speed), inches, inches, inches, inches, timeoutS, encoderDriveParameters!!.RIGHT_WHEELS_TURBO, encoderDriveParameters!!.LEFT_WHEELS_TURBO, "PID Backwards")
-    }
-
-
-    fun encoderPIDBackwards(inches: Double, speed: Double, timeoutS: Double) {
-        if (!isInitializedEncoders) return
-        encoderPIDDrive(abs(speed), -inches, -inches, -inches, -inches, timeoutS, encoderDriveParameters!!.RIGHT_WHEELS_TURBO, encoderDriveParameters!!.LEFT_WHEELS_TURBO, "PID Backwards")
-    }
-
-    fun timePIDForward(power: Double, timeSecs: Double) {
-        val power = abs(power)
-        val initialRobotHeading = imu.getAngle().getDegrees()
-        timePIDDrive(power, power, power, power, timeSecs, initialRobotHeading, this, "PID Forward")
-    }
-
-    fun timePIDBackwards(power: Double, timeSecs: Double) {
-        val power = abs(power)
-        val initialRobotHeading = imu.getAngle().getDegrees()
-        timePIDDrive(power, power, power, power, timeSecs, initialRobotHeading, this, "PID Backwards")
-    }
-
     //needs to extend
-    fun timePIDDrive(frontleft: Double, frontright: Double, backleft: Double, backright: Double, timeSecs: Double, initialRobotHeading: Double, imu: ExtendableIMUDrivePID, movementDescription: String) {}
-
-    //needs to extend
-    open fun encoderPIDDrive(speed: Double,
-                        frontleft: Double,
-                        frontright: Double,
-                        backleft: Double,
-                        backright: Double,
-                        timeoutS: Double,
-                        rightTurbo: Double,
-                        leftTurbo: Double,
-                        movementDescription: String) { }
-
     private fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double) {
         when (hdw.type) {
             DeltaHardware.Type.HOLONOMIC -> hdw.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)

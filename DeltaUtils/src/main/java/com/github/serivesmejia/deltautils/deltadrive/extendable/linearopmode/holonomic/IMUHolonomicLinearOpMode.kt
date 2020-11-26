@@ -58,17 +58,6 @@ open class IMUHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
     }
 
 
-    /**
-     * Overridable void to be executed after all required variables are initialized
-     */
-    override fun _runOpMode() {}
-
-    /**
-     * Overridable void to define all wheel motors, and the uppercase variables
-     * Define frontLeft, frontRight, backLeft and backRight DcMotor variables here!
-     */
-    override fun setup() {}
-
     fun rotate(rot: Rot2d, power: Double, timeoutS: Double): Twist2d {
         return imuDrive!!.rotate(rot, power, timeoutS)!!
     }

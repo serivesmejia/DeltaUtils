@@ -229,15 +229,12 @@ open class ExtendableIMUDrive {
     private fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double) {
 
         when (hdw.type) {
-
             DeltaHardware.Type.HOLONOMIC -> hdw.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
-
             DeltaHardware.Type.HDRIVE -> {
                 val averageLeft = (frontleftpower + backleftpower) / 2
                 val averageRight = (frontrightpower + backrightpower) / 2
                 hdw.setAllMotorPower(averageLeft, averageRight, 0.0)
             }
-
         }
 
     }

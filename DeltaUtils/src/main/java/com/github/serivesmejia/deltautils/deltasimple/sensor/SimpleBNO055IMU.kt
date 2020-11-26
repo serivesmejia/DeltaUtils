@@ -38,32 +38,32 @@ class SimpleBNO055IMU(private val imu: BNO055IMU) {
     }
 
     /**
-     * Enter in a while repeat until the IMU reports it is calibrated or until the opmode stops
+     * Enter in a while loop until the IMU reports it is calibrated or until the opmode stops
      */
     fun waitForIMUCalibration(telemetry: Telemetry) {
-        while (!imu!!.isGyroCalibrated && !Thread.interrupted()) {
-            telemetry!!.addData("[/!\\]", "Calibrating IMU Gyro sensor, please wait...")
-            telemetry!!.addData("[Status]", "${getIMUCalibrationStatus()}\n\nDeltaUtils v${LibraryData.VERSION}")
-            telemetry!!.update()
+        while (!imu.isGyroCalibrated && !Thread.interrupted()) {
+            telemetry.addData("[/!\\]", "Calibrating IMU Gyro sensor, please wait...")
+            telemetry.addData("[Status]", "${getIMUCalibrationStatus()}\n\nDeltaUtils v${LibraryData.VERSION}")
+            telemetry.update()
         }
     }
 
     /**
-     * Enter in a while repeat until the IMU reports it is calibrated or until the opmode stops
+     * Enter in a while loop until the IMU reports it is calibrated or until the opmode stops
      */
     fun waitForIMUCalibration() {
-        while (!imu!!.isGyroCalibrated && !Thread.interrupted()) { }
+        while (!imu.isGyroCalibrated && !Thread.interrupted());
     }
 
     /**
      * @return the IMU calibration status as a String
      */
     fun getIMUCalibrationStatus(): String {
-        return imu!!.calibrationStatus.toString()
+        return imu.calibrationStatus.toString()
     }
 
     fun isIMUCalibrated(): Boolean {
-        return imu!!.isGyroCalibrated
+        return imu.isGyroCalibrated
     }
 
     fun isInitialized() = initialized
@@ -72,7 +72,7 @@ class SimpleBNO055IMU(private val imu: BNO055IMU) {
         // We have to process the angle because the imu works in euler angles so the axis is
         // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
         // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
-        var angles = imu!!.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES)
+        val angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES)
 
         var deltaAngle: Float = 0F
 
@@ -100,9 +100,7 @@ class SimpleBNO055IMU(private val imu: BNO055IMU) {
     fun getLastAngle() : Rot2d = lastAngle
 
     fun resetAngle() {
-
-        lastAngles =  imu!!.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES)
-
+        lastAngles =  imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES)
         globalAngle = 0.0
     }
 

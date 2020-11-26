@@ -28,7 +28,18 @@ import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotor.RunMode
 import com.qualcomm.robotcore.hardware.HardwareMap
 
-open class DeltaHardware {
+open class DeltaHardware
+/**
+ * Constructor for the delta hardware holonomic class
+ * Do not forget to initialize the motors with initHardware()
+ * @param hdwMap The current OpMode hardware map
+ * @param invert Enum specifying which side will be inverted (motors), most of the time you need to invert the right side.
+ */(
+        /**
+         * Enum specifying the side of the chassis which will be inverted
+         * Most of the time, you need to invert the right side.
+         */
+        var invert: Invert) {
 
     var wheelFrontLeft: DcMotor? = null
     var wheelFrontRight: DcMotor? = null
@@ -48,23 +59,7 @@ open class DeltaHardware {
 
     var type = Type.DEFAULT
 
-    /**
-     * Enum specifying the side of the chassis which will be inverted
-     * Most of the time, you need to invert the right side.
-     */
-    var invert: Invert = Invert.RIGHT_SIDE
-
     var hdwMap: HardwareMap = Robot.getCurrentOpMode().hardwareMap
-
-    /**
-     * Constructor for the delta hardware holonomic class
-     * Do not forget to initialize the motors with initHardware()
-     * @param hdwMap The current OpMode hardware map
-     * @param invert Enum specifying which side will be inverted (motors), most of the time you need to invert the right side.
-     */
-    constructor (invert: Invert) {
-        this.invert = invert
-    }
 
     open fun initHardware(frontleft: DcMotor, frontright: DcMotor, backleft: DcMotor, backright: DcMotor, brake: Boolean) {
         throw UnsupportedOperationException("Function initHardware() with four motors is not supported in this DeltaHardware")

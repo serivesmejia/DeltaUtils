@@ -68,7 +68,7 @@ open class EncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
         return encoderDrive!!.turnLeft(inches, speed, timeOutSecs)
     }
 
-    fun turnRight(inches: Double, speed: Double, timeOutSecs: Double): Task{
+    fun turnRight(inches: Double, speed: Double, timeOutSecs: Double): Task {
         return encoderDrive!!.turnRight(inches, speed, timeOutSecs)
     }
 

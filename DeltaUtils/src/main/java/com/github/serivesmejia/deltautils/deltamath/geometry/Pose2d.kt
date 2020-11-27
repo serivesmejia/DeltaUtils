@@ -22,65 +22,86 @@
 
 package com.github.serivesmejia.deltautils.deltamath.geometry
 
-class Pose2d() {
+class Pose2d (
+        val vec: Vec2d,
+        val th: Rot2d
+) {
 
-    private var vec: Vec2d = Vec2d()
-    private var heading = 0.0
+    val x
+        get() = vec.x
+    val y
+        get() = vec.y
 
-    init {
-        vec = Vec2d(0.0, 0.0)
-        heading = 0.0
-    }
+    val theta
+        get() = th.radians
 
-    constructor(x: Double, y: Double, heading: Double): this() {
-        vec = Vec2d(x, y)
-        this.heading = heading
-    }
+    constructor (x: Double, y: Double, theta: Rot2d) : this(Vec2d(x, y), theta)
 
-    constructor(vec: Vec2d, heading: Double): this() {
-        this.vec = vec
-        this.heading = heading
-    }
+    constructor (other: Pose2d) : this(Vec2d(other.vec), Rot2d(other.th))
 
-    constructor(o: Pose2d): this() {
-        vec = o.getPosition()
-        heading = o.heading
-    }
+    operator fun plus(o: Pose2d): Pose2d {
 
-    fun getPosition() = vec
+        val newPose = Pose2d(this)
 
-    fun getHeading() = heading
+        newPose.vec += o.vec
+        newPose.th += o.th
 
-    fun add(o: Pose2d) {
-        vec = vec + o.getPosition()
-        heading += o.heading
-    }
-
-    fun divide(by: Double) {
-        vec = vec / Vec2d(by, by)
-        heading /= by
-    }
-
-    fun invert() {
-        vec.invert()
-        heading = -heading
-    }
-
-    fun multiply(by: Double) {
-        vec = vec * Vec2d(by, by)
-        heading *= by
-    }
-
-    fun rotate(by: Double) {
-        heading += by
-    }
-
-    override fun toString(): String {
-
-        val v = vec.toString()
-        val h = heading.toString()
-        return "Pose2d($v, $h)"
+        return newPose
 
     }
+
+    operator fun plusAssign(o: Pose2d) {
+        vec += o.vec
+        th += o.th
+    }
+
+    operator fun minus(o: Pose2d): Pose2d {
+
+        val newPose = Pose2d(this)
+
+        newPose.vec -= o.vec
+        newPose.th -= o.th
+
+        return newPose
+
+    }
+
+    operator fun minusAssign(o: Pose2d) {
+        vec -= o.vec
+        th -= o.th
+    }
+
+    operator fun div(o: Pose2d): Pose2d {
+
+        val newPose = Pose2d(this)
+
+        newPose.vec /= o.vec
+        newPose.th /= o.th
+
+        return newPose
+
+    }
+
+    operator fun divAssign(o: Pose2d) {
+        vec /= o.vec
+        th /= o.th
+    }
+
+    operator fun times(o: Pose2d): Pose2d {
+
+        val newPose = Pose2d(this)
+
+        newPose.vec *= o.vec
+        newPose.th *= o.th
+
+        return newPose
+
+    }
+
+    operator fun timesAssign(o: Pose2d) {
+        vec *= o.vec
+        th *= o.th
+    }
+
 
 }

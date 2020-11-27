@@ -22,36 +22,23 @@
 
 package com.github.serivesmejia.deltautils.deltamath.geometry
 
-class Twist2d {
+class Twist2d (
+    val vec: Vec2d,
+    val rot: Rot2d
+) {
 
-    var tw : Vec2d = Vec2d()
-    var th : Rot2d = Rot2d()
+    val x
+        get() = vec.x
+    val y
+        get() = vec.y
 
-    constructor (x: Double, y: Double, theta: Rot2d) {
-        this.tw = Vec2d(x, y)
-        this.th = Rot2d(theta)
-    }
+    val theta
+        get() = rot.radians
 
-    constructor (vec: Vec2d, theta : Rot2d){
-        this.tw = Vec2d(vec)
-        this.th = Rot2d(theta)
-    }
+    constructor (x: Double, y: Double, theta: Rot2d) : this(Vec2d(x, y), theta)
 
-    constructor (o: Twist2d){
-        this.tw = o.vec()
-        this.th = o.rot();
-    }
+    constructor (o: Twist2d) : this(o.vec, o.rot)
 
-    constructor()
-
-    fun vec() : Vec2d { return tw }
-
-    fun rot() : Rot2d { return th; }
-
-    fun x() : Double { return tw.x() }
-
-    fun y() : Double { return tw.y() }
-
-    fun theta() : Double { return th.getRadians() }
+    constructor() : this(Vec2d(), Rot2d())
 
 }

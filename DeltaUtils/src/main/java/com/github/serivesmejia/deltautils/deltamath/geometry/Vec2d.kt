@@ -28,6 +28,14 @@ import kotlin.math.sin
 
 class Vec2d {
 
+    var x
+        get() = vec[0]
+        set(value) { vec[0] = value }
+
+    var y
+        get() = vec[1]
+        set(value) { vec[1] = value }
+
     private val vec = doubleArrayOf(0.0, 0.0)
 
     /**
@@ -50,115 +58,79 @@ class Vec2d {
      * @param o
      */
     constructor (o: Vec2d) {
-        vec[0] = o.x()
-        vec[1] = o.y()
-    }
-
-    /**
-     * @param x The X value to set to this Vec2d
-     */
-    fun setX(x: Double) {
-        vec[0] = x
-    }
-
-    /**
-     * @return the X value of this Vec2d
-     */
-    fun x(): Double {
-        return vec[0]
-    }
-
-    /**
-     * @param y the Y value to set to this Vec2d
-     */
-    fun setY(y: Double) {
-        vec[1] = y
-    }
-
-    /**
-     * @return the Y value of this Vec2d
-     */
-    fun y(): Double {
-        return vec[1]
+        vec[0] = o.x
+        vec[1] = o.y
     }
 
     /**
      * @return the magnitude of the vector
      */
     fun mag(): Double {
-        return hypot(x(), y())
+        return hypot(x, y)
     }
 
     operator fun plus(o: Vec2d): Vec2d {
 
         val newVec = Vec2d(this)
 
-        newVec.setX(x() + o.x())
-        newVec.setY(y() + o.y())
+        newVec.x += o.x
+        newVec.y += o.y
 
         return newVec
 
     }
 
     operator fun plusAssign(o: Vec2d) {
-
-        this.setX(o.x() + x())
-        this.setY(o.y() + y())
-
+        x += o.x
+        y += o.y
     }
 
     operator fun minus(o: Vec2d): Vec2d {
 
         val newVec = Vec2d(this)
 
-        newVec.setX(x() - o.x())
-        newVec.setY(y() - o.y())
+        newVec.x -= o.x
+        newVec.y -= o.y
 
         return newVec
 
     }
 
     operator fun minusAssign(o: Vec2d) {
-
-        this.setX(x() - o.x())
-        this.setY(y() - o.y())
-
+        x -= o.x
+        y -= o.y
     }
 
     operator fun div(o: Vec2d): Vec2d {
 
         val newVec = Vec2d(this)
 
-        newVec.setX(x() / o.x())
-        newVec.setY(y() / o.y())
+        newVec.x /= o.x
+        newVec.y /= o.y
 
         return newVec
 
     }
 
     operator fun divAssign(o: Vec2d) {
-
-        this.setX(o.x() * x())
-        this.setY(o.y() * y())
-
+        this.x /= o.x
+        this.y /= o.y
     }
 
     operator fun times(o: Vec2d): Vec2d {
 
         val newVec = Vec2d(this)
 
-        newVec.setX(o.x() * x())
-        newVec.setY(o.y() * y())
+        newVec.x *= o.x
+        newVec.y *= o.y
 
         return newVec
 
     }
 
     operator fun timesAssign(o: Vec2d) {
-
-        this.setX(o.x() * x())
-        this.setY(o.y() * y())
-
+        this.x *= o.x
+        this.y *= o.y
     }
 
     /**
@@ -166,20 +138,20 @@ class Vec2d {
      * @param by the Rot2d to rotate by
      */
     fun rotate(by: Rot2d) {
-        setX(x() * cos(by.getRadians()) - y() * sin(by.getRadians()))
-        setY(x() * sin(by.getRadians()) + y() * cos(by.getRadians()))
+        x = x * by.cos - y * by.sin
+        y = x * by.sin + y * by.cos
     }
 
     /**
      * Inverts current Vec2d values to negative/positive
      */
     fun invert() {
-        setX(-x())
-        setY(-y())
+        x = -x
+        y = -y
     }
 
     override fun toString(): String {
-        return "Vec2d(${x()}, ${y()})"
+        return "Vec2d($x, $y)"
     }
 
 }

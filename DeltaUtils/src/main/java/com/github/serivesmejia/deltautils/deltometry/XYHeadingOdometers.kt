@@ -53,17 +53,17 @@ class XYHeadingOdometers(private var xOdom: Odometer, private var yOdom: Odomete
 
     override fun getEncoderTicks(): IntArray {
 
-        xMotor!!.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
-        yMotor!!.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+        xMotor.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+        yMotor.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
 
-        return intArrayOf(xMotor!!.currentPosition, yMotor!!.currentPosition)
+        return intArrayOf(xMotor.currentPosition, yMotor.currentPosition)
 
     }
 
     override fun resetEncoderTicks() {
 
-        xMotor!!.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
-        xMotor!!.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+        xMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+        xMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
 
     }
 

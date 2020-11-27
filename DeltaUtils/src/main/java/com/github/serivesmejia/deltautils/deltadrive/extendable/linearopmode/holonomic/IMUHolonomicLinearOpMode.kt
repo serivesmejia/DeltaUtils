@@ -31,7 +31,7 @@ import com.github.serivesmejia.deltautils.deltamath.geometry.Twist2d
 
 open class IMUHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
-    open var imuDrive: IMUDriveHolonomic? = null
+    lateinit var imuDrive: IMUDriveHolonomic
 
     /**
      * IMU parameters that can be defined
@@ -43,10 +43,10 @@ open class IMUHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
         imuDrive = IMUDriveHolonomic((deltaHardware as DeltaHardwareHolonomic?)!!, telemetry)
 
-        imuDrive!!.initIMU(imuParameters)
-        imuDrive!!.waitForIMUCalibration()
+        imuDrive.initIMU(imuParameters)
+        imuDrive.waitForIMUCalibration()
 
-        val t = Thread(Runnable{
+        Thread(Runnable{
             waitForStart()
             if (!imuParameters.haveBeenDefined()) {
                 telemetry.addData("[/!\\]", DEF_IMU_PARAMS)
@@ -59,11 +59,11 @@ open class IMUHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
 
     fun rotate(rot: Rot2d, power: Double, timeoutS: Double): Twist2d {
-        return imuDrive!!.rotate(rot, power, timeoutS)!!
+        return imuDrive.rotate(rot, power, timeoutS)
     }
 
-    fun getRobotAngle(): Rot2d? {
-        return imuDrive!!.getRobotAngle()
+    fun getRobotAngle(): Rot2d {
+        return imuDrive.getRobotAngle()
     }
 
 }

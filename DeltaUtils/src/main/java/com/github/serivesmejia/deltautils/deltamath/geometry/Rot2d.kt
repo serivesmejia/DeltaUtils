@@ -40,9 +40,29 @@ class Rot2d() {
         }
     }
 
-    private var radians = 0.0
-    private var cos = 0.0
-    private var sin = 0.0
+    var radians
+        get() = i_radians
+        set(value) {
+            cos = cos(value)
+            sin = sin(value)
+            i_radians = value
+        }
+
+    var cos
+        get() = i_cos
+        private set(value) {
+            i_cos = value
+        }
+
+    var sin
+        get() = i_sin
+        private set(value) {
+            i_sin = value
+        }
+
+    private var i_radians = 0.0
+    private var i_cos = 0.0
+    private var i_sin = 0.0
 
     /**
      * Constructor for Rot2d
@@ -64,7 +84,7 @@ class Rot2d() {
     }
 
     constructor (o : Rot2d): this() {
-        radians = o.getRadians()
+        radians = o.radians
         cos = cos(radians)
         sin = sin(radians)
     }
@@ -105,21 +125,6 @@ class Rot2d() {
 
     }
 
-    /**
-     * Sets the radians and returns a new Rot2d
-     * @param radians
-     * @return Result Rot2d
-     */
-    fun setRadians(radians: Double): Rot2d {
-
-        this.radians = radians
-
-        cos = Math.cos(radians)
-        sin = Math.sin(radians)
-
-        return Rot2d(radians)
-
-    }
 
     /**
      * @return the degrees from this Rot2d
@@ -151,33 +156,16 @@ class Rot2d() {
     fun calculateTan(): Double = sin / cos
 
     /**
-     * @return the calculated sin
-     */
-    fun getSin(): Double = sin
-
-    /**
-     * @return the calculated cos
-     */
-    fun getCos(): Double = cos
-
-    /**
-     * @return the calculated radians
-     */
-    fun getRadians(): Double {
-        return radians
-    }
-
-    /**
      * Rotate by another Rot2d and returns a new one
      * @param o the Rot2d to rotate by
      * @return Result Rot2d
      */
     fun rotate(o: Rot2d): Rot2d {
 
-        val x = cos * (o.getCos()) - (o.getSin()) * (o.getCos())
-        val y = cos * (o.getSin()) + (o.getSin()) * (o.getCos())
+        val x = cos * o.cos - o.sin * o.cos
+        val y = cos * o.sin + o.sin * o.cos
 
-        val hy = Math.hypot(x, y)
+        val hy = hypot(x, y)
 
         if (hy > 0.00001) {
             sin = y / hy
@@ -202,23 +190,45 @@ class Rot2d() {
     }
 
     operator fun plusAssign(o: Rot2d) {
-
         this.rotate(o)
-
     }
 
     operator fun minus(o: Rot2d): Rot2d {
-
         val newRot = Rot2d(this)
-
         return newRot.rotate(Rot2d(o).invert())
-
     }
 
     operator fun minusAssign(o: Rot2d) {
-
         this.rotate(Rot2d(o).invert())
+    }
 
+
+    operator fun div(o: Rot2d): Rot2d {
+
+        val newRot = Rot2d(this)
+
+        newRot.radians /= o.radians
+
+        return newRot
+
+    }
+
+    operator fun divAssign(o: Rot2d) {
+        radians /= o.radians
+    }
+
+    operator fun times(o: Rot2d): Rot2d {
+
+        val newRot = Rot2d(this)
+
+        newRot.radians *= o.radians
+
+        return newRot
+
+    }
+
+    operator fun timesAssign(o: Rot2d) {
+        radians *= o.radians
     }
 
     /**

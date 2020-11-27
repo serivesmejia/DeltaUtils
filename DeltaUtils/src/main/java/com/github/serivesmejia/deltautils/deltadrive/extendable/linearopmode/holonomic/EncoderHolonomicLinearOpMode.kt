@@ -48,28 +48,16 @@ open class EncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
         _runOpMode()
     }
 
-    fun forward(inches: Double, speed: Double, timeOutSecs: Double): Task {
-        return encoderDrive!!.forward(inches, speed, timeOutSecs)
-    }
+    fun forward(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.forward(inches, speed, timeOutSecs)
 
-    fun backwards(inches: Double, speed: Double, timeOutSecs: Double): Task {
-        return encoderDrive!!.backwards(inches, speed, timeOutSecs)
-    }
+    fun backwards(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.backwards(inches, speed, timeOutSecs)
 
-    fun strafeLeft(inches: Double, speed: Double, timeOutSecs: Double): Task {
-        return encoderDrive!!.strafeLeft(inches, speed, timeOutSecs)
-    }
+    fun strafeLeft(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.strafeLeft(inches, speed, timeOutSecs)
 
-    fun strafeRight(inches: Double, speed: Double, timeOutSecs: Double): Task {
-        return encoderDrive!!.strafeRight(inches, speed, timeOutSecs)
-    }
+    fun strafeRight(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.strafeRight(inches, speed, timeOutSecs)
 
-    fun turnLeft(inches: Double, speed: Double, timeOutSecs: Double): Task {
-        return encoderDrive!!.turnLeft(inches, speed, timeOutSecs)
-    }
+    fun turnLeft(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.turnLeft(inches, speed, timeOutSecs)
 
-    fun turnRight(inches: Double, speed: Double, timeOutSecs: Double): Task {
-        return encoderDrive!!.turnRight(inches, speed, timeOutSecs)
-    }
+    fun turnRight(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.turnRight(inches, speed, timeOutSecs)
 
 }

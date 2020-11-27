@@ -27,6 +27,7 @@ import com.github.serivesmejia.deltautils.deltadrive.drive.holonomic.IMUDrivePID
 import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardwareHolonomic
 import com.github.serivesmejia.deltautils.deltadrive.parameters.EncoderDriveParameters
 import com.github.serivesmejia.deltautils.deltadrive.parameters.IMUDriveParameters
+import com.github.serivesmejia.deltautils.deltadrive.utils.Task
 import com.github.serivesmejia.deltautils.deltamath.geometry.Rot2d
 import com.github.serivesmejia.deltautils.deltamath.geometry.Twist2d
 import com.github.serivesmejia.deltautils.deltapid.PIDCoefficients
@@ -105,72 +106,24 @@ open class IMUPIDEncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode(
         return imuDrive!!.getRotatePID()
     }
 
-    /**
-     * Set the drive PID coefficients
-     * @param pid the PID coefficients
-     */
-    fun setDrivePID(pid: PIDCoefficients) {
-        imuDrive!!.setDrivePID(pid)
-    }
-
-    /**
-     * @return the drive Proportional coefficient
-     */
-    fun getDriveP(): Double {
-        return imuDrive!!.getDriveP()
-    }
-
-    /**
-     * @return the drive Integral coefficient
-     */
-    fun getDriveI(): Double {
-        return imuDrive!!.getDriveI()
-    }
-
-    /**
-     * @return the drive Derivative coefficient
-     */
-    fun getDriveD(): Double {
-        return imuDrive!!.getDriveD()
-    }
-
-    /**
-     * @return the current rotate PIDCoefficients object
-     */
-    fun getDrivePID(): PIDCoefficients {
-        return imuDrive!!.getDrivePID()!!
-    }
-
     fun rotate(rot: Rot2d, power: Double, timeoutS: Double): Twist2d {
         return imuDrive!!.rotate(rot, power, timeoutS)
     }
 
-    fun forward(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.forward(inches, speed, timeOutSecs)
+    fun forward(inches: Double, speed: Double, timeOutSecs: Double): Task {
+        return encoderDrive!!.forward(inches, speed, timeOutSecs)
     }
 
-    fun backwards(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.backwards(inches, speed, timeOutSecs)
-    }
+    fun backwards(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.backwards(inches, speed, timeOutSecs)
 
-    fun strafeLeft(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.strafeLeft(inches, speed, timeOutSecs)
-    }
+    fun strafeLeft(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.strafeLeft(inches, speed, timeOutSecs)
 
-    fun strafeRight(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.strafeRight(inches, speed, timeOutSecs)
-    }
+    fun strafeRight(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.strafeRight(inches, speed, timeOutSecs)
 
-    fun turnLeft(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.turnLeft(inches, speed, timeOutSecs)
-    }
+    fun turnLeft(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.turnLeft(inches, speed, timeOutSecs)
 
-    fun turnRight(inches: Double, speed: Double, timeOutSecs: Double) {
-        encoderDrive!!.turnRight(inches, speed, timeOutSecs)
-    }
+    fun turnRight(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.turnRight(inches, speed, timeOutSecs)
 
-    fun getRobotAngle(): Rot2d {
-        return imuDrive!!.getRobotAngle()
-    }
+    fun getRobotAngle() = imuDrive!!.getRobotAngle()
 
 }

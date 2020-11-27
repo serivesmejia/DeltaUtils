@@ -131,7 +131,7 @@ class EncoderDriveHolonomic
 
                 telemetry.update()
 
-                // finish task until there's is time left or no motors are running.
+                // finish task until there's is no time left or no motors are running.
                 // Note: We use (isBusy() && isBusy()) in the repeat test, which means that when EITHER motor hits
                 // its target position, the motion will stop.  This is "safer" in the event that the robot will
                 // always end the motion as soon as possible.
@@ -139,9 +139,9 @@ class EncoderDriveHolonomic
                         hdw.wheelFrontRight!!.isBusy &&
                         hdw.wheelFrontLeft!!.isBusy &&
                         hdw.wheelBackLeft!!.isBusy &&
-                        hdw.wheelBackRight!!.isBusy && !Thread.interrupted();
+                        hdw.wheelBackRight!!.isBusy && !Thread.currentThread().isInterrupted;
 
-                if(!isNotFinished) {
+                if(!isNotFinished) { //when it's finished
                     telemetry.update() //clear telemetry
                     // Stop all motion
                     hdw.setAllMotorPower(0.0, 0.0, 0.0, 0.0)
@@ -149,7 +149,7 @@ class EncoderDriveHolonomic
                     hdw.setRunModes(DcMotor.RunMode.RUN_USING_ENCODER)
                 }
 
-                return !isNotFinished
+                return !isNotFinished //tells the task whether we're finished or not
 
             }
         })

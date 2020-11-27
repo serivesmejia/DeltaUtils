@@ -41,33 +41,23 @@ import kotlin.math.abs
 open class ExtendableIMUDrivePID {
 
     protected lateinit var imu: SimpleBNO055IMU
-    protected val hdw: DeltaHardware
+    private val hdw: DeltaHardware
 
     protected val telemetry: Telemetry
 
     private val runtime = ElapsedTime()
 
-    protected var imuParameters: IMUDriveParameters = IMUDriveParameters()
+    private var imuParameters: IMUDriveParameters = IMUDriveParameters()
 
     private var rkP = 0.0
     private var rkI = 0.0
     private var rkD = 0.0
 
-    protected var pidCoefficientsRotate: PIDCoefficients = PIDCoefficients(0.0, 0.0, 0.0)
+    private var pidCoefficientsRotate: PIDCoefficients = PIDCoefficients(0.0, 0.0, 0.0)
 
-    private var dkP = 0.0
-    private var dkI = 0.0
-    private var dkD = 0.0
+    private var allowedDeltaHardwareType = DeltaHardware.Type.DEFAULT
 
-    protected var pidCoefficientsDrive: PIDCoefficients = PIDCoefficients(0.0, 0.0, 0.0)
-
-    private var isInitializedEncoders = false
-
-    protected var allowedDeltaHardwareType = DeltaHardware.Type.DEFAULT
-
-    protected var encoderDriveParameters: EncoderDriveParameters = EncoderDriveParameters()
-
-    protected var pidControllerRotate = PIDController(pidCoefficientsRotate)
+    private var pidControllerRotate = PIDController(pidCoefficientsRotate)
 
     /**
      * Constructor for the IMU drive class
@@ -95,12 +85,6 @@ open class ExtendableIMUDrivePID {
 
     }
 
-    fun initEncoders(parameters: EncoderDriveParameters) {
-        if(isInitializedEncoders) return
-        isInitializedEncoders = true
-        encoderDriveParameters = parameters
-    }
-
     /**
      * @param coefficients the rotate PID coefficients, in a DeltaUtils PIDCoefficients object
      */
@@ -125,32 +109,6 @@ open class ExtendableIMUDrivePID {
 
     fun getRotateD(): Double {
         return rkD
-    }
-
-    /**
-     * @param coefficients the drive (forward & backwards) PID coefficients, in a DeltaUtils PIDCoefficients object
-     */
-    fun setDrivePID(coefficients: PIDCoefficients) {
-        dkP = abs(coefficients.kP)
-        dkI = abs(coefficients.kI)
-        dkD = abs(coefficients.kD)
-        pidCoefficientsDrive = coefficients
-    }
-
-    fun getDrivePID(): PIDCoefficients {
-        return pidCoefficientsDrive
-    }
-
-    fun getDriveP(): Double {
-        return dkP
-    }
-
-    fun getDriveI(): Double {
-        return dkI
-    }
-
-    fun getDriveD(): Double {
-        return dkD
     }
 
     /**
@@ -246,7 +204,7 @@ open class ExtendableIMUDrivePID {
 
             }
 
-            while (!pidControllerRotate.onSetpoint() && !Thread.interrupted() && System.currentTimeMillis() < maxMillis) { //entramos en un bucle hasta que los setpoint sean los esperados
+            while (!pidControllerRotate.onSetpoint() && !Thread.currentThread().isInterrupted && System.currentTimeMillis() < maxMillis) { //entramos en un bucle hasta que los setpoint sean los esperados
 
                 val powerF = pidControllerRotate.calculate(imu.getAngle().getDegrees())
 
@@ -269,9 +227,7 @@ open class ExtendableIMUDrivePID {
 
             }
 
-        } else while (!pidControllerRotate.onSetpoint() && !Thread.interrupted() && System.currentTimeMillis() < maxMillis) {
-
-            val nowMillis = System.currentTimeMillis().toDouble()
+        } else while (!pidControllerRotate.onSetpoint() && !Thread.currentThread().isInterrupted && System.currentTimeMillis() < maxMillis) {
 
             val powerF = pidControllerRotate.calculate(imu.getAngle().getDegrees())
 

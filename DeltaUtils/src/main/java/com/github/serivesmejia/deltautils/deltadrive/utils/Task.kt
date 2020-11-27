@@ -23,7 +23,7 @@ class Task(val runn: TaskRunnable) {
 
     open class TaskRunnable {
         /**
-         * Runs the task, should be overrrided to actually do something.
+         * Runs the task, should be overridden to actually do something.
          * @return true if the task is finished, false to continue running the task
          */
         open fun run(): Boolean {

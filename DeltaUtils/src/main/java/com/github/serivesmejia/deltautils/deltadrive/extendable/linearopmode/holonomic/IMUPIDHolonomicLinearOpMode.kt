@@ -46,7 +46,7 @@ open class IMUPIDHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
         imuDrive!!.waitForIMUCalibration()
 
-        Thread(Runnable{
+        Thread({
             waitForStart()
             if (!imuParameters.haveBeenDefined()) {
                 telemetry.addData("[/!\\]", DEF_IMU_PARAMS)
@@ -91,42 +91,6 @@ open class IMUPIDHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
      */
     fun getRotatePID(): PIDCoefficients {
         return imuDrive!!.getRotatePID()
-    }
-
-    /**
-     * Set the drive PID coefficients
-     * @param pid the PID coefficients
-     */
-    fun setDrivePID(pid: PIDCoefficients) {
-        imuDrive!!.setDrivePID(pid)
-    }
-
-    /**
-     * @return the drive Proportional coefficient
-     */
-    fun getDriveP(): Double {
-        return imuDrive!!.getDriveP()
-    }
-
-    /**
-     * @return the drive Integral coefficient
-     */
-    fun getDriveI(): Double {
-        return imuDrive!!.getDriveI()
-    }
-
-    /**
-     * @return the drive Derivative coefficient
-     */
-    fun getDriveD(): Double {
-        return imuDrive!!.getDriveD()
-    }
-
-    /**
-     * @return the current rotate PIDCoefficients object
-     */
-    fun getDrivePID(): PIDCoefficients {
-        return imuDrive!!.getDrivePID()
     }
 
     fun rotate(rot: Rot2d, power: Double, timeoutS: Double): Twist2d {

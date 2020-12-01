@@ -32,7 +32,7 @@ import com.github.serivesmejia.deltautils.deltapid.PIDCoefficients
 
 open class IMUPIDHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
 
-    open var imuDrive: IMUDrivePIDHolonomic? = null
+    lateinit var imuDrive: IMUDrivePIDHolonomic
 
     /**
      * IMU parameters that can be defined
@@ -42,17 +42,17 @@ open class IMUPIDHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
     override fun runOpMode() {
         performInit()
         imuDrive = IMUDrivePIDHolonomic(deltaHardware as DeltaHardwareHolonomic, telemetry)
-        imuDrive!!.initIMU(imuParameters)
+        imuDrive.initIMU(imuParameters)
 
-        imuDrive!!.waitForIMUCalibration()
+        imuDrive.waitForIMUCalibration()
 
-        Thread({
+        Thread {
             waitForStart()
             if (!imuParameters.haveBeenDefined()) {
                 telemetry.addData("[/!\\]", DEF_IMU_PARAMS)
             }
             telemetry.update()
-        }).start()
+        }.start()
 
         _runOpMode()
     }
@@ -62,43 +62,43 @@ open class IMUPIDHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
      * @param pid the PID coefficients
      */
     fun setRotatePID(pid: PIDCoefficients) {
-        imuDrive!!.setRotatePID(pid)
+        imuDrive.setRotatePID(pid)
     }
 
     /**
      * @return the rotate Proportional coefficient
      */
     fun getRotateP(): Double {
-        return imuDrive!!.getRotateP()
+        return imuDrive.getRotateP()
     }
 
     /**
      * @return the rotate Integral coefficient
      */
     fun getRotateI(): Double {
-        return imuDrive!!.getRotateI()
+        return imuDrive.getRotateI()
     }
 
     /**
      * @return the rotate Derivative coefficient
      */
     fun getRotateD(): Double {
-        return imuDrive!!.getRotateD()
+        return imuDrive.getRotateD()
     }
 
     /**
      * @return the current rotate PIDCoefficients object
      */
     fun getRotatePID(): PIDCoefficients {
-        return imuDrive!!.getRotatePID()
+        return imuDrive.getRotatePID()
     }
 
     fun rotate(rot: Rot2d, power: Double, timeoutS: Double): Twist2d {
-        return imuDrive!!.rotate(rot, power, timeoutS)
+        return imuDrive.rotate(rot, power, timeoutS)
     }
 
     fun getRobotAngle(): Rot2d {
-        return imuDrive!!.getRobotAngle()
+        return imuDrive.getRobotAngle()
     }
 
 }

@@ -25,24 +25,22 @@ package com.github.serivesmejia.deltautils.deltadrive.utils.gear
 /**
  * Class representing a two gear ratio
  */
-class ThreeGearRatio : GearRatio {
+class ThreeGearRatio
+/**
+ * Constructor for GearRatio class
+ * @param T1 Number of teeth of drive gear
+ * @param T2 Number of teeth of idler
+ * @param T3 Number of teeth of driven gear
+ * @param inputRPM The input RPM (generally the motor RPM)
+ */
+(T1: Double, T2: Double, T3: Double, private var inputRPM: Double = 0.0) : GearRatio() {
 
     private val ratio = doubleArrayOf(0.0, 0.0, 0.0)
 
-    private var inputRPM = 0.0
-
-    /**
-     * Constructor for GearRatio class
-     * @param T1 Number of teeth of drive gear
-     * @param T2 Number of teeth of idler
-     * @param T3 Number of teeth of driven gear
-     * @param inputRPM The input RPM (generally the motor RPM)
-     */
-    constructor (T1: Double, T2: Double, T3: Double, inputRPM: Double = 0.0) {
+    init {
         ratio[0] = T1
         ratio[1] = T2
         ratio[2] = T3
-        this.inputRPM = inputRPM
     }
 
     /**

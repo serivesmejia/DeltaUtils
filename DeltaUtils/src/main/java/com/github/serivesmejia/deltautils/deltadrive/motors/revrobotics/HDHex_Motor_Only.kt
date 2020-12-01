@@ -29,6 +29,6 @@ object HDHex_Motor_Only : MotorData {
 
     override val TICKS_PER_REVOLUTION = 28.0
     override val NO_LOAD_RPM = 6000.0
-    override val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 1.0, NO_LOAD_RPM as Double)
+    override val GEAR_RATIO: TwoGearRatio = TwoGearRatio(1.0, 1.0, NO_LOAD_RPM)
 
 }

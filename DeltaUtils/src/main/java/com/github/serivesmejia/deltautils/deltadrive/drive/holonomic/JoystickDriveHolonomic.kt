@@ -31,28 +31,18 @@ import kotlin.math.abs
 /**
  * Class to control an holonomic chassis during teleop using a gamepad's joysticks.
  */
-class JoystickDriveHolonomic {
+class JoystickDriveHolonomic
+/**
+ * Constructor for the Joystick Drive
+ * @param hdw The initialized hardware containing all the chassis motors
+ */
+(private var hdw: DeltaHardwareHolonomic, private var gamepad: Gamepad) {
 
     //wheel motor power
-    var wheelFrontRightPower = 0.0
-    var wheelFrontLeftPower = 0.0
-    var wheelBackRightPower = 0.0
-    var wheelBackLeftPower = 0.0
-
-    var turbo = 0.0
-
-    private lateinit var hdw: DeltaHardwareHolonomic
-
-    private lateinit var gamepad: Gamepad
-
-    /**
-     * Constructor for the Joystick Drive
-     * @param hdw The initialized hardware containing all the chassis motors
-     */
-    constructor (hdw: DeltaHardwareHolonomic, gamepad: Gamepad) {
-        this.hdw = hdw
-        this.gamepad = gamepad;
-    }
+    private var wheelFrontRightPower = 0.0
+    private var wheelFrontLeftPower = 0.0
+    private var wheelBackRightPower = 0.0
+    private var wheelBackLeftPower = 0.0
 
     fun setGamepad(gamepad: Gamepad){
         this.gamepad = gamepad;
@@ -62,18 +52,41 @@ class JoystickDriveHolonomic {
      * Control a mecanum chassis using a gamepad's joysticks.
      * Use left stick to go forward, backwards and strafe, and right stick to turn
      * This method should be called always in the teleop repeat to update the motor powers
-     * @param gamepad the gamepad used to control the chassis.
      * @param turbo the chassis % of speed, from 0 to 1
      */
-    fun update(turbo: Double) {
-        var turbo = Math.abs(turbo)
-        turbo = Range.clip(turbo, 0.0, 1.0)
+    fun update(turbo: Double) = update(turbo, turbo)
 
-        this.turbo = turbo
+    /**
+     * Control a mecanum chassis using a gamepad's joysticks.
+     * Use left stick to go forward, backwards and strafe, and right stick to turn
+     * This method should be called constantly in the teleop loop to update the motor powers
+     * @param rightTurbo the chassis right side % of speed, from 0 to 1
+     * @param leftTurbo the chassis left side % of speed, from 0 to 1
+     */
+    fun update(rightTurbo: Double, leftTurbo: Double) {
 
         val y1 = -gamepad.left_stick_y.toDouble()
         val x1 = gamepad.left_stick_x.toDouble()
         val x2 = gamepad.right_stick_x.toDouble()
+
+        update(y1, x1, x2, rightTurbo, leftTurbo)
+
+    }
+
+    /**
+     * Control a mecanum chassis using a gamepad's joysticks.
+     * Use left stick to go forward, backwards and strafe, and right stick to turn
+     * This method should be called constantly in the teleop loop to update the motor powers
+     * @param y1 forward-backwards speed
+     * @param x1 diagonal speed (strafing)
+     * @poram x2 rotation speed
+     * @param rightTurbo the chassis right side % of speed, from 0 to 1
+     * @param leftTurbo the chassis left side % of speed, from 0 to 1
+     */
+    fun update(y1: Double, x1: Double, x2: Double, rightTurbo: Double, leftTurbo: Double) {
+
+        val rightTurbo = Range.clip(abs(rightTurbo), 0.0, 1.0)
+        val leftTurbo = Range.clip(abs(leftTurbo), 0.0, 1.0)
 
         wheelFrontRightPower = y1 - x2 - x1
         wheelBackRightPower = y1 - x2 + x1
@@ -81,9 +94,9 @@ class JoystickDriveHolonomic {
         wheelBackLeftPower = y1 + x2 - x1
 
         val max = abs(wheelFrontRightPower)
-                  .coerceAtLeast(abs(wheelBackRightPower)
-                  .coerceAtLeast(abs(wheelFrontLeftPower)
-                  .coerceAtLeast(abs(wheelBackLeftPower))))
+                .coerceAtLeast(abs(wheelBackRightPower)
+                        .coerceAtLeast(abs(wheelFrontLeftPower)
+                                .coerceAtLeast(abs(wheelBackLeftPower))))
 
         if (max > 1.0) {
             wheelFrontRightPower /= max
@@ -92,10 +105,10 @@ class JoystickDriveHolonomic {
             wheelBackLeftPower /= max
         }
 
-        wheelFrontRightPower *= turbo
-        wheelBackRightPower *= turbo
-        wheelFrontLeftPower *= turbo
-        wheelBackLeftPower *= turbo
+        wheelFrontRightPower *= rightTurbo
+        wheelBackRightPower *= rightTurbo
+        wheelFrontLeftPower *= leftTurbo
+        wheelBackLeftPower *= leftTurbo
 
         hdw.setAllMotorPower(wheelFrontLeftPower, wheelFrontRightPower, wheelBackLeftPower, wheelBackRightPower)
 

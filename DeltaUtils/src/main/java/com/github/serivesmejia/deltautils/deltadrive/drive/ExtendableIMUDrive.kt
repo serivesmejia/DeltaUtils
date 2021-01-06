@@ -38,33 +38,22 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation
 import kotlin.math.abs
 
 //srry this is an old class, most of the comments are in spanish.
-open class ExtendableIMUDrive {
+abstract class ExtendableIMUDrive
+/**
+ * Constructor for the IMU drive class
+ * (Do not forget to call initIMU() before the OpMode starts!)
+ * @param hdw The initialized DeltaHardware containing all the chassis motors
+ * @param telemetry Current OpMode telemetry to show movement info
+ */
+(private val hdw: DeltaHardware, private val telemetry: Telemetry, deltaHardwareType: DeltaHardware.Type) {
 
     lateinit var imu: SimpleBNO055IMU
-
-    val hdw: DeltaHardware
-    val telemetry: Telemetry
-
-    var lastAngles: Orientation = Orientation()
-    var globalAngle = 0.0
 
     var parameters = IMUDriveParameters()
 
     private val runtime = ElapsedTime()
 
-    private var allowedDeltaHardwareType = DeltaHardware.Type.DEFAULT
-
-    /**
-     * Constructor for the IMU drive class
-     * (Do not forget to call initIMU() before the OpMode starts!)
-     * @param hdw The initialized DeltaHardware containing all the chassis motors
-     * @param telemetry Current OpMode telemetry to show movement info
-     */
-    constructor (hdw: DeltaHardware, telemetry: Telemetry, deltaHardwareType: DeltaHardware.Type) {
-        this.hdw = hdw
-        this.telemetry = telemetry
-        this.allowedDeltaHardwareType = deltaHardwareType
-    }
+    private var allowedDeltaHardwareType = deltaHardwareType
 
     /**
      * Initialize the IMU sensor and set the parameters
@@ -226,18 +215,7 @@ open class ExtendableIMUDrive {
         return correctRotation(degrees, timeoutS) //correct the rotation
     }
 
-    private fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double) {
-
-        when (hdw.type) {
-            DeltaHardware.Type.HOLONOMIC -> hdw.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
-            DeltaHardware.Type.HDRIVE -> {
-                val averageLeft = (frontleftpower + backleftpower) / 2
-                val averageRight = (frontrightpower + backrightpower) / 2
-                hdw.setAllMotorPower(averageLeft, averageRight, 0.0)
-            }
-        }
-
-    }
+    protected abstract fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double)
 
     private fun correctRotation(expectedAngle: Double, timeoutS: Double): Twist2d {
 

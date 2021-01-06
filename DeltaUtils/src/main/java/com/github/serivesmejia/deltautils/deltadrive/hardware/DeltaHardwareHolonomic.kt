@@ -120,24 +120,6 @@ class DeltaHardwareHolonomic(invert: Invert) : DeltaHardware(invert) {
                 wheelBackLeft?.targetPosition = -backleft
                 wheelBackRight?.targetPosition = -backright
             }
-            Invert.RIGHT_SIDE_MIDDLE -> {
-                wheelFrontLeft?.targetPosition = frontleft
-                wheelFrontRight?.targetPosition = -frontright
-                wheelBackLeft?.targetPosition = backleft
-                wheelBackRight?.targetPosition = -backright
-            }
-            Invert.LEFT_SIDE_MIDDLE -> {
-                wheelFrontLeft?.targetPosition = -frontleft
-                wheelFrontRight?.targetPosition = frontright
-                wheelBackLeft?.targetPosition = -backleft
-                wheelBackRight?.targetPosition = backright
-            }
-            Invert.BOTH_SIDES_MIDDLE -> {
-                wheelFrontLeft?.targetPosition = -frontleft
-                wheelFrontRight?.targetPosition = -frontright
-                wheelBackLeft?.targetPosition = -backleft
-                wheelBackRight?.targetPosition = -backright
-            }
             else -> {
                 wheelFrontLeft?.targetPosition = frontleft
                 wheelFrontRight?.targetPosition = frontright
@@ -152,13 +134,11 @@ class DeltaHardwareHolonomic(invert: Invert) : DeltaHardware(invert) {
         updateChassisMotorsArray()
 
         for (motor in chassisMotorsArray) {
-
-            if (brake && motor != null) {
-                motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-            } else if (motor != null) {
-                motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
+            if (brake) {
+                motor?.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+            } else {
+                motor?.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
             }
-
         }
 
     }

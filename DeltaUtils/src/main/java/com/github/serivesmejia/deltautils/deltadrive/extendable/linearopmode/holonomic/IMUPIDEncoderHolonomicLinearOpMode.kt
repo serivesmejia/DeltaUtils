@@ -110,9 +110,7 @@ open class IMUPIDEncoderHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode(
         return imuDrive!!.rotate(rot, power, timeoutS)
     }
 
-    fun forward(inches: Double, speed: Double, timeOutSecs: Double): Task {
-        return encoderDrive!!.forward(inches, speed, timeOutSecs)
-    }
+    fun forward(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.forward(inches, speed, timeOutSecs)
 
     fun backwards(inches: Double, speed: Double, timeOutSecs: Double) = encoderDrive!!.backwards(inches, speed, timeOutSecs)
 

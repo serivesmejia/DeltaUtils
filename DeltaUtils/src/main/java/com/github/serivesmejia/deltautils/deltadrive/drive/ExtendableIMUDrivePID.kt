@@ -38,7 +38,7 @@ import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.robotcore.external.Telemetry
 import kotlin.math.abs
 
-open class ExtendableIMUDrivePID
+open abstract class ExtendableIMUDrivePID
 /**
  * Constructor for the IMU drive class
  * (Do not forget to call initIMU() before the OpMode starts!)
@@ -250,16 +250,7 @@ open class ExtendableIMUDrivePID
     }
 
     //needs to extend
-    private fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double) {
-        when (hdw.type) {
-            DeltaHardware.Type.HOLONOMIC -> hdw.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
-            DeltaHardware.Type.HDRIVE -> {
-                val averageLeft = (frontleftpower + backleftpower) / 2
-                val averageRight = (frontrightpower + backrightpower) / 2
-                hdw.setAllMotorPower(averageLeft, averageRight, 0.0)
-            }
-        }
-    }
+    protected abstract fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double)
 
     fun sleep(millis: Long) {
         try {

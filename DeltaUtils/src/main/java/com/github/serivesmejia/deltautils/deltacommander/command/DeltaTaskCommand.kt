@@ -3,8 +3,7 @@ package com.github.serivesmejia.deltautils.deltacommander.command
 import com.github.serivesmejia.deltautils.deltacommander.DeltaCommand
 import com.github.serivesmejia.deltautils.deltadrive.utils.Task
 
-class DeltaTaskCommand(val task: Task<Any>) : DeltaCommand() {
-
+class DeltaTaskCommand<T>(val task: Task<T>) : DeltaCommand() {
     override fun init() {}
 
     override fun run() {

@@ -58,7 +58,7 @@ class EncoderDriveHolonomic
                              timeoutS: Double,
                              rightTurbo: Double,
                              leftTurbo: Double,
-                             movementDescription: String) : Task {
+                             movementDescription: String) : Task<Unit> {
 
         var frontleft = frontleft
         var frontright = frontright
@@ -101,10 +101,9 @@ class EncoderDriveHolonomic
         hdw.wheelBackLeft!!.power = abs(speed) * leftTurbo
         hdw.wheelBackRight!!.power = abs(speed) * rightTurbo
 
-        var travelledAverageInches = 0.0
+        var travelledAverageInches: Double
 
-        return Task(object: Task.TaskRunnable() {
-            override fun run(): Boolean {
+        return Task<Unit> {
 
                 val averageCurrentTicks = (hdw.wheelFrontRight!!.currentPosition +
                         hdw.wheelFrontLeft!!.currentPosition +
@@ -135,53 +134,49 @@ class EncoderDriveHolonomic
                 // Note: We use (isBusy() && isBusy()) in the repeat test, which means that when EITHER motor hits
                 // its target position, the motion will stop.  This is "safer" in the event that the robot will
                 // always end the motion as soon as possible.
-                val isNotFinished = runtime.seconds() < timeoutS &&
+                if(runtime.seconds() < timeoutS &&
                         hdw.wheelFrontRight!!.isBusy &&
                         hdw.wheelFrontLeft!!.isBusy &&
                         hdw.wheelBackLeft!!.isBusy &&
-                        hdw.wheelBackRight!!.isBusy && !Thread.currentThread().isInterrupted;
-
-                if(!isNotFinished) { //when it's finished
+                        hdw.wheelBackRight!!.isBusy && !Thread.currentThread().isInterrupted) { //when it's finished
                     telemetry.update() //clear telemetry
                     // Stop all motion
                     hdw.setAllMotorPower(0.0, 0.0, 0.0, 0.0)
                     // Turn off RUN_TO_POSITION
                     hdw.setRunModes(DcMotor.RunMode.RUN_USING_ENCODER)
+                    it.end() //end the task
                 }
 
-                return !isNotFinished //tells the task whether we're finished or not
-
-            }
-        })
+        }
 
     }
 
-    fun forward(distance: Double, speed: Double, timeoutS: Double): Task {
+    fun forward(distance: Double, speed: Double, timeoutS: Double): Task<Unit> {
         val distance = abs(distance)
-        return encoderDrive(speed, distance, distance, distance, distance, timeoutS, parameters!!.RIGHT_WHEELS_TURBO, parameters!!.LEFT_WHEELS_TURBO, "forward")
+        return encoderDrive(speed, distance, distance, distance, distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, "forward")
     }
 
-    fun backwards(distance: Double, speed: Double, timeoutS: Double): Task {
+    fun backwards(distance: Double, speed: Double, timeoutS: Double): Task<Unit> {
         val distance = abs(distance)
-        return encoderDrive(speed, -distance, -distance, -distance, -distance, timeoutS, parameters!!.RIGHT_WHEELS_TURBO, parameters!!.LEFT_WHEELS_TURBO, "backwards")
+        return encoderDrive(speed, -distance, -distance, -distance, -distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, "backwards")
     }
 
-    fun strafeLeft(distance: Double, speed: Double, timeoutS: Double): Task {
+    fun strafeLeft(distance: Double, speed: Double, timeoutS: Double): Task<Unit> {
         val distance = abs(distance)
-        return encoderDrive(speed, -distance, distance, distance, -distance, timeoutS, parameters!!.RIGHT_WHEELS_STRAFE_TURBO, parameters!!.LEFT_WHEELS_STRAFE_TURBO, "strafeLeft")
+        return encoderDrive(speed, -distance, distance, distance, -distance, timeoutS, parameters.RIGHT_WHEELS_STRAFE_TURBO, parameters!!.LEFT_WHEELS_STRAFE_TURBO, "strafeLeft")
     }
 
-    fun strafeRight(distance: Double, speed: Double, timeoutS: Double): Task {
+    fun strafeRight(distance: Double, speed: Double, timeoutS: Double): Task<Unit> {
         val distance = abs(distance)
         return encoderDrive(speed, distance, -distance, -distance, distance, timeoutS, parameters.RIGHT_WHEELS_STRAFE_TURBO, parameters.LEFT_WHEELS_STRAFE_TURBO, "strafeRight")
     }
 
-    fun turnRight(distance: Double, speed: Double, timeoutS: Double): Task {
+    fun turnRight(distance: Double, speed: Double, timeoutS: Double): Task<Unit> {
         val distance = abs(distance)
         return encoderDrive(speed, distance, -distance, distance, -distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, "turnRight")
     }
 
-    fun turnLeft(distance: Double, speed: Double, timeoutS: Double): Task {
+    fun turnLeft(distance: Double, speed: Double, timeoutS: Double): Task<Unit> {
         val distance = abs(distance)
         return encoderDrive(speed, -distance, distance, -distance, distance, timeoutS, parameters.RIGHT_WHEELS_TURBO, parameters.LEFT_WHEELS_TURBO, "turnLeft")
     }

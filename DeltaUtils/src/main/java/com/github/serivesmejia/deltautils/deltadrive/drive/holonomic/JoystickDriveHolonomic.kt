@@ -94,9 +94,9 @@ class JoystickDriveHolonomic
         wheelBackLeftPower = y1 + x2 - x1
 
         val max = abs(wheelFrontRightPower)
-                .coerceAtLeast(abs(wheelBackRightPower)
+                    .coerceAtLeast(abs(wheelBackRightPower)
                         .coerceAtLeast(abs(wheelFrontLeftPower)
-                                .coerceAtLeast(abs(wheelBackLeftPower))))
+                            .coerceAtLeast(abs(wheelBackLeftPower))))
 
         if (max > 1.0) {
             wheelFrontRightPower /= max

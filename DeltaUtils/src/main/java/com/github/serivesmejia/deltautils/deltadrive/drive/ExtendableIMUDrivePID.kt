@@ -38,16 +38,20 @@ import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.robotcore.external.Telemetry
 import kotlin.math.abs
 
-open class ExtendableIMUDrivePID {
+open class ExtendableIMUDrivePID
+/**
+ * Constructor for the IMU drive class
+ * (Do not forget to call initIMU() before the OpMode starts!)
+ * @param hdw The initialized hardware containing all the chassis motors
+ * @param telemetry Current OpMode telemetry to show movement info
+ */
+(private val hdw: DeltaHardware, protected val telemetry: Telemetry, deltaHardwareType: DeltaHardware.Type) {
 
     protected lateinit var imu: SimpleBNO055IMU
-    private val hdw: DeltaHardware
-
-    protected val telemetry: Telemetry
 
     private val runtime = ElapsedTime()
 
-    private var imuParameters: IMUDriveParameters = IMUDriveParameters()
+    private var imuParameters = IMUDriveParameters()
 
     private var rkP = 0.0
     private var rkI = 0.0
@@ -55,21 +59,9 @@ open class ExtendableIMUDrivePID {
 
     private var pidCoefficientsRotate: PIDCoefficients = PIDCoefficients(0.0, 0.0, 0.0)
 
-    private var allowedDeltaHardwareType = DeltaHardware.Type.DEFAULT
+    private var allowedDeltaHardwareType = deltaHardwareType
 
     private var pidControllerRotate = PIDController(pidCoefficientsRotate)
-
-    /**
-     * Constructor for the IMU drive class
-     * (Do not forget to call initIMU() before the OpMode starts!)
-     * @param hdw The initialized hardware containing all the chassis motors
-     * @param telemetry Current OpMode telemetry to show movement info
-     */
-    constructor (hdw: DeltaHardware, telemetry: Telemetry, deltaHardwareType: DeltaHardware.Type) {
-        this.hdw = hdw
-        this.telemetry = telemetry
-        this.allowedDeltaHardwareType = deltaHardwareType
-    }
 
     fun initIMU(parameters: IMUDriveParameters) {
 

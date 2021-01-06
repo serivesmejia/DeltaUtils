@@ -41,13 +41,12 @@ class TimeDriveHolonomic
     //se define el power de todos los motores y el tiempo en el que avanzaran a este power
     //la string es simplemente para mostrarla en la driver station con un mensaje telemetry.
     //(el tiempo es en segundos)
-    private fun timeDrive(frontleft: Double, frontright: Double, backleft: Double, backright: Double, time: Double, movementDescription: String): Task{
+    private fun timeDrive(frontleft: Double, frontright: Double, backleft: Double, backright: Double, time: Double, movementDescription: String): Task<Unit> {
 
         val runtime = ElapsedTime()
         var isFirstLoop = true
 
-        return Task(object: Task.TaskRunnable() {
-            override fun run(): Boolean {
+        return Task {
 
                 if(isFirstLoop) {
                     hdw.setAllMotorPower(frontleft, frontright, backleft, backright)
@@ -63,9 +62,7 @@ class TimeDriveHolonomic
 
                 telemetry.update()
 
-                val isFinished = runtime.seconds() >= time && Thread.currentThread().isInterrupted;
-
-                if(isFinished) {
+                if(runtime.seconds() >= time && Thread.currentThread().isInterrupted) {
                     hdw.setAllMotorPower(0.0, 0.0, 0.0, 0.0)
 
                     telemetry.addData("[frontleft]", 0)
@@ -74,13 +71,10 @@ class TimeDriveHolonomic
                     telemetry.addData("[backright]", 0)
 
                     telemetry.update()
+                    it.end()
                 }
 
-                return isFinished
-
             }
-        })
-
 
     }
 
@@ -88,37 +82,37 @@ class TimeDriveHolonomic
     //el movementDescription es simplemente para mostrarlo en un mensaje telemetry (driver station)
 
     //hacia adelante
-    fun forward(power: Double, timeSecs: Double): Task {
+    fun forward(power: Double, timeSecs: Double): Task<Unit> {
         val power = abs(power)
         return timeDrive(power, power, power, power, timeSecs, "forward")
     }
 
     //hacia atras
-    fun backwards(power: Double, timeSecs: Double): Task {
+    fun backwards(power: Double, timeSecs: Double): Task<Unit> {
         val power = abs(power)
         return timeDrive(-power, -power, -power, -power, timeSecs, "backwards")
     }
 
     //deslizarse a la izquierda
-    fun strafeRight(power: Double, timeSecs: Double): Task {
+    fun strafeRight(power: Double, timeSecs: Double): Task<Unit> {
         val power = abs(power)
         return timeDrive(power, -power, -power, power, timeSecs, "strafeLeft")
     }
 
     //deslizarse a la izquierda
-    fun strafeLeft(power: Double, timeSecs: Double): Task {
+    fun strafeLeft(power: Double, timeSecs: Double): Task<Unit> {
         val power = abs(power)
         return timeDrive(-power, power, power, -power, timeSecs, "strafeRight")
     }
 
     //girar a la derecha
-    fun turnRight(power: Double, timeSecs: Double): Task {
+    fun turnRight(power: Double, timeSecs: Double): Task<Unit> {
         val power = abs(power)
         return timeDrive(power, -power, power, -power, timeSecs, "turnRight")
     }
 
     //girar a la izquierda
-    fun turnLeft(power: Double, timeSecs: Double): Task {
+    fun turnLeft(power: Double, timeSecs: Double): Task<Unit> {
         val power = abs(power)
         return timeDrive(-power, power, -power, power, timeSecs, "turnLeft")
     }

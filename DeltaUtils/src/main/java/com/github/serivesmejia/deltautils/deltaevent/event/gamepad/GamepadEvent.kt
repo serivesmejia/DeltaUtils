@@ -68,15 +68,14 @@ open class GamepadEvent : Event {
 
     override fun execute(arg1: Any) {
         require(arg1 is GamepadDataPacket) { "Object is not a GamepadDataPacket" }
-        val gdp = arg1
-        left_stick_x = gdp.left_stick_x
-        left_stick_y = gdp.left_stick_y
-        right_stick_x = gdp.right_stick_x
-        right_stick_y = gdp.right_stick_y
-        left_trigger = gdp.left_trigger
-        right_trigger = gdp.right_trigger
-        loop(gdp)
-        performEvent(gdp)
+        left_stick_x = arg1.left_stick_x
+        left_stick_y = arg1.left_stick_y
+        right_stick_x = arg1.right_stick_x
+        right_stick_y = arg1.right_stick_y
+        left_trigger = arg1.left_trigger
+        right_trigger = arg1.right_trigger
+        loop(arg1)
+        performEvent(arg1)
     }
 
     open fun performEvent(gdp: GamepadDataPacket) { }

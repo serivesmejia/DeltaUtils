@@ -29,7 +29,7 @@ import com.qualcomm.robotcore.util.Range
 import kotlin.math.abs
 
 /**
- * Class to control an holonomic chassis during teleop using a gamepad's joysticks.
+ * Class to control an holonomic chan ssis during teleop using a gamepad's joysticks.
  */
 class JoystickDriveHolonomic
 /**

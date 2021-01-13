@@ -1,6 +1,7 @@
 package com.github.serivesmejia.deltautils
 
 import com.github.serivesmejia.deltautils.deltacommander.*
+import com.github.serivesmejia.deltautils.deltacommander.command.DeltaGroupedCommand
 import org.junit.Assert.*
 import org.junit.Test
 

@@ -27,4 +27,8 @@ import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardware
 import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardwareHolonomic
 import org.firstinspires.ftc.robotcore.external.Telemetry
 
-class IMUDriveHolonomic(deltaHardware: DeltaHardwareHolonomic, telemetry: Telemetry) : ExtendableIMUDrive(deltaHardware, telemetry, DeltaHardware.Type.HOLONOMIC)
+class IMUDriveHolonomic(private val hdw: DeltaHardwareHolonomic, telemetry: Telemetry) : ExtendableIMUDrive(hdw, telemetry, DeltaHardware.Type.HOLONOMIC) {
+    override fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double) {
+        hdw.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
+    }
+}

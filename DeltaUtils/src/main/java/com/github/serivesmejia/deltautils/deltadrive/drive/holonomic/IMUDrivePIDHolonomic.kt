@@ -22,16 +22,15 @@
 
 package com.github.serivesmejia.deltautils.deltadrive.drive.holonomic
 
-import com.github.serivesmejia.deltautils.deltacommander.DeltaScheduler
 import com.github.serivesmejia.deltautils.deltadrive.drive.ExtendableIMUDrivePID
 import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardware
 import com.github.serivesmejia.deltautils.deltadrive.hardware.DeltaHardwareHolonomic
-import com.github.serivesmejia.deltautils.deltadrive.utils.DistanceUnit
-import com.github.serivesmejia.deltautils.deltapid.PIDController
-import com.qualcomm.robotcore.hardware.DcMotor
-import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.robotcore.external.Telemetry
-import kotlin.math.abs
-import kotlin.math.roundToInt
 
-class IMUDrivePIDHolonomic(hdw: DeltaHardwareHolonomic, telemetry: Telemetry) : ExtendableIMUDrivePID(hdw, telemetry, DeltaHardware.Type.HOLONOMIC)
+class IMUDrivePIDHolonomic(private val hdw: DeltaHardwareHolonomic, telemetry: Telemetry) : ExtendableIMUDrivePID(hdw, telemetry, DeltaHardware.Type.HOLONOMIC) {
+
+    override fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double) {
+        hdw.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
+    }
+
+}

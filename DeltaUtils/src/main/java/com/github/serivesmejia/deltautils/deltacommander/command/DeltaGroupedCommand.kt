@@ -1,6 +1,8 @@
-package com.github.serivesmejia.deltautils.deltacommander
+package com.github.serivesmejia.deltautils.deltacommander.command
 
-class DeltaGroupedCommand(private val executionMode: ExecutionMode, vararg commands: DeltaCommand) : DeltaCommand() {
+import com.github.serivesmejia.deltautils.deltacommander.DeltaCommand
+
+class DeltaGroupedCommand(private val executionMode: ExecutionMode = ExecutionMode.PARALLEL, vararg commands: DeltaCommand) : DeltaCommand() {
 
     enum class ExecutionMode { LINEAR, PARALLEL }
 

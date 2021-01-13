@@ -94,7 +94,7 @@ class PIDController(var pid: PIDCoefficients) {
         firstLoop = false
 
         errorDelta = if(invertError)
-            -(-input + setpoint)
+            input - setpoint
         else
             setpoint - input
 

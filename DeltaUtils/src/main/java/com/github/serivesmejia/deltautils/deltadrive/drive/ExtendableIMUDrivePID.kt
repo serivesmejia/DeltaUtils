@@ -38,16 +38,20 @@ import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.robotcore.external.Telemetry
 import kotlin.math.abs
 
-open class ExtendableIMUDrivePID {
+open abstract class ExtendableIMUDrivePID
+/**
+ * Constructor for the IMU drive class
+ * (Do not forget to call initIMU() before the OpMode starts!)
+ * @param hdw The initialized hardware containing all the chassis motors
+ * @param telemetry Current OpMode telemetry to show movement info
+ */
+(private val hdw: DeltaHardware, protected val telemetry: Telemetry, deltaHardwareType: DeltaHardware.Type) {
 
     protected lateinit var imu: SimpleBNO055IMU
-    private val hdw: DeltaHardware
-
-    protected val telemetry: Telemetry
 
     private val runtime = ElapsedTime()
 
-    private var imuParameters: IMUDriveParameters = IMUDriveParameters()
+    private var imuParameters = IMUDriveParameters()
 
     private var rkP = 0.0
     private var rkI = 0.0
@@ -55,21 +59,9 @@ open class ExtendableIMUDrivePID {
 
     private var pidCoefficientsRotate: PIDCoefficients = PIDCoefficients(0.0, 0.0, 0.0)
 
-    private var allowedDeltaHardwareType = DeltaHardware.Type.DEFAULT
+    private var allowedDeltaHardwareType = deltaHardwareType
 
     private var pidControllerRotate = PIDController(pidCoefficientsRotate)
-
-    /**
-     * Constructor for the IMU drive class
-     * (Do not forget to call initIMU() before the OpMode starts!)
-     * @param hdw The initialized hardware containing all the chassis motors
-     * @param telemetry Current OpMode telemetry to show movement info
-     */
-    constructor (hdw: DeltaHardware, telemetry: Telemetry, deltaHardwareType: DeltaHardware.Type) {
-        this.hdw = hdw
-        this.telemetry = telemetry
-        this.allowedDeltaHardwareType = deltaHardwareType
-    }
 
     fun initIMU(parameters: IMUDriveParameters) {
 
@@ -258,16 +250,7 @@ open class ExtendableIMUDrivePID {
     }
 
     //needs to extend
-    private fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double) {
-        when (hdw.type) {
-            DeltaHardware.Type.HOLONOMIC -> hdw.setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
-            DeltaHardware.Type.HDRIVE -> {
-                val averageLeft = (frontleftpower + backleftpower) / 2
-                val averageRight = (frontrightpower + backrightpower) / 2
-                hdw.setAllMotorPower(averageLeft, averageRight, 0.0)
-            }
-        }
-    }
+    protected abstract fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double)
 
     fun sleep(millis: Long) {
         try {

@@ -137,15 +137,21 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
     fun scheduleOnRelease(btt: Button, cmd: DeltaCommand) {
 
         registerEvent(object: SuperGamepadEvent() {
-
             override fun buttonsReleased(buttons: Buttons) {
-
                 if(buttons.`is`(btt)) DeltaScheduler.instance.schedule(cmd)
-
             }
-
         })
 
+    }
+
+    fun scheduleOn(btt: Button, pressCmd: DeltaCommand, releaseCmd: DeltaCommand) {
+        scheduleOnPress(btt, pressCmd)
+        scheduleOnRelease(btt, releaseCmd)
+    }
+
+    fun scheduleOn(btt: Button, pressAndReleaseCmd: DeltaCommand) {
+        scheduleOnPress(btt, pressAndReleaseCmd)
+        scheduleOnRelease(btt, pressAndReleaseCmd)
     }
 
     /**

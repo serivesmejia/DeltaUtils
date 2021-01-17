@@ -1,7 +1,7 @@
 package com.github.serivesmejia.deltautils
 
-import com.github.serivesmejia.deltautils.deltapid.PIDCoefficients
-import com.github.serivesmejia.deltautils.deltapid.PIDController
+import com.github.serivesmejia.deltapid.PIDCoefficients
+import com.github.serivesmejia.deltapid.PIDController
 import org.junit.Assert.*
 import org.junit.Test
 

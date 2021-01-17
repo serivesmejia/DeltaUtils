@@ -1,7 +1,10 @@
 package com.github.serivesmejia.deltautils
 
-import com.github.serivesmejia.deltautils.deltacommander.*
-import com.github.serivesmejia.deltautils.deltacommander.command.DeltaGroupedCommand
+import com.github.serivesmejia.deltacommander.DeltaCommand
+import com.github.serivesmejia.deltacommander.DeltaScheduler
+import com.github.serivesmejia.deltacommander.DeltaSchedulerEvent
+import com.github.serivesmejia.deltacommander.DeltaSubsystem
+import com.github.serivesmejia.deltacommander.command.DeltaGroupedCommand
 import org.junit.Assert.*
 import org.junit.Test
 

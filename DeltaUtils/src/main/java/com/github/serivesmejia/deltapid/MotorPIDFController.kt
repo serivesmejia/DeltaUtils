@@ -3,7 +3,7 @@ package com.github.serivesmejia.deltapid
 import com.github.serivesmejia.deltamath.DeltaMathUtil
 import com.qualcomm.robotcore.util.ElapsedTime
 
-class PIDController(var pid: PIDCoefficients) {
+class MotorPIDFController(private var coeffs: PIDFCoefficients) {
 
     //temp values params
 
@@ -14,7 +14,6 @@ class PIDController(var pid: PIDCoefficients) {
 
     private var prevErrorDelta = 0.0
     private var prevMillis = 0.0
-    private var prevIntegral = 0.0
     private var prevInput = -1.0
 
     private var velocityDelta = 1.0
@@ -29,52 +28,46 @@ class PIDController(var pid: PIDCoefficients) {
 
     private val elapsedTime = ElapsedTime()
 
-    constructor(kP: Double, kI: Double, kD: Double) : this(PIDCoefficients(kP, kI, kD))
-
-    constructor(kP: Double, kI: Double) : this(kP, kI, 0.0)
-
-    constructor(kP: Double) : this(kP, 0.0, 0.0)
-
-    fun setPID(pid: PIDCoefficients) {
-        this.pid = pid
+    fun setCoefficients(pid: PIDFCoefficients) {
+        this.coeffs = pid
     }
 
-    fun setSetpoint(setpoint: Double) : PIDController {
+    fun setSetpoint(setpoint: Double) : MotorPIDFController {
         this.setpoint = setpoint;
         return this
     }
 
-    fun setErrorTolerance(errorTolerance: Double) : PIDController {
+    fun setErrorTolerance(errorTolerance: Double) : MotorPIDFController {
         this.errorTolerance = errorTolerance
         return this
     }
 
-    fun setDeadzone(deadzone: Double) : PIDController {
+    fun setDeadzone(deadzone: Double) : MotorPIDFController {
         this.deadZone = deadzone
         return this
     }
 
-    fun setPIDMultiplier(multiplier: Double) : PIDController {
+    fun setPIDMultiplier(multiplier: Double) : MotorPIDFController {
         pidMultiplier = multiplier
         return this
     }
 
-    fun setErrorInverted() : PIDController {
+    fun setErrorInverted() : MotorPIDFController {
         invertError = !invertError
         return this
     }
 
-    fun setErrorInverted(inverted: Boolean) : PIDController {
+    fun setErrorInverted(inverted: Boolean) : MotorPIDFController {
         invertError = inverted
         return this
     }
 
-    fun setInitialPower(initialPower: Double) : PIDController {
+    fun setInitialPower(initialPower: Double) : MotorPIDFController {
         this.initialPower = initialPower
         return this
     }
 
-    fun getPID() = pid
+    fun getPID() = coeffs
 
     fun getCurrentError() = errorDelta
 
@@ -91,28 +84,30 @@ class PIDController(var pid: PIDCoefficients) {
      * @return the output
      */
     fun calculate(input: Double) : Double {
-
         if(firstLoop) {
             errorDelta = errorTolerance + 1
             elapsedTime.reset()
+            firstLoop = false
         }
-
-        firstLoop = false
 
         errorDelta = if(invertError)
             input - setpoint
         else
             setpoint - input
 
-        velocityDelta = errorDelta - prevErrorDelta
+        val currentMillis = elapsedTime.milliseconds()
+        val deltaTime = currentMillis - prevMillis
 
-        prevIntegral += errorDelta
+        velocityDelta = (errorDelta - prevErrorDelta) / deltaTime
 
-        val proportional = errorDelta * (pid.kP * pidMultiplier)
-        val integral = prevIntegral * (pid.kI * pidMultiplier)
-        val derivative = velocityDelta * (pid.kD * pidMultiplier)
+        val totalError = deltaTime * (setpoint - input)
 
-        val turbo: Double = DeltaMathUtil.clamp(proportional + integral + derivative, -1.0, 1.0)
+        val proportional = errorDelta * coeffs.kP * pidMultiplier
+        val integral = totalError * coeffs.kI * pidMultiplier
+        val derivative = velocityDelta * coeffs.kD * pidMultiplier
+        val feedforward = setpoint * coeffs.kF * pidMultiplier
+
+        val turbo: Double = DeltaMathUtil.clamp(proportional + integral + derivative + feedforward, -1.0, 1.0)
         var powerF = initialPower * turbo
 
         if (powerF > 0) {
@@ -123,15 +118,15 @@ class PIDController(var pid: PIDCoefficients) {
 
         prevErrorDelta = errorDelta
         prevInput = input
+        prevMillis = currentMillis
 
         return powerF
-
     }
 
     /**
      * Resets all values to default in order to start a different PID Loop
      */
-    fun reset() : PIDController {
+    fun reset() : MotorPIDFController {
 
         errorTolerance = 0.0
         deadZone = 0.0
@@ -140,7 +135,6 @@ class PIDController(var pid: PIDCoefficients) {
 
         prevErrorDelta = 0.0
         prevMillis = 0.0
-        prevIntegral = 0.0
         prevInput = -1.0
 
         velocityDelta = 1.0

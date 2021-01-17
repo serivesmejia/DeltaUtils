@@ -27,7 +27,7 @@ import com.github.serivesmejia.deltadrive.hardware.DeltaHardwareHolonomic
 import com.github.serivesmejia.deltadrive.parameters.IMUDriveParameters
 import com.github.serivesmejia.deltamath.geometry.Rot2d
 import com.github.serivesmejia.deltamath.geometry.Twist2d
-import com.github.serivesmejia.deltapid.PIDCoefficients
+import com.github.serivesmejia.deltapid.PIDFCoefficients
 
 
 open class IMUPIDHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
@@ -61,7 +61,7 @@ open class IMUPIDHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
      * Set the rotate PID coefficients
      * @param pid the PID coefficients
      */
-    fun setRotatePID(pid: PIDCoefficients) {
+    fun setRotatePID(pid: PIDFCoefficients) {
         imuDrive.setRotatePID(pid)
     }
 
@@ -89,7 +89,7 @@ open class IMUPIDHolonomicLinearOpMode : ExtendableHolonomicLinearOpMode() {
     /**
      * @return the current rotate PIDCoefficients object
      */
-    fun getRotatePID(): PIDCoefficients {
+    fun getRotatePID(): PIDFCoefficients {
         return imuDrive.getRotatePID()
     }
 

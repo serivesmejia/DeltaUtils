@@ -25,7 +25,7 @@ package com.github.serivesmejia.deltadrive.extendable.linearopmode.holonomic
 import com.github.serivesmejia.LibraryData
 import com.github.serivesmejia.deltamath.geometry.Rot2d
 import com.github.serivesmejia.deltamath.geometry.Twist2d
-import com.github.serivesmejia.deltapid.PIDCoefficients
+import com.github.serivesmejia.deltapid.PIDFCoefficients
 
 
 open class IMUPIDTunerHolonomicLinearOpMode : IMUPIDHolonomicLinearOpMode(){
@@ -115,7 +115,7 @@ open class IMUPIDTunerHolonomicLinearOpMode : IMUPIDHolonomicLinearOpMode(){
 
         if (!isStarted) return
 
-        setRotatePID(PIDCoefficients(P, I, D))
+        setRotatePID(PIDFCoefficients(P, I, D))
 
         val twist: Twist2d = rotate(Rot2d.degrees(90.0), 0.7, 5.0)
 

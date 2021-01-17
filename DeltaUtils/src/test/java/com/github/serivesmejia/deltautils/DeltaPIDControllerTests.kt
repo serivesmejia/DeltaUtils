@@ -1,72 +1,84 @@
 package com.github.serivesmejia.deltautils
 
-import com.github.serivesmejia.deltapid.PIDCoefficients
-import com.github.serivesmejia.deltapid.PIDController
+import com.github.serivesmejia.deltapid.PIDFCoefficients
+import com.github.serivesmejia.deltapid.MotorPIDFController
 import org.junit.Assert.*
 import org.junit.Test
 
 class DeltaPIDControllerTests {
 
+    val coeffs = PIDFCoefficients(0.0113, 0.003, 0.05)
+
     @Test
     fun testPIDControllerOutput() {
-
-        val pidController = PIDController(PIDCoefficients(0.0168, 0.0, 0.0))
-
-        pidController.setSetpoint(90.0)
-                     .setDeadzone(0.1)
-                     .setInitialPower(1.0)
-                     .setErrorTolerance(1.0)
-
         var currDeg = 0.0
+        var onSetpoint = false
 
-        while(!pidController.onSetpoint()) {
+        TestUtil.spawnTimeoutThread({
 
-            val powerF = pidController.calculate(currDeg);
+            val pidController = MotorPIDFController(coeffs)
 
-            currDeg += powerF * 0.8
+            pidController.setSetpoint(90.0)
+                    .setDeadzone(0.1)
+                    .setInitialPower(1.0)
+                    .setErrorTolerance(1.0)
 
-            println("Power: $powerF, Sim. degrees: $currDeg")
+            while(!pidController.onSetpoint() && !Thread.currentThread().isInterrupted) {
+                val powerF = pidController.calculate(currDeg);
+                currDeg += powerF * 0.764
+                onSetpoint = pidController.onSetpoint()
 
-            Thread.sleep(20)
+                println("Power: $powerF, Sim. degrees: $currDeg")
 
-        }
+                Thread.sleep(20)
+            }
+
+            if(Thread.currentThread().isInterrupted) {
+                println("Timeout!")
+            }
+
+        }, 10.0)
 
         println("Final simulated degrees: $currDeg")
 
-        assertTrue(pidController.onSetpoint())
-
+        assertTrue(onSetpoint)
     }
 
 
     @Test
     fun testPIDControllerOutputInverted() {
-
-        val pidController = PIDController(0.0168, 0.0, 0.005)
-
-        pidController.setSetpoint(-90.0)
-                     .setDeadzone(0.1)
-                     .setInitialPower(1.0)
-                     .setErrorTolerance(1.0)
-                     .setErrorInverted()
-
         var currDeg = 0.0
+        var onSetpoint = false
 
-        while(!pidController.onSetpoint()) {
+        TestUtil.spawnTimeoutThread({
 
-            val powerF = pidController.calculate(currDeg);
+            val pidController = MotorPIDFController(coeffs)
 
-            currDeg -= powerF * 0.8
+            pidController.setSetpoint(90.0)
+                    .setDeadzone(0.1)
+                    .setInitialPower(1.0)
+                    .setErrorTolerance(1.0)
+                    .setErrorInverted()
 
-            println("Power: $powerF, Sim. degrees: $currDeg")
+            while(!pidController.onSetpoint() && !Thread.currentThread().isInterrupted) {
+                val powerF = pidController.calculate(currDeg);
+                currDeg += powerF * 0.34
+                onSetpoint = pidController.onSetpoint()
 
-            Thread.sleep(20)
+                println("Power: $powerF, Sim. degrees: $currDeg")
 
-        }
+                Thread.sleep(20)
+            }
+
+            if(Thread.currentThread().isInterrupted) {
+                println("Timeout!")
+            }
+
+        }, 20.0)
 
         println("Final simulated degrees: $currDeg")
 
-        assertTrue(pidController.onSetpoint())
-
+        assertTrue(onSetpoint)
     }
 
 }

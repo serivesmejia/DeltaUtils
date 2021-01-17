@@ -20,30 +20,6 @@
  * SOFTWARE.
  */
 
-package com.github.serivesmejia.deltometry.parameters
+package com.github.serivesmejia.deltapid
 
-class OdometersParameters {
-
-    var Y_TRACK_WIDTH = 0.0
-    var X_TRACK_WIDTH = 0.0
-
-
-    /**
-     * Make sure the values are in the correct range.
-     */
-    fun secureParameters() {
-
-    }
-
-    /**
-     * Checks if any value is 0.
-     * @return boolean depending if all values are or are not 0
-     */
-    fun haveBeenDefined(): Boolean {
-
-        return (X_TRACK_WIDTH != 0.0 && Y_TRACK_WIDTH != 0.0)
-
-    }
-
-
-}
+data class PIDFCoefficients(val kP: Double = 0.0, val kI: Double = 0.0, val kD: Double = 0.0, val kF: Double = 0.0)

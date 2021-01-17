@@ -103,7 +103,7 @@ abstract class ExtendableIMUDrive
      */
     fun getRobotAngle(): Rot2d {
         imu.setAxis(parameters.IMU_AXIS)
-        return imu.getAngle()
+        return imu.getCumulativeAngle()
     }
 
     var correctedTimes = 0
@@ -180,7 +180,7 @@ abstract class ExtendableIMUDrive
 
         // rotaremos hasta que se complete la vuelta
         if (degrees < 0) {
-            while (imu.getAngle().getDegrees() == 0.0 && !Thread.interrupted() && runtime.seconds() < timeoutS) { //al girar a la derecha necesitamos salirnos de 0 grados primero
+            while (imu.getCumulativeAngle().getDegrees() == 0.0 && !Thread.interrupted() && runtime.seconds() < timeoutS) { //al girar a la derecha necesitamos salirnos de 0 grados primero
 
                 telemetry.addData("IMU Angle", imu.getLastAngle())
                 telemetry.addData("Targeted degrees", degrees)
@@ -189,7 +189,7 @@ abstract class ExtendableIMUDrive
                 DeltaScheduler.instance.update()
 
             }
-            while (imu.getAngle().getDegrees() > degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
+            while (imu.getCumulativeAngle().getDegrees() > degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
 
                 telemetry.addData("IMU Angle", imu.getLastAngle())
                 telemetry.addData("Targeted degrees", degrees)
@@ -198,7 +198,7 @@ abstract class ExtendableIMUDrive
                 DeltaScheduler.instance.update()
 
             }
-        } else while (imu.getAngle().getDegrees() < degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
+        } else while (imu.getCumulativeAngle().getDegrees() < degrees && !Thread.interrupted() && runtime.seconds() < timeoutS) { //entramos en un bucle hasta que los degrees sean los esperados
 
             telemetry.addData("IMU Angle", imu.getLastAngle())
             telemetry.addData("Targeted degrees", degrees)
@@ -222,17 +222,17 @@ abstract class ExtendableIMUDrive
 
         if (correctedTimes > parameters.ROTATE_MAX_CORRECTION_TIMES) {
             correctedTimes = 0
-            return Twist2d(0.0, 0.0, imu.getAngle())
+            return Twist2d(0.0, 0.0, imu.getCumulativeAngle())
         }
 
-        val deltaAngle: Double = DeltaMathUtil.deltaDegrees(expectedAngle, imu.getAngle().getDegrees())
+        val deltaAngle: Double = DeltaMathUtil.deltaDegrees(expectedAngle, imu.getCumulativeAngle().getDegrees())
 
         telemetry.addData("Error", deltaAngle)
         telemetry.update()
 
         rotate(Rot2d.degrees(deltaAngle), parameters.ROTATE_CORRECTION_POWER, timeoutS)
 
-        return Twist2d(0.0, 0.0, imu.getAngle())
+        return Twist2d(0.0, 0.0, imu.getCumulativeAngle())
 
     }
 

@@ -68,7 +68,7 @@ class SimpleBNO055IMU(private val imu: BNO055IMU) {
 
     fun isInitialized() = initialized
 
-    fun getAngle(axis: Axis): Rot2d {
+    fun getCumulativeAngle(axis: Axis): Rot2d {
         // We have to process the angle because the imu works in euler angles so the axis is
         // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
         // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
@@ -95,9 +95,9 @@ class SimpleBNO055IMU(private val imu: BNO055IMU) {
 
     }
 
-    fun getAngle() : Rot2d = getAngle(axis)
+    fun getCumulativeAngle() = getCumulativeAngle(axis)
 
-    fun getLastAngle() : Rot2d = lastAngle
+    fun getLastAngle() = lastAngle
 
     fun resetAngle() {
         lastAngles =  imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES)

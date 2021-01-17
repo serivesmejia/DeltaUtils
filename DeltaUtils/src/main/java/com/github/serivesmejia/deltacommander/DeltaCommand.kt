@@ -9,11 +9,11 @@ abstract class DeltaCommand {
 
     var finished = false
 
-    fun init() {}
+    open fun init() {}
 
     abstract fun run()
 
-    fun end(interrupted: Boolean) {}
+    open fun end(interrupted: Boolean) {}
 
     fun require(vararg reqs: DeltaSubsystem) {
         reqs.forEach {

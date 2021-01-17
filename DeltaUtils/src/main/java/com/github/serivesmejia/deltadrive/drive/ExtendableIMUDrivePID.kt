@@ -28,8 +28,8 @@ import com.github.serivesmejia.deltadrive.parameters.IMUDriveParameters
 import com.github.serivesmejia.deltasimple.sensor.SimpleBNO055IMU
 import com.github.serivesmejia.deltamath.geometry.Rot2d
 import com.github.serivesmejia.deltamath.geometry.Twist2d
-import com.github.serivesmejia.deltapid.PIDCoefficients
-import com.github.serivesmejia.deltapid.PIDController
+import com.github.serivesmejia.deltapid.PIDFCoefficients
+import com.github.serivesmejia.deltapid.MotorPIDFController
 
 import com.qualcomm.hardware.bosch.BNO055IMU
 import com.qualcomm.robotcore.util.ElapsedTime
@@ -56,11 +56,11 @@ open abstract class ExtendableIMUDrivePID
     private var rkI = 0.0
     private var rkD = 0.0
 
-    private var pidCoefficientsRotate: PIDCoefficients = PIDCoefficients(0.0, 0.0, 0.0)
+    private var pidCoefficientsRotate: PIDFCoefficients = PIDFCoefficients(0.0, 0.0, 0.0)
 
     private var allowedDeltaHardwareType = deltaHardwareType
 
-    private var pidControllerRotate = PIDController(pidCoefficientsRotate)
+    private var pidControllerRotate = MotorPIDFController(pidCoefficientsRotate)
 
     enum class State {
         TURN_RIGHT_OUTOFZERO,
@@ -86,14 +86,14 @@ open abstract class ExtendableIMUDrivePID
     /**
      * @param coefficients the rotate PID coefficients, in a DeltaUtils PIDCoefficients object
      */
-    fun setRotatePID(coefficients: PIDCoefficients) {
+    fun setRotatePID(coefficients: PIDFCoefficients) {
         rkP = abs(coefficients.kP)
         rkI = abs(coefficients.kI)
         rkD = abs(coefficients.kD)
         pidCoefficientsRotate = coefficients
     }
 
-    fun getRotatePID(): PIDCoefficients {
+    fun getRotatePID(): PIDFCoefficients {
         return pidCoefficientsRotate
     }
 
@@ -129,7 +129,7 @@ open abstract class ExtendableIMUDrivePID
 
     fun getRobotAngle(): Rot2d {
         imu.setAxis(imuParameters.IMU_AXIS)
-        return imu.getAngle()
+        return imu.getCumulativeAngle()
     }
 
     /**
@@ -183,7 +183,7 @@ open abstract class ExtendableIMUDrivePID
         if (setpoint < 0) {
             pidControllerRotate.setErrorInverted()
 
-            while (imu.getAngle().getDegrees() == 0.0 && !Thread.interrupted() && System.currentTimeMillis() < maxMillis) { //al girar a la derecha necesitamos salirnos de 0 grados primero
+            while (imu.getCumulativeAngle().getDegrees() == 0.0 && !Thread.interrupted() && System.currentTimeMillis() < maxMillis) { //al girar a la derecha necesitamos salirnos de 0 grados primero
 
                 telemetry.addData("IMU Angle", imu.getLastAngle().getDegrees())
                 telemetry.addData("Setpoint", setpoint)
@@ -204,7 +204,7 @@ open abstract class ExtendableIMUDrivePID
 
             while (!pidControllerRotate.onSetpoint() && !Thread.currentThread().isInterrupted && System.currentTimeMillis() < maxMillis) { //entramos en un bucle hasta que los setpoint sean los esperados
 
-                val powerF = pidControllerRotate.calculate(imu.getAngle().getDegrees())
+                val powerF = pidControllerRotate.calculate(imu.getCumulativeAngle().getDegrees())
 
                 backleftpower = powerF
                 backrightpower = -powerF
@@ -227,7 +227,7 @@ open abstract class ExtendableIMUDrivePID
 
         } else while (!pidControllerRotate.onSetpoint() && !Thread.currentThread().isInterrupted && System.currentTimeMillis() < maxMillis) {
 
-            val powerF = pidControllerRotate.calculate(imu.getAngle().getDegrees())
+            val powerF = pidControllerRotate.calculate(imu.getCumulativeAngle().getDegrees())
 
             backleftpower = -powerF
             backrightpower = powerF
@@ -236,7 +236,7 @@ open abstract class ExtendableIMUDrivePID
 
             setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
 
-            telemetry.addData("IMU Angle", imu.getAngle().getDegrees())
+            telemetry.addData("IMU Angle", imu.getCumulativeAngle().getDegrees())
             telemetry.addData("Setpoint", setpoint)
             telemetry.addData("Error", pidControllerRotate.getCurrentError())
             telemetry.addData("Power", powerF)
@@ -251,7 +251,7 @@ open abstract class ExtendableIMUDrivePID
         // stop the movement
         setAllMotorPower(0.0, 0.0, 0.0, 0.0)
 
-        return Twist2d(0.0, 0.0, imu.getAngle())
+        return Twist2d(0.0, 0.0, imu.getCumulativeAngle())
 
     }
 

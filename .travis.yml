@@ -4,4 +4,4 @@ before_install:
  - yes | sdkmanager "build-tools;28.0.3"
  - chmod +x gradlew
 script:
- - ./gradlew :DeltaUtils:clean :DeltaUtils:build
+ - ./gradlew :core:clean :core:build -x test

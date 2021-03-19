@@ -1,22 +1,18 @@
 package com.github.serivesmejia.deltacommander
 
-class DeltaScheduler {
+class DeltaScheduler private constructor() {
 
     //Singleton initializer
     companion object {
-
         //actual variable containing the singleton
         private var inst: DeltaScheduler? = null
 
         //variable which will be accessed statically
         val instance: DeltaScheduler
             get() {
-
-            if(inst == null) inst = DeltaScheduler()
-
-            return inst!!
-
-        }
+                if(inst == null) inst = DeltaScheduler()
+                return inst!!
+            }
 
         /**
          * Destroys the current scheduler instance
@@ -25,7 +21,6 @@ class DeltaScheduler {
         fun reset() {
             inst = null
         }
-
     }
 
     var enabled = true
@@ -47,14 +42,12 @@ class DeltaScheduler {
     private val runSchedulerEvents: ArrayList<Runnable> = ArrayList()
 
     private fun commandInit(cmd: DeltaCommand, isInterruptible: Boolean, reqs: List<DeltaSubsystem>) {
-
         cmd.init()
         val state = DeltaCommand.State(isInterruptible)
 
         for(evt in initEvents) { evt.run(cmd) } //run the init user events
 
         scheduledCommands[cmd] = state
-
     }
 
     /**
@@ -63,10 +56,7 @@ class DeltaScheduler {
      * @param isInterruptible whether the command can be interrupted
      */
     fun schedule(cmd: DeltaCommand, isInterruptible: Boolean) {
-
         if(!enabled) return
-
-        if(cmd == null) return
 
         val cmdReqs = cmd.requirements
         var reqsCurrentlyInUse = false
@@ -77,11 +67,8 @@ class DeltaScheduler {
         }
 
         if(!reqsCurrentlyInUse) {
-
             commandInit(cmd, isInterruptible, cmdReqs) //directly run it, if none of its requirements are in use
-
         } else {
-
             //check if the commands requiring a specific subsystem are interruptible
             for(req in cmdReqs) {
                 if(requirements.containsKey(req) && !scheduledCommands[requirements[req]]!!.interruptible) {
@@ -97,9 +84,7 @@ class DeltaScheduler {
             }
 
             commandInit(cmd, isInterruptible, cmdReqs) //schedule the command once all the other requiring commands were cancelled
-
         }
-
     }
 
     /**
@@ -154,22 +139,18 @@ class DeltaScheduler {
 
         val toDeleteCmds: ArrayList<DeltaCommand> = ArrayList() //list of commands to be deleted from the scheduled arraylist at the end
 
-        for((cmd, status) in scheduledCommands) { //iterate through the scheduled commands
-
+        for((cmd, _) in scheduledCommands) { //iterate through the scheduled commands
             cmd.run() //actually run the command
 
             for(evt in runEvents) { evt.run(cmd) } //execute the user events
 
             if(cmd.finished) { //end and remove the command if it's finished
-
                 cmd.end(false)
 
                 for(evt in endEvents) { evt.run(cmd) }
 
                 toDeleteCmds.add(cmd)
-
             }
-
         }
 
         //delete finished commands
@@ -186,7 +167,6 @@ class DeltaScheduler {
         }
 
         for(evt in runSchedulerEvents) { evt.run() }
-
     }
 
     /**
@@ -196,7 +176,6 @@ class DeltaScheduler {
      * @param command the default command
      */
     fun setDefaultCommand(subsystem: DeltaSubsystem, command: DeltaCommand) {
-
         if(!command.requirements.contains(subsystem)) {
             throw IllegalArgumentException("Default command \"${command.name}\" does not require its subsystem \"${subsystem.name}\"")
         }
@@ -206,7 +185,6 @@ class DeltaScheduler {
         }
 
         subsystems[subsystem] = command
-
     }
 
     /**
@@ -225,9 +203,7 @@ class DeltaScheduler {
      * @param cmds commands to be stopped
      */
     fun stop(vararg cmds: DeltaCommand) {
-
         for(cmd in cmds) {
-
             if(!scheduledCommands.containsKey(cmd)) continue
 
             cmd.end(true)
@@ -236,16 +212,14 @@ class DeltaScheduler {
 
             scheduledCommands.remove(cmd)
             requirements.keys.removeAll(cmd.requirements)
-
         }
-
     }
 
     /**
      * Stop all the currently requested commands
      */
     fun stopAll() {
-        for((cmd, state) in scheduledCommands) {
+        for((cmd, _) in scheduledCommands) {
             stop(cmd)
         }
     }

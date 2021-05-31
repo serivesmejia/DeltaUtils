@@ -73,6 +73,8 @@ class DeltaHardwareHolonomic(hardwareMap: HardwareMap, invert: Invert) : DeltaHa
         wheelBackLeft.direction = Direction.FORWARD
         wheelBackRight.direction = Direction.FORWARD
 
+        updateChassisMotorsArray()
+         
         internalInit(brake)
     }
 

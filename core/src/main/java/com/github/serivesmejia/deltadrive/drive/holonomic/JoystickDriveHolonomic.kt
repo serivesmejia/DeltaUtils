@@ -35,19 +35,13 @@ class JoystickDriveHolonomic
  * Constructor for the Joystick Drive
  * @param hdw The initialized hardware containing all the chassis motors
  */
-(private var hdw: DeltaHardwareHolonomic, private var gamepad: Gamepad?) {
-
-    constructor(hdw: DeltaHardwareHolonomic) : this(hdw, null)
+(private val hdw: DeltaHardwareHolonomic, private val gamepad: Gamepad? = null) {
 
     //wheel motor power
     private var wheelFrontRightPower = 0.0
     private var wheelFrontLeftPower = 0.0
     private var wheelBackRightPower = 0.0
     private var wheelBackLeftPower = 0.0
-
-    fun setGamepad(gamepad: Gamepad){
-        this.gamepad = gamepad;
-    }
 
     /**
      * Control a mecanum chassis using a gamepad's joysticks.
@@ -65,15 +59,11 @@ class JoystickDriveHolonomic
      * @param leftTurbo the chassis left side % of speed, from 0 to 1
      */
     fun update(rightTurbo: Double, leftTurbo: Double) {
-
-        if(gamepad == null) return
-
         val y1 = -gamepad!!.left_stick_y.toDouble()
-        val x1 = gamepad!!.left_stick_x.toDouble()
-        val x2 = gamepad!!.right_stick_x.toDouble()
+        val x1 = gamepad.left_stick_x.toDouble()
+        val x2 = gamepad.right_stick_x.toDouble()
 
         update(y1, x1, x2, rightTurbo, leftTurbo)
-
     }
 
     /**
@@ -87,9 +77,8 @@ class JoystickDriveHolonomic
      * @param leftTurbo the chassis left side % of speed, from 0 to 1
      */
     fun update(y1: Double, x1: Double, x2: Double, rightTurbo: Double, leftTurbo: Double) {
-
-        val rightTurbo = Range.clip(abs(rightTurbo), 0.0, 1.0)
-        val leftTurbo = Range.clip(abs(leftTurbo), 0.0, 1.0)
+        val rt = Range.clip(abs(rightTurbo), 0.0, 1.0)
+        val lt = Range.clip(abs(leftTurbo), 0.0, 1.0)
 
         wheelFrontRightPower = y1 - x2 - x1
         wheelBackRightPower = y1 - x2 + x1
@@ -108,13 +97,12 @@ class JoystickDriveHolonomic
             wheelBackLeftPower /= max
         }
 
-        wheelFrontRightPower *= rightTurbo
-        wheelBackRightPower *= rightTurbo
-        wheelFrontLeftPower *= leftTurbo
-        wheelBackLeftPower *= leftTurbo
+        wheelFrontRightPower *= rt
+        wheelBackRightPower *= rt
+        wheelFrontLeftPower *= lt
+        wheelBackLeftPower *= lt
 
         hdw.setMotorPowers(wheelFrontLeftPower, wheelFrontRightPower, wheelBackLeftPower, wheelBackRightPower)
-
     }
 
 }

@@ -25,6 +25,7 @@ package com.github.serivesmejia.deltadrive.utils.gear
 /**
  * Class representing a two gear ratio
  */
+@Suppress
 class ThreeGearRatio
 /**
  * Constructor for GearRatio class
@@ -33,57 +34,22 @@ class ThreeGearRatio
  * @param T3 Number of teeth of driven gear
  * @param inputRPM The input RPM (generally the motor RPM)
  */
-(T1: Double, T2: Double, T3: Double, private var inputRPM: Double = 0.0) : GearRatio() {
-
-    private val ratio = doubleArrayOf(0.0, 0.0, 0.0)
-
-    init {
-        ratio[0] = T1
-        ratio[1] = T2
-        ratio[2] = T3
-    }
+(val T1: Double, val T2: Double, val T3: Double, val inputRPM: Double = 0.0) : GearRatio {
 
     /**
-     * @return Get ratio result as decimal
+     * @return Ratio result as decimal
      */
-    override fun getRatioAsDecimal(): Double {
-        return (ratio[0] / ratio[1]) * (ratio[1] / ratio[2])
-    }
+    override val ratioAsDecimal = (T1 / T2) * (T2 / T3)
 
     /**
      * @return Gear ratio result as a percentage
      */
-    override fun getRatioAsPercentage(): Double {
-        return getRatioAsDecimal() * 100
-    }
+    override val ratioAsPercentage = ratioAsDecimal * 100
 
-    /**
-     * @return Number of teeth of driven gear
-     */
-    fun getT3(): Double {
-        return ratio[2]
-    }
-
-    /**
-     * @return Number of teeth of idler gear
-     */
-    fun getT2(): Double {
-        return ratio[1]
-    }
-
-    /**
-     * @return Number of teeth of drive gear
-     */
-    fun getT1(): Double {
-        return ratio[0]
-    }
-
-    override fun getOutputRPM() : Double {
-        return inputRPM * getRatioAsDecimal()
-    }
+    override val outputRPM = inputRPM * ratioAsDecimal
 
     override fun toString(): String {
-        return "(${getT1()} : ${getT2()}) * (${getT2()} : ${getT3()}), Input RPM: {$inputRPM}"
+        return "($T1 : $T2) * ($T2 : $T3(), Input RPM: {$inputRPM}"
     }
 
 }

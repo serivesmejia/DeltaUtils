@@ -1,27 +1,7 @@
 package com.github.serivesmejia.deltacommander
 
-class DeltaScheduler private constructor() {
-
-    //Singleton initializer
-    companion object {
-        //actual variable containing the singleton
-        private var inst: DeltaScheduler? = null
-
-        //variable which will be accessed statically
-        val instance: DeltaScheduler
-            get() {
-                if(inst == null) inst = DeltaScheduler()
-                return inst!!
-            }
-
-        /**
-         * Destroys the current scheduler instance
-         * A new one will be created the next time the variable is accessed
-         */
-        fun reset() {
-            inst = null
-        }
-    }
+@Suppress("UNUSED")
+class DeltaScheduler internal constructor() {
 
     var enabled = true
 
@@ -55,7 +35,7 @@ class DeltaScheduler private constructor() {
      * @param cmd the command to be scheduled
      * @param isInterruptible whether the command can be interrupted
      */
-    fun schedule(cmd: DeltaCommand, isInterruptible: Boolean) {
+    fun schedule(cmd: DeltaCommand, isInterruptible: Boolean = true) {
         if(!enabled) return
 
         val cmdReqs = cmd.requirements
@@ -92,19 +72,9 @@ class DeltaScheduler private constructor() {
      * @param cmds multiple commands to be scheduled
      * @param isInterruptible whether the commands can be interrupted
      */
-    fun schedule(isInterruptible: Boolean, vararg cmds: DeltaCommand) {
+    fun schedule(isInterruptible: Boolean = true, vararg cmds: DeltaCommand) {
         for(cmd in cmds) {
             schedule(cmd, isInterruptible)
-        }
-    }
-
-    /**
-     * Schedule multiple commands
-     * @param cmds multiple commands to be scheduled
-     */
-    fun schedule(vararg cmds: DeltaCommand) {
-        for(cmd in cmds) {
-            schedule(cmd, true)
         }
     }
 
@@ -137,9 +107,7 @@ class DeltaScheduler private constructor() {
 
         for(subsystem in subsystems.keys) { subsystem.loop() } //run the loop method of all the subsystems
 
-        val toDeleteCmds: ArrayList<DeltaCommand> = ArrayList() //list of commands to be deleted from the scheduled arraylist at the end
-
-        for((cmd, _) in scheduledCommands) { //iterate through the scheduled commands
+        for((cmd, _) in scheduledCommands.entries.toTypedArray()) { //iterate through the scheduled commands
             cmd.run() //actually run the command
 
             for(evt in runEvents) { evt.run(cmd) } //execute the user events
@@ -149,14 +117,9 @@ class DeltaScheduler private constructor() {
 
                 for(evt in endEvents) { evt.run(cmd) }
 
-                toDeleteCmds.add(cmd)
+                scheduledCommands.remove(cmd)
+                requirements.keys.removeAll(cmd.requirements)
             }
-        }
-
-        //delete finished commands
-        for(cmd in toDeleteCmds) {
-            scheduledCommands.remove(cmd)
-            requirements.keys.removeAll(cmd.requirements)
         }
 
         //register default command if no command is requiring the subsystem
@@ -250,4 +213,22 @@ class DeltaScheduler private constructor() {
 
     fun onRunScheduler(event: Runnable) = runSchedulerEvents.add(event)
 
+}
+
+//actual variable containing the singleton
+private var inst: DeltaScheduler? = null
+
+//variable which will be accessed statically
+val deltaScheduler: DeltaScheduler
+    get() {
+        if(inst == null) inst = DeltaScheduler()
+        return inst!!
+    }
+
+/**
+ * Destroys the current scheduler instance
+ * A new one will be created the next time the variable is accessed
+ */
+fun DeltaScheduler.reset() {
+    inst = null
 }

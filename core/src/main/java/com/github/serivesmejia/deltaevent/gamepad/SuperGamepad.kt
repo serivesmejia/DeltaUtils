@@ -23,16 +23,17 @@
 package com.github.serivesmejia.deltaevent.gamepad
 
 import com.github.serivesmejia.deltacommander.DeltaCommand
-import com.github.serivesmejia.deltacommander.DeltaScheduler
+import com.github.serivesmejia.deltacommander.deltaScheduler
 import com.github.serivesmejia.deltaevent.Super
 import com.github.serivesmejia.deltaevent.event.Event
 import com.github.serivesmejia.deltaevent.event.gamepad.SuperGamepadEvent
 import com.github.serivesmejia.deltaevent.gamepad.button.Button
 import com.github.serivesmejia.deltaevent.gamepad.button.Buttons
+import com.github.serivesmejia.deltaevent.gamepad.dsl.SuperGamepadDslBuilder
 import com.qualcomm.robotcore.hardware.Gamepad
-import kotlin.collections.ArrayList
 
-class SuperGamepad (private var gamepad: Gamepad) : Super {
+@Suppress("UNUSED")
+class SuperGamepad (var gamepad: Gamepad) : Super {
 
     override var events = ArrayList<Event>()
 
@@ -48,20 +49,12 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
     }
 
     /**
-     * Set a new gamepad to this SuperGamepad
-     * @param gamepad the Gamepad to set to this SuperGamepad (From the FTC SDK)
-     */
-    fun setGamepad(gamepad: Gamepad) {
-        this.gamepad = gamepad
-    }
-
-    /**
      * Register an event
      * @param event the SuperGamepadEvent to register
      * @return itself
      */
     override fun registerEvent(event: Event): SuperGamepad {
-        events.add(event);
+        events.add(event)
         return this
     }
 
@@ -80,7 +73,7 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
     fun scheduleOnPress(btt: Button, cmd: DeltaCommand) {
         registerEvent(object: SuperGamepadEvent() {
             override fun buttonsPressed(buttons: Buttons) {
-                if(buttons.`is`(btt)) DeltaScheduler.instance.schedule(cmd)
+                if(buttons.`is`(btt)) deltaScheduler.schedule(cmd)
             }
         })
     }
@@ -93,11 +86,10 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
     fun scheduleOnRelease(btt: Button, cmd: DeltaCommand) {
         registerEvent(object: SuperGamepadEvent() {
             override fun buttonsReleased(buttons: Buttons) {
-                if(buttons.`is`(btt)) DeltaScheduler.instance.schedule(cmd)
+                if(buttons.`is`(btt)) deltaScheduler.schedule(cmd)
             }
         })
     }
-
 
     /**
      * Schedule two commands to the DeltaScheduler when a button is pressed and released, respectively
@@ -129,7 +121,7 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
      * the DeltaScheduler
      */
     fun attachToScheduler() {
-        DeltaScheduler.instance.onRunScheduler(Runnable { update() })
+        deltaScheduler.onRunScheduler  { update() }
     }
 
     /**
@@ -173,6 +165,10 @@ class SuperGamepad (private var gamepad: Gamepad) : Super {
         }
 
         updateAllEvents(gdp)
+    }
+
+    operator fun invoke(block: SuperGamepadDslBuilder.() -> Unit) {
+        SuperGamepadDslBuilder(this, block).build()
     }
 
     private fun updateAllEvents(gdp: GamepadDataPacket) {

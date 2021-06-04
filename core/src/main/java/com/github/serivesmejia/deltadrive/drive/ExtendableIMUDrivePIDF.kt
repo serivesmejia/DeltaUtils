@@ -22,35 +22,31 @@
 
 package com.github.serivesmejia.deltadrive.drive
 
-import com.github.serivesmejia.deltacommander.DeltaScheduler
+import com.github.serivesmejia.deltacontrol.MotorPIDFController
+import com.github.serivesmejia.deltacontrol.PIDFCoefficients
 import com.github.serivesmejia.deltadrive.hardware.DeltaHardware
 import com.github.serivesmejia.deltadrive.parameters.IMUDriveParameters
-import com.github.serivesmejia.deltasimple.sensor.SimpleBNO055IMU
+import com.github.serivesmejia.deltadrive.utils.Task
 import com.github.serivesmejia.deltamath.geometry.Rot2d
 import com.github.serivesmejia.deltamath.geometry.Twist2d
-import com.github.serivesmejia.deltacontrol.PIDFCoefficients
-import com.github.serivesmejia.deltacontrol.MotorPIDFController
-import com.github.serivesmejia.deltadrive.utils.Task
-import com.noahbres.jotai.ActionCallback
+import com.github.serivesmejia.deltasimple.sensor.SimpleBNO055IMU
 import com.noahbres.jotai.StateMachineBuilder
-import com.noahbres.jotai.transition.TransitionCondition
-
 import com.qualcomm.hardware.bosch.BNO055IMU
 import com.qualcomm.robotcore.util.ElapsedTime
-
 import org.firstinspires.ftc.robotcore.external.Telemetry
 import kotlin.math.abs
 
-abstract class ExtendableIMUDrivePIDF
+@Suppress("UNUSED")
+internal abstract class ExtendableIMUDrivePIDF
 /**
  * Constructor for the IMU drive class
  * (Do not forget to call initIMU() before the OpMode starts!)
  * @param hdw The initialized hardware containing all the chassis motors
  * @param telemetry Current OpMode telemetry to show movement info
  */
-(private val hdw: DeltaHardware, protected val telemetry: Telemetry, deltaHardwareType: DeltaHardware.Type) {
+(private val hdw: DeltaHardware, deltaHardwareType: DeltaHardware.Type, private val telemetry: Telemetry? = null) {
 
-    protected lateinit var imu: SimpleBNO055IMU
+    private lateinit var imu: SimpleBNO055IMU
 
     private val runtime = ElapsedTime()
 
@@ -65,9 +61,11 @@ abstract class ExtendableIMUDrivePIDF
     }
 
     fun initIMU(parameters: IMUDriveParameters) {
-        if(imu.isInitialized()) return
+        if(imu.initialized) return
 
-        require(hdw.type === allowedDeltaHardwareType) { "Given DeltaHardware is not the expected type ($allowedDeltaHardwareType)" }
+        require(hdw.type === allowedDeltaHardwareType) {
+            "Given DeltaHardware is not the expected type ($allowedDeltaHardwareType)"
+        }
 
         this.imuParameters = parameters
         parameters.secureParameters()
@@ -79,20 +77,20 @@ abstract class ExtendableIMUDrivePIDF
     /**
      * Enter in a while loop until the IMU reports it is calibrated or until the opmode stops
      */
-    fun waitForIMUCalibration() = imu.waitForIMUCalibration(telemetry)
+    fun waitForIMUCalibration() =
+        if(telemetry == null) imu.waitForIMUCalibration()
+        else imu.waitForIMUCalibration(telemetry)
 
     /**
      * @return the IMU calibration status as a String
      */
-    fun getIMUCalibrationStatus() = imu.getIMUCalibrationStatus()
+    val imuCalibrationStatus get() = imu.imuCalibrationStatus
 
-    fun isIMUCalibrated(): Boolean {
-        return imu.isIMUCalibrated()
-    }
+    val isIMUCalibrated get() = imu.isImuCalibrated
 
-    fun getRobotAngle(): Rot2d {
-        imu.setAxis(imuParameters.IMU_AXIS)
-        return imu.getCumulativeAngle()
+    val robotAngle get(): Rot2d {
+        imu.axis = imuParameters.IMU_AXIS
+        return imu.cumulativeAngle
     }
 
     /**
@@ -103,34 +101,31 @@ abstract class ExtendableIMUDrivePIDF
      * @return Twist2d containing how much the robot rotated
      */
     fun rotate(rotation: Rot2d, power: Double, timeoutS: Double): Task<Twist2d> {
-        val power = power
-        var timeoutS = timeoutS
-
         var setpoint = rotation.degrees
         val deadZone = imuParameters.DEAD_ZONE
 
         imuParameters.secureParameters()
 
-        if (!imu.isInitialized()) {
-            telemetry.addData("[/!\\]", "Call initIMU() method before rotating.")
-            telemetry.update()
-            sleep(2000)
-            return Task { it.end(); Twist2d() }
+        if (!imu.initialized) {
+            telemetry?.addData("[/!\\]", "Call initIMU() method before rotating.")
+            telemetry?.update()
+
+            return Task { end(); Twist2d() }
         }
 
-        if (!isIMUCalibrated()) return Task { it.end(); Twist2d() }
+        if (isIMUCalibrated) return Task { end(); Twist2d() }
 
         runtime.reset()
 
         val pidControllerRotate = MotorPIDFController(pidCoefficientsRotate)
 
-        imu.setAxis(imuParameters.IMU_AXIS)
+        imu.axis = imuParameters.IMU_AXIS
 
         if (imuParameters.INVERT_ROTATION) setpoint = -setpoint
 
-        if (timeoutS == 0.0) timeoutS = 999999999.0 //basically infinite time.
+        val timeout = if (timeoutS == 0.0) 999999999.0 else timeoutS
 
-        pidControllerRotate.setSetpoint(imu.getCumulativeAngle().degrees + setpoint)
+        pidControllerRotate.setSetpoint(imu.cumulativeAngle.degrees + setpoint)
                 .setDeadzone(deadZone)
                 .setInitialPower(abs(power))
                 .setErrorTolerance(imuParameters.ERROR_TOLERANCE)
@@ -141,7 +136,7 @@ abstract class ExtendableIMUDrivePIDF
         var frontrightpower = 0.0
         var frontleftpower = 0.0
 
-        val maxMillis = System.currentTimeMillis() + timeoutS * 1000
+        val maxMillis = System.currentTimeMillis() + timeout * 1000
 
         val builder = StateMachineBuilder<State>()
         var currentTwist = Twist2d()
@@ -150,8 +145,8 @@ abstract class ExtendableIMUDrivePIDF
         if(setpoint < 0) { //rotating right
             builder.state(State.TURN_RIGHT)
                     .loop {
-                        powerF = pidControllerRotate.calculate(imu.getCumulativeAngle().degrees)
-                        currentTwist = Twist2d(0.0, 0.0, imu.getLastCumulativeAngle())
+                        powerF = pidControllerRotate.calculate(imu.cumulativeAngle.degrees)
+                        currentTwist = Twist2d(0.0, 0.0, imu.lastCumulativeAngle)
 
                         backleftpower = powerF
                         backrightpower = -powerF
@@ -161,8 +156,8 @@ abstract class ExtendableIMUDrivePIDF
         } else { //rotating left
             builder.state(State.TURN_LEFT)
                     .loop {
-                        powerF = pidControllerRotate.calculate(imu.getCumulativeAngle().degrees)
-                        currentTwist = Twist2d(0.0, 0.0, imu.getLastCumulativeAngle())
+                        powerF = pidControllerRotate.calculate(imu.cumulativeAngle.degrees)
+                        currentTwist = Twist2d(0.0, 0.0, imu.lastCumulativeAngle)
 
                         backleftpower = powerF
                         backrightpower = -powerF
@@ -172,7 +167,6 @@ abstract class ExtendableIMUDrivePIDF
         }
 
         builder.transition { pidControllerRotate.onSetpoint() && System.currentTimeMillis() > maxMillis }
-
                 .state(State.STOP) //stopping
                 .onEnter {
                     // stop the movement
@@ -183,24 +177,25 @@ abstract class ExtendableIMUDrivePIDF
                 }
 
                 .transitionTimed(0.2)
-
                 .state(State.END_TASK)
 
         val stateMachine = builder.build()
 
         return Task {
             if(!stateMachine.running) stateMachine.start()
+
             stateMachine.update()
 
             setAllMotorPower(frontleftpower, frontrightpower, backleftpower, backrightpower)
 
-            telemetry.addData("IMU Angle", imu.getLastCumulativeAngle().degrees)
-            telemetry.addData("Setpoint", setpoint)
-            telemetry.addData("Error", pidControllerRotate.getCurrentError())
-            telemetry.addData("Power", powerF)
-            telemetry.update()
+            telemetry?.addData("[IMU Angle]", imu.lastCumulativeAngle.degrees)
+            telemetry?.addData("[Setpoint]", setpoint)
+            telemetry?.addData("[Error]", pidControllerRotate.getCurrentError())
+            telemetry?.addData("[Power]", powerF)
+            telemetry?.update()
 
-            if(stateMachine.getState() == State.END_TASK) it.end()
+            if(stateMachine.getState() == State.END_TASK) end()
+
             currentTwist
         }
     }
@@ -208,7 +203,7 @@ abstract class ExtendableIMUDrivePIDF
     //needs to extend
     protected abstract fun setAllMotorPower(frontleftpower: Double, frontrightpower: Double, backleftpower: Double, backrightpower: Double)
 
-    fun sleep(millis: Long) {
+    private fun sleep(millis: Long) {
         try {
             Thread.sleep(millis)
         } catch (e: InterruptedException) {

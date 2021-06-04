@@ -28,14 +28,15 @@ import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.robotcore.external.Telemetry
 import kotlin.math.abs
 
-//old class, commented in spanish sorry
+//old class, commented in spanish
+@Suppress("UNUSED")
 class TimeDriveHolonomic
 /**
  * Constructor for the time drive class
  * @param hdw The initialized hardware containing all the chassis motors
  * @param telemetry The current OpMode telemetry to show info related tnto the moveme
  */
-(val hdw: DeltaHardwareHolonomic, val telemetry: Telemetry) {
+(private val hdw: DeltaHardwareHolonomic, private val telemetry: Telemetry? = null) {
 
     //se define el power de todos los motores y el tiempo en el que avanzaran a este power
     //la string es simplemente para mostrarla en la driver station con un mensaje telemetry.
@@ -43,36 +44,32 @@ class TimeDriveHolonomic
     private fun timeDrive(frontleft: Double, frontright: Double, backleft: Double, backright: Double, time: Double, movementDescription: String): Task<Unit> {
 
         val runtime = ElapsedTime()
-        var isFirstLoop = true
 
         return Task {
-
-                if(isFirstLoop) {
+                first {
                     hdw.setMotorPowers(frontleft, frontright, backleft, backright)
-                    isFirstLoop = false
                 }
 
-                telemetry.addData("[Movement]", movementDescription)
-                telemetry.addData("[frontleft]", frontleft)
-                telemetry.addData("[frontright]", frontright)
-                telemetry.addData("[backleft]", backleft)
-                telemetry.addData("[backright]", backright)
-                telemetry.addData("[Time]", time)
+                telemetry?.addData("[Movement]", movementDescription)
+                telemetry?.addData("[frontleft]", frontleft)
+                telemetry?.addData("[frontright]", frontright)
+                telemetry?.addData("[backleft]", backleft)
+                telemetry?.addData("[backright]", backright)
+                telemetry?.addData("[Time]", time)
 
-                telemetry.update()
+                telemetry?.update()
 
                 if(runtime.seconds() >= time && Thread.currentThread().isInterrupted) {
                     hdw.setMotorPowers(0.0, 0.0, 0.0, 0.0)
 
-                    telemetry.addData("[frontleft]", 0)
-                    telemetry.addData("[frontright]", 0)
-                    telemetry.addData("[backleft]", 0)
-                    telemetry.addData("[backright]", 0)
+                    telemetry?.addData("[frontleft]", 0)
+                    telemetry?.addData("[frontright]", 0)
+                    telemetry?.addData("[backleft]", 0)
+                    telemetry?.addData("[backright]", 0)
 
-                    telemetry.update()
-                    it.end()
+                    telemetry?.update()
+                    end()
                 }
-
             }
 
     }
@@ -82,38 +79,38 @@ class TimeDriveHolonomic
 
     //hacia adelante
     fun forward(power: Double, timeSecs: Double): Task<Unit> {
-        val power = abs(power)
-        return timeDrive(power, power, power, power, timeSecs, "forward")
+        val p = abs(power)
+        return timeDrive(p, p, p, p, timeSecs, "forward")
     }
 
     //hacia atras
     fun backwards(power: Double, timeSecs: Double): Task<Unit> {
-        val power = abs(power)
-        return timeDrive(-power, -power, -power, -power, timeSecs, "backwards")
+        val p = abs(power)
+        return timeDrive(-p, -p, -p, -p, timeSecs, "backwards")
     }
 
     //deslizarse a la izquierda
     fun strafeRight(power: Double, timeSecs: Double): Task<Unit> {
-        val power = abs(power)
-        return timeDrive(power, -power, -power, power, timeSecs, "strafeLeft")
+        val p = abs(power)
+        return timeDrive(p, -p, -p, p, timeSecs, "strafeLeft")
     }
 
     //deslizarse a la izquierda
     fun strafeLeft(power: Double, timeSecs: Double): Task<Unit> {
-        val power = abs(power)
-        return timeDrive(-power, power, power, -power, timeSecs, "strafeRight")
+        val p = abs(power)
+        return timeDrive(-p, p, p, -p, timeSecs, "strafeRight")
     }
 
     //girar a la derecha
     fun turnRight(power: Double, timeSecs: Double): Task<Unit> {
-        val power = abs(power)
-        return timeDrive(power, -power, power, -power, timeSecs, "turnRight")
+        val p = abs(power)
+        return timeDrive(p, -p, p, -p, timeSecs, "turnRight")
     }
 
     //girar a la izquierda
     fun turnLeft(power: Double, timeSecs: Double): Task<Unit> {
-        val power = abs(power)
-        return timeDrive(-power, power, -power, power, timeSecs, "turnLeft")
+        val p = abs(power)
+        return timeDrive(-p, p, -p, p, timeSecs, "turnLeft")
     }
 
 }

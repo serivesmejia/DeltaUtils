@@ -23,18 +23,18 @@
 package com.github.serivesmejia.deltadrive.hardware
 
 import com.github.serivesmejia.deltadrive.utils.Invert
-import com.github.serivesmejia.deltadrive.utils.Robot
 import com.qualcomm.hardware.lynx.LynxModule
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotor.RunMode
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.HardwareMap
 
+@Suppress("UNUSED")
 abstract class DeltaHardware
 /**
  * Constructor for the delta hardware holonomic class
  * Do not forget to initialize the motors with initHardware()
- * @param hdwMap The current OpMode hardware map
+ * @param hardwareMap The current OpMode hardware map
  * @param invert Enum specifying which side will be inverted (motors), most of the time you need to invert the right side.
  */
 (val hardwareMap: HardwareMap, var invert: Invert) {
@@ -49,11 +49,13 @@ abstract class DeltaHardware
         UNKNOWN, HOLONOMIC, HDRIVE
     }
 
-    internal fun internalInit(brake: Boolean) {
-        setBulkCachingMode(LynxModule.BulkCachingMode.AUTO)
+    protected fun internalInit(brake: Boolean) {
+        bulkCachingMode = LynxModule.BulkCachingMode.AUTO
+
         setMotorPowers(0.0, 0.0, 0.0, 0.0)
-        setBrakes(brake)
-        setRunModes(RunMode.RUN_USING_ENCODER)
+        runMode = RunMode.RUN_WITHOUT_ENCODER
+
+        this.brake = brake
     }
 
     fun setMotorPowers(vararg powers: Double) {
@@ -80,29 +82,38 @@ abstract class DeltaHardware
         }
     }
 
-    fun setBrakes(brake: Boolean) {
-        for (motor in chassisMotorsArray) {
-            if (brake) {
-                motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-            } else {
-                motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
+    var brake: Boolean? = null
+        set(value) {
+            for (motor in chassisMotorsArray) {
+                if (brake!!) {
+                    motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+                } else {
+                    motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
+                }
             }
-        }
-    }
 
-    fun setRunModes(runMode: RunMode) {
-        for (motor in chassisMotorsArray) {
-            motor.mode = runMode
+            field = value
         }
-    }
+
+    var runMode: RunMode? = null
+        set(value) {
+            for (motor in chassisMotorsArray) {
+                motor.mode = runMode
+            }
+
+            field = value
+        }
 
     abstract fun updateChassisMotorsArray()
 
-    fun setBulkCachingMode(mode: LynxModule.BulkCachingMode) {
-        for(module in hardwareMap.getAll(LynxModule::class.java)) {
-            module.bulkCachingMode = mode
+    var bulkCachingMode: LynxModule.BulkCachingMode? = null
+        set(value) {
+            for(module in hardwareMap.getAll(LynxModule::class.java)) {
+                module.bulkCachingMode = value!!
+            }
+
+            field = value
         }
-    }
 
     fun clearBulkCache() {
         for(module in hardwareMap.getAll(LynxModule::class.java)) {

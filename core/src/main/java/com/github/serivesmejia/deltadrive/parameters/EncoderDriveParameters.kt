@@ -24,6 +24,7 @@ package com.github.serivesmejia.deltadrive.parameters
 
 import com.github.serivesmejia.deltadrive.utils.DistanceUnit
 import com.github.serivesmejia.deltadrive.utils.gear.GearRatio
+import com.github.serivesmejia.deltadrive.utils.gear.TwoGearRatio
 import com.github.serivesmejia.deltamath.DeltaMathUtil.clamp
 import kotlin.math.abs
 
@@ -35,7 +36,7 @@ class EncoderDriveParameters {
      */
     var TICKS_PER_REV = 0.0
 
-    private val EMPTY_GEAR_REDUCTION: GearRatio = GearRatio()
+    private val EMPTY_GEAR_REDUCTION: GearRatio = TwoGearRatio(1.0, 1.0, 0.0)
 
     /**
      * This is < 1.0 and > 0 if geared UP
@@ -95,14 +96,6 @@ class EncoderDriveParameters {
 
         WHEEL_DIAMETER_INCHES = abs(WHEEL_DIAMETER_INCHES)
         TICKS_PER_REV = abs(TICKS_PER_REV)
-    }
-
-    /**
-     * Checks if any value is 0.
-     * @return boolean depending if all values are or are not 0
-     */
-    fun haveBeenDefined() : Boolean {
-        return (TICKS_PER_REV != 0.0 && DRIVE_GEAR_REDUCTION !== EMPTY_GEAR_REDUCTION && WHEEL_DIAMETER_INCHES != 0.0)
     }
 
 }

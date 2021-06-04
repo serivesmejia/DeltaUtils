@@ -24,11 +24,11 @@ package com.github.serivesmejia.deltadrive.hardware
 
 import com.github.serivesmejia.deltadrive.utils.Invert
 import com.qualcomm.robotcore.hardware.DcMotor
-import com.qualcomm.robotcore.hardware.DcMotor.RunMode
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction
 import com.qualcomm.robotcore.hardware.HardwareMap
 
+@Suppress("UNUSED")
 class DeltaHardwareHolonomic(hardwareMap: HardwareMap, invert: Invert) : DeltaHardware(hardwareMap, invert) {
 
     lateinit var wheelFrontLeft: DcMotorEx
@@ -41,9 +41,6 @@ class DeltaHardwareHolonomic(hardwareMap: HardwareMap, invert: Invert) : DeltaHa
         private set
 
     private var initialized = false
-
-    val runMode: RunMode
-        get() = wheelFrontLeft.mode //all run modes should be the same anyways
 
     init {
         this.type = Type.HOLONOMIC

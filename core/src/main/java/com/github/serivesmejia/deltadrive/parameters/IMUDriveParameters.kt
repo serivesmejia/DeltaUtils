@@ -78,18 +78,8 @@ class IMUDriveParameters {
     fun secureParameters() {
         ROTATE_MAX_CORRECTION_TIMES = abs(ROTATE_MAX_CORRECTION_TIMES)
         ROTATE_CORRECTION_POWER = clamp(abs(ROTATE_CORRECTION_POWER), 0.0, 1.0)
-        IMU_HARDWARE_NAME = if (IMU_HARDWARE_NAME == null) "imu" else IMU_HARDWARE_NAME
-        IMU_AXIS = if (IMU_AXIS == null) Axis.Z else IMU_AXIS //set the value to something if it is null, just in case...
         DEAD_ZONE = clamp(abs(DEAD_ZONE), 0.0, 1.0)
         ERROR_TOLERANCE = abs(ERROR_TOLERANCE)
-    }
-
-    /**
-     * Checks if any value is 0.
-     * @return boolean depending if all values are not 0
-     */
-    fun haveBeenDefined(): Boolean {
-        return !(ROTATE_MAX_CORRECTION_TIMES == 0 || ROTATE_CORRECTION_POWER == 0.0)
     }
 
 }

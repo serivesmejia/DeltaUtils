@@ -1,12 +1,12 @@
 package com.github.serivesmejia.deltadrive.drivebase
 
-import com.github.serivesmejia.deltadrive.HolonomicDrivebase
+import com.github.serivesmejia.deltadrive.DeltaHolonomicDrivebase
 import com.github.serivesmejia.deltadrive.drive.holonomic.JoystickDriveHolonomic
 import com.github.serivesmejia.deltadrive.hardware.DeltaHardwareHolonomic
 import com.github.serivesmejia.deltamath.DeltaMathUtil
 import com.qualcomm.robotcore.hardware.Gamepad
 
-class MecanumDrive(val hdw: DeltaHardwareHolonomic) : HolonomicDrivebase {
+class DeltaMecanumDrive(val hdw: DeltaHardwareHolonomic) : DeltaHolonomicDrivebase {
 
     private val joystickDriveRobotCentric = JoystickDriveHolonomic(hdw)
 

@@ -22,12 +22,12 @@
 
 package com.github.serivesmejia.deltadrive.utils.gear
 
-open class GearRatio {
+interface GearRatio {
 
-    open fun getRatioAsDecimal() : Double = 0.0
+    val ratioAsDecimal: Double
 
-    open fun getRatioAsPercentage() : Double = 0.0
+    val ratioAsPercentage: Double
 
-    open fun getOutputRPM() : Double = 0.0
+    val outputRPM: Double
 
 }

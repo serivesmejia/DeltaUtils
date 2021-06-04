@@ -4,7 +4,7 @@ import com.github.serivesmejia.deltacommander.DeltaCommand
 import com.github.serivesmejia.deltacommander.DeltaScheduler
 import com.github.serivesmejia.deltacommander.DeltaSchedulerEvent
 import com.github.serivesmejia.deltacommander.DeltaSubsystem
-import com.github.serivesmejia.deltacommander.command.DeltaGroupedCommand
+import com.github.serivesmejia.deltacommander.command.DeltaGroupCommand
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -232,7 +232,7 @@ class DeltaCommanderTests {
         val cmd1 = XYZPlusCommand(50)
         val cmd2 = XYZPlusCommand(50)
 
-        DeltaScheduler.instance.schedule(DeltaGroupedCommand(DeltaGroupedCommand.ExecutionMode.LINEAR, cmd1, cmd2))
+        DeltaScheduler.instance.schedule(DeltaGroupCommand(DeltaGroupCommand.ExecutionMode.LINEAR, cmd1, cmd2))
 
         repeat(200) {
             DeltaScheduler.instance.update()
@@ -262,7 +262,7 @@ class DeltaCommanderTests {
         val cmd1 = XYZPlusCommand(50)
         val cmd2 = XYZPlusCommand(80)
 
-        DeltaScheduler.instance.schedule(DeltaGroupedCommand(DeltaGroupedCommand.ExecutionMode.PARALLEL, cmd1, cmd2))
+        DeltaScheduler.instance.schedule(DeltaGroupCommand(DeltaGroupCommand.ExecutionMode.PARALLEL, cmd1, cmd2))
 
         repeat(200) {
             DeltaScheduler.instance.update()

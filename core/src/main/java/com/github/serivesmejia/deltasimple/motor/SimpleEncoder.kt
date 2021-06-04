@@ -9,17 +9,6 @@ import kotlin.math.sign
 
 class SimpleEncoder(val motorEx: DcMotorEx, val ticksPerRev: Double, val multiplier: Double = 1.0) {
 
-    companion object {
-        const val CPS_STEP = 0x10000
-        private fun inverseOverflow(input: Double, estimate: Double): Double {
-            var real = input
-            if(abs(estimate - real) > CPS_STEP / 2.0) {
-                real += sign(estimate - real) * CPS_STEP;
-            }
-            return real
-        }
-    }
-
     private var lastPosition = 0.0
     private var velocityEstimate = 0.0
     private var lastUpdateTime = 0.0
@@ -29,8 +18,6 @@ class SimpleEncoder(val motorEx: DcMotorEx, val ticksPerRev: Double, val multipl
     init {
         motorEx.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
     }
-
-    constructor(hdwMap: HardwareMap, deviceName: String, ticksPerRev: Double, multiplier: Double = 1.0) : this(hdwMap.get(DcMotorEx::class.java, deviceName)!!, ticksPerRev, multiplier)
 
     val position: Double
         get() {
@@ -66,4 +53,14 @@ class SimpleEncoder(val motorEx: DcMotorEx, val ticksPerRev: Double, val multipl
     val correctedVelocityRevs: Double
         get() { return correctedVelocity / ticksPerRev }
 
+}
+
+const val CPS_STEP = 0x10000
+
+private fun inverseOverflow(input: Double, estimate: Double): Double {
+    var real = input
+    if(abs(estimate - real) > CPS_STEP / 2.0) {
+        real += sign(estimate - real) * CPS_STEP;
+    }
+    return real
 }

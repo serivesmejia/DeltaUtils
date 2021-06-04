@@ -2,16 +2,13 @@ package com.github.serivesmejia.deltacommander.command
 
 import com.github.serivesmejia.deltacommander.DeltaCommand
 
-class DeltaGroupedCommand(private val executionMode: ExecutionMode = ExecutionMode.PARALLEL, vararg commands: DeltaCommand) : DeltaCommand() {
-
-    enum class ExecutionMode { LINEAR, PARALLEL }
+class DeltaGroupCommand(private val executionMode: ExecutionMode = ExecutionMode.PARALLEL, vararg commands: DeltaCommand) : DeltaCommand() {
 
     var commands: ArrayList<DeltaCommand> = ArrayList()
 
     var currentCommandIndex = 0
 
     init {
-
         if(commands.isEmpty()) {
             throw IllegalArgumentException("You should provide one or more commands to the GroupedCommand")
         }
@@ -58,7 +55,7 @@ class DeltaGroupedCommand(private val executionMode: ExecutionMode = ExecutionMo
             //if all the subcommands are finished, the grouped command (this) will also finish
             ExecutionMode.PARALLEL -> {
 
-                var finishedCount = 0;
+                var finishedCount = 0
 
                 for(cmd in commands) {
                     if(!cmd.finished) {
@@ -86,3 +83,5 @@ class DeltaGroupedCommand(private val executionMode: ExecutionMode = ExecutionMo
     }
 
 }
+
+enum class ExecutionMode { LINEAR, PARALLEL }

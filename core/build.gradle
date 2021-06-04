@@ -3,38 +3,33 @@ apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 repositories {
-    flatDir {
-        dirs '../libs'
-    }
     mavenCentral()
     google()
-    jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     compileOnly 'org.firstinspires.ftc:RobotCore:6.2.1'
     compileOnly 'org.firstinspires.ftc:Hardware:6.2.1'
     compileOnly 'org.firstinspires.ftc:FtcCommon:6.2.1'
-    implementation "com.noahbres.jotai:jotai:1.0.2"
+    implementation "com.github.NoahBres:jotai:1.0.3"
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5"
     testImplementation 'junit:junit:4.12'

@@ -1,11 +1,9 @@
 package com.github.serivesmejia.deltaevent.gamepad.dsl
 
-import com.github.serivesmejia.deltaevent.Super
 import com.github.serivesmejia.deltaevent.event.gamepad.SuperGamepadEvent
 import com.github.serivesmejia.deltaevent.gamepad.SuperGamepad
 import com.github.serivesmejia.deltaevent.gamepad.button.Button
 import com.github.serivesmejia.deltaevent.gamepad.button.Buttons
-import java.lang.IllegalStateException
 
 class SuperGamepadDslBuilder(
     private val superGamepad: SuperGamepad,

@@ -68,7 +68,7 @@ class EncoderDriveHolonomic
 
         parameters.secureParameters()
 
-        val ticksPerInch = parameters.TICKS_PER_REV * parameters.DRIVE_GEAR_REDUCTION.getRatioAsDecimal() /
+        val ticksPerInch = parameters.TICKS_PER_REV * parameters.DRIVE_GEAR_REDUCTION.ratioAsDecimal /
                              (parameters.WHEEL_DIAMETER_INCHES * Math.PI)
 
         if (parameters.DISTANCE_UNIT === DistanceUnit.CENTIMETERS) {

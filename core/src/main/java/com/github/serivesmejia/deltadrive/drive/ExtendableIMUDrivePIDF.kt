@@ -37,7 +37,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry
 import kotlin.math.abs
 
 @Suppress("UNUSED")
-internal abstract class ExtendableIMUDrivePIDF
+abstract class ExtendableIMUDrivePIDF
 /**
  * Constructor for the IMU drive class
  * (Do not forget to call initIMU() before the OpMode starts!)

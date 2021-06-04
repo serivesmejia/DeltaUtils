@@ -6,7 +6,8 @@ import com.github.serivesmejia.deltadrive.hardware.DeltaHardwareHolonomic
 import com.github.serivesmejia.deltamath.DeltaMathUtil
 import com.qualcomm.robotcore.hardware.Gamepad
 
-class DeltaMecanumDrive(val hdw: DeltaHardwareHolonomic) : DeltaHolonomicDrivebase {
+@Suppress("UNUSED")
+class DeltaMecanumDrive(hdw: DeltaHardwareHolonomic) : DeltaHolonomicDrivebase {
 
     private val joystickDriveRobotCentric = JoystickDriveHolonomic(hdw)
 
@@ -15,9 +16,9 @@ class DeltaMecanumDrive(val hdw: DeltaHardwareHolonomic) : DeltaHolonomicDriveba
     }
 
     override fun joystickRobotCentric(gamepad: Gamepad, controlSpeedWithTriggers: Boolean, maxMinusTurbo: Double) {
-        joystickDriveRobotCentric.setGamepad(gamepad)
+        joystickDriveRobotCentric.gamepad = gamepad
 
-        val maxMinusTurbo = DeltaMathUtil.clamp(maxMinusTurbo, 0.0, 1.0)
+        val maxMinTurbo = DeltaMathUtil.clamp(maxMinusTurbo, 0.0, 1.0)
         var minusTurbo = 0.0
 
         if(controlSpeedWithTriggers) {
@@ -33,7 +34,7 @@ class DeltaMecanumDrive(val hdw: DeltaHardwareHolonomic) : DeltaHolonomicDriveba
     }
 
     override fun joystickRobotCentric(gamepad: Gamepad, turbo: Double) {
-        joystickDriveRobotCentric.setGamepad(gamepad)
+        joystickDriveRobotCentric.gamepad = gamepad
         joystickDriveRobotCentric.update(turbo)
     }
 

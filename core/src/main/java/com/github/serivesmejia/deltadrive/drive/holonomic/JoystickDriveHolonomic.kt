@@ -35,7 +35,7 @@ class JoystickDriveHolonomic
  * Constructor for the Joystick Drive
  * @param hdw The initialized hardware containing all the chassis motors
  */
-(private val hdw: DeltaHardwareHolonomic, private val gamepad: Gamepad? = null) {
+(private val hdw: DeltaHardwareHolonomic, var gamepad: Gamepad? = null) {
 
     //wheel motor power
     private var wheelFrontRightPower = 0.0

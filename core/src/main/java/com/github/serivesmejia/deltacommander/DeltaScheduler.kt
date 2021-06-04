@@ -21,7 +21,7 @@ class DeltaScheduler internal constructor() {
     private val endEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
     private val runSchedulerEvents: ArrayList<Runnable> = ArrayList()
 
-    private fun commandInit(cmd: DeltaCommand, isInterruptible: Boolean, reqs: List<DeltaSubsystem>) {
+    private fun commandInit(cmd: DeltaCommand, isInterruptible: Boolean) {
         cmd.init()
         val state = DeltaCommand.State(isInterruptible)
 
@@ -47,7 +47,7 @@ class DeltaScheduler internal constructor() {
         }
 
         if(!reqsCurrentlyInUse) {
-            commandInit(cmd, isInterruptible, cmdReqs) //directly run it, if none of its requirements are in use
+            commandInit(cmd, isInterruptible) //directly run it, if none of its requirements are in use
         } else {
             //check if the commands requiring a specific subsystem are interruptible
             for(req in cmdReqs) {
@@ -63,7 +63,7 @@ class DeltaScheduler internal constructor() {
                 }
             }
 
-            commandInit(cmd, isInterruptible, cmdReqs) //schedule the command once all the other requiring commands were cancelled
+            commandInit(cmd, isInterruptible) //schedule the command once all the other requiring commands were cancelled
         }
     }
 

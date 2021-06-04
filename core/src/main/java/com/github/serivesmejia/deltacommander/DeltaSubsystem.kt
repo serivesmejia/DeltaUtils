@@ -1,8 +1,15 @@
 package com.github.serivesmejia.deltacommander
 
-abstract class DeltaSubsystem {
+@Suppress("LeakingThis")
+abstract class DeltaSubsystem(addToScheduler: Boolean = true) {
 
     val name = this.javaClass.simpleName
+
+    init {
+        if(addToScheduler) {
+            deltaScheduler.addSubsystem(this)
+        }
+    }
 
     /**
      * Method to be executed repeatedly, independently of any command

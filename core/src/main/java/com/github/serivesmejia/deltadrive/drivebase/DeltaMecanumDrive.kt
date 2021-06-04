@@ -23,8 +23,8 @@ class DeltaMecanumDrive(hdw: DeltaHardwareHolonomic) : DeltaHolonomicDrivebase {
 
         if(controlSpeedWithTriggers) {
             when {
-                gamepad.left_trigger > 0.2 -> minusTurbo = gamepad.left_trigger * maxMinusTurbo
-                gamepad.right_trigger > 0.2 -> minusTurbo = gamepad.left_trigger * maxMinusTurbo
+                gamepad.left_trigger > 0.2 -> minusTurbo = gamepad.left_trigger * maxMinTurbo
+                gamepad.right_trigger > 0.2 -> minusTurbo = gamepad.left_trigger * maxMinTurbo
             }
             val turbo = DeltaMathUtil.clamp(1 - minusTurbo, 0.0, 1.0)
             joystickDriveRobotCentric.update(turbo)

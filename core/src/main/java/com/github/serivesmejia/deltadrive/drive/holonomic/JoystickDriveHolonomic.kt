@@ -60,8 +60,8 @@ class JoystickDriveHolonomic
      */
     fun update(rightTurbo: Double, leftTurbo: Double) {
         val y1 = -gamepad!!.left_stick_y.toDouble()
-        val x1 = gamepad.left_stick_x.toDouble()
-        val x2 = gamepad.right_stick_x.toDouble()
+        val x1 = gamepad!!.left_stick_x.toDouble()
+        val x2 = gamepad!!.right_stick_x.toDouble()
 
         update(y1, x1, x2, rightTurbo, leftTurbo)
     }

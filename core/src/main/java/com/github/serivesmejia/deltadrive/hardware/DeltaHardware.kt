@@ -106,9 +106,9 @@ abstract class DeltaHardware
 
     abstract fun updateChassisMotorsArray()
 
-    var revHubs: List<LynxModule>? = null
+    var revHubs = listOf<LynxModule>()
         get() {
-            if(field == null) {
+            if(field.isEmpty()) {
                 field = hardwareMap.getAll(LynxModule::class.java)
             }
 
@@ -118,7 +118,7 @@ abstract class DeltaHardware
     var bulkCachingMode: LynxModule.BulkCachingMode? = null
         set(value) {
 
-            for(module in revHubs!!) {
+            for(module in revHubs) {
                 module.bulkCachingMode = value!!
             }
 
@@ -126,7 +126,7 @@ abstract class DeltaHardware
         }
 
     fun clearBulkCache() {
-        for(module in revHubs!!) {
+        for(module in revHubs) {
             module.clearBulkCache()
         }
     }

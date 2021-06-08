@@ -38,12 +38,10 @@ abstract class DeltaOpMode : LinearOpMode() {
             deltaScheduler.update()
 
             if(isDefaultRun && deltaScheduler.commandsAmount <= 0) {
-                break;
+                break
             }
 
-            for(module in hardwareMap.getAll(LynxModule::class.java)) {
-                module.clearBulkCache()
-            }
+            deltaHardware.clearBulkCache()
         }
     }
 

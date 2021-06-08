@@ -6,13 +6,13 @@ class DeltaScheduler internal constructor() {
     var enabled = true
 
     //hashmap containing the subsystems and their default commands
-    val subsystems: HashMap<DeltaSubsystem, DeltaCommand?> = HashMap()
+    private val subsystems = mutableMapOf<DeltaSubsystem, DeltaCommand?>()
 
     //hashmap containing the currently scheduled commands and their state
-    val scheduledCommands: HashMap<DeltaCommand, DeltaCommand.State> = HashMap()
+    private val scheduledCommands = mutableMapOf<DeltaCommand, DeltaCommand.State>()
     
      //hashmap containing the required subsystems by specific commands
-    val requirements: HashMap<DeltaSubsystem, DeltaCommand> = HashMap()
+    private val requirements: HashMap<DeltaSubsystem, DeltaCommand> = HashMap()
 
     //user events
     private val initEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
@@ -22,12 +22,17 @@ class DeltaScheduler internal constructor() {
     private val runSchedulerEvents: ArrayList<Runnable> = ArrayList()
 
     private fun commandInit(cmd: DeltaCommand, isInterruptible: Boolean) {
+        cmd.finished = false
         cmd.init()
         val state = DeltaCommand.State(isInterruptible)
 
-        for(evt in initEvents) { evt.run(cmd) } //run the init user events
+        for(req in cmd.requirements) {
+            requirements[req] = cmd
+        }
 
         scheduledCommands[cmd] = state
+
+        for(evt in initEvents) { evt.run(cmd) } //run the init user events
     }
 
     /**

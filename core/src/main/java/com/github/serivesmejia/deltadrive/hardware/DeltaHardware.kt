@@ -98,7 +98,7 @@ abstract class DeltaHardware
     var runMode: RunMode? = null
         set(value) {
             for (motor in chassisMotorsArray) {
-                motor.mode = runMode
+                motor.mode = value!!
             }
 
             field = value

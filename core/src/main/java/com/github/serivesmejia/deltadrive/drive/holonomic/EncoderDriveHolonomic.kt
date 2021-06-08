@@ -74,7 +74,7 @@ class EncoderDriveHolonomic
         if (parameters.DISTANCE_UNIT === DistanceUnit.CENTIMETERS) {
             fl *= 0.393701
             fr *= 0.393701
-            bl *= 0.3937014
+            bl *= 0.393701
             br *= 0.393701
         }
 
@@ -97,7 +97,7 @@ class EncoderDriveHolonomic
         val leftPower = abs(speed) * leftTurbo
         val rightPower = abs(speed) * rightTurbo
 
-        return Task {
+        return Task(parameters.TASK_COMMAND_REQUIREMENTS) {
             first {
                 hdw.setMotorPowers(leftPower, rightPower, leftPower, rightPower)
             }
@@ -129,8 +129,9 @@ class EncoderDriveHolonomic
                 hdw.wheelFrontLeft.isBusy &&
                 hdw.wheelBackLeft.isBusy &&
                 hdw.wheelBackRight.isBusy &&
-                !Thread.currentThread().isInterrupted) { //when it's finished
-                    telemetry?.update() //clear telemetry
+                !Thread.currentThread().isInterrupted
+            ) { //when it's finished
+                telemetry?.update() //clear telemetry
 
                 // Stop all motion
                 hdw.setMotorPowers(0.0, 0.0, 0.0, 0.0)

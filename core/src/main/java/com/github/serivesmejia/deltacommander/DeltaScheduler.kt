@@ -21,20 +21,6 @@ class DeltaScheduler internal constructor() {
     private val endEvents: ArrayList<DeltaSchedulerEvent> = ArrayList()
     private val runSchedulerEvents: ArrayList<Runnable> = ArrayList()
 
-    private fun commandInit(cmd: DeltaCommand, isInterruptible: Boolean) {
-        cmd.finished = false
-        cmd.init()
-        val state = DeltaCommand.State(isInterruptible)
-
-        for(req in cmd.requirements) {
-            requirements[req] = cmd
-        }
-
-        scheduledCommands[cmd] = state
-
-        for(evt in initEvents) { evt.run(cmd) } //run the init user events
-    }
-
     /**
      * Schedule a command to be runned
      * @param cmd the command to be scheduled
@@ -53,7 +39,7 @@ class DeltaScheduler internal constructor() {
         }
 
         if(!reqsCurrentlyInUse) {
-            commandInit(cmd, isInterruptible) //directly run it, if none of its requirements are in use
+            addCommand(cmd, isInterruptible) //directly run it, if none of its requirements are in use
         } else {
             //check if the commands requiring a specific subsystem are interruptible
             for(req in cmdReqs) {
@@ -69,8 +55,23 @@ class DeltaScheduler internal constructor() {
                 }
             }
 
-            commandInit(cmd, isInterruptible) //schedule the command once all the other requiring commands were cancelled
+            addCommand(cmd, isInterruptible) //schedule the command once all the other requiring commands were cancelled
         }
+    }
+
+    private fun addCommand(cmd: DeltaCommand, isInterruptible: Boolean) {
+        cmd.finished = false
+        cmd.init()
+
+        val state = DeltaCommand.State(isInterruptible)
+
+        for(req in cmd.requirements) {
+            requirements[req] = cmd
+        }
+
+        scheduledCommands[cmd] = state
+
+        for(evt in initEvents) { evt.run(cmd) } //run the init user events
     }
 
     /**

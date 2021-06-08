@@ -19,8 +19,6 @@ class SimpleBNO055IMU(private val imu: BNO055IMU) {
     private var lastAngles: Orientation = Orientation()
     private var globalAngle = 0.0
 
-    private var lastAngle = Rot2d()
-
     var axis = Axis.Z
 
     fun initIMU() {
@@ -84,12 +82,12 @@ class SimpleBNO055IMU(private val imu: BNO055IMU) {
         globalAngle += deltaAngle
         lastAngles = angles
 
-        lastAngle = Rot2d.degrees(globalAngle)
+        lastCumulativeAngle = Rot2d.degrees(globalAngle)
 
-        return lastAngle
+        return lastCumulativeAngle
     }
 
-    val lastCumulativeAngle get() = lastAngle
+    var lastCumulativeAngle = Rot2d()
 
     fun resetAngle() {
         lastAngles =  imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES)

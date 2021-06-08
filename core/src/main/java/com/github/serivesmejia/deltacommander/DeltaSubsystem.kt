@@ -1,6 +1,6 @@
 package com.github.serivesmejia.deltacommander
 
-@Suppress("LeakingThis")
+@Suppress("LeakingThis", "UNUSED")
 abstract class DeltaSubsystem(addToScheduler: Boolean = true) {
 
     val name = this.javaClass.simpleName

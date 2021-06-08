@@ -101,7 +101,11 @@ abstract class ExtendableIMUDrivePIDF
      * @return Twist2d containing how much the robot rotated
      */
     fun rotate(rotation: Rot2d, power: Double, timeoutS: Double): Task<Twist2d> {
-        var setpoint = rotation.degrees
+        val setpoint = if (imuParameters.INVERT_ROTATION)
+            imu.cumulativeAngle.degrees - rotation.degrees
+        else
+            imu.cumulativeAngle.degrees + rotation.degrees
+
         val deadZone = imuParameters.DEAD_ZONE
 
         imuParameters.secureParameters()
@@ -113,23 +117,22 @@ abstract class ExtendableIMUDrivePIDF
             return Task { end(); Twist2d() }
         }
 
-        if (isIMUCalibrated) return Task { end(); Twist2d() }
+        if (!isIMUCalibrated) return Task { end(); Twist2d() }
 
         runtime.reset()
 
-        val pidControllerRotate = MotorPIDFController(pidCoefficientsRotate)
+        val pidControllerRotate = MotorPIDFController(imuParameters.COEFFICIENTS)
 
         imu.axis = imuParameters.IMU_AXIS
 
-        if (imuParameters.INVERT_ROTATION) setpoint = -setpoint
+        val timeout = if (timeoutS <= 0.0) Double.MAX_VALUE else timeoutS
 
-        val timeout = if (timeoutS == 0.0) 999999999.0 else timeoutS
-
-        pidControllerRotate.setSetpoint(imu.cumulativeAngle.degrees + setpoint)
+        pidControllerRotate
+                .setSetpoint(setpoint)
                 .setDeadzone(deadZone)
                 .setInitialPower(abs(power))
                 .setErrorTolerance(imuParameters.ERROR_TOLERANCE)
-                .setCoefficients(pidCoefficientsRotate)
+                .setCoefficients(imuParameters.COEFFICIENTS)
 
         var backleftpower = 0.0
         var backrightpower = 0.0
@@ -181,7 +184,7 @@ abstract class ExtendableIMUDrivePIDF
 
         val stateMachine = builder.build()
 
-        return Task {
+        return Task(imuParameters.TASK_COMMAND_REQUIREMENTS) {
             if(!stateMachine.running) stateMachine.start()
 
             stateMachine.update()

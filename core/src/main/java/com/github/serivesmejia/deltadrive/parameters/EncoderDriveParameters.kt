@@ -22,6 +22,7 @@
 
 package com.github.serivesmejia.deltadrive.parameters
 
+import com.github.serivesmejia.deltacommander.DeltaSubsystem
 import com.github.serivesmejia.deltadrive.utils.DistanceUnit
 import com.github.serivesmejia.deltadrive.utils.gear.GearRatio
 import com.github.serivesmejia.deltadrive.utils.gear.TwoGearRatio
@@ -82,6 +83,12 @@ class EncoderDriveParameters {
      * Show current distance in telemetry (might slow down loop times)
      */
     val SHOW_CURRENT_DISTANCE = false
+
+    /**
+     * Requirements to be required by the DeltaCommand
+     * of the Task returned by the rotate() method.
+     */
+    var TASK_COMMAND_REQUIREMENTS = arrayOf<DeltaSubsystem?>(null)
 
     /**
      * Make sure the values are in the correct range (0 to 1 or positive).

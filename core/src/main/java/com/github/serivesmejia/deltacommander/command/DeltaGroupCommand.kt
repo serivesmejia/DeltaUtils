@@ -1,8 +1,10 @@
+@file:Suppress("UNUSED")
+
 package com.github.serivesmejia.deltacommander.command
 
 import com.github.serivesmejia.deltacommander.DeltaCommand
 
-class DeltaGroupCommand(private val executionMode: ExecutionMode = ExecutionMode.PARALLEL, vararg commands: DeltaCommand) : DeltaCommand() {
+open class DeltaGroupCommand(private val executionMode: ExecutionMode = ExecutionMode.PARALLEL, vararg commands: DeltaCommand) : DeltaCommand() {
 
     var commands: ArrayList<DeltaCommand> = ArrayList()
 
@@ -85,3 +87,11 @@ class DeltaGroupCommand(private val executionMode: ExecutionMode = ExecutionMode
 }
 
 enum class ExecutionMode { LINEAR, PARALLEL }
+
+class DeltaSequentialCommand(
+        vararg commands: DeltaCommand
+) : DeltaGroupCommand(ExecutionMode.LINEAR, *commands)
+
+class DeltaParallelCommand(
+        vararg commands: DeltaCommand
+) : DeltaGroupCommand(ExecutionMode.PARALLEL, *commands)

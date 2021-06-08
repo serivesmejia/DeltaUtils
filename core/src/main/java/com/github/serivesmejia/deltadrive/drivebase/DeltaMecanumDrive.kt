@@ -1,15 +1,19 @@
 package com.github.serivesmejia.deltadrive.drivebase
 
 import com.github.serivesmejia.deltadrive.DeltaHolonomicDrivebase
+import com.github.serivesmejia.deltadrive.drive.holonomic.IMUDrivePIDFHolonomic
 import com.github.serivesmejia.deltadrive.drive.holonomic.JoystickDriveHolonomic
 import com.github.serivesmejia.deltadrive.hardware.DeltaHardwareHolonomic
+import com.github.serivesmejia.deltadrive.parameters.IMUDriveParameters
 import com.github.serivesmejia.deltamath.DeltaMathUtil
+import com.github.serivesmejia.deltamath.geometry.Rot2d
 import com.qualcomm.robotcore.hardware.Gamepad
 
 @Suppress("UNUSED")
 class DeltaMecanumDrive(hdw: DeltaHardwareHolonomic) : DeltaHolonomicDrivebase {
 
     private val joystickDriveRobotCentric = JoystickDriveHolonomic(hdw)
+    private val imuDrive = IMUDrivePIDFHolonomic(hdw)
 
     override fun joystickRobotCentric(forwardSpeed: Double, strafeSpeed: Double, turnSpeed: Double, turbo: Double) {
         joystickDriveRobotCentric.update(forwardSpeed, strafeSpeed, turnSpeed, turbo, turbo)
@@ -37,5 +41,12 @@ class DeltaMecanumDrive(hdw: DeltaHardwareHolonomic) : DeltaHolonomicDrivebase {
         joystickDriveRobotCentric.gamepad = gamepad
         joystickDriveRobotCentric.update(turbo)
     }
+
+    fun initIMU(params: IMUDriveParameters) {
+        imuDrive.initIMU(params)
+    }
+
+    override fun rotate(rotation: Rot2d, power: Double, timeoutS: Double) =
+            imuDrive.rotate(rotation, power, timeoutS)
 
 }

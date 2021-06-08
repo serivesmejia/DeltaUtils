@@ -22,6 +22,8 @@
 
 package com.github.serivesmejia.deltadrive.parameters
 
+import com.github.serivesmejia.deltacommander.DeltaSubsystem
+import com.github.serivesmejia.deltacontrol.PIDFCoefficients
 import com.github.serivesmejia.deltadrive.utils.Axis
 import com.github.serivesmejia.deltamath.DeltaMathUtil.clamp
 import kotlin.math.abs
@@ -62,6 +64,11 @@ class IMUDriveParameters {
     var DEAD_ZONE = 0.0
 
     /**
+     * PIDF Coefficients used by IMUDrivePIDF
+     */
+    var COEFFICIENTS = PIDFCoefficients()
+
+    /**
      * Invert the rotation direction
      */
     var INVERT_ROTATION = false
@@ -71,6 +78,12 @@ class IMUDriveParameters {
      * Only for IMU PID
      */
     var ERROR_TOLERANCE = 0.0
+
+    /**
+     * Requirements to be required by the DeltaCommand
+     * of the Task returned by the rotate() method.
+     */
+    var TASK_COMMAND_REQUIREMENTS = arrayOf<DeltaSubsystem?>(null)
 
     /**
      * Make sure parameters are in a correct range (0 to 1 and/or positive and/or not null)

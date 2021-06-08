@@ -1,6 +1,7 @@
 package com.github.serivesmejia.deltadrive.utils
 
 import com.github.serivesmejia.deltacommander.DeltaScheduler
+import com.github.serivesmejia.deltacommander.DeltaSubsystem
 import com.github.serivesmejia.deltacommander.command.DeltaTaskCommand
 import com.github.serivesmejia.deltacommander.deltaScheduler
 
@@ -10,7 +11,10 @@ import com.github.serivesmejia.deltacommander.deltaScheduler
  * @param runn Runnable to be assigned to this task.
  * @param T Type to be returned as a result from the task
  */
-class Task<T>(private val runn: Task<T>.() -> T) {
+class Task<T>(
+        private val commandRequirements: Array<DeltaSubsystem?> = arrayOf(null),
+        private val runn: Task<T>.() -> T
+) {
 
     var finished = false
         private set
@@ -18,7 +22,9 @@ class Task<T>(private val runn: Task<T>.() -> T) {
     var result: T? = null
         private set
 
-    private var hasRan =false
+    val command get() = DeltaTaskCommand(this, *commandRequirements)
+
+    private var hasRan = false
 
     fun run() {
         if(finished) return
@@ -37,7 +43,7 @@ class Task<T>(private val runn: Task<T>.() -> T) {
         }
     }
 
-    fun schedule() = deltaScheduler.schedule(DeltaTaskCommand(this))
+    fun schedule() = deltaScheduler.schedule(command)
 
     fun end() {
         finished = true

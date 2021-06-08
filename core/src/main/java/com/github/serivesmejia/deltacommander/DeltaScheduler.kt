@@ -48,7 +48,8 @@ class DeltaScheduler internal constructor() {
 
         //check if a requirement from the scheduled command is currently in use
         for(req in cmdReqs) {
-            reqsCurrentlyInUse = reqsCurrentlyInUse && requirements.contains(req)
+            reqsCurrentlyInUse = reqsCurrentlyInUse || requirements.contains(req)
+            if(reqsCurrentlyInUse) break
         }
 
         if(!reqsCurrentlyInUse) {

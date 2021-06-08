@@ -10,7 +10,10 @@ class DeltaScheduler internal constructor() {
 
     //hashmap containing the currently scheduled commands and their state
     private val scheduledCommands = mutableMapOf<DeltaCommand, DeltaCommand.State>()
-    
+
+    val commands get() = scheduledCommands.keys.toTypedArray()
+    val commandsAmount get() = scheduledCommands.size
+
      //hashmap containing the required subsystems by specific commands
     private val requirements: HashMap<DeltaSubsystem, DeltaCommand> = HashMap()
 
@@ -34,7 +37,7 @@ class DeltaScheduler internal constructor() {
 
         //check if a requirement from the scheduled command is currently in use
         for(req in cmdReqs) {
-            reqsCurrentlyInUse = reqsCurrentlyInUse || requirements.contains(req)
+            reqsCurrentlyInUse = requirements.contains(req)
             if(reqsCurrentlyInUse) break
         }
 
@@ -44,7 +47,7 @@ class DeltaScheduler internal constructor() {
             //check if the commands requiring a specific subsystem are interruptible
             for(req in cmdReqs) {
                 if(requirements.containsKey(req) && !scheduledCommands[requirements[req]]!!.interruptible) {
-                    return
+                    return //nope, one of the commands requiring the subsystem isn't interruptible. give up
                 }
             }
 

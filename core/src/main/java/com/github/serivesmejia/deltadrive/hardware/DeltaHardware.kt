@@ -85,7 +85,7 @@ abstract class DeltaHardware
     var brake: Boolean? = null
         set(value) {
             for (motor in chassisMotorsArray) {
-                if (brake!!) {
+                if (value!!) {
                     motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
                 } else {
                     motor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT

@@ -117,7 +117,6 @@ abstract class DeltaHardware
 
     var bulkCachingMode: LynxModule.BulkCachingMode? = null
         set(value) {
-
             for(module in revHubs) {
                 module.bulkCachingMode = value!!
             }

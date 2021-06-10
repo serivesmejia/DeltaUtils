@@ -26,7 +26,7 @@ import com.github.serivesmejia.deltacontrol.MotorPIDFController
 import com.github.serivesmejia.deltacontrol.PIDFCoefficients
 import com.github.serivesmejia.deltadrive.hardware.DeltaHardware
 import com.github.serivesmejia.deltadrive.parameters.IMUDriveParameters
-import com.github.serivesmejia.deltadrive.utils.Task
+import com.github.serivesmejia.deltadrive.utils.task.Task
 import com.github.serivesmejia.deltamath.geometry.Rot2d
 import com.github.serivesmejia.deltamath.geometry.Twist2d
 import com.github.serivesmejia.deltasimple.sensor.SimpleBNO055IMU
@@ -145,11 +145,13 @@ abstract class ExtendableIMUDrivePIDF
         var currentTwist = Twist2d()
         var powerF = 0.0
 
+        val initialAngle = imu.lastCumulativeAngle
+
         if(setpoint < 0) { //rotating right
             builder.state(State.TURN_RIGHT)
                     .loop {
                         powerF = pidControllerRotate.calculate(imu.cumulativeAngle.degrees)
-                        currentTwist = Twist2d(0.0, 0.0, imu.lastCumulativeAngle)
+                        currentTwist = Twist2d(0.0, 0.0, imu.lastCumulativeAngle - initialAngle)
 
                         backleftpower = powerF
                         backrightpower = -powerF
@@ -160,7 +162,7 @@ abstract class ExtendableIMUDrivePIDF
             builder.state(State.TURN_LEFT)
                     .loop {
                         powerF = pidControllerRotate.calculate(imu.cumulativeAngle.degrees)
-                        currentTwist = Twist2d(0.0, 0.0, imu.lastCumulativeAngle)
+                        currentTwist = Twist2d(0.0, 0.0,  imu.lastCumulativeAngle - initialAngle)
 
                         backleftpower = powerF
                         backrightpower = -powerF
@@ -198,6 +200,8 @@ abstract class ExtendableIMUDrivePIDF
             telemetry?.update()
 
             if(stateMachine.getState() == State.END_TASK) end()
+
+            runRotationMarkers(currentTwist.rot)
 
             currentTwist
         }

@@ -23,7 +23,7 @@
 package com.github.serivesmejia.deltadrive.drive.holonomic
 
 import com.github.serivesmejia.deltadrive.hardware.DeltaHardwareHolonomic
-import com.github.serivesmejia.deltadrive.utils.Task
+import com.github.serivesmejia.deltadrive.utils.task.Task
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.firstinspires.ftc.robotcore.external.Telemetry
 import kotlin.math.abs

@@ -31,33 +31,28 @@ open class DeltaGroupCommand(private val executionMode: ExecutionMode = Executio
     }
 
     override fun run() {
-
         when(executionMode) {
-
             //execute commands in linear mode, which will run one command at a time sequentially until
             //all the commands are finished, which the grouped command (this) will also be finished
             ExecutionMode.LINEAR -> {
-
                 val command = commands[currentCommandIndex]
-
                 command.run()
 
                 if(command.finished) {
                     command.end(false)
                     currentCommandIndex++
 
-                    if(currentCommandIndex > commands.size - 1) {
+                    if(currentCommandIndex >= commands.size) {
                         finish()
                     }
                 }
-
             }
 
             //execute commands in parallel mode, which will run all the commands at once until they're all finished
             //if all the subcommands are finished, the grouped command (this) will also finish
             ExecutionMode.PARALLEL -> {
-
                 var finishedCount = 0
+                var nonBlockingCmdsCount = 0
 
                 for(cmd in commands) {
                     if(!cmd.finished) {
@@ -66,16 +61,15 @@ open class DeltaGroupCommand(private val executionMode: ExecutionMode = Executio
                     } else {
                         finishedCount++
                     }
+
+                    if(!cmd.blockParallelCommand) nonBlockingCmdsCount++
                 }
 
-                if(finishedCount >= commands.size) {
+                if(finishedCount >= commands.size - nonBlockingCmdsCount) {
                     finish()
                 }
-
             }
-
         }
-
     }
 
     override fun end(interrupted: Boolean) {

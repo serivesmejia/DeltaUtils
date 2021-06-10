@@ -2,10 +2,10 @@ package com.github.serivesmejia.deltacommander.command
 
 import com.github.serivesmejia.deltacommander.DeltaCommand
 import com.github.serivesmejia.deltacommander.DeltaSubsystem
-import com.github.serivesmejia.deltadrive.utils.Task
+import com.github.serivesmejia.deltadrive.utils.task.Task
 
 class DeltaTaskCommand<T>(
-        val task: Task<T>, vararg requirements: DeltaSubsystem? = arrayOf(null)
+    val task: Task<T>, vararg requirements: DeltaSubsystem? = arrayOf(null)
 ) : DeltaCommand() {
 
     init {

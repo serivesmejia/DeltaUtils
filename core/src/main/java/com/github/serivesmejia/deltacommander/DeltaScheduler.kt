@@ -6,7 +6,9 @@ class DeltaScheduler internal constructor() {
     var enabled = true
 
     //hashmap containing the subsystems and their default commands
-    private val subsystems = mutableMapOf<DeltaSubsystem, DeltaCommand?>()
+    private val addedSubsystems = mutableMapOf<DeltaSubsystem, DeltaCommand?>()
+
+    val subsystems get() = addedSubsystems.keys.toTypedArray()
 
     //hashmap containing the currently scheduled commands and their state
     private val scheduledCommands = mutableMapOf<DeltaCommand, DeltaCommand.State>()
@@ -94,7 +96,7 @@ class DeltaScheduler internal constructor() {
      */
     fun addSubsystem(vararg subsystems: DeltaSubsystem) {
         for(subsystem in subsystems) {
-            this.subsystems[subsystem] = null
+            this.addedSubsystems[subsystem] = null
         }
     }
 
@@ -104,7 +106,7 @@ class DeltaScheduler internal constructor() {
      */
     fun removeSubsystem(vararg subsystems: DeltaSubsystem) {
         for(subsystem in subsystems) {
-            this.subsystems.remove(subsystem)
+            this.addedSubsystems.remove(subsystem)
         }
     }
 
@@ -115,7 +117,7 @@ class DeltaScheduler internal constructor() {
 
         if(!enabled) return //if the schedulers is disabled then abort
 
-        for(subsystem in subsystems.keys) { subsystem.loop() } //run the loop method of all the subsystems
+        for(subsystem in addedSubsystems.keys) { subsystem.loop() } //run the loop method of all the subsystems
 
         for((cmd, _) in scheduledCommands.entries.toTypedArray()) { //iterate through the scheduled commands
             cmd.run() //actually run the command
@@ -133,7 +135,7 @@ class DeltaScheduler internal constructor() {
         }
 
         //register default command if no command is requiring the subsystem
-        for((subsystem, defCmd) in subsystems) {
+        for((subsystem, defCmd) in addedSubsystems) {
             if(!requirements.containsKey(subsystem) && defCmd != null) {
                 schedule(false, defCmd) //schedule the default command if no other command is scheduled for this subsystem
             }
@@ -157,14 +159,14 @@ class DeltaScheduler internal constructor() {
             throw IllegalArgumentException("Default command \"${command.name}\" is finished")
         }
 
-        subsystems[subsystem] = command
+        addedSubsystems[subsystem] = command
     }
 
     /**
      * Get the default command of a specified subsystem
      * @param subsystem the subsystem to get the default command from
      */
-    fun getDefaultCommand(subsystem: DeltaSubsystem) = subsystems[subsystem]
+    fun getDefaultCommand(subsystem: DeltaSubsystem) = addedSubsystems[subsystem]
 
     /**
      * Check if a command is scheduled

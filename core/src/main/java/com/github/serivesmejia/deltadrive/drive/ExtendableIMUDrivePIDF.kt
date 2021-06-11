@@ -61,16 +61,17 @@ abstract class ExtendableIMUDrivePIDF
     }
 
     fun initIMU(parameters: IMUDriveParameters) {
-        if(imu.initialized) return
-
+        if(::imu.isInitialized && imu.initialized) return
+        
         require(hdw.type === allowedDeltaHardwareType) {
             "Given DeltaHardware is not the expected type ($allowedDeltaHardwareType)"
         }
-
+       
         this.imuParameters = parameters
         parameters.secureParameters()
-
+        
         imu = SimpleBNO055IMU(hdw.hardwareMap.get(BNO055IMU::class.java, parameters.IMU_HARDWARE_NAME))
+        
         imu.initIMU()
     }
 

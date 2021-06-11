@@ -59,7 +59,7 @@ class TimeDriveHolonomic
 
                 telemetry?.update()
 
-                if(runtime.seconds() >= time && Thread.currentThread().isInterrupted) {
+                if(runtime.seconds() >= time) {
                     hdw.setMotorPowers(0.0, 0.0, 0.0, 0.0)
 
                     telemetry?.addData("[frontleft]", 0)

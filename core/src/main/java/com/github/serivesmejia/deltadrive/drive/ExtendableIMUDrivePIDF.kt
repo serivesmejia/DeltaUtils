@@ -163,12 +163,12 @@ abstract class ExtendableIMUDrivePIDF
             builder.state(State.TURN_LEFT)
                     .loop {
                         powerF = pidControllerRotate.calculate(imu.cumulativeAngle.degrees)
-                        currentTwist = Twist2d(0.0, 0.0,  imu.lastCumulativeAngle - initialAngle)
+                        currentTwist = Twist2d(0.0, 0.0, imu.lastCumulativeAngle - initialAngle)
 
-                        backleftpower = powerF
-                        backrightpower = -powerF
-                        frontleftpower = powerF
-                        frontrightpower = -powerF
+                        backleftpower = -powerF
+                        backrightpower = powerF
+                        frontleftpower = -powerF
+                        frontrightpower = powerF
                     }
         }
 
